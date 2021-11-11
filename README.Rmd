@@ -1,0 +1,35 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# bsvars
+
+Bayesian Estimation of Structural Vector Autoregressive Models
+
+## Installation
+
+You can install the development version of **bsvars** run the line (requires installation of package **devtools**:
+
+``` r
+devtools::install_gitlab("tomaszwozniak/bsvars")
+```
+
+<!-- ## Example -->
+
+## License
+
+This package is distributed under license GPL (>= 3)
+
+Copyright `r knitr::asis_output("\U00A9")` 2021  Tomasz Woźniak <wozniak.tom@pm.me>
+
