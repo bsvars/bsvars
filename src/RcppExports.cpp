@@ -27,6 +27,38 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// bsvar_sv
+Rcpp::List bsvar_sv(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values, const bool sample_s_);
+RcppExport SEXP _bsvars_bsvar_sv(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP, SEXP sample_s_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
+    Rcpp::traits::input_parameter< const bool >::type sample_s_(sample_s_SEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvar_sv(S, Y, X, prior, VB, starting_values, sample_s_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// logSDDR_homoskedasticity
+Rcpp::List logSDDR_homoskedasticity(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_);
+RcppExport SEXP _bsvars_logSDDR_homoskedasticity(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type posterior(posteriorSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const bool >::type sample_s_(sample_s_SEXP);
+    rcpp_result_gen = Rcpp::wrap(logSDDR_homoskedasticity(posterior, prior, Y, X, sample_s_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // normalisation_wz2003
 void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat);
 RcppExport SEXP _bsvars_normalisation_wz2003(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
@@ -41,6 +73,8 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvar", (DL_FUNC) &_bsvars_bsvar, 6},
+    {"_bsvars_bsvar_sv", (DL_FUNC) &_bsvars_bsvar_sv, 7},
+    {"_bsvars_logSDDR_homoskedasticity", (DL_FUNC) &_bsvars_logSDDR_homoskedasticity, 5},
     {"_bsvars_normalisation_wz2003", (DL_FUNC) &_bsvars_normalisation_wz2003, 2},
     {NULL, NULL, 0}
 };
