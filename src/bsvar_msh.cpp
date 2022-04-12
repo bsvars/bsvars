@@ -20,7 +20,7 @@ using namespace arma;
 //' for the structural matrix \code{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 //' for the autoregressive slope parameters \code{A}. Additionally, the parameter matrices \code{A} and \code{B}
 //' follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-//' overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. The MS model 
+//' overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. The MS
 //' model is estimated using the prior distributions and algorithms proposed by Woźniak & Droumaguet (2022).
 //' See section \bold{Details} for the model equations.
 //' 
@@ -40,7 +40,7 @@ using namespace arma;
 //' \Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = s^2_{n.s_t}")}
 //' where \code{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
 //' the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
-//' In this model, the variances of each of the structiural shocks sum to \code{M}.
+//' In this model, the variances of each of the structural shocks sum to \code{M}.
 //' 
 //' NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.
 //' This restriction might limit the number of states applicable to some time series.
@@ -60,7 +60,7 @@ using namespace arma;
 //'  \item{hyper_S}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
 //'  \item{sigma_nu}{a positive scalar, the common shape parameter of the IG2-based Dirichlet prior for conditional variances}
 //'  \item{sigma_s}{a positive scalar, the common scale parameter of the IG2-based Dirichlet prior for conditional variances}
-//'  \item{PR_TR}{an \code{MxM} matrix of the parameters of Dirichlet prior for transition probabilty matrix. The rows of \code{PR_TR} correspond to the rows of the transition matrix. }
+//'  \item{PR_TR}{an \code{MxM} matrix of the parameters of Dirichlet prior for transition probability matrix. The rows of \code{PR_TR} correspond to the rows of the transition matrix. }
 //' }
 //' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \code{B}
 //' @param starting_values a list containing the following elements:
