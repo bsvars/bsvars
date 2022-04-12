@@ -2,8 +2,8 @@
 % Please edit documentation in R/RcppExports.R
 \name{bsvar_mix}
 \alias{bsvar_mix}
-\title{Bayesian estimation of a Structural Vector Autoregression with 
-finite mixture of nomrals shocks via Gibbs sampler}
+\title{Bayesian estimation of a Structural Vector Autoregression with shocks following 
+a finite mixture of normal components via Gibbs sampler}
 \usage{
 bsvar_mix(S, Y, X, prior, VB, starting_values)
 }
