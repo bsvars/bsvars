@@ -1,6 +1,6 @@
 
-#ifndef _BSVAR_SV_H_
-#define _BSVAR_SV_H_
+#ifndef _BSVAR_MSH_H_
+#define _BSVAR_MSH_H_
 
 #include <RcppArmadillo.h>
 
@@ -15,4 +15,4 @@ Rcpp::List bsvar_msh (
 );
 
 
-#endif  // _BSVAR_SV_H_
+#endif  // _BSVAR_MSH_H_
