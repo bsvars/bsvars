@@ -51,7 +51,7 @@ arma::rowvec normalisation_wz2003_s (
 //' @return Nothing. The normalised elements overwrite the corresponding elements of 
 //' the first argument \code{posterior_B} by reference.
 //' 
-//' @seealso [bsvar()]
+//' @seealso [bsvar()] [bsvar_msh()] [bsvar_sv()]
 //'
 //' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 //' 
