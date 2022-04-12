@@ -7,7 +7,7 @@
 logSDDR_homoskedasticity(posterior, prior, Y, X, sample_s_ = TRUE)
 }
 \arguments{
-\item{posterior}{the \code{posterior} element of the estimation outcome from function \code{bsvar_sv}}
+\item{posterior}{the \code{posterior} element of the list from the estimation outcome obtained using function \code{bsvar_sv}}
 
 \item{prior}{A list specifying the prior distribution. See argument \code{prior} of function \code{bsvar_sv}}
 
@@ -15,17 +15,18 @@ logSDDR_homoskedasticity(posterior, prior, Y, X, sample_s_ = TRUE)
 
 \item{X}{a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms}
 
-\item{a}{logical value set to the same value as the corresponding argument of function \code{bsvar_sv}}
+\item{sample_s_}{a logical value set to the same value as the corresponding argument of function \code{bsvar_sv}}
 }
 \value{
 A list of two components:
 
-\code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors
+\code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
+the homoskedasticity hypothesis for each of the shocks
 
-\code{components} a list of three components
+\code{components} a list of three components for the computation of the Bayes factor
 \describe{
-  \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factors' denominator}
-  \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factors' numerator}
+  \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factor denominators}
+  \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factor numerators}
   \item{log_numerator_s}{an \code{NxS} matrix of the log-full conditional posterior density ordinates computed to estimate the numerator}
 }
 }
@@ -34,10 +35,12 @@ Computes the logarithm of Bayes factor for the homoskedasticity hypothesis
 for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
 The hypothesis is represented by restriction:
 \Sexpr[results=rd, stage=build]{katex::math_to_rd("w_n = 0")}
-The Bayes factor for this hypothesis can be computed from using the SDDR:
+The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+less the marginal prior distribution ordinate at the same point:
 \Sexpr[results=rd, stage=build]{katex::math_to_rd("log p(w_n = 0 | data) - log p(w_n = 0)")}
-Therefore, negative values of the difference above are the evidence against 
-homoskedasticity of the structural shock. The estimation of both values requires 
+Therefore, a negative value of the difference is the evidence against 
+homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
 numerical integration.
 }
 \references{
