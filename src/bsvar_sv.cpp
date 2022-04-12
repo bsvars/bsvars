@@ -15,7 +15,8 @@ using namespace arma;
 //' @title Bayesian estimation of a Structural Vector Autoregression with 
 //' Stochastic Volatility heteroskedasticity via Gibbs sampler
 //'
-//' @description Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity using the Gibbs sampler proposed by Waggoner & Zha (2003)
+//' @description Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2022).
+//' Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 //' for the structural matrix \code{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 //' for the autoregressive slope parameters \code{A}. Additionally, the parameter matrices \code{A} and \code{B}
 //' follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
@@ -37,8 +38,8 @@ using namespace arma;
 //' \code{B} is an \code{NxN} matrix of contemporaneous relationships between structural shocks in the columns of matrix \code{U}.
 //' 
 //' Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
-//' The variance of each of the shocks at time \code{t}, denoted by \code{u_{n.t}}, is given by:
-//' \Sexpr[results=rd, stage=build]{katex::math_to_rd("exp(w_n h_{n.t})")}
+//' The conditional variance of the \code{n}th shock at time \code{t} is given by:
+//' \Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = exp(w_n h_{n.t})")}
 //' where \code{w_n} is the estimated conditional standard deviation of the log-conditional variance
 //' and the log-volatility process \code{h_{n.t}} follows an autoregressive process:
 //' \Sexpr[results=rd, stage=build]{katex::math_to_rd("h_{n.t} = g_n h_{n.t-1} + v_{n.t}")}
@@ -47,7 +48,6 @@ using namespace arma;
 //' @param S a positive integer, the number of posterior draws to be generated
 //' @param Y an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables
 //' @param X a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms
-//' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \code{B}
 //' @param prior a list containing the following elements
 //' \describe{
 //'  \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \code{A}}
@@ -61,6 +61,7 @@ using namespace arma;
 //'  \item{sv_a_}{a positive scalar, the shape parameter of the gamma prior in the hierarchial prior for \code{sigma2_omega}}
 //'  \item{sv_s_}{a positive scalar, the scale parameter of the gamma prior in the hierarchial prior for \code{sigma2_omega}}
 //' }
+//' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \code{B}
 //' @param starting_values a list containing the following elements:
 //' \describe{
 //'  \item{A}{an \code{NxK} matrix of starting values for the parameter \code{A}}
@@ -73,7 +74,7 @@ using namespace arma;
 //'  \item{sigma2_omega}{an \code{N}-vector with variances of the zero-mean normal prior for \code{omega}}
 //'  \item{s_}{a positive scalar with the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}}
 //' }
-//' @param a logical value. If \code{TRUE} the hyper-parameter \code{s_} is estimated
+//' @param sample_s_ a logical value. If \code{TRUE} the hyper-parameter \code{s_} is estimated
 //' 
 //' @return A list containing two elements:
 //' 
@@ -107,7 +108,11 @@ using namespace arma;
 //'
 //' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 //' 
-//' @references Sampling from the generalised-normal full conditional posterior distribution of matrix \code{B} is implemented using the Gibbs sampler by:
+//' @references The model, prior distributions, and estimation algorithms were proposed by
+//' 
+//' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+//' 
+//' Sampling from the generalised-normal full conditional posterior distribution of matrix \code{B} is implemented using the Gibbs sampler by:
 //' 
 //' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
 //'
@@ -263,26 +268,29 @@ Rcpp::List bsvar_sv (
 //' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
 //' The hypothesis is represented by restriction:
 //' \Sexpr[results=rd, stage=build]{katex::math_to_rd("w_n = 0")}
-//' The Bayes factor for this hypothesis can be computed from using the SDDR:
+//' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+//' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+//' less the marginal prior distribution ordinate at the same point:
 //' \Sexpr[results=rd, stage=build]{katex::math_to_rd("log p(w_n = 0 | data) - log p(w_n = 0)")}
-//' Therefore, negative values of the difference above are the evidence against 
-//' homoskedasticity of the structural shock. The estimation of both values requires 
+//' Therefore, a negative value of the difference is the evidence against 
+//' homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
 //' numerical integration.
 //' 
-//' @param posterior the \code{posterior} element of the estimation outcome from function \code{bsvar_sv}
+//' @param posterior the \code{posterior} element of the list from the estimation outcome obtained using function \code{bsvar_sv}
 //' @param prior A list specifying the prior distribution. See argument \code{prior} of function \code{bsvar_sv}
 //' @param Y an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables
 //' @param X a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms
-//' @param a logical value set to the same value as the corresponding argument of function \code{bsvar_sv}
+//' @param sample_s_ a logical value set to the same value as the corresponding argument of function \code{bsvar_sv}
 //' 
 //' @return A list of two components:
 //' 
-//' \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors
+//' \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
+//' the homoskedasticity hypothesis for each of the shocks
 //' 
-//' \code{components} a list of three components
+//' \code{components} a list of three components for the computation of the Bayes factor
 //' \describe{
-//'   \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factors' denominator}
-//'   \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factors' numerator}
+//'   \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factor denominators}
+//'   \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factor numerators}
 //'   \item{log_numerator_s}{an \code{NxS} matrix of the log-full conditional posterior density ordinates computed to estimate the numerator}
 //' }
 //' 
