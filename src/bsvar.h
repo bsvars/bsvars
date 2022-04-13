@@ -4,7 +4,7 @@
 
 #include <RcppArmadillo.h>
 
-Rcpp::List bsvar(
+Rcpp::List bsvar_cpp(
     const int&  S,                        // number of draws from the posterior
     const arma::mat&  Y,                  // NxT dependent variables
     const arma::mat&  X,                  // KxT dependent variables
