@@ -4,7 +4,7 @@
 
 #include <RcppArmadillo.h>
 
-Rcpp::List bsvar_sv (
+Rcpp::List bsvar_sv_cpp (
     const int&                    S,          // No. of posterior draws
     const arma::mat&              Y,          // NxT dependent variables
     const arma::mat&              X,          // KxT explanatory variables
