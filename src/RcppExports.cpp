@@ -11,9 +11,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// bsvar
-Rcpp::List bsvar(const int& S, const arma::mat& Y, const arma::mat& X, const arma::field<arma::mat>& VB, const Rcpp::List& prior, const Rcpp::List& starting_values);
-RcppExport SEXP _bsvars_bsvar(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP priorSEXP, SEXP starting_valuesSEXP) {
+// bsvar_cpp
+Rcpp::List bsvar_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const arma::field<arma::mat>& VB, const Rcpp::List& prior, const Rcpp::List& starting_values);
+RcppExport SEXP _bsvars_bsvar_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP priorSEXP, SEXP starting_valuesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,13 +23,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvar(S, Y, X, VB, prior, starting_values));
+    rcpp_result_gen = Rcpp::wrap(bsvar_cpp(S, Y, X, VB, prior, starting_values));
     return rcpp_result_gen;
 END_RCPP
 }
-// bsvar_mix
-Rcpp::List bsvar_mix(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values);
-RcppExport SEXP _bsvars_bsvar_mix(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP) {
+// bsvar_msh_cpp
+Rcpp::List bsvar_msh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values, const bool finiteM, const bool MSnotMIX);
+RcppExport SEXP _bsvars_bsvar_msh_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP, SEXP finiteMSEXP, SEXP MSnotMIXSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -39,29 +39,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
     Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvar_mix(S, Y, X, prior, VB, starting_values));
+    Rcpp::traits::input_parameter< const bool >::type finiteM(finiteMSEXP);
+    Rcpp::traits::input_parameter< const bool >::type MSnotMIX(MSnotMIXSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvar_msh_cpp(S, Y, X, prior, VB, starting_values, finiteM, MSnotMIX));
     return rcpp_result_gen;
 END_RCPP
 }
-// bsvar_msh
-Rcpp::List bsvar_msh(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values);
-RcppExport SEXP _bsvars_bsvar_msh(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const int& >::type S(SSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
-    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvar_msh(S, Y, X, prior, VB, starting_values));
-    return rcpp_result_gen;
-END_RCPP
-}
-// bsvar_sv
-Rcpp::List bsvar_sv(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values, const bool sample_s_);
-RcppExport SEXP _bsvars_bsvar_sv(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP, SEXP sample_s_SEXP) {
+// bsvar_sv_cpp
+Rcpp::List bsvar_sv_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values, const bool sample_s_);
+RcppExport SEXP _bsvars_bsvar_sv_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP starting_valuesSEXP, SEXP sample_s_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -72,7 +58,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
     Rcpp::traits::input_parameter< const bool >::type sample_s_(sample_s_SEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvar_sv(S, Y, X, prior, VB, starting_values, sample_s_));
+    rcpp_result_gen = Rcpp::wrap(bsvar_sv_cpp(S, Y, X, prior, VB, starting_values, sample_s_));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -104,10 +90,9 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_bsvars_bsvar", (DL_FUNC) &_bsvars_bsvar, 6},
-    {"_bsvars_bsvar_mix", (DL_FUNC) &_bsvars_bsvar_mix, 6},
-    {"_bsvars_bsvar_msh", (DL_FUNC) &_bsvars_bsvar_msh, 6},
-    {"_bsvars_bsvar_sv", (DL_FUNC) &_bsvars_bsvar_sv, 7},
+    {"_bsvars_bsvar_cpp", (DL_FUNC) &_bsvars_bsvar_cpp, 6},
+    {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 8},
+    {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 7},
     {"_bsvars_logSDDR_homoskedasticity", (DL_FUNC) &_bsvars_logSDDR_homoskedasticity, 5},
     {"_bsvars_normalisation_wz2003", (DL_FUNC) &_bsvars_normalisation_wz2003, 2},
     {NULL, NULL, 0}
