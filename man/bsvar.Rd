@@ -82,7 +82,7 @@ Sampling from the multivariate normal full conditional posterior distribution of
 Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 }
 \seealso{
-[normalisation_wz2003()]
+\code{\link{normalisation_wz2003}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
