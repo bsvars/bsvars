@@ -10,6 +10,7 @@ using namespace Rcpp;
 using namespace arma;
 
 
+// [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 Rcpp::List bsvar_cpp(
   const int&  S,                        // number of draws from the posterior
