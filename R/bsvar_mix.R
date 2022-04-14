@@ -92,7 +92,7 @@
 #' 
 #' Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 #' 
-#' Some more analysis proposed by:
+#' Some more analysis on heteroskedastic SVAR models was proposed by:
 #' 
 #' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 #' 
@@ -104,7 +104,7 @@
 #' 
 #' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 
-#' The estimation of the Markov-switching heteroskedasticity closely follows procedures described by:
+#' The estimation of the mixture of normals heteroskedasticity closely follows procedures described by:
 #' 
 #' Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
 #' 
