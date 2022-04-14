@@ -102,7 +102,7 @@ The model, prior distributions, and estimation algorithms were proposed by
 
 Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 
-Some more analysis proposed by:
+Some more analysis on heteroskedastic SVAR models was proposed by:
 
 Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 

@@ -67,7 +67,7 @@ A list containing two elements:
  }
 }
 \description{
-MUST BE UPDATED Estimates the SVAR with non-normal residuals following a finite \code{M} mixture of normal distributions proposed by Woźniak & Droumaguet (2022).
+Estimates the SVAR with non-normal residuals following an infinite mixture of normal distributions proposed by Woźniak & Droumaguet (2022).
 Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 for the structural matrix \code{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 for the autoregressive slope parameters \code{A}. Additionally, the parameter matrices \code{A} and \code{B}
@@ -94,15 +94,15 @@ where \code{s_t} is a the regime indicator of
 the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
 In this model, the variances of each of the structural shocks sum to \code{M}.
 
-NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.
-This restriction might limit the number of states applicable to some time series.
+NOTE: The estimation of the latent regime process for this model presumes a large number of components of the finite mixture model
+and the components are allowed to be doubled by other estimated components or have zero number of occurrences at any MCMC iteration.
 }
 \references{
 The model, prior distributions, and estimation algorithms were proposed by
 
 Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 
-Some more analysis proposed by:
+Some more analysis on heteroskedastic SVAR models was proposed by:
 
 Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 
@@ -114,7 +114,7 @@ Sampling from the multivariate normal full conditional posterior distribution of
 
 Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 
-The estimation of the Markov-switching heteroskedasticity closely follows procedures described by:
+The estimation of the mixture of normals heteroskedasticity closely follows procedures described by:
 
 Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
 
