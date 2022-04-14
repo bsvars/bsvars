@@ -60,9 +60,7 @@
 #' @aliases bsvars-package bsvars
 #' @docType package
 #' @useDynLib bsvars, .registration = TRUE
-#' @importFrom Rcpp sourceCpp 
-#' @importFrom Rcpp evalCpp
-#' @importFrom RcppTN RcppTN::rtn1
+#' @importFrom Rcpp sourceCpp
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
