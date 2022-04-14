@@ -84,7 +84,7 @@
 #'  \item{pi_0}{an \code{M}-vector with the last MCMC draw of the ergodic probabilities}
 #'  }
 #'
-#' @seealso [normalisation_wz2003()]
+#' @seealso \code{\link{normalisation_wz2003}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

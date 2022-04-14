@@ -91,7 +91,7 @@
 #'  \item{s_}{a scalar with the last MCMC draw of the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}}
 #'  }
 #'
-#' @seealso [normalisation_wz2003()], [logSDDR_homoskedasticity()]
+#' @seealso \code{\link{normalisation_wz2003}}, \code{\link{logSDDR_homoskedasticity}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

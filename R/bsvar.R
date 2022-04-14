@@ -59,7 +59,7 @@
 #'  \item{hyper}{a \code{5}-vector with the last MCMC draw of the hyper-parameter of the hierarchical prior distribution}
 #'  }
 #'
-#' @seealso [normalisation_wz2003()]
+#' @seealso \code{\link{normalisation_wz2003}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
