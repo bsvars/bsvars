@@ -1,8 +1,8 @@
 
-#' @title Bayesian estimation of a Structural Vector Autoregression with 
-#' Infinite Hidden Markov Model heteroskedasticity via Gibbs sampler
+#' @title Bayesian estimation of a Structural Vector Autoregression with an approximate
+#' Infinite Hidden Markov Heteroskedasticity Model via Gibbs sampler
 #'
-#' @description MUST BE UPDATED Estimates the SVAR with Markov-switching heteroskedasticity with \code{M} regimes (MS(M)) proposed by Woźniak & Droumaguet (2022).
+#' @description Estimates the SVAR with heteroskedasticity modeled by an approximate Infinite Hidden Markov Model (IHMM) with an estimated number of regimes \code{M} proposed by Woźniak & Droumaguet (2022).
 #' Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 #' for the structural matrix \code{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 #' for the autoregressive slope parameters \code{A}. Additionally, the parameter matrices \code{A} and \code{B}
@@ -25,12 +25,12 @@
 #' Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
 #' The conditional variance of the \code{n}th shock at time \code{t} is given by:
 #' \Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = s^2_{n.s_t}")}
-#' where \code{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
+#' where \code{s_t} is a Markov process with an estimated number of states driving the time-variability of 
 #' the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
 #' In this model, the variances of each of the structural shocks sum to \code{M}.
 #' 
-#' NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.
-#' This restriction might limit the number of states applicable to some time series.
+#' NOTE: The estimation of the Markov process for this model presumes a large number of regimes of the Markov switching model
+#' and the regimes are allowed to be doubled by other estimated regimes or have zero number of occurrences at any MCMC iteration.
 #' 
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param Y an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables
@@ -92,7 +92,7 @@
 #' 
 #' Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 #' 
-#' Some more analysis proposed by:
+#' Some more analysis on heteroskedastic SVAR models was proposed by:
 #' 
 #' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 #' 
