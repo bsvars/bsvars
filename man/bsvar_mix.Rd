@@ -127,7 +127,7 @@ The forward-filtering backward-sampling is implemented following the proposal by
 Chib, S. (1996) Calculating posterior distributions and modal estimates in Markov mixture models. \emph{Journal of Econometrics}, \bold{75}(1), 79–97, \doi{https://doi.org/10.1016/0304-4076(95)01770-4}.
 }
 \seealso{
-[normalisation_wz2003()]
+\code{\link{normalisation_wz2003}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

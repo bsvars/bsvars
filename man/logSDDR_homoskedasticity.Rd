@@ -47,7 +47,7 @@ numerical integration.
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 }
 \seealso{
-[bsvar_sv()]
+\code{\link{bsvar_sv}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

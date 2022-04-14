@@ -126,7 +126,7 @@ Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Dat
 \doi{10.1016/j.csda.2013.01.002}.
 }
 \seealso{
-[normalisation_wz2003()], [logSDDR_homoskedasticity()]
+\code{\link{normalisation_wz2003}}, \code{\link{logSDDR_homoskedasticity}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
