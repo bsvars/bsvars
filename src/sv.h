@@ -5,21 +5,6 @@
 #include <RcppArmadillo.h>
 
 
-double univar_rgig_newapproach1 (
-    double lambda, 
-    double lambda_old, 
-    double omega, 
-    double alpha
-);
-
-
-double rgig1(
-    double lambda,
-    double chi,
-    double psi
-);
-
-
 Rcpp::List cholesky_tridiagonal(
     const arma::vec&    omega_diag,
     const double&       omega_offdiag
