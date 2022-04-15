@@ -21,15 +21,18 @@ Rcpp::List bsvar_msh_cpp (
     const arma::field<arma::mat>& VB,       // restrictions on B0
     const Rcpp::List&       starting_values,
     const bool              finiteM = true,
-    const bool              MSnotMIX = true
+    const bool              MSnotMIX = true,
+    const std::string       name_model = "" // just 3 characters
 ) {
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
   Rcout << "**************************************************|" << endl;
-  Rcout << " Gibbs sampler for the SVAR-MSH model             |" << endl;
+  Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+  Rcout << "**************************************************|" << endl;
+  Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
   Rcout << "**************************************************|" << endl;
   Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-  Rcout << " Press control+c to interrupt the computations" << endl;
+  Rcout << " Press Esc to interrupt the computations" << endl;
   Rcout << "**************************************************|" << endl;
   Progress p(50, true);
   

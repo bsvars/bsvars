@@ -25,10 +25,12 @@ Rcpp::List bsvar_sv_cpp (
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
   Rcout << "**************************************************|" << endl;
+  Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+  Rcout << "**************************************************|" << endl;
   Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
   Rcout << "**************************************************|" << endl;
   Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-  Rcout << " Press control+c to interrupt the computations" << endl;
+  Rcout << " Press Esc to interrupt the computations" << endl;
   Rcout << "**************************************************|" << endl;
   Progress p(50, true);
   

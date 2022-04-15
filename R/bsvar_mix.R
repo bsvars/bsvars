@@ -118,5 +118,6 @@
 #' 
 #' @export
 bsvar_mix <- function(S, Y, X, prior, VB, starting_values) {
-  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, TRUE, FALSE)
+  model = "MIX"
+  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, TRUE, FALSE, model)
 }
