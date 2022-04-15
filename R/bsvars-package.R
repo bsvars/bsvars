@@ -61,6 +61,8 @@
 #' @docType package
 #' @useDynLib bsvars, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom shrinkTVP shrinkTVP
+#' @importFrom RcppTN rtn
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
