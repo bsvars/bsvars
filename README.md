@@ -7,11 +7,11 @@ Bayesian Estimation of Structural Vector Autoregressive Models
 
 ## Installation
 
-You can install the development version of **bsvars** run the line
-(requires installation of package **devtools**):
+Installation from a private repository requires an authentication token
+and installed package **devtools**. In April 2022, the download code is:
 
 ``` r
-devtools::install_gitlab("tomaszwozniak/bsvars")
+devtools::install_git("https://gitlab+deploy-token-957505:pGGxsq_NrnAxeh8yt4wV@gitlab.com/tomaszwozniak/bsvars.git")
 ```
 
 <!-- ## Example -->
