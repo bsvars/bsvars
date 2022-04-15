@@ -63,6 +63,7 @@
 #' @importFrom Rcpp sourceCpp
 #' @importFrom shrinkTVP shrinkTVP
 #' @importFrom RcppTN rtn
+#' @importFrom katex math_to_rd
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
