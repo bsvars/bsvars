@@ -40,5 +40,5 @@
 #'
 #' @export
 logSDDR_homoskedasticity <- function(posterior, prior, Y, X, sample_s_ = TRUE) {
-  logSDDR_homoskedasticity(posterior, prior, Y, X, sample_s_)
+  .Call(`_bsvars_logSDDR_homoskedasticity`, posterior, prior, Y, X, sample_s_)
 }

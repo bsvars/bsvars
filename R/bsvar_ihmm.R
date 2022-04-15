@@ -118,5 +118,5 @@
 #' 
 #' @export
 bsvar_ihmm <- function(S, Y, X, prior, VB, starting_values) {
-  bsvar_msh_cpp(S, Y, X, prior, VB, starting_values, FALSE, TRUE)
+  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, FALSE, TRUE)
 }
