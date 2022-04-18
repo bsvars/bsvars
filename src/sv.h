@@ -4,6 +4,11 @@
 
 #include <RcppArmadillo.h>
 
+double do_rgig1(
+    double lambda, 
+    double chi, 
+    double psi
+);
 
 Rcpp::List cholesky_tridiagonal(
     const arma::vec&    omega_diag,

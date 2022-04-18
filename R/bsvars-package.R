@@ -61,7 +61,7 @@
 #' @docType package
 #' @useDynLib bsvars, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
-#' @importFrom shrinkTVP shrinkTVP
+#' @importFrom GIGrvg rgig
 #' @importFrom RcppTN rtn
 #' @importFrom katex math_to_rd
 #' @note This package is currently in active development. Your comments,
