@@ -4,3 +4,9 @@
 .Rdata
 .httr-oauth
 .DS_Store
+*.o
+*.so
+*.so
+*.o
+src/bsvar.o
+src/bsvar_msh.o

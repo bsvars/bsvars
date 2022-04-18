@@ -2,10 +2,23 @@
 #include <RcppArmadillo.h>
 #include "Rcpp/Rmath.h"
 #include <RcppTN.h>
-#include <shrinkTVP.h>
 
 using namespace Rcpp;
 using namespace arma;
+
+
+
+/*______________________function do_rgig1______________________*/
+// utility function copied from package factorstochvol
+double do_rgig1(
+    double lambda, 
+    double chi, 
+    double psi
+) { 
+  SEXP (*fun)(int, double, double, double) = NULL;
+  if (!fun) fun = (SEXP(*)(int, double, double, double)) R_GetCCallable("GIGrvg", "do_rgig");
+  return as<double>(fun(1, lambda, chi, psi));
+} // END do_rgig1
 
 
 
@@ -189,7 +202,7 @@ List svar_nc1 (
   }
   
   // sample aux_sigma2_omega
-  aux_sigma2_omega_n    = shrinkTVP::do_rgig1( prior_sv_a_-0.5, pow(aux_omega_n,2), 2/aux_s_n );
+  aux_sigma2_omega_n    = do_rgig1( prior_sv_a_-0.5, pow(aux_omega_n,2), 2/aux_s_n );
   
   // sample aux_rho
   rowvec    hm1         = aux_h_n.cols(0,T-2);
@@ -216,7 +229,7 @@ List svar_nc1 (
   // ASIS
   rowvec    aux_h_tilde = omega_aux * h_aux;
   double    hHHh        = as_scalar( aux_h_tilde * HH_rho * aux_h_tilde.t() );
-  double    sigma2_aux  = shrinkTVP::do_rgig1( -0.5*(T-1), hHHh, 1/aux_sigma2_omega_n );
+  double    sigma2_aux  = do_rgig1( -0.5*(T-1), hHHh, 1/aux_sigma2_omega_n );
   int       ss=1;
   if (R::runif(0,1)<0.5) ss *= -1;
   aux_omega_n           = ss * sqrt(sigma2_aux);
