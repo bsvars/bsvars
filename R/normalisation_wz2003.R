@@ -1,18 +1,18 @@
 
 
-#' @title Waggoner & Zha (2003) row signs normalisation of the posterior draws for matrix \code{B}
+#' @title Waggoner & Zha (2003) row signs normalisation of the posterior draws for matrix \eqn{B}
 #'
-#' @description Normalises the sign of rows of matrix \code{B} MCMC draws, 
+#' @description Normalises the sign of rows of matrix \eqn{B} MCMC draws, 
 #'  provided as the first argument \code{posterior_B}, relative to matrix
 #'  \code{B_hat}, provided as the second argument of the function. The implemented
 #'  procedure proposed by Waggoner, Zha (2003) normalises the MCMC output in an
 #'  optimal way leading to the unimodal posterior. Only normalised MCMC output is 
-#'  suitable for the computations of the posterior characteristics of the \code{B}
+#'  suitable for the computations of the posterior characteristics of the \eqn{B}
 #'  matrix elements and their functions such as the impulse response functions and other 
 #'  economically interpretable values. 
 #' 
 #' @param posterior_B an \code{NxNxS} array containing \code{S} draws from the posterior 
-#' distribution of the \code{NxN} matrix of contemporaneous relationships \code{B}. 
+#' distribution of the \code{NxN} matrix of contemporaneous relationships \eqn{B}. 
 #' These draws are to be normalised with respect to:
 #' @param B_hat an \code{NxN} matrix specified by the user to have the desired row signs
 #' 

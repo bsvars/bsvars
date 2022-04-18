@@ -9,6 +9,6 @@ Description: The package contains useful functions for the estaimation of the mo
 License: GPL (>= 3)
 Maintainer: Tomasz Woźniak <wozniak.tom@pm.me>
 Encoding: UTF-8
-Imports: Rcpp (>= 1.0.7), RcppProgress (>= 0.1), RcppTN, GIGrvg, katex
+Imports: Rcpp (>= 1.0.7), RcppProgress (>= 0.1), RcppTN, GIGrvg
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 RoxygenNote: 7.1.2

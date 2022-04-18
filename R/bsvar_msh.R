@@ -4,8 +4,8 @@
 #'
 #' @description Estimates the SVAR with Markov-switching heteroskedasticity with \code{M} regimes (MS(M)) proposed by Woźniak & Droumaguet (2022).
 #' Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
-#' for the structural matrix \code{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
-#' for the autoregressive slope parameters \code{A}. Additionally, the parameter matrices \code{A} and \code{B}
+#' for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
+#' for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 #' follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
 #' overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. The MS
 #' model is estimated using the prior distributions and algorithms proposed by Woźniak & Droumaguet (2022).
@@ -13,20 +13,20 @@
 #' 
 #' @details 
 #' The heteroskedastic SVAR model is given by the reduced form equation:
-#' \Sexpr[results=rd, stage=build]{katex::math_to_rd("Y = AX + E")}
-#' where \code{Y} is an \code{NxT} matrix of dependent variables, \code{X} is a \code{KxT} matrix of explanatory variables, 
-#' \code{E} is an \code{NxT} matrix of reduced form error terms, and \code{A} is an \code{NxK} matrix of autoregressive slope coefficients and parameters on deterministic terms in \code{X}.
+#' \deqn{Y = AX + E}
+#' where \eqn{Y} is an \code{NxT} matrix of dependent variables, \eqn{X} is a \code{KxT} matrix of explanatory variables, 
+#' \eqn{E} is an \code{NxT} matrix of reduced form error terms, and \eqn{A} is an \code{NxK} matrix of autoregressive slope coefficients and parameters on deterministic terms in \code{X}.
 #' 
 #' The structural equation is given by
-#' \Sexpr[results=rd, stage=build]{katex::math_to_rd("BE=U")}
-#' where \code{U} is an \code{NxT} matrix of structural form error terms, and
-#' \code{B} is an \code{NxN} matrix of contemporaneous relationships between structural shocks in the columns of matrix \code{U}.
+#' \deqn{BE = U}
+#' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
+#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships between structural shocks in the columns of matrix \eqn{U}.
 #' 
-#' Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
+#' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
 #' The conditional variance of the \code{n}th shock at time \code{t} is given by:
-#' \Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = s^2_{n.s_t}")}
-#' where \code{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
-#' the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
+#' \deqn{Var_{t-1}[u_{n.t}] = s^2_{n.s_t}}
+#' where \eqn{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
+#' the regime-specific conditional variances of structural shocks \eqn{s^2_{n.s_t}}. 
 #' In this model, the variances of each of the structural shocks sum to \code{M}.
 #' 
 #' NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.
@@ -37,9 +37,9 @@
 #' @param X a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms
 #' @param prior a list containing the following elements
 #' \describe{
-#'  \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \code{A}}
-#'  \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \code{A}. This precision matrix is equation invariant.}
-#'  \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \code{B}. This precision matrix is equation invariant.}
+#'  \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}}
+#'  \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
+#'  \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
 #'  \item{B_nu}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \code{B}}
 #'  \item{hyper_nu}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \code{B} and \code{A}}
 #'  \item{hyper_a}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters}
@@ -49,11 +49,11 @@
 #'  \item{sigma_s}{a positive scalar, the common scale parameter of the IG2-based Dirichlet prior for conditional variances}
 #'  \item{PR_TR}{an \code{MxM} matrix of the parameters of Dirichlet prior for transition probability matrix. The rows of \code{PR_TR} correspond to the rows of the transition matrix. }
 #' }
-#' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \code{B}
+#' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}
 #' @param starting_values a list containing the following elements:
 #' \describe{
-#'  \item{A}{an \code{NxK} matrix of starting values for the parameter \code{A}}
-#'  \item{B}{an \code{NxN} matrix of starting values for the parameter \code{B}}
+#'  \item{A}{an \code{NxK} matrix of starting values for the parameter \eqn{A}}
+#'  \item{B}{an \code{NxN} matrix of starting values for the parameter \eqn{B}}
 #'  \item{hyper}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution}
 #'  \item{sigma2}{an \code{NxM} matrix of staring values for the structural shocks conditional variances}
 #'  \item{PR_TR}{an \code{MxM} matrix  of staring values for the transition matrix. These have to be non-negative values summing to 1 by rows.}
@@ -64,8 +64,8 @@
 #' @return A list containing two elements:
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
 #'  \describe{
-#'  \item{A}{an \code{NxKxS} array with the posterior draws for matrix \code{A}}
-#'  \item{B}{an \code{NxNxS} array with the posterior draws for matrix \code{B}}
+#'  \item{A}{an \code{NxKxS} array with the posterior draws for matrix \eqn{A}}
+#'  \item{B}{an \code{NxNxS} array with the posterior draws for matrix \eqn{B}}
 #'  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters of the hierarchical prior distribution}
 #'  \item{sigma2}{an \code{NxMxS} array with the posterior draws for the structural shocks conditional variances}
 #'  \item{PR_TR}{an \code{MxMxS} array with the posterior draws for the transition matrix.}
@@ -75,8 +75,8 @@
 #' 
 #' \code{last_draw} a list with the last draw of the simulation (to be provided as \code{starting_values} to the follow-up run of \code{bsvar}) containing the following objects:
 #' \describe{
-#'  \item{A}{an \code{NxK} matrix with the last MCMC draw of the parameter matrix \code{A}}
-#'  \item{B}{an \code{NxN} matrix with the last MCMC draw of the parameter matrix \code{B}}
+#'  \item{A}{an \code{NxK} matrix with the last MCMC draw of the parameter matrix \eqn{A}}
+#'  \item{B}{an \code{NxN} matrix with the last MCMC draw of the parameter matrix \eqn{B}}
 #'  \item{hyper}{a \code{5}-vector with the last MCMC draw of the hyper-parameter of the hierarchical prior distribution}
 #'  \item{sigma2}{an \code{NxM} matrix with the last MCMC draw of the structural shocks conditional variances}
 #'  \item{PR_TR}{an \code{MxM} matrix with the last MCMC draw of the transition matrix.}
@@ -96,11 +96,11 @@
 #' 
 #' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 #' 
-#' Sampling from the generalised-normal full conditional posterior distribution of matrix \code{B} is implemented using the Gibbs sampler by:
+#' Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
 #' 
 #' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
 #'
-#' Sampling from the multivariate normal full conditional posterior distribution of each of the \code{A} matrix row is implemented using the sampler by:
+#' Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
 #' 
 #' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 

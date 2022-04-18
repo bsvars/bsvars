@@ -13,18 +13,18 @@ Markov chain Monte Carlo (MCMC) methods.
 \details{
 All the SVAR models in this package are specified by two equations, including 
 the reduced form equation:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("Y = AX + E")}
-where \code{Y} is an \code{NxT} matrix of dependent variables, 
-\code{X} is a \code{KxT} matrix of explanatory variables, 
-\code{E} is an \code{NxT} matrix of reduced form error terms, 
-and \code{A} is an \code{NxK} matrix of autoregressive slope coefficients and 
-parameters on deterministic terms in \code{X}.
+\deqn{Y = AX + E}
+where \eqn{Y} is an \code{NxT} matrix of dependent variables, 
+\eqn{X} is a \code{KxT} matrix of explanatory variables, 
+\eqn{E} is an \code{NxT} matrix of reduced form error terms, 
+and \eqn{A} is an \code{NxK} matrix of autoregressive slope coefficients and 
+parameters on deterministic terms in \eqn{X}.
 
 The structural equation is given by:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("BE=U")}
-where \code{U} is an \code{NxT} matrix of structural form error terms, and
-\code{B} is an \code{NxN} matrix of contemporaneous relationships between 
-structural shocks in the columns of matrix \code{U}.
+\deqn{BE = U}
+where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
+\eqn{B} is an \code{NxN} matrix of contemporaneous relationships between 
+structural shocks in the columns of matrix \eqn{U}.
 
 Finally, all of the models share the following assumptions regarding the structural
 shocks \code{U}, namely, joint conditional normality given the past observations collected
