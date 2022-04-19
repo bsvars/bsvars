@@ -1,6 +1,9 @@
 
 specify_bsvar   = R6::R6Class(
   "BSVAR",
+  ############################################################
+  # private
+  ############################################################
   private = list(
     ..data_matrices   = list(),
     ..VB              = list(),
@@ -11,7 +14,12 @@ specify_bsvar   = R6::R6Class(
     ..p = 0L,
     ..K = 0L
   ),
+  ############################################################
+  # public
+  ############################################################
   public = list(
+    # initialize
+    ############################################################
     initialize = function(
       data,
       p
@@ -68,11 +76,35 @@ specify_bsvar   = R6::R6Class(
         B          = diag(private$..N),
         hyper      = rep(1, 5)
       )
-      
+    },
+    # get_data_matrices
+    ############################################################
+    get_data_matrices = function() {
+      private$..data_matrices
+    },
+    # get_exlusion_restrictions
+    ############################################################
+    get_exlusion_restrictions = function() {
+      private$..VB
+    },
+    # get_prior
+    ############################################################
+    get_prior = function() {
+      private$..prior
+    },
+    # get_starting_values
+    ############################################################
+    get_starting_values = function() {
+      private$..get_starting_values
     }
   )#,
+  ############################################################
+  # active
+  ############################################################
   # active = list()
 )
 
 # data(us_monetary_wd)
 # sb = specify_bsvar$new(us_monetary_wd[,1:4], 4L)
+# sbp = sb$get_prior()
+# sbp$hyper_S = 0.1
