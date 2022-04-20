@@ -1,5 +1,65 @@
 
-specify_bsvar   = R6::R6Class(
+
+specify_prior_bsvar = R6::R6Class(
+  "PriorBSVAR",
+  private = list(
+    N = 2,
+    p = 1,
+    K = 2 * 1 + 1,
+    A          = cbind(diag(2), matrix(0, 2, 1)),
+    A_V_inv    = diag(c(kronecker((1)^2, rep(1, 2) ), 1)),
+    B_V_inv    = diag(2),
+    B_nu       = 2,
+    hyper_nu   = 3,
+    hyper_a    = 1,
+    hyper_V    = 3,
+    hyper_S    = 1
+  ),
+  public = list(
+    initialize = function(N, p){
+      stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
+      stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
+      
+      private$N         = N
+      private$p         = p
+      private$K         = N * p + 1
+      
+      private$A         = cbind(diag(private$N), matrix(0, private$N, private$K - private$N))
+      private$A_V_inv   = diag(c(kronecker((1:private$p)^2, rep(1,private$N) ), 1))
+      private$B_V_inv   = diag(private$N)
+      private$B_nu      = private$N
+      private$hyper_nu  = 3
+      private$hyper_a   = 1
+      private$hyper_V   = 3
+      private$hyper_S   = 1
+    },
+    get_prior_bsvar = function(){
+      as.list(private)
+    },
+    set_A_prior_mean = function(
+      A_mean = NULL, 
+      type = c("nonstationary", "stationary")
+    ) {
+      type <- match.arg(type)
+      
+      if (is.null(A_mean)) {
+        if (type == "nonstationary") {
+          private$A     = cbind(diag(private$N), matrix(0, private$N, private$K - private$N))
+        } else if (type == "stationary") {
+          private$A     = matrix(0, private$N, private$K)
+        } 
+      } else {
+        stopifnot("Argument A_mean must be an NxK matrix where K=N*p+1" = is.matrix(A_mean) & dim(A_mean) == c(private$N, private$K))
+        stopifnot("Elements of argument A_mean must be finite real numbers" = sum(is.na(A_mean)) == 0 & sum(is.infinite(A_mean)) == 0 )
+        
+        private$A       = A_mean
+      }
+    }
+  )#,
+  # active = list()
+)
+
+specify_bsvar = R6::R6Class(
   "BSVAR",
   ############################################################
   # private
@@ -108,3 +168,9 @@ specify_bsvar   = R6::R6Class(
 # sb = specify_bsvar$new(us_monetary_wd[,1:4], 4L)
 # sbp = sb$get_prior()
 # sbp$hyper_S = 0.1
+
+# pr = specify_prior_bsvar$new(2, 1)
+# pr$get_prior_bsvar()
+# pr$set_A_prior_mean("nonstationary") # This does not work but does not give error!!!
+# pr$set_A_prior_mean(type = "nonstationary")
+# pr$set_A_prior_mean(matrix(rnorm(6),2,3))
