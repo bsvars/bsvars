@@ -204,7 +204,7 @@ Rcpp::List logSDDR_homoskedasticity (
         sigma_S_inv.row(t)    = 1/sigma_s(post_S(t));
       } // END t loop
       
-      double  V_omega         = as_scalar(posterior_h.slice(s).row(n) * diagmat(sigma_S_inv) * trans(posterior_h.slice(s).row(n))) + pow(posterior_sigma2_omega(n, s), -1);
+      double  V_omega         = pow(as_scalar(posterior_h.slice(s).row(n) * diagmat(sigma_S_inv) * trans(posterior_h.slice(s).row(n))) + pow(posterior_sigma2_omega(n, s), -1), -1);
       double  omega_bar       = V_omega * as_scalar(posterior_h.slice(s).row(n) * diagmat(sigma_S_inv) * trans(residuals.row(n) - alpha_S));
       log_numerator_s(n, s)   = R::dnorm(0, omega_bar, sqrt(V_omega), true);
     } // END n loop
