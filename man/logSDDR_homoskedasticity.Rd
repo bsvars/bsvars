@@ -34,11 +34,11 @@ the homoskedasticity hypothesis for each of the shocks
 Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
 for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
 The hypothesis is represented by restriction:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("w_n = 0")}
+\deqn{w_n = 0}
 The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
 as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
 less the marginal prior distribution ordinate at the same point:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("log p(w_n = 0 | data) - log p(w_n = 0)")}
+\deqn{log p(w_n = 0 | data) - log p(w_n = 0)}
 Therefore, a negative value of the difference is the evidence against 
 homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
 numerical integration.

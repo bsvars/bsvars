@@ -99,11 +99,11 @@ where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 
 Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
 The conditional variance of the \code{n}th shock at time \code{t} is given by:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = exp(w_n h_{n.t})")}
-where \code{w_n} is the estimated conditional standard deviation of the log-conditional variance
-and the log-volatility process \code{h_{n.t}} follows an autoregressive process:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("h_{n.t} = g_n h_{n.t-1} + v_{n.t}")}
-where \code{h_{n.0}=0}, \code{g_n} is an autoregressive parameter and \code{v_{n.t}} is a standard normal error term.
+\deqn{Var_{t-1}[u_{n.t}] = exp(w_n h_{n.t})}
+where \eqn{w_n} is the estimated conditional standard deviation of the log-conditional variance
+and the log-volatility process \eqn{h_{n.t}} follows an autoregressive process:
+\deqn{h_{n.t} = g_n h_{n.t-1} + v_{n.t}}
+where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a standard normal error term.
 }
 \references{
 The model, prior distributions, and estimation algorithms were proposed by

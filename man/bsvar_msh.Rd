@@ -89,9 +89,9 @@ where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 
 Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
 The conditional variance of the \code{n}th shock at time \code{t} is given by:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = s^2_{n.s_t}")}
-where \code{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
-the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
+\deqn{Var_{t-1}[u_{n.t}] = s^2_{n.s_t}}
+where \eqn{s_t} is a stationary, irreducible, aperiodic Markov process driving the time-variability of 
+the regime-specific conditional variances of structural shocks \eqn{s^2_{n.s_t}}. 
 In this model, the variances of each of the structural shocks sum to \code{M}.
 
 NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.

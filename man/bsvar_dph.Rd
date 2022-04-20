@@ -90,10 +90,10 @@ where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 
 Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and finite-mixture of normals distributed with zero mean.
 The conditional variance of the \eqn{n}th shock at time \eqn{t} is given by:
-\Sexpr[results=rd, stage=build]{katex::math_to_rd("Var_{t-1}[u_{n.t}] = s^2_{n.s_t}")}
-where \code{s_t} is a the regime indicator of 
-the regime-specific conditional variances of structural shocks \code{s^2_{n.s_t}}. 
-In this model, the variances of each of the structural shocks sum to \eqn{M}.
+\deqn{Var_{t-1}[u_{n.t}] = s^2_{n.s_t}}
+where \eqn{s_t} is a the regime indicator of 
+the regime-specific conditional variances of structural shocks \eqn{s^2_{n.s_t}}. 
+In this model, the variances of each of the structural shocks sum to \code{M}.
 
 NOTE: The estimation of the latent regime process for this model presumes a large number of components of the finite mixture model
 and the components are allowed to be doubled by other estimated components or have zero number of occurrences at any MCMC iteration.
