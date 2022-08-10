@@ -119,5 +119,5 @@
 #' @export
 bsvar_msh <- function(S, Y, X, prior, VB, starting_values) {
   model = "MSH"
-  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, TRUE, TRUE, model)
+  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, 100, TRUE, TRUE, model)
 }

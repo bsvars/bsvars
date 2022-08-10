@@ -119,5 +119,5 @@
 #' @export
 bsvar_ihmm <- function(S, Y, X, prior, VB, starting_values) {
   model = "IHM"
-  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, FALSE, TRUE, model)
+  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, 100, FALSE, TRUE, model)
 }

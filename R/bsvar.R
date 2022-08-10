@@ -73,5 +73,5 @@
 #' 
 #' @export
 bsvar <- function(S, Y, X, VB, prior, starting_values) {
-  .Call(`_bsvars_bsvar_cpp`, S, Y, X, VB, prior, starting_values)
+  .Call(`_bsvars_bsvar_cpp`, S, Y, X, VB, prior, starting_values, 100)
 }

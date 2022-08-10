@@ -120,5 +120,5 @@
 #' @export
 bsvar_dph <- function(S, Y, X, prior, VB, starting_values) {
   model = "DPH"
-  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, FALSE, FALSE, model)
+  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, 100, FALSE, FALSE, model)
 }
