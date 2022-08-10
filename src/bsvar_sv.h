@@ -9,8 +9,9 @@ Rcpp::List bsvar_sv_cpp (
     const arma::mat&              Y,          // NxT dependent variables
     const arma::mat&              X,          // KxT explanatory variables
     const Rcpp::List&             prior,      // a list of priors - original dimensions
-    const arma::field<arma::mat>& VB,        // restrictions on B0
+    const arma::field<arma::mat>& VB,         // restrictions on B0
     const Rcpp::List&             starting_values, 
+    const int                     thin = 100, // introduce thinning
     const bool                    sample_s_ = true
 );
 

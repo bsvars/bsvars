@@ -20,6 +20,7 @@ Rcpp::List bsvar_msh_cpp (
     const Rcpp::List&       prior,          // a list of priors - original dimensions
     const arma::field<arma::mat>& VB,       // restrictions on B0
     const Rcpp::List&       starting_values,
+    const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
     const bool              MSnotMIX = true,
     const std::string       name_model = "" // just 3 characters
@@ -32,6 +33,7 @@ Rcpp::List bsvar_msh_cpp (
   Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
   Rcout << "**************************************************|" << endl;
   Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
+  Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
   Rcout << " Press Esc to interrupt the computations" << endl;
   Rcout << "**************************************************|" << endl;
   Progress p(50, true);
@@ -51,13 +53,17 @@ Rcpp::List bsvar_msh_cpp (
   
   const int   M     = aux_PR_TR.n_rows;
   
-  cube  posterior_B(N, N, S);
-  cube  posterior_A(N, K, S);
-  cube  posterior_sigma2(N, M, S);
-  cube  posterior_PR_TR(M, M, S);
-  mat   posterior_pi_0(M, S);
-  cube  posterior_xi(M, T, S);
-  mat   posterior_hyper(5, S);
+  const int   SS     = floor(S / thin);
+  
+  cube  posterior_B(N, N, SS);
+  cube  posterior_A(N, K, SS);
+  cube  posterior_sigma2(N, M, SS);
+  cube  posterior_PR_TR(M, M, SS);
+  mat   posterior_pi_0(M, SS);
+  cube  posterior_xi(M, T, SS);
+  mat   posterior_hyper(5, SS);
+  
+  int   ss = 0;
   
   for (int s=0; s<S; s++) {
     
@@ -88,13 +94,16 @@ Rcpp::List bsvar_msh_cpp (
     // sample aux_sigma2
     sample_variances_msh(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior);
     
-    posterior_B.slice(s)      = aux_B;
-    posterior_A.slice(s)      = aux_A;
-    posterior_sigma2.slice(s) = aux_sigma2;
-    posterior_PR_TR.slice(s)  = aux_PR_TR;
-    posterior_pi_0.col(s)     = aux_pi_0;
-    posterior_xi.slice(s)     = aux_xi;
-    posterior_hyper.col(s)    = aux_hyper;
+    if (s % thin == 0) {
+      posterior_B.slice(ss)      = aux_B;
+      posterior_A.slice(ss)      = aux_A;
+      posterior_sigma2.slice(ss) = aux_sigma2;
+      posterior_PR_TR.slice(ss)  = aux_PR_TR;
+      posterior_pi_0.col(ss)     = aux_pi_0;
+      posterior_xi.slice(ss)     = aux_xi;
+      posterior_hyper.col(ss)    = aux_hyper;
+      ss++;
+    }
   } // END s loop
   
   return List::create(

@@ -18,8 +18,9 @@ Rcpp::List bsvar_sv_cpp (
     const arma::mat&              Y,          // NxT dependent variables
     const arma::mat&              X,          // KxT explanatory variables
     const Rcpp::List&             prior,      // a list of priors - original dimensions
-    const arma::field<arma::mat>& VB,        // restrictions on B0
+    const arma::field<arma::mat>& VB,         // restrictions on B0
     const Rcpp::List&             starting_values, 
+    const int                     thin = 100, // introduce thinning
     const bool                    sample_s_ = true
 ) {
   // Progress bar setup
@@ -30,6 +31,7 @@ Rcpp::List bsvar_sv_cpp (
   Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
   Rcout << "**************************************************|" << endl;
   Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
+  Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
   Rcout << " Press Esc to interrupt the computations" << endl;
   Rcout << "**************************************************|" << endl;
   Progress p(50, true);
@@ -53,16 +55,20 @@ Rcpp::List bsvar_sv_cpp (
     aux_sigma.row(n) = exp(0.5 * aux_omega(n) * aux_h.row(n));
   }
   
-  cube  posterior_B(N, N, S);
-  cube  posterior_A(N, K, S);
-  mat   posterior_hyper(5, S);
-  cube  posterior_h(N, T, S);
-  mat   posterior_rho(N, S);
-  mat   posterior_omega(N, S);
-  ucube posterior_S(N, T, S);
-  mat   posterior_sigma2_omega(N, S);
-  mat   posterior_s_(N, S);
-  cube  posterior_sigma(N, T, S);
+  const int   SS     = floor(S / thin);
+  
+  cube  posterior_B(N, N, SS);
+  cube  posterior_A(N, K, SS);
+  mat   posterior_hyper(5, SS);
+  cube  posterior_h(N, T, SS);
+  mat   posterior_rho(N, SS);
+  mat   posterior_omega(N, SS);
+  ucube posterior_S(N, T, SS);
+  mat   posterior_sigma2_omega(N, SS);
+  mat   posterior_s_(N, SS);
+  cube  posterior_sigma(N, T, SS);
+  
+  int   ss = 0;
   
   for (int s=0; s<S; s++) {
     
@@ -104,16 +110,19 @@ Rcpp::List bsvar_sv_cpp (
       aux_sigma.row(n)  = exp(0.5 * aux_omega(n) * aux_h.row(n));
     }
     
-    posterior_B.slice(s)          = aux_B;
-    posterior_A.slice(s)          = aux_A;
-    posterior_hyper.col(s)        = aux_hyper;
-    posterior_h.slice(s)          = aux_h;
-    posterior_rho.col(s)          = aux_rho;
-    posterior_omega.col(s)        = aux_omega;
-    posterior_S.slice(s)          = aux_S;
-    posterior_sigma2_omega.col(s) = aux_sigma2_omega;
-    posterior_s_.col(s)           = aux_s_;
-    posterior_sigma.slice(s)      = aux_sigma;
+    if (s % thin == 0) {
+      posterior_B.slice(ss)          = aux_B;
+      posterior_A.slice(ss)          = aux_A;
+      posterior_hyper.col(ss)        = aux_hyper;
+      posterior_h.slice(ss)          = aux_h;
+      posterior_rho.col(ss)          = aux_rho;
+      posterior_omega.col(ss)        = aux_omega;
+      posterior_S.slice(ss)          = aux_S;
+      posterior_sigma2_omega.col(ss) = aux_sigma2_omega;
+      posterior_s_.col(ss)           = aux_s_;
+      posterior_sigma.slice(ss)      = aux_sigma;
+      ss++;
+    }
   } // END s loop
   
   return List::create(

@@ -18,7 +18,8 @@ Rcpp::List bsvar_cpp(
   const arma::mat&  X,                  // KxT dependent variables
   const arma::field<arma::mat>& VB,     // N-list
   const Rcpp::List& prior,              // a list of priors
-  const Rcpp::List& starting_values     // a list of starting values
+  const Rcpp::List& starting_values,    // a list of starting values
+  const int         thin = 100          // introduce thinning
 ) {
 
   // Progress bar setup
@@ -29,6 +30,7 @@ Rcpp::List bsvar_cpp(
   Rcout << " Gibbs sampler for the SVAR model                 |" << endl;
   Rcout << "**************************************************|" << endl;
   Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
+  Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
   Rcout << " Press Esc to interrupt the computations" << endl;
   Rcout << "**************************************************|" << endl;
   Progress p(50, true);
@@ -40,9 +42,13 @@ Rcpp::List bsvar_cpp(
   mat   aux_A       = as<mat>(starting_values["A"]);
   vec   aux_hyper   = as<vec>(starting_values["hyper"]);
   
-  cube  posterior_B(N, N, S);
-  cube  posterior_A(N, K, S);
-  mat   posterior_hyper(5, S);
+  const int   SS    = floor(S / thin);
+  
+  cube  posterior_B(N, N, SS);
+  cube  posterior_A(N, K, SS);
+  mat   posterior_hyper(5, SS);
+  
+  int   ss = 0;
   
   for (int s=0; s<S; s++) {
   
@@ -55,9 +61,12 @@ Rcpp::List bsvar_cpp(
     sample_A_homosk1(aux_A, aux_B, aux_hyper, Y, X, prior);
     sample_B_homosk1(aux_B, aux_A, aux_hyper, Y, X, prior, VB);
     
-    posterior_B.slice(s)    = aux_B;
-    posterior_A.slice(s)    = aux_A;
-    posterior_hyper.col(s)  = aux_hyper;
+    if (s % thin == 0) {
+      posterior_B.slice(ss)    = aux_B;
+      posterior_A.slice(ss)    = aux_A;
+      posterior_hyper.col(ss)  = aux_hyper;
+      ss++;
+    }
   } // END s loop
   
   return List::create(
