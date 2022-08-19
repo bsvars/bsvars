@@ -1,106 +1,141 @@
-
-
+#' R6 Class Representing PriorBSVAR
+#'
+#' @description
+#' The class PriorBSVAR presents a prior specification for the homoskedastic bsvar model.
 specify_prior_bsvar = R6::R6Class(
   "PriorBSVAR",
   
-  private = list(
-    # N = 2,
-    # p = 1,
-    # K = 2 * 1 + 1,
-    A          = cbind(diag(2), matrix(0, 2, 1)),
-    A_V_inv    = diag(c(kronecker((1)^2, rep(1, 2) ), 1)),
-    B_V_inv    = diag(2),
-    B_nu       = 2,
-    hyper_nu   = 3,
-    hyper_a    = 1,
-    hyper_V    = 3,
-    hyper_S    = 1
-  ),
-  
   public = list(
+    
+    #' @field A an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}. 
+    A          = matrix(),
+    
+    #' @field A_V_inv a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.
+    A_V_inv    = matrix(),
+    
+    #' @field B_V_inv an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.
+    B_V_inv    = matrix(),
+    
+    #' @field B_nu a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.
+    B_nu       = NA,
+    
+    #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
+    hyper_nu   = NA,
+    
+    #' @field hyper_a a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters.
+    hyper_a    = NA,
+    
+    #' @field hyper_V a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
+    hyper_V    = NA,
+    
+    #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
+    hyper_S    = NA,
+    
+    #' @description
+    #' Create a new prior specification PriorBSVAR.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @return A new prior specification PriorBSVAR.
     initialize = function(N, p, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument stationary must be an N-vector." = length(stationary) == N)
       
-      # private$N         = N
-      # private$p         = p
-      
       K                 = N * p + 1
-      private$A         = cbind(diag(as.numeric(!stationary)), matrix(0, N, K - N))
-      private$A_V_inv   = diag(c(kronecker((1:p)^2, rep(1, N) ), 1))
-      private$B_V_inv   = diag(N)
-      private$B_nu      = N
-      private$hyper_nu  = 3
-      private$hyper_a   = 1
-      private$hyper_V   = 3
-      private$hyper_S   = 1
-    },
+      self$A            = cbind(diag(as.numeric(!stationary)), matrix(0, N, K - N))
+      self$A_V_inv      = diag(c(kronecker((1:p)^2, rep(1, N) ), 1))
+      self$B_V_inv      = diag(N)
+      self$B_nu         = N
+      self$hyper_nu     = 3
+      self$hyper_a      = 1
+      self$hyper_V      = 3
+      self$hyper_S      = 1
+    }, # END initialize
     
+    #' @description
+    #' Returns the elements of the prior specification PriorBSVAR as a \code{list}.
     get_prior_bsvar = function(){
-      as.list(private)
-    }#,
-    # active = list()
-  )
-)
+      list(
+        A        = self$A,
+        A_V_inv  = self$A_V_inv,
+        B_V_inv  = self$B_V_inv,
+        B_nu     = self$B_nu,
+        hyper_nu = self$hyper_nu,
+        hyper_a  = self$hyper_a,
+        hyper_V  = self$hyper_V,
+        hyper_S  = self$hyper_S
+      )
+    } # END get_prior_bsvar
+    
+  ) # END public
+) # END specify_prior_bsvar
 
 
-
+#' R6 Class Representing StartingValuesBSVAR
+#'
+#' @description
+#' The class StartingValuesBSVAR presents starting values for the homoskedastic bsvar model.
 specify_starting_values_bsvar = R6::R6Class(
   "StartingValuesBSVAR",
   
-  private = list(
-    # N = 2,
-    # p = 1,
-    # K = 2 * 1 + 1,
-    # T = 3,
-    B             = diag(2),
-    A             = cbind(diag(runif(2)), matrix(0, 2, 2 * 1 + 1 - 2)),
-    hyper         = c(1,rep(1,4)),
-    h             = matrix(rnorm(2 * 3, sd = .01), 2, 3),
-    rho           = rep(.5, 2),
-    omega         = rep(.1, 2),
-    S             = matrix(1, 2, 3),
-    sigma2_omega  = rep(1, 2),
-    s_            = rep(0.05, 2)
-  ),
-  
   public = list(
-    initialize = function(N, p, T){
+    
+    #' @field A an \code{NxK} matrix of starting values for the parameter \eqn{A}. 
+    A             = matrix(),
+    
+    #' @field B an \code{NxN} matrix of starting values for the parameter \eqn{B}. 
+    B             = matrix(),
+    
+    #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution. 
+    hyper         = numeric(),
+    
+    #' @description
+    #' Create new starting values StartingValuesBSVAR.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @return Starting values StartingValuesBSVAR.
+    initialize = function(N, p){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
-      stopifnot("Argument T must be an integer number greater than 2." = T > 2 & T %% 1 == 0)
-      
-      K                 = N * p + 1
-      
-      private$B             = diag(N)
-      private$A             = cbind(diag(runif(N)), matrix(0, N, K - N))
-      private$hyper         = c(1,rep(1,4))
-      private$h             = matrix(rnorm(N * T, sd = .01), N, T)
-      private$rho           = rep(.5, N)
-      private$omega         = rep(.1, N)
-      private$S             = matrix(1, N, T)
-      private$sigma2_omega  = rep(1, N)
-      private$s_            = rep(0.05, N)
-    },
+
+      K                  = N * p + 1
+      self$B             = diag(N)
+      self$A             = cbind(diag(runif(N)), matrix(0, N, K - N))
+      self$hyper         = c(1,rep(1,4))
+    }, # END initialize
     
+    #' @description
+    #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
     get_starting_values_bsvar = function(){
-      as.list(private)
-    }#,
-    # active = list()
-  )
-)
+      list(
+        B            = self$B,
+        A            = self$A,
+        hyper        = self$hyper
+      )
+    } # END get_starting_values_bsvar
+  ) # END public
+) # END specify_starting_values_bsvar
 
 
 
+#' R6 Class Representing IdentificationBSVAR
+#'
+#' @description
+#' The class IdentificationBSVAR presents the identifying restrictions for the homoskedastic bsvar model.
 specify_identification_bsvar = R6::R6Class(
   "IdentificationBSVAR",
   
-  private = list(
-    VB    = vector("list", 2)
-  ),
-  
   public = list(
+    
+    #' @field VB a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}. 
+    VB    = list(),
+    
+    #' @description
+    #' Create new identifying restrictions IdentificationBSVAR.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @return Identifying restrictions IdentificationBSVAR.
     initialize = function(N, B) {
       if (missing(B)) {
           B     = matrix(FALSE, N, N)
@@ -109,16 +144,22 @@ specify_identification_bsvar = R6::R6Class(
 
       stopifnot("Argument B must be an NxN matrix with logical values." = is.logical(B) & is.matrix(B) & prod(dim(B) == N))
       
-      private$VB          <- vector("list", N)
+      self$VB          <- vector("list", N)
       for (n in 1:N) {
-        private$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
+        self$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
       }
-    },
+    }, # END initialize
     
+    #' @description
+    #' Returns the elements of the identification pattern IdentificationBSVAR as a \code{list}.
     get_identification_bsvar = function() {
-      as.list(private$VB)
-    },
+      as.list(self$VB)
+    }, # END get_identification_bsvar
     
+    #' @description
+    #' Set new starting values StartingValuesBSVAR.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
     set_identification_bsvar = function(N, B) {
       if (missing(B)) {
         B     = matrix(FALSE, N, N)
@@ -127,27 +168,24 @@ specify_identification_bsvar = R6::R6Class(
       
       stopifnot("Argument B must be an NxN matrix with logical values." = is.logical(B) & is.matrix(B) & prod(dim(B) == N))
       
-      private$VB          <- vector("list", N)
+      self$VB          <- vector("list", N)
       for (n in 1:N) {
-        private$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
+        self$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
       }
-    }#,
-    # active = list()
-  )
-)
+    } # END set_identification_bsvar
+  ) # END public
+) # END specify_identification_bsvar
 
 
 
 specify_data_matrices = R6::R6Class(
   "DataMatricesBSVAR",
   
-  private = list(
-    # p     = 1L,
-    Y     = matrix(nrow = 2, ncol = 3),
-    X     = matrix(nrow = 3, ncol = 3)
-  ),
-  
   public = list(
+    
+    Y     = matrix(),
+    X     = matrix(),
+    
     initialize = function(data, p = 1L) {
       if (missing(data)) {
         stop("Argument data has to be specified")
@@ -160,29 +198,26 @@ specify_data_matrices = R6::R6Class(
       TT            = nrow(data)
       T             = TT - p
       
-      private$Y     = t(data[(p + 1):TT,])
+      self$Y        = t(data[(p + 1):TT,])
       X             = matrix(0, T, 0)
       for (i in 1:p) {
         X           = cbind(X, data[(p + 1):TT - i,])
       }
-      private$X     = t(cbind(X, rep(1, T)))
-    },
+      self$X        = t(cbind(X, rep(1, T)))
+    }, # END initialize
     
-    get_data_matrices = function() {as.list(private)}
-  )
-)
+    get_data_matrices = function() {
+      list(
+        Y = self$Y,
+        X = self$X
+      )
+    } # END get_data_matrices
+  ) # END public
+) # END specify_data_matrices
 
 
 specify_bsvar = R6::R6Class(
   "BSVAR",
-  
-  private = list(
-    # data_matrices   = list(),
-    # identification  = specify_identification_bsvar$new(N = 2),
-    # prior           = specify_prior_bsvar$new(N = 2, p = 1),
-    # starting_values = specify_starting_values_bsvar$new(N = 2, p = 1, T = 3),
-    p = 1L
-  ),
   
   public = list(
     initialize = function(
@@ -190,12 +225,12 @@ specify_bsvar = R6::R6Class(
       p = 1L,
       B
     ) {
-      TT            = nrow(data)
-      T             = TT - private$p
-      N             = ncol(data)
-      
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
-      private$p     = p
+      self$p     = p
+      
+      TT            = nrow(data)
+      T             = TT - self$p
+      N             = ncol(data)
       
       if (missing(B)) {
         message("The identification is set to the default option of lower-triangular structural matrix.")
@@ -208,8 +243,10 @@ specify_bsvar = R6::R6Class(
       self$data_matrices   = specify_data_matrices$new(data, p)
       self$identification  = specify_identification_bsvar$new(N, B)
       self$prior           = specify_prior_bsvar$new(N, p)
-      self$starting_values = specify_starting_values_bsvar$new(N, private$p, T)
-    },
+      self$starting_values = specify_starting_values_bsvar$new(N, self$p)
+    }, # END initialize
+    
+    p                      = numeric(),
     
     data_matrices          = list(),
     
@@ -220,26 +257,22 @@ specify_bsvar = R6::R6Class(
     starting_values        = list(),
     
     get_data_matrices = function() {
-      private$data_matrices$clone()
-    },
+      self$data_matrices$clone()
+    }, # END get_data_matrices
     
     get_identification = function() {
-      private$identification$clone()
-    },
+      self$identification$clone()
+    }, # END get_identification
     
     get_prior = function() {
-      private$prior$clone()
-    },
+      self$prior$clone()
+    }, # END get_prior
     
     get_starting_values = function() {
-      private$starting_values$clone()
-    }
-  )#,
-  ############################################################
-  # active
-  ############################################################
-  # active = list()
-)
+      self$starting_values$clone()
+    } # END get_starting_values
+  ) # END public
+) # END specify_bsvar
 
 
 # # a simple example
@@ -253,18 +286,17 @@ specify_bsvar = R6::R6Class(
 # y = matrix(rnorm(T * NN), T, NN)
 # y = apply(y, 2, cumsum)
 # 
-# sb = specify_bsvar$new(y, 4)
+# sb                  = specify_bsvar$new(y, 4)
+# sb_prior            = sb$prior$get_prior_bsvar()
+# sb_starting_values  = sb$starting_values$get_starting_values_bsvar()
+# sb_VB               = sb$identification$get_identification_bsvar()
+# sb_data             = sb$data_matrices$get_data_matrices()
+# 
+# sb$get_data_matrices()
+# sb_prior$get_prior_bsvar()
+# as.list(sb_prior)
 # 
 # # this works
-# sb$identification$get_identification_bsvar()
+# sb$identification$VB
 # sb$identification$set_identification_bsvar(NN, BB)
-# sb$identification$get_identification_bsvar()
-# 
-# # this does NOT work
-# sb_id = sb$identification$clone(deep = TRUE)
-# sb_id$show_identification_bsvar()
-# sb_id$set_identification_bsvar(NN, BB)
-# sb_id$show_identification_bsvar()
-# sb$identification$show_identification_bsvar()
-
-
+# sb$identification$VB

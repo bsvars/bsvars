@@ -64,6 +64,7 @@
 #' @importFrom GIGrvg rgig
 #' @importFrom RcppTN rtn
 #' @import RcppProgress
+#' @importFrom R6 R6Class
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
