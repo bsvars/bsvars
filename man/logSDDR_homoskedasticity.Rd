@@ -18,16 +18,21 @@ logSDDR_homoskedasticity(posterior, prior, Y, X, sample_s_ = TRUE)
 \item{sample_s_}{a logical value set to the same value as the corresponding argument of function \code{bsvar_sv}}
 }
 \value{
-A list of two components:
+A list of three components:
 
 \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
 the homoskedasticity hypothesis for each of the shocks
+
+\code{log_SDDR_se} an \code{N}-vector with estimation standard errors of the logarithm of 
+the Bayes factors reported in output element \code{logSDDR} that are computed based on 30 random 
+sub-samples of the log-ordinates of the marginal posterior and prior distributions.
 
 \code{components} a list of three components for the computation of the Bayes factor
 \describe{
   \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factor denominators}
   \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factor numerators}
   \item{log_numerator_s}{an \code{NxS} matrix of the log-full conditional posterior density ordinates computed to estimate the numerator}
+  \item{se_components}{an \code{Nx30} matrix containing the log-Bayes factors on the basis of which the standard errors are computed}
 }
 }
 \description{

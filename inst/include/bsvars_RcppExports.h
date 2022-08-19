@@ -88,6 +88,26 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
+    inline void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
+        typedef SEXP(*Ptr_normalisation_wz2003)(SEXP,SEXP);
+        static Ptr_normalisation_wz2003 p_normalisation_wz2003 = NULL;
+        if (p_normalisation_wz2003 == NULL) {
+            validateSignature("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
+            p_normalisation_wz2003 = (Ptr_normalisation_wz2003)R_GetCCallable("bsvars", "_bsvars_normalisation_wz2003");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_normalisation_wz2003(Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(B_hat)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+    }
+
     inline Rcpp::List logSDDR_homoskedasticity(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_ = true) {
         typedef SEXP(*Ptr_logSDDR_homoskedasticity)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_logSDDR_homoskedasticity p_logSDDR_homoskedasticity = NULL;
@@ -107,26 +127,6 @@ namespace bsvars {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
-    }
-
-    inline void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
-        typedef SEXP(*Ptr_normalisation_wz2003)(SEXP,SEXP);
-        static Ptr_normalisation_wz2003 p_normalisation_wz2003 = NULL;
-        if (p_normalisation_wz2003 == NULL) {
-            validateSignature("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
-            p_normalisation_wz2003 = (Ptr_normalisation_wz2003)R_GetCCallable("bsvars", "_bsvars_normalisation_wz2003");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_normalisation_wz2003(Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(B_hat)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
     }
 
 }

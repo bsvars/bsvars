@@ -20,3 +20,13 @@ mat orthogonal_complement_matrix_TW (const mat& x) {
   return ocm;
 } // END orthogonal_complement_matrix_TW
 
+
+
+arma::vec log_mean (
+    arma::mat     log_density     // n x s matrix with log density ordinates
+) {
+  int S               = log_density.n_cols;
+  vec c_log_density   = max(log_density, 1);
+  vec log_numerator   = c_log_density - log(S) + log( sum( exp(log_density.each_col() - c_log_density), 1) );
+  return log_numerator;
+} // log_mean 

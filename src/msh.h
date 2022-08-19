@@ -5,11 +5,6 @@
 #include <RcppArmadillo.h>
 
 
-int csample_num1 (
-    Rcpp::NumericVector x,
-    Rcpp::NumericVector prob = Rcpp::NumericVector::create()
-);
-
 
 arma::vec Ergodic_PR_TR (
     const arma::mat&  PR_TR           // MxM

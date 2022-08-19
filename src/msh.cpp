@@ -1,28 +1,11 @@
 
-#include <RcppArmadilloExtensions/sample.h>
 #include <RcppArmadillo.h>
 #include "Rcpp/Rmath.h"
 
+#include "sample.h"
+
 using namespace Rcpp;
 using namespace arma;
-
-
-
-//---------------------------------------------------------------------------------------------------
-// a transformed sample implementation taken from Rcpp Gallery:
-// https://gallery.rcpp.org/articles/using-the-Rcpp-based-sample-implementation/
-// fixed to one draw, sampling without replacement, and changed output type to int
-// IMPORTANT: always #include <RcppArmadilloExtensions/sample.h>
-//---------------------------------------------------------------------------------------------------
-int csample_num1 (
-    NumericVector x,
-    NumericVector prob = NumericVector::create()
-) {
-  bool replace = false;
-  NumericVector ret = Rcpp::RcppArmadillo::sample(x, 1, replace, prob);
-  int out           = ret(0);
-  return out;
-} // END csample_num1
 
 
 
@@ -263,5 +246,4 @@ void sample_variances_msh (
     aux_sigma2.row(n)     = MM*rIG2_Dirichlet1( posterior_s.row(n), posterior_nu);
   }
 } // END sample_variances_msh
-
 

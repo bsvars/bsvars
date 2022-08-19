@@ -138,6 +138,40 @@ RcppExport SEXP _bsvars_bsvar_sv_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP pr
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// normalisation_wz2003
+void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat);
+static SEXP _bsvars_normalisation_wz2003_try(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
+BEGIN_RCPP
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type B_hat(B_hatSEXP);
+    normalisation_wz2003(posterior_B, B_hat);
+    return R_NilValue;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_normalisation_wz2003(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_normalisation_wz2003_try(posterior_BSEXP, B_hatSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // logSDDR_homoskedasticity
 Rcpp::List logSDDR_homoskedasticity(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_);
 static SEXP _bsvars_logSDDR_homoskedasticity_try(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
@@ -176,40 +210,6 @@ RcppExport SEXP _bsvars_logSDDR_homoskedasticity(SEXP posteriorSEXP, SEXP priorS
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// normalisation_wz2003
-void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat);
-static SEXP _bsvars_normalisation_wz2003_try(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
-BEGIN_RCPP
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type B_hat(B_hatSEXP);
-    normalisation_wz2003(posterior_B, B_hat);
-    return R_NilValue;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_normalisation_wz2003(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_normalisation_wz2003_try(posterior_BSEXP, B_hatSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _bsvars_RcppExport_validate(const char* sig) { 
@@ -218,8 +218,8 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::List(*bsvar_cpp)(const int&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const Rcpp::List&,const Rcpp::List&,const int)");
         signatures.insert("Rcpp::List(*bsvar_msh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool,const bool,const std::string)");
         signatures.insert("Rcpp::List(*bsvar_sv_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool)");
-        signatures.insert("Rcpp::List(*logSDDR_homoskedasticity)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
         signatures.insert("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
+        signatures.insert("Rcpp::List(*logSDDR_homoskedasticity)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -229,8 +229,8 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_cpp", (DL_FUNC)_bsvars_bsvar_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_msh_cpp", (DL_FUNC)_bsvars_bsvar_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_sv_cpp", (DL_FUNC)_bsvars_bsvar_sv_cpp_try);
-    R_RegisterCCallable("bsvars", "_bsvars_logSDDR_homoskedasticity", (DL_FUNC)_bsvars_logSDDR_homoskedasticity_try);
     R_RegisterCCallable("bsvars", "_bsvars_normalisation_wz2003", (DL_FUNC)_bsvars_normalisation_wz2003_try);
+    R_RegisterCCallable("bsvars", "_bsvars_logSDDR_homoskedasticity", (DL_FUNC)_bsvars_logSDDR_homoskedasticity_try);
     R_RegisterCCallable("bsvars", "_bsvars_RcppExport_validate", (DL_FUNC)_bsvars_RcppExport_validate);
     return R_NilValue;
 }
@@ -239,8 +239,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvar_cpp", (DL_FUNC) &_bsvars_bsvar_cpp, 7},
     {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 10},
     {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 8},
-    {"_bsvars_logSDDR_homoskedasticity", (DL_FUNC) &_bsvars_logSDDR_homoskedasticity, 5},
     {"_bsvars_normalisation_wz2003", (DL_FUNC) &_bsvars_normalisation_wz2003, 2},
+    {"_bsvars_logSDDR_homoskedasticity", (DL_FUNC) &_bsvars_logSDDR_homoskedasticity, 5},
     {"_bsvars_RcppExport_registerCCallable", (DL_FUNC) &_bsvars_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };
