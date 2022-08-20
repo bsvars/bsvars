@@ -178,14 +178,26 @@ specify_identification_bsvar = R6::R6Class(
 
 
 
+#' R6 Class Representing DataMatricesBSVAR
+#'
+#' @description
+#' The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, and regressors, \eqn{X}, for the homoskedastic bsvar model.
 specify_data_matrices = R6::R6Class(
   "DataMatricesBSVAR",
   
   public = list(
     
+    #' @field Y an \code{NxT} matrix of dependent variables, \eqn{Y}. 
     Y     = matrix(),
+    
+    #' @field X an \code{KxT} matrix of regressors, \eqn{X}. 
     X     = matrix(),
     
+    #' @description
+    #' Create new data matrices DataMatricesBSVAR.
+    #' @param data a \code{(T+p)xN} matrix with time series data.
+    #' @param p a positive integer providing model's autoregressive lag order.
+    #' @return New data matrices DataMatricesBSVAR.
     initialize = function(data, p = 1L) {
       if (missing(data)) {
         stop("Argument data has to be specified")
@@ -194,6 +206,7 @@ specify_data_matrices = R6::R6Class(
         stopifnot("Argument data has to contain at least 2 columns and 3 rows." = (ncol(data) >= 2 & nrow(data) >= 3))
         stopifnot("Argument data cannot include missing values." = sum(is.na(data)) == 0 )
       }
+      stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       
       TT            = nrow(data)
       T             = TT - p
@@ -206,6 +219,8 @@ specify_data_matrices = R6::R6Class(
       self$X        = t(cbind(X, rep(1, T)))
     }, # END initialize
     
+    #' @description
+    #' Returns the data matrices DataMatricesBSVAR as a \code{list}.
     get_data_matrices = function() {
       list(
         Y = self$Y,
@@ -216,14 +231,43 @@ specify_data_matrices = R6::R6Class(
 ) # END specify_data_matrices
 
 
+
+#' R6 Class representing the specification of the homoskedastic BSVAR model
+#'
+#' @description
+#' The class BSVAR presents complete specification for the homoskedastic bsvar model.
 specify_bsvar = R6::R6Class(
   "BSVAR",
   
   public = list(
+    
+    #' @field p a non-negative integer specifying the autoregressive lag order of the model. 
+    p                      = numeric(),
+    
+    #' @field identification an object IdentificationBSVAR with the identifying restrictions. 
+    identification         = list(),
+    
+    #' @field prior an object PriorBSVAR with the prior specification. 
+    prior                  = list(),
+    
+    #' @field data_matrices an object DataMatricesBSVAR with the data matrices.
+    data_matrices          = list(),
+    
+    #' @field starting_values an object StartingValuesBSVAR with the starting values.
+    starting_values        = list(),
+    
+    #' @description
+    #' Create a new specification of the homoskedastic bsvar model BSVAR.
+    #' @param data a \code{(T+p)xN} matrix with time series data.
+    #' @param p a positive integer providing model's autoregressive lag order.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @return A new complete specification for the homoskedastic bsvar model BSVAR.
     initialize = function(
       data,
       p = 1L,
-      B
+      B,
+      stationary = rep(FALSE, ncol(data))
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
       self$p     = p
@@ -239,35 +283,32 @@ specify_bsvar = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
       
-      
       self$data_matrices   = specify_data_matrices$new(data, p)
       self$identification  = specify_identification_bsvar$new(N, B)
-      self$prior           = specify_prior_bsvar$new(N, p)
+      self$prior           = specify_prior_bsvar$new(N, p, stationary)
       self$starting_values = specify_starting_values_bsvar$new(N, self$p)
     }, # END initialize
     
-    p                      = numeric(),
-    
-    data_matrices          = list(),
-    
-    identification         = list(),
-    
-    prior                  = list(),
-    
-    starting_values        = list(),
-    
+    #' @description
+    #' Returns the data matrices as the DataMatricesBSVAR object.
     get_data_matrices = function() {
       self$data_matrices$clone()
     }, # END get_data_matrices
     
+    #' @description
+    #' Returns the identifying restrictions as the IdentificationBSVAR object.
     get_identification = function() {
       self$identification$clone()
     }, # END get_identification
     
+    #' @description
+    #' Returns the prior specification as the PriorBSVAR object.
     get_prior = function() {
       self$prior$clone()
     }, # END get_prior
     
+    #' @description
+    #' Returns the starting values as the StartingValuesBSVAR object.
     get_starting_values = function() {
       self$starting_values$clone()
     } # END get_starting_values
@@ -293,10 +334,18 @@ specify_bsvar = R6::R6Class(
 # sb_data             = sb$data_matrices$get_data_matrices()
 # 
 # sb$get_data_matrices()
-# sb_prior$get_prior_bsvar()
-# as.list(sb_prior)
+# sb$get_prior()
 # 
 # # this works
 # sb$identification$VB
 # sb$identification$set_identification_bsvar(NN, BB)
 # sb$identification$VB
+# 
+# # full arguments provided
+# sb                  = specify_bsvar$new(y, 1, BB, rep(FALSE, 3))
+# sb_prior            = sb$prior$get_prior_bsvar()
+# sb_starting_values  = sb$starting_values$get_starting_values_bsvar()
+# sb_VB               = sb$identification$get_identification_bsvar()
+# sb_data             = sb$data_matrices$get_data_matrices()
+# 
+# any(class(sb) == "BSVAR")
