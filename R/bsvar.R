@@ -22,28 +22,10 @@
 #' Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
 #' 
 #' @param S a positive integer, the number of posterior draws to be generated
-#' @param Y an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables
-#' @param X a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms
-#' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}
-#' @param prior a list containing the following elements
-#' \describe{
-#'  \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}}
-#'  \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
-#'  \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
-#'  \item{B_nu}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}}
-#'  \item{hyper_nu}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}}
-#'  \item{hyper_a}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters}
-#'  \item{hyper_V}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
-#'  \item{hyper_S}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
-#' }
-#' @param starting_values a list containing the following elements:
-#' \describe{
-#'  \item{A}{an \code{NxK} matrix of starting values for the parameter \eqn{A}}
-#'  \item{B}{an \code{NxN} matrix of starting values for the parameter \eqn{B}}
-#'  \item{hyper}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution}
-#' }
+#' @param specification_bsvar an object of class BSVAR generated using the \code{specify_bsvar$new()} function.
+#' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' 
-#' @return A list containing two elements:
+#' @return An object of class PosteriorBSVAR containing the Bayesian estimation output and containing two elements:
 #' 
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
 #'  \describe{
@@ -52,14 +34,9 @@
 #'  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters of the hierarchical prior distribution}
 #' }
 #' 
-#' \code{last_draw} a list with the last draw of the simulation (to be provided as \code{starting_values} to the follow-up run of \code{bsvar}) containing the following objects:
-#' \describe{
-#'  \item{A}{an \code{NxK} matrix with the last MCMC draw of the parameter matrix \eqn{A}}
-#'  \item{B}{an \code{NxN} matrix with the last MCMC draw of the parameter matrix \eqn{B}}
-#'  \item{hyper}{a \code{5}-vector with the last MCMC draw of the hyper-parameter of the hierarchical prior distribution}
-#'  }
+#' \code{last_draw} an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}. 
 #'
-#' @seealso \code{\link{normalisation_wz2003}}
+#' @seealso \code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalisation_wz2003}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -72,6 +49,21 @@
 #' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 
 #' @export
-bsvar <- function(S, Y, X, VB, prior, starting_values) {
-  .Call(`_bsvars_bsvar_cpp`, S, Y, X, VB, prior, starting_values, 100)
+bsvar <- function(S, specification_bsvar, thin = 100) {
+  
+  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
+  stopifnot("Argument specification_bsvar must be of class BSVAR generated using the specify_bsvar$new() function." = any(class(specification_bsvar) == "BSVAR"))
+  stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  
+  prior               = specification_bsvar$prior$get_prior_bsvar()
+  starting_values     = specification_bsvar$starting_values$get_starting_values_bsvar()
+  VB                  = specification_bsvar$identification$get_identification_bsvar()
+  data_matrices       = specification_bsvar$data_matrices$get_data_matrices()
+
+  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin)
+ 
+  specification_bsvar$starting_values$set_starting_values_bsvar(qqq$last_draw)
+  output              = specify_posterior_bsvar$new(specification_bsvar, qqq$posterior)
+   
+  return(output)
 }
