@@ -22,8 +22,8 @@ might not be equal to the last draw provided in element \code{posterior}.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-PosteriorBSVAR-new}{\code{specify_posterior_bsvar$new()}}
-\item \href{#method-PosteriorBSVAR-get_posterior_bsvar}{\code{specify_posterior_bsvar$get_posterior_bsvar()}}
-\item \href{#method-PosteriorBSVAR-get_last_draw_bsvar}{\code{specify_posterior_bsvar$get_last_draw_bsvar()}}
+\item \href{#method-PosteriorBSVAR-get_posterior}{\code{specify_posterior_bsvar$get_posterior()}}
+\item \href{#method-PosteriorBSVAR-get_last_draw}{\code{specify_posterior_bsvar$get_last_draw()}}
 \item \href{#method-PosteriorBSVAR-clone}{\code{specify_posterior_bsvar$clone()}}
 }
 }
@@ -50,22 +50,22 @@ A new prior specification PriorBSVAR.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-get_posterior_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-get_posterior_bsvar}{}}}
-\subsection{Method \code{get_posterior_bsvar()}}{
+\if{html}{\out{<a id="method-PosteriorBSVAR-get_posterior"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-get_posterior}{}}}
+\subsection{Method \code{get_posterior()}}{
 Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar$get_posterior_bsvar()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar$get_posterior()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-get_last_draw_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-get_last_draw_bsvar}{}}}
-\subsection{Method \code{get_last_draw_bsvar()}}{
+\if{html}{\out{<a id="method-PosteriorBSVAR-get_last_draw"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-get_last_draw}{}}}
+\subsection{Method \code{get_last_draw()}}{
 Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar$get_last_draw_bsvar()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar$get_last_draw()}\if{html}{\out{</div>}}
 }
 
 }

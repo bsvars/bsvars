@@ -21,8 +21,8 @@ The class StartingValuesBSVAR presents starting values for the homoskedastic bsv
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-StartingValuesBSVAR-new}{\code{specify_starting_values_bsvar$new()}}
-\item \href{#method-StartingValuesBSVAR-get_starting_values_bsvar}{\code{specify_starting_values_bsvar$get_starting_values_bsvar()}}
-\item \href{#method-StartingValuesBSVAR-set_starting_values_bsvar}{\code{specify_starting_values_bsvar$set_starting_values_bsvar()}}
+\item \href{#method-StartingValuesBSVAR-get_starting_values}{\code{specify_starting_values_bsvar$get_starting_values()}}
+\item \href{#method-StartingValuesBSVAR-set_starting_values}{\code{specify_starting_values_bsvar$set_starting_values()}}
 \item \href{#method-StartingValuesBSVAR-clone}{\code{specify_starting_values_bsvar$clone()}}
 }
 }
@@ -49,22 +49,22 @@ Starting values StartingValuesBSVAR.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVAR-get_starting_values_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-get_starting_values_bsvar}{}}}
-\subsection{Method \code{get_starting_values_bsvar()}}{
+\if{html}{\out{<a id="method-StartingValuesBSVAR-get_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-get_starting_values}{}}}
+\subsection{Method \code{get_starting_values()}}{
 Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$get_starting_values_bsvar()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$get_starting_values()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVAR-set_starting_values_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-set_starting_values_bsvar}{}}}
-\subsection{Method \code{set_starting_values_bsvar()}}{
+\if{html}{\out{<a id="method-StartingValuesBSVAR-set_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-set_starting_values}{}}}
+\subsection{Method \code{set_starting_values()}}{
 Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$set_starting_values_bsvar(last_draw)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$set_starting_values(last_draw)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

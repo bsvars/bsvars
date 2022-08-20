@@ -31,7 +31,7 @@ The class PriorBSVAR presents a prior specification for the homoskedastic bsvar 
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-PriorBSVAR-new}{\code{specify_prior_bsvar$new()}}
-\item \href{#method-PriorBSVAR-get_prior_bsvar}{\code{specify_prior_bsvar$get_prior_bsvar()}}
+\item \href{#method-PriorBSVAR-get_prior}{\code{specify_prior_bsvar$get_prior()}}
 \item \href{#method-PriorBSVAR-clone}{\code{specify_prior_bsvar$clone()}}
 }
 }
@@ -60,12 +60,12 @@ A new prior specification PriorBSVAR.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAR-get_prior_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAR-get_prior_bsvar}{}}}
-\subsection{Method \code{get_prior_bsvar()}}{
+\if{html}{\out{<a id="method-PriorBSVAR-get_prior"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVAR-get_prior}{}}}
+\subsection{Method \code{get_prior()}}{
 Returns the elements of the prior specification PriorBSVAR as a \code{list}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar$get_prior_bsvar()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar$get_prior()}\if{html}{\out{</div>}}
 }
 
 }

@@ -17,8 +17,8 @@ The class IdentificationBSVAR presents the identifying restrictions for the homo
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-IdentificationBSVAR-new}{\code{specify_identification_bsvar$new()}}
-\item \href{#method-IdentificationBSVAR-get_identification_bsvar}{\code{specify_identification_bsvar$get_identification_bsvar()}}
-\item \href{#method-IdentificationBSVAR-set_identification_bsvar}{\code{specify_identification_bsvar$set_identification_bsvar()}}
+\item \href{#method-IdentificationBSVAR-get_identification}{\code{specify_identification_bsvar$get_identification()}}
+\item \href{#method-IdentificationBSVAR-set_identification}{\code{specify_identification_bsvar$set_identification()}}
 \item \href{#method-IdentificationBSVAR-clone}{\code{specify_identification_bsvar$clone()}}
 }
 }
@@ -45,22 +45,22 @@ Identifying restrictions IdentificationBSVAR.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-IdentificationBSVAR-get_identification_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-IdentificationBSVAR-get_identification_bsvar}{}}}
-\subsection{Method \code{get_identification_bsvar()}}{
+\if{html}{\out{<a id="method-IdentificationBSVAR-get_identification"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentificationBSVAR-get_identification}{}}}
+\subsection{Method \code{get_identification()}}{
 Returns the elements of the identification pattern IdentificationBSVAR as a \code{list}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvar$get_identification_bsvar()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvar$get_identification()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-IdentificationBSVAR-set_identification_bsvar"></a>}}
-\if{latex}{\out{\hypertarget{method-IdentificationBSVAR-set_identification_bsvar}{}}}
-\subsection{Method \code{set_identification_bsvar()}}{
+\if{html}{\out{<a id="method-IdentificationBSVAR-set_identification"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentificationBSVAR-set_identification}{}}}
+\subsection{Method \code{set_identification()}}{
 Set new starting values StartingValuesBSVAR.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvar$set_identification_bsvar(N, B)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvar$set_identification(N, B)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
