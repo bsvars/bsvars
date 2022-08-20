@@ -133,14 +133,14 @@ specify_starting_values_bsvar = R6::R6Class(
 
 
 
-#' R6 Class Representing IdentificationBSVAR
+#' R6 Class Representing IdentificationBSVARs
 #'
 #' @description
-#' The class IdentificationBSVAR presents the identifying restrictions for the homoskedastic bsvar model.
+#' The class IdentificationBSVARs presents the identifying restrictions for the bsvar models.
 #' 
 #' @export
-specify_identification_bsvar = R6::R6Class(
-  "IdentificationBSVAR",
+specify_identification_bsvars = R6::R6Class(
+  "IdentificationBSVARs",
   
   public = list(
     
@@ -148,10 +148,10 @@ specify_identification_bsvar = R6::R6Class(
     VB    = list(),
     
     #' @description
-    #' Create new identifying restrictions IdentificationBSVAR.
+    #' Create new identifying restrictions IdentificationBSVARs.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
-    #' @return Identifying restrictions IdentificationBSVAR.
+    #' @return Identifying restrictions IdentificationBSVARs.
     initialize = function(N, B) {
       if (missing(B)) {
           B     = matrix(FALSE, N, N)
@@ -167,7 +167,7 @@ specify_identification_bsvar = R6::R6Class(
     }, # END initialize
     
     #' @description
-    #' Returns the elements of the identification pattern IdentificationBSVAR as a \code{list}.
+    #' Returns the elements of the identification pattern IdentificationBSVARs as a \code{list}.
     get_identification = function() {
       as.list(self$VB)
     }, # END get_identification
@@ -190,7 +190,7 @@ specify_identification_bsvar = R6::R6Class(
       }
     } # END set_identification
   ) # END public
-) # END specify_identification_bsvar
+) # END specify_identification_bsvars
 
 
 
@@ -304,7 +304,7 @@ specify_bsvar = R6::R6Class(
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
       
       self$data_matrices   = specify_data_matrices$new(data, p)
-      self$identification  = specify_identification_bsvar$new(N, B)
+      self$identification  = specify_identification_bsvars$new(N, B)
       self$prior           = specify_prior_bsvar$new(N, p, stationary)
       self$starting_values = specify_starting_values_bsvar$new(N, self$p)
     }, # END initialize
@@ -316,7 +316,7 @@ specify_bsvar = R6::R6Class(
     }, # END get_data_matrices
     
     #' @description
-    #' Returns the identifying restrictions as the IdentificationBSVAR object.
+    #' Returns the identifying restrictions as the IdentificationBSVARs object.
     get_identification = function() {
       self$identification$clone()
     }, # END get_identification
@@ -361,7 +361,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' Create a new posterior output PosteriorBSVAR.
     #' @param specification_bsvar an object of class BSVAR with the last draw of the current MCMC run as the starting value.
     #' @param posterior_bsvar a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
-    #' @return A new prior specification PriorBSVAR.
+    #' @return A posterior output PosteriorBSVAR.
     initialize = function(specification_bsvar, posterior_bsvar) {
       
       stopifnot("Argument specification_bsvar must be of class BSVAR." = any(class(specification_bsvar) == "BSVAR"))
