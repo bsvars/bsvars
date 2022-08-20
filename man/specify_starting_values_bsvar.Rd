@@ -22,6 +22,7 @@ The class StartingValuesBSVAR presents starting values for the homoskedastic bsv
 \itemize{
 \item \href{#method-StartingValuesBSVAR-new}{\code{specify_starting_values_bsvar$new()}}
 \item \href{#method-StartingValuesBSVAR-get_starting_values_bsvar}{\code{specify_starting_values_bsvar$get_starting_values_bsvar()}}
+\item \href{#method-StartingValuesBSVAR-set_starting_values_bsvar}{\code{specify_starting_values_bsvar$set_starting_values_bsvar()}}
 \item \href{#method-StartingValuesBSVAR-clone}{\code{specify_starting_values_bsvar$clone()}}
 }
 }
@@ -56,6 +57,26 @@ Returns the elements of the starting values StartingValuesBSVAR as a \code{list}
 \if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$get_starting_values_bsvar()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StartingValuesBSVAR-set_starting_values_bsvar"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-set_starting_values_bsvar}{}}}
+\subsection{Method \code{set_starting_values_bsvar()}}{
+Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$set_starting_values_bsvar(last_draw)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-clone"></a>}}

@@ -4,38 +4,17 @@
 \alias{bsvar}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-bsvar(S, Y, X, VB, prior, starting_values)
+bsvar(S, specification_bsvar, thin = 100)
 }
 \arguments{
 \item{S}{a positive integer, the number of posterior draws to be generated}
 
-\item{Y}{an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables}
+\item{specification_bsvar}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
 
-\item{X}{a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms}
-
-\item{VB}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}}
-
-\item{prior}{a list containing the following elements
-\describe{
- \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}}
- \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
- \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
- \item{B_nu}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}}
- \item{hyper_nu}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}}
- \item{hyper_a}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters}
- \item{hyper_V}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
- \item{hyper_S}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
-}}
-
-\item{starting_values}{a list containing the following elements:
-\describe{
- \item{A}{an \code{NxK} matrix of starting values for the parameter \eqn{A}}
- \item{B}{an \code{NxN} matrix of starting values for the parameter \eqn{B}}
- \item{hyper}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution}
-}}
+\item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 }
 \value{
-A list containing two elements:
+An object of class PosteriorBSVAR containing the Bayesian estimation output and containing two elements:
 
  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
  \describe{
@@ -44,12 +23,7 @@ A list containing two elements:
  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters of the hierarchical prior distribution}
 }
 
-\code{last_draw} a list with the last draw of the simulation (to be provided as \code{starting_values} to the follow-up run of \code{bsvar}) containing the following objects:
-\describe{
- \item{A}{an \code{NxK} matrix with the last MCMC draw of the parameter matrix \eqn{A}}
- \item{B}{an \code{NxN} matrix with the last MCMC draw of the parameter matrix \eqn{B}}
- \item{hyper}{a \code{5}-vector with the last MCMC draw of the hyper-parameter of the hierarchical prior distribution}
- }
+\code{last_draw} an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
 }
 \description{
 Estimates the homoskedastic SVAR using the Gibbs sampler proposed by Waggoner & Zha (2003)
@@ -82,7 +56,7 @@ Sampling from the multivariate normal full conditional posterior distribution of
 Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 }
 \seealso{
-\code{\link{normalisation_wz2003}}
+\code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalisation_wz2003}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
