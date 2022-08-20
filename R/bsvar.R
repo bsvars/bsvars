@@ -55,14 +55,14 @@ bsvar <- function(S, specification_bsvar, thin = 100) {
   stopifnot("Argument specification_bsvar must be of class BSVAR generated using the specify_bsvar$new() function." = any(class(specification_bsvar) == "BSVAR"))
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
   
-  prior               = specification_bsvar$prior$get_prior_bsvar()
-  starting_values     = specification_bsvar$starting_values$get_starting_values_bsvar()
-  VB                  = specification_bsvar$identification$get_identification_bsvar()
+  prior               = specification_bsvar$prior$get_prior()
+  starting_values     = specification_bsvar$starting_values$get_starting_values()
+  VB                  = specification_bsvar$identification$get_identification()
   data_matrices       = specification_bsvar$data_matrices$get_data_matrices()
 
   qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin)
  
-  specification_bsvar$starting_values$set_starting_values_bsvar(qqq$last_draw)
+  specification_bsvar$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar$new(specification_bsvar, qqq$posterior)
    
   return(output)

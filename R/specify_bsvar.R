@@ -57,7 +57,7 @@ specify_prior_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the prior specification PriorBSVAR as a \code{list}.
-    get_prior_bsvar = function(){
+    get_prior = function(){
       list(
         A        = self$A,
         A_V_inv  = self$A_V_inv,
@@ -68,7 +68,7 @@ specify_prior_bsvar = R6::R6Class(
         hyper_V  = self$hyper_V,
         hyper_S  = self$hyper_S
       )
-    } # END get_prior_bsvar
+    } # END get_prior
     
   ) # END public
 ) # END specify_prior_bsvar
@@ -111,23 +111,23 @@ specify_starting_values_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-    get_starting_values_bsvar = function(){
+    get_starting_values   = function(){
       list(
         B                 = self$B,
         A                 = self$A,
         hyper             = self$hyper
       )
-    }, # END get_starting_values_bsvar
+    }, # END get_starting_values
     
     #' @description
     #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
     #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
     #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
-    set_starting_values_bsvar = function(last_draw) {
+    set_starting_values   = function(last_draw) {
         self$B            = last_draw$B
         self$A            = last_draw$A
         self$hyper        = last_draw$hyper
-    } # END set_starting_values_bsvar
+    } # END set_starting_values
   ) # END public
 ) # END specify_starting_values_bsvar
 
@@ -168,15 +168,15 @@ specify_identification_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the identification pattern IdentificationBSVAR as a \code{list}.
-    get_identification_bsvar = function() {
+    get_identification = function() {
       as.list(self$VB)
-    }, # END get_identification_bsvar
+    }, # END get_identification
     
     #' @description
     #' Set new starting values StartingValuesBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
-    set_identification_bsvar = function(N, B) {
+    set_identification = function(N, B) {
       if (missing(B)) {
         B     = matrix(FALSE, N, N)
         B[lower.tri(B, diag = TRUE)] = TRUE
@@ -188,7 +188,7 @@ specify_identification_bsvar = R6::R6Class(
       for (n in 1:N) {
         self$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
       }
-    } # END set_identification_bsvar
+    } # END set_identification
   ) # END public
 ) # END specify_identification_bsvar
 
@@ -373,15 +373,15 @@ specify_posterior_bsvar = R6::R6Class(
     
     #' @description
     #' Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
-    get_posterior_bsvar = function(){
+    get_posterior       = function(){
       self$posterior$clone()
-    }, # END get_posterior_bsvar
+    }, # END get_posterior
     
     #' @description
     #' Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
-    get_last_draw_bsvar = function(){
+    get_last_draw      = function(){
       self$last_draw$clone()
-    } # END get_last_draw_bsvar
+    } # END get_last_draw
 
   ) # END public
 ) # END specify_posterior_bsvar
