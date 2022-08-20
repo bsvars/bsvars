@@ -46,7 +46,7 @@ Create a new posterior output PosteriorBSVAR.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new prior specification PriorBSVAR.
+A posterior output PosteriorBSVAR.
 }
 }
 \if{html}{\out{<hr>}}

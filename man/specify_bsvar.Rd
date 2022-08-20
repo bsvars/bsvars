@@ -72,7 +72,7 @@ Returns the data matrices as the DataMatricesBSVAR object.
 \if{html}{\out{<a id="method-BSVAR-get_identification"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVAR-get_identification}{}}}
 \subsection{Method \code{get_identification()}}{
-Returns the identifying restrictions as the IdentificationBSVAR object.
+Returns the identifying restrictions as the IdentificationBSVARs object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar$get_identification()}\if{html}{\out{</div>}}
 }

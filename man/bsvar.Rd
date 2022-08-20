@@ -4,12 +4,12 @@
 \alias{bsvar}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-bsvar(S, specification_bsvar, thin = 100)
+bsvar(S, specification, thin = 10)
 }
 \arguments{
 \item{S}{a positive integer, the number of posterior draws to be generated}
 
-\item{specification_bsvar}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
+\item{specification}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 }
