@@ -5,7 +5,7 @@
 #'
 #' @usage data(us_monetary_wd)
 #' 
-#' @format A matrix with time series of 192 observations on 7 variables:
+#' @format A matrix and a \code{ts} object with time series of 192 observations on 7 variables:
 #' \describe{
 #'   \item{gdp}{log of real gross domestic product, seasonally adjusted}
 #'   \item{p}{log of gross domestic product: implicit price deflator, seasonally adjusted}
@@ -33,7 +33,7 @@
 #'   \item{FED}{Board of Governors of the Federal Reserve System}
 #' }
 #' 
-#' @references Woźniak, T., and Droumaguet, M.. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
+#' @references Woźniak, T., and Droumaguet, M. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, URL: \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
 #' 
 #' @source FRED Economic Database, Federal Reserve Bank of St. Louis, \url{https://fred.stlouisfed.org/}
 "us_monetary_wd"
