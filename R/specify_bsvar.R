@@ -42,7 +42,7 @@ specify_prior_bsvar = R6::R6Class(
     initialize = function(N, p, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
-      stopifnot("Argument stationary must be an N-vector." = length(stationary) == N)
+      stopifnot("Argument stationary must be a logical vector of length N." = length(stationary) == N & is.logical(stationary))
       
       K                 = N * p + 1
       self$A            = cbind(diag(as.numeric(!stationary)), matrix(0, N, K - N))

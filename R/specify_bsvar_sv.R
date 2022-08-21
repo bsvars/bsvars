@@ -36,10 +36,10 @@ specify_prior_bsvar_sv = R6::R6Class(
     #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
     hyper_S    = NA,
     
-    #' @field sv_a_ a positive scalar, the shape parameter of the gamma prior in the hierarchical prior for \code{sigma2_omega}. 
+    #' @field sv_a_ a positive scalar, the shape parameter of the gamma prior in the hierarchical prior for \eqn{\sigma^2_{\omega}}. 
     sv_a_      = numeric(),
     
-    #' @field sv_s_ a positive scalar, the scale parameter of the gamma prior in the hierarchical prior for \code{sigma2_omega}.
+    #' @field sv_s_ a positive scalar, the scale parameter of the gamma prior in the hierarchical prior for \eqn{\sigma^2_{\omega}}.
     sv_s_      = numeric(),
     
     #' @description
@@ -51,7 +51,7 @@ specify_prior_bsvar_sv = R6::R6Class(
     initialize = function(N, p, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
-      stopifnot("Argument stationary must be an N-vector." = length(stationary) == N)
+      stopifnot("Argument stationary must be a logical vector of length N." = length(stationary) == N & is.logical(stationary))
       
       super$initialize(N, p, stationary)
       self$sv_a_             = 1
@@ -114,10 +114,10 @@ specify_starting_values_bsvar_sv = R6::R6Class(
     #' @field S an \code{NxT} integer matrix with the auxiliary mixture component indicators.
     S             = matrix(),
     
-    #' @field sigma2_omega an \code{N}-vector with variances of the zero-mean normal prior for \code{omega}.
+    #' @field sigma2_omega an \code{N}-vector with variances of the zero-mean normal prior for \eqn{\omega_n}.
     sigma2_omega  = numeric(),
     
-    #' @field s_ a positive scalar with the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}.
+    #' @field s_ a positive scalar with the scale of the gamma prior of the hierarchical prior for \eqn{\sigma^2_{\omega}}.
     s_            = numeric(),
     
     #' @description
@@ -268,7 +268,7 @@ specify_bsvar_sv = R6::R6Class(
 #'
 #' @description
 #' The class PosteriorBSVAR-SV contains posterior output and the specification including 
-#' the last MCMC draw for the homoskedastic bsvar model. 
+#' the last MCMC draw for the bsvar model with Stochastic Volatility heteroskedasticity.
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
 #' 
@@ -299,13 +299,13 @@ specify_posterior_bsvar_sv = R6::R6Class(
     }, # END initialize
     
     #' @description
-    #' Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+    #' Returns a list containing Bayesian estimation.
     get_posterior       = function(){
       self$posterior$clone()
     }, # END get_posterior
     
     #' @description
-    #' Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' Returns an object of class BSVAR-SV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}.
     get_last_draw      = function(){
       self$last_draw$clone()
     } # END get_last_draw

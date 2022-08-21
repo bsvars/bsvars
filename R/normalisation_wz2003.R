@@ -19,8 +19,7 @@
 #' @return Nothing. The normalised elements overwrite the corresponding elements of 
 #' the first argument \code{posterior_B} by reference.
 #' 
-#' @seealso \code{\link{bsvar}}, \code{\link{bsvar_msh}}, \code{\link{bsvar_sv}}, \code{\link{bsvar_ihmm}}
-#' \code{\link{bsvar_mix}}, \code{\link{bsvar_dph}}
+#' @seealso \code{\link{bsvar}}, \code{\link{bsvar_msh}}, \code{\link{bsvar_sv}}, \code{\link{bsvar_mix}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
