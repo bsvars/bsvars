@@ -37,10 +37,26 @@ specify_prior_bsvar_sv = R6::R6Class(
     hyper_S    = NA,
     
     #' @field sv_a_ a positive scalar, the shape parameter of the gamma prior in the hierarchical prior for \code{sigma2_omega}. 
-    # sv_a_      = numeric(),
+    sv_a_      = numeric(),
     
     #' @field sv_s_ a positive scalar, the scale parameter of the gamma prior in the hierarchical prior for \code{sigma2_omega}.
-    # sv_s_      = numeric(),
+    sv_s_      = numeric(),
+    
+    #' @description
+    #' Create a new prior specification PriorBSVAR-SV.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @return A new prior specification PriorBSVAR-SV.
+    initialize = function(N, p, stationary = rep(FALSE, N)){
+      stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
+      stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
+      stopifnot("Argument stationary must be an N-vector." = length(stationary) == N)
+      
+      super$initialize(N, p, stationary)
+      self$sv_a_             = 1
+      self$sv_s_             = 0.1
+    }, # END initialize
 
     #' @description
     #' Returns the elements of the prior specification PriorBSVAR-SV as a \code{list}.
@@ -62,11 +78,6 @@ specify_prior_bsvar_sv = R6::R6Class(
   ) # END public
 ) # END specify_prior_bsvar_sv
 
-# Class specify_prior_bsvar_sv modifiers
-specify_prior_bsvar_sv$set("public", "sv_a_", 1)
-specify_prior_bsvar_sv$set("public", "sv_s_", .1)
-
-
 
 
 #' R6 Class Representing StartingValuesBSVAR-SV
@@ -77,6 +88,8 @@ specify_prior_bsvar_sv$set("public", "sv_s_", .1)
 #' @export
 specify_starting_values_bsvar_sv = R6::R6Class(
   "StartingValuesBSVAR-SV",
+  
+  inherit = specify_starting_values_bsvar,
   
   public = list(
     
@@ -118,10 +131,8 @@ specify_starting_values_bsvar_sv = R6::R6Class(
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
       
-      K                   = N * p + 1
-      self$B              = diag(N)
-      self$A              = cbind(diag(runif(N)), matrix(0, N, K - N))
-      self$hyper          = c(1,rep(1,4))
+      super$initialize(N, p)
+      
       self$h              = matrix(rnorm(N * T, sd = .01), N, T)
       self$rho            = rep(.5, N)
       self$omega          = rep(.1, N)

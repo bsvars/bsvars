@@ -6,9 +6,6 @@
 \description{
 The class PriorBSVAR-SV presents a prior specification for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
-\section{Super class}{
-\code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-SV}
-}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -37,17 +34,35 @@ The class PriorBSVAR-SV presents a prior specification for the bsvar model with 
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-PriorBSVAR-SV-new}{\code{specify_prior_bsvar_sv$new()}}
 \item \href{#method-PriorBSVAR-SV-get_prior}{\code{specify_prior_bsvar_sv$get_prior()}}
 \item \href{#method-PriorBSVAR-SV-clone}{\code{specify_prior_bsvar_sv$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVAR" data-id="initialize"><a href='../../bsvars/html/PriorBSVAR.html#method-PriorBSVAR-initialize'><code>bsvars::PriorBSVAR$initialize()</code></a></span></li>
-</ul>
-</details>
-}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PriorBSVAR-SV-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVAR-SV-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new prior specification PriorBSVAR-SV.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$new(N, p, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+
+\item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+
+\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new prior specification PriorBSVAR-SV.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PriorBSVAR-SV-get_prior"></a>}}
 \if{latex}{\out{\hypertarget{method-PriorBSVAR-SV-get_prior}{}}}
