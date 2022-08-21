@@ -71,4 +71,19 @@
 #' @references
 #' Woźniak, Tomasz, and Matthieu Droumaguet. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
 #' @keywords package models ts
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
+#' set.seed(123)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate_bsvar_sv(50, specification)
+#' 
+#' # estimate the model
+#' posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
+#' 
 NULL
