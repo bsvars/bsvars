@@ -1,8 +1,8 @@
 
-#' R6 Class Representing PriorBSVAR-SV
+#' R6 Class Representing PriorBSVAR-MSH
 #'
 #' @description
-#' The class PriorBSVAR-MS presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
+#' The class PriorBSVAR-MSH presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
 #' 
 #' @export
 specify_prior_bsvar_msh = R6::R6Class(
@@ -51,7 +51,7 @@ specify_prior_bsvar_msh = R6::R6Class(
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
-    #' @return A new prior specification PriorBSVAR-SV.
+    #' @return A new prior specification PriorBSVAR-MSH.
     initialize = function(N, p, M, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
@@ -113,10 +113,10 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution. 
     hyper         = numeric(),
     
-    #' @field sigma2 an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum up to value \code{M} over the rows.
+    #' @field sigma2 an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.
     sigma2        = matrix(),
     
-    #' @field PR_TR an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum up to 1 over the rows.
+    #' @field PR_TR an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum to 1 over the rows.
     PR_TR         = matrix(),
     
     #' @field xi an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.
@@ -190,6 +190,8 @@ specify_starting_values_bsvar_msh = R6::R6Class(
 #'
 #' @description
 #' The class BSVAR-MSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
+#' 
+#' @seealso \code{\link{estimate_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}
 #' 
 #' @export
 specify_bsvar_msh = R6::R6Class(
@@ -294,6 +296,8 @@ specify_bsvar_msh = R6::R6Class(
 #' the last MCMC draw for the bsvar model with Markov Switching Heteroskedasticity. 
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
+#' 
+#' @seealso \code{\link{estimate_bsvar_msh}}, \code{\link{specify_bsvar_msh}}
 #' 
 #' @export
 specify_posterior_bsvar_msh = R6::R6Class(

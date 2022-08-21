@@ -255,6 +255,8 @@ specify_data_matrices = R6::R6Class(
 #' @description
 #' The class BSVAR presents complete specification for the homoskedastic bsvar model.
 #' 
+#' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_posterior_bsvar}}
+#' 
 #' @export
 specify_bsvar = R6::R6Class(
   "BSVAR",
@@ -344,6 +346,8 @@ specify_bsvar = R6::R6Class(
 #' the last MCMC draw for the homoskedastic bsvar model. 
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
+#' 
+#' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_bsvar}}
 #' 
 #' @export
 specify_posterior_bsvar = R6::R6Class(

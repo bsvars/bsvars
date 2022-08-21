@@ -182,6 +182,8 @@ specify_starting_values_bsvar_sv = R6::R6Class(
 #' @description
 #' The class BSVAR-SV presents complete specification for the BSVAR model with Stochastic Volatility heteroskedasticity.
 #' 
+#' @seealso \code{\link{estimate_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}
+#' 
 #' @export
 specify_bsvar_sv = R6::R6Class(
   "BSVAR-SV",
@@ -271,6 +273,8 @@ specify_bsvar_sv = R6::R6Class(
 #' the last MCMC draw for the bsvar model with Stochastic Volatility heteroskedasticity.
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
+#' 
+#' @seealso \code{\link{estimate_bsvar_sv}}, \code{\link{specify_bsvar_sv}}
 #' 
 #' @export
 specify_posterior_bsvar_sv = R6::R6Class(
