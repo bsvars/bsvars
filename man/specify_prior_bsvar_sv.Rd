@@ -6,6 +6,9 @@
 \description{
 The class PriorBSVAR-SV presents a prior specification for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
+\section{Super class}{
+\code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-SV}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

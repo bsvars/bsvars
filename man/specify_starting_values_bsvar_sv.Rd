@@ -6,6 +6,9 @@
 \description{
 The class StartingValuesBSVAR-SV presents starting values for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
+\section{Super class}{
+\code{bsvars::StartingValuesBSVAR} -> \code{StartingValuesBSVAR-SV}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
