@@ -6,6 +6,9 @@
 \description{
 The class BSVAR presents complete specification for the homoskedastic bsvar model.
 }
+\seealso{
+\code{\link{estimate_bsvar}}, \code{\link{specify_posterior_bsvar}}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

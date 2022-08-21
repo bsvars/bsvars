@@ -32,7 +32,7 @@ Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multi
 \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.
 }
 \seealso{
-\code{\link{bsvar}}, \code{\link{bsvar_msh}}, \code{\link{bsvar_sv}}, \code{\link{bsvar_mix}}
+\code{\link{estimate_bsvar}}, \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_sv}}, \code{\link{estimate_bsvar_mix}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

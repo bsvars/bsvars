@@ -9,6 +9,9 @@ the last MCMC draw for the homoskedastic bsvar model.
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
 }
+\seealso{
+\code{\link{estimate_bsvar}}, \code{\link{specify_bsvar}}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

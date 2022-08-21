@@ -6,6 +6,9 @@
 \description{
 The class BSVAR-MSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
 }
+\seealso{
+\code{\link{estimate_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

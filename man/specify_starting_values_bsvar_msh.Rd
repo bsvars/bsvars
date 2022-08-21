@@ -18,9 +18,9 @@ The class StartingValuesBSVAR-MSH presents starting values for the bsvar model w
 
 \item{\code{hyper}}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution.}
 
-\item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum up to value \code{M} over the rows.}
+\item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
 
-\item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum up to 1 over the rows.}
+\item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum to 1 over the rows.}
 
 \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
 

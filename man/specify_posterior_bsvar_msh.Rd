@@ -9,6 +9,9 @@ the last MCMC draw for the bsvar model with Markov Switching Heteroskedasticity.
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
 }
+\seealso{
+\code{\link{estimate_bsvar_msh}}, \code{\link{specify_bsvar_msh}}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

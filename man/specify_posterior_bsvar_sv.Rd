@@ -9,6 +9,9 @@ the last MCMC draw for the bsvar model with Stochastic Volatility heteroskedasti
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
 }
+\seealso{
+\code{\link{estimate_bsvar_sv}}, \code{\link{specify_bsvar_sv}}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

@@ -2,9 +2,9 @@
 % Please edit documentation in R/specify_bsvar_msh.R
 \name{specify_prior_bsvar_msh}
 \alias{specify_prior_bsvar_msh}
-\title{R6 Class Representing PriorBSVAR-SV}
+\title{R6 Class Representing PriorBSVAR-MSH}
 \description{
-The class PriorBSVAR-MS presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
+The class PriorBSVAR-MSH presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
 }
 \section{Super class}{
 \code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-MSH}
@@ -67,7 +67,7 @@ Create a new prior specification PriorBSVAR-MSH.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new prior specification PriorBSVAR-SV.
+A new prior specification PriorBSVAR-MSH.
 }
 }
 \if{html}{\out{<hr>}}

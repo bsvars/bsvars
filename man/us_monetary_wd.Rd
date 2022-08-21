@@ -5,7 +5,7 @@
 \alias{us_monetary_wd}
 \title{A 7-variable US monetary system for the period 1960 Q1 -- 2007 Q4}
 \format{
-A matrix with time series of 192 observations on 7 variables:
+A matrix and a \code{ts} object with time series of 192 observations on 7 variables:
 \describe{
   \item{gdp}{log of real gross domestic product, seasonally adjusted}
   \item{p}{log of gross domestic product: implicit price deflator, seasonally adjusted}
@@ -43,6 +43,6 @@ data(us_monetary_wd)
 A system used to identify the US monetary policy shock in various ways.
 }
 \references{
-Woźniak, T., and Droumaguet, M.. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
+Woźniak, T., and Droumaguet, M. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, URL: \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
 }
 \keyword{datasets}
