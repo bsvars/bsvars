@@ -33,35 +33,11 @@
 #' This restriction might limit the number of states applicable to some time series.
 #' 
 #' @param S a positive integer, the number of posterior draws to be generated
-#' @param Y an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables
-#' @param X a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms
-#' @param prior a list containing the following elements
-#' \describe{
-#'  \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}}
-#'  \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
-#'  \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
-#'  \item{B_nu}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \code{B}}
-#'  \item{hyper_nu}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \code{B} and \code{A}}
-#'  \item{hyper_a}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters}
-#'  \item{hyper_V}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
-#'  \item{hyper_S}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
-#'  \item{sigma_nu}{a positive scalar, the common shape parameter of the IG2-based Dirichlet prior for conditional variances}
-#'  \item{sigma_s}{a positive scalar, the common scale parameter of the IG2-based Dirichlet prior for conditional variances}
-#'  \item{PR_TR}{an \code{MxM} matrix of the parameters of Dirichlet prior for transition probability matrix. The rows of \code{PR_TR} correspond to the rows of the transition matrix. }
-#' }
-#' @param VB a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}
-#' @param starting_values a list containing the following elements:
-#' \describe{
-#'  \item{A}{an \code{NxK} matrix of starting values for the parameter \eqn{A}}
-#'  \item{B}{an \code{NxN} matrix of starting values for the parameter \eqn{B}}
-#'  \item{hyper}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution}
-#'  \item{sigma2}{an \code{NxM} matrix of staring values for the structural shocks conditional variances}
-#'  \item{PR_TR}{an \code{MxM} matrix  of staring values for the transition matrix. These have to be non-negative values summing to 1 by rows.}
-#'  \item{xi}{an \code{MxT} matrix of starting values for the regime allocation matrix. Its elements are zeros and ones and sum to 1 by columns.}
-#'  \item{pi_0}{an \code{M}-vector of starting values for the ergodic probabilities}
-#' }
+#' @param specification an object of class BSVAR-MSH generated using the \code{specify_bsvar_msh$new()} function.
+#' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' 
-#' @return A list containing two elements:
+#' @return An object of class PosteriorBSVAR-MSH containing the Bayesian estimation output and containing two elements:
+#' 
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
 #'  \describe{
 #'  \item{A}{an \code{NxKxS} array with the posterior draws for matrix \eqn{A}}
@@ -70,7 +46,7 @@
 #'  \item{sigma2}{an \code{NxMxS} array with the posterior draws for the structural shocks conditional variances}
 #'  \item{PR_TR}{an \code{MxMxS} array with the posterior draws for the transition matrix.}
 #'  \item{xi}{an \code{MxTxS} array with the posterior draws for the regime allocation matrix.}
-#'  \item{pi_0}{an \code{MxS} matrix with the posterior draws for the ergodic probabilities}
+#'  \item{pi_0}{an \code{MxS} matrix with the posterior draws for the initial state probabilities}
 #' }
 #' 
 #' \code{last_draw} a list with the last draw of the simulation (to be provided as \code{starting_values} to the follow-up run of \code{bsvar}) containing the following objects:
@@ -81,7 +57,7 @@
 #'  \item{sigma2}{an \code{NxM} matrix with the last MCMC draw of the structural shocks conditional variances}
 #'  \item{PR_TR}{an \code{MxM} matrix with the last MCMC draw of the transition matrix.}
 #'  \item{xi}{an \code{MxT} matrix with the last MCMC draw of the regime allocation matrix.}
-#'  \item{pi_0}{an \code{M}-vector with the last MCMC draw of the ergodic probabilities}
+#'  \item{pi_0}{an \code{M}-vector with the last MCMC draw of the initial state probabilities}
 #'  }
 #'
 #' @seealso \code{\link{normalisation_wz2003}}
@@ -117,7 +93,27 @@
 #' Chib, S. (1996) Calculating posterior distributions and modal estimates in Markov mixture models. \emph{Journal of Econometrics}, \bold{75}(1), 79–97, \doi{https://doi.org/10.1016/0304-4076(95)01770-4}.
 #' 
 #' @export
-bsvar_msh <- function(S, Y, X, prior, VB, starting_values) {
-  model = "MSH"
-  .Call(`_bsvars_bsvar_msh_cpp`, S, Y, X, prior, VB, starting_values, 100, TRUE, TRUE, model)
+bsvar_msh <- function(S, specification, thin = 10) {
+  
+  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
+  stopifnot("Argument specification must be of class BSVAR-MSH generated using the specify_bsvar_msh$new() function." = any(class(specification) == "BSVAR-MSH"))
+  stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  
+  prior               = specification$prior$get_prior()
+  starting_values     = specification$starting_values$get_starting_values()
+  VB                  = specification$identification$get_identification()
+  data_matrices       = specification$data_matrices$get_data_matrices()
+  finiteM             = specification$finiteM
+  if (finiteM) {
+    model             = "stationaryMSH"
+  } else {
+    model             = "sparseMSH"
+  }
+  
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, TRUE, model)
+  
+  specification$starting_values$set_starting_values(qqq$last_draw)
+  output              = specify_posterior_bsvar_msh$new(specification, qqq$posterior)
+  
+  return(output)
 }
