@@ -26,9 +26,9 @@ The class StartingValuesBSVAR-SV presents starting values for the bsvar model wi
 
 \item{\code{S}}{an \code{NxT} integer matrix with the auxiliary mixture component indicators.}
 
-\item{\code{sigma2_omega}}{an \code{N}-vector with variances of the zero-mean normal prior for \code{omega}.}
+\item{\code{sigma2_omega}}{an \code{N}-vector with variances of the zero-mean normal prior for \eqn{\omega_n}.}
 
-\item{\code{s_}}{a positive scalar with the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}.}
+\item{\code{s_}}{a positive scalar with the scale of the gamma prior of the hierarchical prior for \eqn{\sigma^2_{\omega}}.}
 }
 \if{html}{\out{</div>}}
 }

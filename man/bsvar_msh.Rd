@@ -5,45 +5,18 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with 
 Markov-switching heteroskedasticity via Gibbs sampler}
 \usage{
-bsvar_msh(S, Y, X, prior, VB, starting_values)
+bsvar_msh(S, specification, thin = 10)
 }
 \arguments{
 \item{S}{a positive integer, the number of posterior draws to be generated}
 
-\item{Y}{an \code{NxT} matrix, the matrix containing \code{T} observations on \code{N} dependent time series variables}
+\item{specification}{an object of class BSVAR-MSH generated using the \code{specify_bsvar_msh$new()} function.}
 
-\item{X}{a \code{KxT} matrix, the matrix containing \code{T} observations on \code{K = N*p+d} regressors including \code{p} lags of dependent variables and \code{d} deterministic terms}
-
-\item{prior}{a list containing the following elements
-\describe{
- \item{A}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}}
- \item{A_V_inv}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
- \item{B_V_inv}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
- \item{B_nu}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \code{B}}
- \item{hyper_nu}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \code{B} and \code{A}}
- \item{hyper_a}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters}
- \item{hyper_V}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
- \item{hyper_S}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters}
- \item{sigma_nu}{a positive scalar, the common shape parameter of the IG2-based Dirichlet prior for conditional variances}
- \item{sigma_s}{a positive scalar, the common scale parameter of the IG2-based Dirichlet prior for conditional variances}
- \item{PR_TR}{an \code{MxM} matrix of the parameters of Dirichlet prior for transition probability matrix. The rows of \code{PR_TR} correspond to the rows of the transition matrix. }
-}}
-
-\item{VB}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}}
-
-\item{starting_values}{a list containing the following elements:
-\describe{
- \item{A}{an \code{NxK} matrix of starting values for the parameter \eqn{A}}
- \item{B}{an \code{NxN} matrix of starting values for the parameter \eqn{B}}
- \item{hyper}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution}
- \item{sigma2}{an \code{NxM} matrix of staring values for the structural shocks conditional variances}
- \item{PR_TR}{an \code{MxM} matrix  of staring values for the transition matrix. These have to be non-negative values summing to 1 by rows.}
- \item{xi}{an \code{MxT} matrix of starting values for the regime allocation matrix. Its elements are zeros and ones and sum to 1 by columns.}
- \item{pi_0}{an \code{M}-vector of starting values for the ergodic probabilities}
-}}
+\item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 }
 \value{
-A list containing two elements:
+An object of class PosteriorBSVAR-MSH containing the Bayesian estimation output and containing two elements:
+
  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
  \describe{
  \item{A}{an \code{NxKxS} array with the posterior draws for matrix \eqn{A}}
@@ -52,7 +25,7 @@ A list containing two elements:
  \item{sigma2}{an \code{NxMxS} array with the posterior draws for the structural shocks conditional variances}
  \item{PR_TR}{an \code{MxMxS} array with the posterior draws for the transition matrix.}
  \item{xi}{an \code{MxTxS} array with the posterior draws for the regime allocation matrix.}
- \item{pi_0}{an \code{MxS} matrix with the posterior draws for the ergodic probabilities}
+ \item{pi_0}{an \code{MxS} matrix with the posterior draws for the initial state probabilities}
 }
 
 \code{last_draw} a list with the last draw of the simulation (to be provided as \code{starting_values} to the follow-up run of \code{bsvar}) containing the following objects:
@@ -63,7 +36,7 @@ A list containing two elements:
  \item{sigma2}{an \code{NxM} matrix with the last MCMC draw of the structural shocks conditional variances}
  \item{PR_TR}{an \code{MxM} matrix with the last MCMC draw of the transition matrix.}
  \item{xi}{an \code{MxT} matrix with the last MCMC draw of the regime allocation matrix.}
- \item{pi_0}{an \code{M}-vector with the last MCMC draw of the ergodic probabilities}
+ \item{pi_0}{an \code{M}-vector with the last MCMC draw of the initial state probabilities}
  }
 }
 \description{

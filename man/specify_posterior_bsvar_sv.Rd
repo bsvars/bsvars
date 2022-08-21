@@ -5,7 +5,7 @@
 \title{R6 Class Representing PosteriorBSVAR-SV}
 \description{
 The class PosteriorBSVAR-SV contains posterior output and the specification including 
-the last MCMC draw for the homoskedastic bsvar model. 
+the last MCMC draw for the bsvar model with Stochastic Volatility heteroskedasticity.
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
 }
@@ -53,7 +53,7 @@ A posterior output PosteriorBSVAR-SV.
 \if{html}{\out{<a id="method-PosteriorBSVAR-SV-get_posterior"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAR-SV-get_posterior}{}}}
 \subsection{Method \code{get_posterior()}}{
-Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+Returns a list containing Bayesian estimation.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$get_posterior()}\if{html}{\out{</div>}}
 }
@@ -63,7 +63,7 @@ Returns a list containing Bayesian estimation output collected in elements an \c
 \if{html}{\out{<a id="method-PosteriorBSVAR-SV-get_last_draw"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAR-SV-get_last_draw}{}}}
 \subsection{Method \code{get_last_draw()}}{
-Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+Returns an object of class BSVAR-SV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$get_last_draw()}\if{html}{\out{</div>}}
 }
