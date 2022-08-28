@@ -11,7 +11,9 @@
 #'  matrix elements and their functions such as the impulse response functions and other 
 #'  economically interpretable values. 
 #' 
-#' @param posterior_B an \code{NxNxS} array containing \code{S} draws from the posterior 
+#' @param posterior posterior estimation outcome - an object of either of classes: 
+#' PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+#' containing, amongst other draws, the \code{S} draws from the posterior 
 #' distribution of the \code{NxN} matrix of contemporaneous relationships \eqn{B}. 
 #' These draws are to be normalised with respect to:
 #' @param B_hat an \code{NxN} matrix specified by the user to have the desired row signs
@@ -28,6 +30,19 @@
 #' \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.
 #'
 #' @export
-normalisation_wz2003 <- function(posterior_B, B_hat) {
+normalise_posterior <- function(posterior, B_hat) {
+  
+  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
+  posterior_B     = posterior$posterior$B
+  N               = dim(posterior_B)[1]
+  last_draw_B     = array(NA, c(N, N, 1))
+  last_draw_B[,,1] = posterior$last_draw$starting_values$B
+  stopifnot("Argument B_hat must be a numeric matrix of dimensions NxN." = all(dim(posterior_B)[1:2] ==  dim(B_hat)) & is.numeric(B_hat))
+  
   invisible(.Call(`_bsvars_normalisation_wz2003`, posterior_B, B_hat))
+  invisible(.Call(`_bsvars_normalisation_wz2003`, last_draw_B, B_hat))
+  
+  posterior$posterior$B                 = posterior_B
+  posterior$last_draw$starting_values$B = last_draw_B[,,1]
+  posterior$set_normalised()
 }

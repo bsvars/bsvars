@@ -86,4 +86,8 @@
 #' # estimate the model
 #' posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
 #' 
+#' # normalise the posterior
+#' BB            = estimation$last_draw$starting_values$B     # get the last draw of B
+#' B_hat         = diag(sign(diag(BB))) %*% BB                # set the sign of diagonal elements to positive numbers
+#' bsvars::normalise_posterior(estimation, B_hat)             # the draws in object posterior are normalised by reference
 NULL

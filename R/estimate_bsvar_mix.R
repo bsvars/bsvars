@@ -51,7 +51,7 @@
 #' 
 #' \code{last_draw} an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
 #'
-#' @seealso \code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalisation_wz2003}}
+#' @seealso \code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise_posterior}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

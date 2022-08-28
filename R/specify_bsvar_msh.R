@@ -303,6 +303,10 @@ specify_bsvar_msh = R6::R6Class(
 specify_posterior_bsvar_msh = R6::R6Class(
   "PosteriorBSVAR-MSH",
   
+  private = list(
+    normalised = FALSE
+  ), # END private
+  
   public = list(
     
     #' @field last_draw an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}. 
@@ -335,7 +339,24 @@ specify_posterior_bsvar_msh = R6::R6Class(
     #' Returns an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
     get_last_draw      = function(){
       self$last_draw$clone()
-    } # END get_last_draw
+    }, # END get_last_draw
+    
+    #' @description
+    #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+    is_normalised      = function(){
+      private$normalised
+    }, # END is_normalised
+    
+    #' @description
+    #' Sets the private indicator \code{normalised} to TRUE.
+    #' @param value (optional) a logical value to be passed to indicator \code{normalised}.
+    set_normalised     = function(value){
+      if (missing(value)) {
+        private$normalised <- TRUE
+      } else {
+        private$normalised <- value
+      }
+    } # END set_normalised
     
   ) # END public
 ) # END specify_posterior_bsvar_msh
