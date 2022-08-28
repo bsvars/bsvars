@@ -99,7 +99,7 @@ Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Dat
 \doi{10.1016/j.csda.2013.01.002}.
 }
 \seealso{
-\code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalisation_wz2003}}
+\code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise_posterior}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

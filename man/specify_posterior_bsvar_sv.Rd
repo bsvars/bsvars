@@ -27,6 +27,8 @@ might not be equal to the last draw provided in element \code{posterior}.
 \item \href{#method-PosteriorBSVAR-SV-new}{\code{specify_posterior_bsvar_sv$new()}}
 \item \href{#method-PosteriorBSVAR-SV-get_posterior}{\code{specify_posterior_bsvar_sv$get_posterior()}}
 \item \href{#method-PosteriorBSVAR-SV-get_last_draw}{\code{specify_posterior_bsvar_sv$get_last_draw()}}
+\item \href{#method-PosteriorBSVAR-SV-is_normalised}{\code{specify_posterior_bsvar_sv$is_normalised()}}
+\item \href{#method-PosteriorBSVAR-SV-set_normalised}{\code{specify_posterior_bsvar_sv$set_normalised()}}
 \item \href{#method-PosteriorBSVAR-SV-clone}{\code{specify_posterior_bsvar_sv$clone()}}
 }
 }
@@ -71,6 +73,33 @@ Returns an object of class BSVAR-SV with the last draw of the current MCMC run a
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$get_last_draw()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PosteriorBSVAR-SV-is_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-SV-is_normalised}{}}}
+\subsection{Method \code{is_normalised()}}{
+Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$is_normalised()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PosteriorBSVAR-SV-set_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-SV-set_normalised}{}}}
+\subsection{Method \code{set_normalised()}}{
+Sets the private indicator \code{normalised} to TRUE.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$set_normalised(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{(optional) a logical value to be passed to indicator \code{normalised}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAR-SV-clone"></a>}}
