@@ -27,6 +27,8 @@ might not be equal to the last draw provided in element \code{posterior}.
 \item \href{#method-PosteriorBSVAR-MIX-new}{\code{specify_posterior_bsvar_mix$new()}}
 \item \href{#method-PosteriorBSVAR-MIX-get_posterior}{\code{specify_posterior_bsvar_mix$get_posterior()}}
 \item \href{#method-PosteriorBSVAR-MIX-get_last_draw}{\code{specify_posterior_bsvar_mix$get_last_draw()}}
+\item \href{#method-PosteriorBSVAR-MIX-is_normalised}{\code{specify_posterior_bsvar_mix$is_normalised()}}
+\item \href{#method-PosteriorBSVAR-MIX-set_normalised}{\code{specify_posterior_bsvar_mix$set_normalised()}}
 \item \href{#method-PosteriorBSVAR-MIX-clone}{\code{specify_posterior_bsvar_mix$clone()}}
 }
 }
@@ -71,6 +73,33 @@ Returns an object of class BSVAR-MIX with the last draw of the current MCMC run 
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$get_last_draw()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-is_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-is_normalised}{}}}
+\subsection{Method \code{is_normalised()}}{
+Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$is_normalised()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-set_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-set_normalised}{}}}
+\subsection{Method \code{set_normalised()}}{
+Sets the private indicator \code{normalised} to TRUE.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$set_normalised(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{(optional) a logical value to be passed to indicator \code{normalised}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAR-MIX-clone"></a>}}
