@@ -16,3 +16,8 @@ structural shocks.
 This package is distributed under license GPL (\>= 3)
 
 Copyright © 2022 Tomasz Woźniak (email: <wozniak.tom@pm.me>)
+
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/donotdespair/bsvars/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/donotdespair/bsvars/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->

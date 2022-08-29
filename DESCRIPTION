@@ -1,7 +1,7 @@
 Package: bsvars
 Type: Package
 Title: Bayesian Estimation of Structural Vector Autoregressive Models
-Version: 0.0.2.9000
+Version: 1.0.0
 Date: 2022-08-29
 Author: person("Tomasz", "Woźniak", , "wozniak.tom@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2212-2378"))
@@ -18,3 +18,4 @@ Imports:
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 Sugests: tinytest
 RoxygenNote: 7.2.1
+BugReports: https://github.com/donotdespair/bsvars/issues
