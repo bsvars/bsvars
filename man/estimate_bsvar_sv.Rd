@@ -55,7 +55,7 @@ where \eqn{Y} is an \code{NxT} matrix of dependent variables, \eqn{X} is a \code
 The structural equation is given by
 \deqn{BE = U}
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
-\eqn{B} is an \code{NxN} matrix of contemporaneous relationships between structural shocks in the columns of matrix \eqn{U}.
+\eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 
 Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
 The conditional variance of the \code{n}th shock at time \code{t} is given by:

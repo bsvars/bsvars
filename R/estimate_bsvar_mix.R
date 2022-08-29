@@ -20,7 +20,7 @@
 #' The structural equation is given by
 #' \deqn{BE = U}
 #' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
-#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships between structural shocks in the columns of matrix \eqn{U}.
+#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 #' 
 #' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and finite-mixture of normals distributed with zero mean.
 #' The conditional variance of the \code{n}th shock at time \code{t} is given by:
@@ -29,8 +29,14 @@
 #' the regime-specific conditional variances of structural shocks \eqn{s^2_{n.s_t}}. 
 #' In this model, the variances of each of the structural shocks sum to \code{M}.
 #' 
-#' NOTE: The estimation of the Markov process for this model requires at least 2 occurrences of each of the regimes at each MCMC iteration.
-#' This restriction might limit the number of states applicable to some time series.
+#' The regime indicator \eqn{s_t} is either such that:
+#' \itemize{
+#'   \item the regime probabilities are non-zero which requires all regimes to have 
+#'   a positive number occurrences over the sample period, or
+#'   \item sparse with potentially many regimes with zero occurrences over the sample period
+#'   and in which the number of regimes is estimated.
+#' }
+#' These model selection also with this respect is made using function \code{\link{specify_bsvar_mix}}.
 #' 
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.
@@ -79,6 +85,10 @@
 #' and
 #' 
 #' Frühwirth-Schnatter, S., (2006) Finite Mixture and Markov Switching Models. Springer Series in Statistics. New York: Springer, \doi{https://doi.org/10.1007/978-0-387-35768-3}.
+#' 
+#' The sparse model is inspired by:
+#' 
+#' Malsiner-Walli, G., Frühwirth-Schnatter, S., and Grün, B. (2016) Model-based clustering based on sparse finite Gaussian mixtures. \emph{Statistics and Computing}, \bold{26}(1–2), 303--324, \doi{https://doi.org/10.1007/s11222-014-9500-2}.
 #' 
 #' The forward-filtering backward-sampling is implemented following the proposal by:
 #' 

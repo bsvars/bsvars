@@ -5,19 +5,14 @@
 
 Bayesian Estimation of Structural Vector Autoregressive Models
 
-## Installation
-
-Installation from a private repository requires an authentication token
-and installed package **devtools**. In April 2022, the download code is:
-
-``` r
-devtools::install_git("https://gitlab+deploy-token-957505:pGGxsq_NrnAxeh8yt4wV@gitlab.com/tomaszwozniak/bsvars.git")
-```
-
-<!-- ## Example -->
+This package provides efficient algorithms for Bayesian estimation of
+Structural Vector Autoregressive (SVAR) models via Markov chain Monte
+Carlo methods. A wide range of SVAR models is considered, including
+homo- and heteroskedastic specifications and those with non-normal
+structural shocks.
 
 ## License
 
-This package is distributed under license GPL (>= 3)
+This package is distributed under license GPL (\>= 3)
 
-Copyright © 2021 Tomasz Woźniak (email: <wozniak.tom@pm.me>)
+Copyright © 2022 Tomasz Woźniak (email: <wozniak.tom@pm.me>)

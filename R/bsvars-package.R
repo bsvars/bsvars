@@ -21,9 +21,10 @@
 #
 #' @title Bayesian Estimation of Structural Vector Autoregressive Models
 #'
-#' @description This package provides an efficient algorithm for fully Bayesian 
-#' estimation of Structural Vector Autoregressive (SVAR) models via
-#' Markov chain Monte Carlo (MCMC) methods. 
+#' @description This package provides efficient algorithms for Bayesian estimation of 
+#' Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. 
+#' A wide range of SVAR models is considered, including homo- and heteroskedastic specifications 
+#' and those with non-normal structural shocks.
 #' 
 #' @details 
 #' All the SVAR models in this package are specified by two equations, including 
@@ -38,8 +39,7 @@
 #' The structural equation is given by:
 #' \deqn{BE = U}
 #' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
-#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships between 
-#' structural shocks in the columns of matrix \eqn{U}.
+#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 #' 
 #' Finally, all of the models share the following assumptions regarding the structural
 #' shocks \code{U}, namely, joint conditional normality given the past observations collected
@@ -50,11 +50,11 @@
 #' variances. The different models include:
 #' \itemize{
 #'   \item homoskedastic model with unit variances
-#'   \item heteroskedastic model with Markov switching in the variances
+#'   \item heteroskedastic model with stationary Markov switching in the variances
 #'   \item heteroskedastic model with Stochastic Volatility process for variances
-#'   \item heteroskedastic model with the Infinite Hidden Markov Model (IHMM) for variances
 #'   \item non-normal model with a finite mixture of normal components and component-specific variances
-#'   \item non-normal model with an infinite mixture of normal components and component-specific variances
+#'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
+#'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
 #' }
 #' @name bsvars-package
 #' @aliases bsvars-package bsvars
