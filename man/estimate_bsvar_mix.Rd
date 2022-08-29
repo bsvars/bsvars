@@ -5,7 +5,7 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with shocks following 
 a finite mixture of normal components via Gibbs sampler}
 \usage{
-estimate_bsvar_mix(S, specification, thin = 10)
+estimate_bsvar_mix(S, specification, thin = 10, show_progress = TRUE)
 }
 \arguments{
 \item{S}{a positive integer, the number of posterior draws to be generated}
@@ -13,6 +13,8 @@ estimate_bsvar_mix(S, specification, thin = 10)
 \item{specification}{an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
+
+\item{show_progress}{a logical value, if \code{TRUE} the estimation progress bar is visible}
 }
 \value{
 An object of class PosteriorBSVAR-MIX containing the Bayesian estimation output and containing two elements:

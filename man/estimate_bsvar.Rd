@@ -4,7 +4,7 @@
 \alias{estimate_bsvar}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-estimate_bsvar(S, specification, thin = 10)
+estimate_bsvar(S, specification, thin = 10, show_progress = TRUE)
 }
 \arguments{
 \item{S}{a positive integer, the number of posterior draws to be generated}
@@ -12,6 +12,8 @@ estimate_bsvar(S, specification, thin = 10)
 \item{specification}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
+
+\item{show_progress}{a logical value, if \code{TRUE} the estimation progress bar is visible}
 }
 \value{
 An object of class PosteriorBSVAR containing the Bayesian estimation output and containing two elements:

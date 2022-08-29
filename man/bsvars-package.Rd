@@ -61,9 +61,9 @@ burn_in        = estimate_bsvar_sv(50, specification)
 posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
 
 # normalise the posterior
-BB            = estimation$last_draw$starting_values$B     # get the last draw of B
-B_hat         = diag(sign(diag(BB))) \%*\% BB                # set the sign of diagonal elements to positive numbers
-bsvars::normalise_posterior(estimation, B_hat)             # the draws in object posterior are normalised by reference
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
 }
 \references{
 Woźniak, Tomasz, and Matthieu Droumaguet. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
