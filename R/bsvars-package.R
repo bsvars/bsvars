@@ -60,8 +60,9 @@
 #' @aliases bsvars-package bsvars
 #' @docType package
 #' @useDynLib bsvars, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
 #' @importFrom GIGrvg rgig
+#' @importFrom R6 R6Class
+#' @importFrom Rcpp sourceCpp
 #' @importFrom RcppTN rtn
 #' @import RcppProgress
 #' @importFrom R6 R6Class

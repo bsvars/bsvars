@@ -1,3 +1,4 @@
+
 #' R6 Class Representing PriorBSVAR
 #'
 #' @description
