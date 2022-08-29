@@ -15,7 +15,7 @@ Imports:
     RcppTN,
     GIGrvg,
     R6
+Suggests: tinytest
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
-Sugests: tinytest
 RoxygenNote: 7.2.1
 BugReports: https://github.com/donotdespair/bsvars/issues
