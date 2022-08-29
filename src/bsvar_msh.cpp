@@ -23,20 +23,23 @@ Rcpp::List bsvar_msh_cpp (
     const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
     const bool              MSnotMIX = true,
-    const std::string       name_model = "" // just 3 characters
+    const std::string       name_model = "",// just 3 characters
+    const bool              show_progress = true
 ) {
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
-  Rcout << "**************************************************|" << endl;
-  Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
-  Rcout << "**************************************************|" << endl;
-  Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
-  Rcout << "**************************************************|" << endl;
-  Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-  Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
-  Rcout << " Press Esc to interrupt the computations" << endl;
-  Rcout << "**************************************************|" << endl;
-  Progress p(50, true);
+  if (show_progress) {
+    Rcout << "**************************************************|" << endl;
+    Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
+    Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
+    Rcout << " Press Esc to interrupt the computations" << endl;
+    Rcout << "**************************************************|" << endl;
+  }
+  Progress p(50, show_progress);
   
   const int   T     = Y.n_cols;
   const int   N     = Y.n_rows;

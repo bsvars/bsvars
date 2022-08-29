@@ -24,6 +24,7 @@
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR generated using the \code{specify_bsvar$new()} function.
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class PosteriorBSVAR containing the Bayesian estimation output and containing two elements:
 #' 
@@ -63,7 +64,7 @@
 #' posterior      = estimate_bsvar(100, burn_in$get_last_draw())
 #' 
 #' @export
-estimate_bsvar <- function(S, specification, thin = 10) {
+estimate_bsvar <- function(S, specification, thin = 10, show_progress = TRUE) {
   
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument specification must be of class BSVAR generated using the specify_bsvar$new() function." = any(class(specification) == "BSVAR"))
@@ -74,7 +75,7 @@ estimate_bsvar <- function(S, specification, thin = 10) {
   VB                  = specification$identification$get_identification()
   data_matrices       = specification$data_matrices$get_data_matrices()
 
-  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin)
+  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin, show_progress)
  
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar$new(specification, qqq$posterior)

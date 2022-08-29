@@ -21,20 +21,23 @@ Rcpp::List bsvar_sv_cpp (
     const arma::field<arma::mat>& VB,         // restrictions on B0
     const Rcpp::List&             starting_values, 
     const int                     thin = 100, // introduce thinning
-    const bool                    sample_s_ = true
+    const bool                    sample_s_ = true,
+    const bool                    show_progress = true
 ) {
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
-  Rcout << "**************************************************|" << endl;
-  Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
-  Rcout << "**************************************************|" << endl;
-  Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
-  Rcout << "**************************************************|" << endl;
-  Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-  Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
-  Rcout << " Press Esc to interrupt the computations" << endl;
-  Rcout << "**************************************************|" << endl;
-  Progress p(50, true);
+  if (show_progress) {
+    Rcout << "**************************************************|" << endl;
+    Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
+    Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
+    Rcout << " Press Esc to interrupt the computations" << endl;
+    Rcout << "**************************************************|" << endl;
+  }
+  Progress p(50, show_progress);
   
   const int   T     = Y.n_cols;
   const int   N     = Y.n_rows;

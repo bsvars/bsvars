@@ -35,6 +35,7 @@
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class PosteriorBSVAR-MIX containing the Bayesian estimation output and containing two elements:
 #' 
@@ -98,7 +99,7 @@
 #' posterior      = estimate_bsvar_mix(100, burn_in$get_last_draw())
 #' 
 #' @export
-estimate_bsvar_mix <- function(S, specification, thin = 10) {
+estimate_bsvar_mix <- function(S, specification, thin = 10, show_progress = TRUE) {
   
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument specification must be of class BSVAR-MIX generated using the specify_bsvar_mix$new() function." = any(class(specification) == "BSVAR-MIX"))
@@ -115,7 +116,7 @@ estimate_bsvar_mix <- function(S, specification, thin = 10) {
     model             = "sparseMIX"
   }
   
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, FALSE, model)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, FALSE, model, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification, qqq$posterior)

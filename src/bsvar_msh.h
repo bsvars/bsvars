@@ -15,7 +15,8 @@ Rcpp::List bsvar_msh_cpp (
     const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
     const bool              MSnotMIX = true,
-    const std::string       name_model = ""
+    const std::string       name_model = "",
+    const bool              show_progress = true
 );
 
 

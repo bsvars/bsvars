@@ -12,7 +12,8 @@ Rcpp::List bsvar_sv_cpp (
     const arma::field<arma::mat>& VB,         // restrictions on B0
     const Rcpp::List&             starting_values, 
     const int                     thin = 100, // introduce thinning
-    const bool                    sample_s_ = true
+    const bool                    sample_s_ = true,
+    const bool                    show_progress = true
 );
 
 

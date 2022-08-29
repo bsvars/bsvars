@@ -11,7 +11,8 @@ Rcpp::List bsvar_cpp(
     const arma::field<arma::mat>& VB,     // N-list
     const Rcpp::List& prior,              // a list of priors
     const Rcpp::List& starting_values,    // a list of starting values
-    const int         thin = 100          // introduce thinning
+    const int         thin = 100,         // introduce thinning
+    const bool        show_progress = true
 );
 
 #endif  // _BSVAR_H_
