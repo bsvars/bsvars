@@ -17,3 +17,4 @@ Imports:
     R6
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 RoxygenNote: 7.2.1
+Sugests: tinytest
