@@ -3,9 +3,9 @@ Type: Package
 Title: Bayesian Estimation of Structural Vector Autoregressive Models
 Version: 1.0.0
 Date: 2022-08-29
-Author: person("Tomasz", "Woźniak", , "wozniak.tom@pm.me", role = c("aut", "cre"),
+Authors@R: person("Tomasz", "Woźniak", , "wozniak.tom@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2212-2378"))
-Description: This package provides efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks.
+Description: Efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks.
 License: GPL (>= 3)
 Maintainer: Tomasz Woźniak <wozniak.tom@pm.me>
 Encoding: UTF-8

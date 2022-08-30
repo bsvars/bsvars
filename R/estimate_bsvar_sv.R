@@ -86,10 +86,10 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(50, specification)
+#' burn_in        = estimate_bsvar_sv(10, specification)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
 #' 
 #' @export
 estimate_bsvar_sv <- function(S, specification, thin = 10, show_progress = TRUE) {

@@ -21,7 +21,7 @@
 #
 #' @title Bayesian Estimation of Structural Vector Autoregressive Models
 #'
-#' @description This package provides efficient algorithms for Bayesian estimation of 
+#' @description Efficient algorithms for Bayesian estimation of 
 #' Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. 
 #' A wide range of SVAR models is considered, including homo- and heteroskedastic specifications 
 #' and those with non-normal structural shocks.
@@ -70,7 +70,7 @@
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' @references
-#' Woźniak, Tomasz, and Matthieu Droumaguet. (2015) Assessing Monetary Policy Models: Bayesian Inference for Heteroskedastic Structural VARs, \url{http://fbe.unimelb.edu.au/__data/assets/pdf_file/0010/1724932/2017TWozniakhoneyhoney.pdf}.
+#' Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
 #' @keywords package models ts
 #' 
 #' @examples
@@ -82,10 +82,10 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(50, specification)
+#' burn_in        = estimate_bsvar_sv(10, specification)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
 #' 
 #' # normalise the posterior
 #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B

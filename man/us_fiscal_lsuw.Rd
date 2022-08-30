@@ -32,9 +32,9 @@ data(us_fiscal_lsuw)
 A system used to identify the US fiscal policy shocks.
 }
 \references{
-Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Implications for the Technology‐hours Debate. \emph{Journal of Money, Credit and Banking}, 41(6), 1071-1097, DOI: \url{https://doi.org/10.1111/j.1538-4616.2009.00247.x}.
+Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Implications for the Technology‐hours Debate. \emph{Journal of Money, Credit and Banking}, 41(6), 1071-1097, DOI: \doi{https://doi.org/10.1111/j.1538-4616.2009.00247.x}.
 
-Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \url{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
+Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
 
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 }

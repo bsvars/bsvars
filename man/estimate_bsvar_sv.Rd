@@ -74,10 +74,10 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate_bsvar_sv(50, specification)
+burn_in        = estimate_bsvar_sv(10, specification)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(100, burn_in$get_last_draw())
+posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
 
 }
 \references{
