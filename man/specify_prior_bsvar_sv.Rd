@@ -6,6 +6,20 @@
 \description{
 The class PriorBSVAR-SV presents a prior specification for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
+\examples{
+prior = specify_prior_bsvar_sv$new(N = 3, p = 1) # a prior for 3-variable example with one lag
+prior$A                                          # show autoregressive prior mean
+
+
+## ------------------------------------------------
+## Method `specify_prior_bsvar_sv$get_prior`
+## ------------------------------------------------
+
+# a prior for 3-variable example with four lags
+prior = specify_prior_bsvar_sv$new(N = 3, p = 4)
+prior$get_prior() # show the prior as list
+
+}
 \section{Super class}{
 \code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-SV}
 }
@@ -73,6 +87,17 @@ A new prior specification PriorBSVAR-SV.
 Returns the elements of the prior specification PriorBSVAR-SV as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$get_prior()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# a prior for 3-variable example with four lags
+prior = specify_prior_bsvar_sv$new(N = 3, p = 4)
+prior$get_prior() # show the prior as list
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

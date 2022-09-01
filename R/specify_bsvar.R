@@ -4,6 +4,10 @@
 #' @description
 #' The class PriorBSVAR presents a prior specification for the homoskedastic bsvar model.
 #' 
+#' @examples 
+#' prior = specify_prior_bsvar$new(N = 3, p = 1)  # a prior for 3-variable example with one lag
+#' prior$A                                        # show autoregressive prior mean
+#' 
 #' @export
 specify_prior_bsvar = R6::R6Class(
   "PriorBSVAR",
@@ -40,6 +44,11 @@ specify_prior_bsvar = R6::R6Class(
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @return A new prior specification PriorBSVAR.
+    #' @examples 
+    #' # a prior for 3-variable example with one lag and stationary data
+    #' prior = specify_prior_bsvar$new(N = 3, p = 1, stationary = rep(TRUE, 3))
+    #' prior$A # show autoregressive prior mean
+    #' 
     initialize = function(N, p, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
@@ -58,6 +67,12 @@ specify_prior_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the prior specification PriorBSVAR as a \code{list}.
+    #' 
+    #' @examples 
+    #' # a prior for 3-variable example with four lags
+    #' prior = specify_prior_bsvar$new(N = 3, p = 4)
+    #' prior$get_prior() # show the prior as list
+    #' 
     get_prior = function(){
       list(
         A        = self$A,
@@ -80,6 +95,10 @@ specify_prior_bsvar = R6::R6Class(
 #' @description
 #' The class StartingValuesBSVAR presents starting values for the homoskedastic bsvar model.
 #' 
+#' @examples 
+#' # starting values for a homoskedastic bsvar for a 3-variable system
+#' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+#' 
 #' @export
 specify_starting_values_bsvar = R6::R6Class(
   "StartingValuesBSVAR",
@@ -100,6 +119,10 @@ specify_starting_values_bsvar = R6::R6Class(
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @return Starting values StartingValuesBSVAR.
+    #' @examples 
+    #' # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
+    #' sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+    #' 
     initialize = function(N, p){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
@@ -112,6 +135,12 @@ specify_starting_values_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+    #' 
+    #' @examples 
+    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' sv$get_starting_values()   # show starting values as list
+    #' 
     get_starting_values   = function(){
       list(
         B                 = self$B,
@@ -124,6 +153,16 @@ specify_starting_values_bsvar = R6::R6Class(
     #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
     #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
     #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' 
+    #' @examples 
+    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' 
+    #' # Modify the starting values by:
+    #' sv_list = sv$get_starting_values()   # getting them as list
+    #' sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+    #' sv$set_starting_values(sv_list)      # providing to the class object
+    #' 
     set_starting_values   = function(last_draw) {
         self$B            = last_draw$B
         self$A            = last_draw$A
@@ -138,6 +177,12 @@ specify_starting_values_bsvar = R6::R6Class(
 #'
 #' @description
 #' The class IdentificationBSVARs presents the identifying restrictions for the bsvar models.
+#' 
+#' @examples 
+#' specify_identification_bsvars$new(N = 3) # recursive specification for a 3-variable system
+#' 
+#' B = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+#' specify_identification_bsvars$new(N = 3, B = B) # an alternative identification pattern
 #' 
 #' @export
 specify_identification_bsvars = R6::R6Class(
@@ -169,6 +214,12 @@ specify_identification_bsvars = R6::R6Class(
     
     #' @description
     #' Returns the elements of the identification pattern IdentificationBSVARs as a \code{list}.
+    #' 
+    #' @examples 
+    #' B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+    #' spec = specify_identification_bsvars$new(N = 3, B = B)
+    #' spec$get_identification()
+    #' 
     get_identification = function() {
       as.list(self$VB)
     }, # END get_identification
@@ -177,6 +228,12 @@ specify_identification_bsvars = R6::R6Class(
     #' Set new starting values StartingValuesBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' 
+    #' @examples 
+    #' spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+    #' B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+    #' spec$set_identification(N = 3, B = B)  # modify an existing specification
+    #' spec$get_identification()              # check the outcome
     set_identification = function(N, B) {
       if (missing(B)) {
         B     = matrix(FALSE, N, N)
@@ -199,6 +256,11 @@ specify_identification_bsvars = R6::R6Class(
 #'
 #' @description
 #' The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, and regressors, \eqn{X}, for the homoskedastic bsvar model.
+#' 
+#' @examples 
+#' data(us_fiscal_lsuw)
+#' YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
+#' dim(YX$Y); dim(YX$X)
 #' 
 #' @export
 specify_data_matrices = R6::R6Class(
@@ -240,6 +302,12 @@ specify_data_matrices = R6::R6Class(
     
     #' @description
     #' Returns the data matrices DataMatricesBSVAR as a \code{list}.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
+    #' YX$get_data_matrices()
+    #' 
     get_data_matrices = function() {
       list(
         Y = self$Y,
@@ -257,6 +325,13 @@ specify_data_matrices = R6::R6Class(
 #' The class BSVAR presents complete specification for the homoskedastic bsvar model.
 #' 
 #' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_posterior_bsvar}}
+#' 
+#' @examples 
+#' data(us_fiscal_lsuw)
+#' spec = specify_bsvar$new(
+#'    data = us_fiscal_lsuw,
+#'    p = 4
+#' )
 #' 
 #' @export
 specify_bsvar = R6::R6Class(
@@ -314,24 +389,60 @@ specify_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the data matrices as the DataMatricesBSVAR object.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' spec = specify_bsvar$new(
+    #'    data = us_fiscal_lsuw,
+    #'    p = 4
+    #' )
+    #' spec$get_data_matrices()
+    #' 
     get_data_matrices = function() {
       self$data_matrices$clone()
     }, # END get_data_matrices
     
     #' @description
     #' Returns the identifying restrictions as the IdentificationBSVARs object.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' spec = specify_bsvar$new(
+    #'    data = us_fiscal_lsuw,
+    #'    p = 4
+    #' )
+    #' spec$get_identification()
+    #' 
     get_identification = function() {
       self$identification$clone()
     }, # END get_identification
     
     #' @description
     #' Returns the prior specification as the PriorBSVAR object.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' spec = specify_bsvar$new(
+    #'    data = us_fiscal_lsuw,
+    #'    p = 4
+    #' )
+    #' spec$get_prior()
+    #' 
     get_prior = function() {
       self$prior$clone()
     }, # END get_prior
     
     #' @description
     #' Returns the starting values as the StartingValuesBSVAR object.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' spec = specify_bsvar$new(
+    #'    data = us_fiscal_lsuw,
+    #'    p = 4
+    #' )
+    #' spec$get_starting_values()
+    #' 
     get_starting_values = function() {
       self$starting_values$clone()
     } # END get_starting_values
@@ -349,6 +460,14 @@ specify_bsvar = R6::R6Class(
 #' might not be equal to the last draw provided in element \code{posterior}.
 #' 
 #' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_bsvar}}
+#' 
+#' @examples 
+#' # This is a function that is used within estimate_bsvar()
+#' data(us_fiscal_lsuw)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+#' set.seed(123)
+#' estimate       = estimate_bsvar(50, specification)
+#' class(estimate)
 #' 
 #' @export
 specify_posterior_bsvar = R6::R6Class(
@@ -382,18 +501,66 @@ specify_posterior_bsvar = R6::R6Class(
     
     #' @description
     #' Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' specification  = specify_bsvar$new(us_fiscal_lsuw)
+    #' set.seed(123)
+    #' estimate       = estimate_bsvar(50, specification)
+    #' estimate$get_posterior()
+    #' 
     get_posterior       = function(){
-      self$posterior$clone()
+      self$posterior
     }, # END get_posterior
     
     #' @description
     #' Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' 
+    #' @examples
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+    #' set.seed(123)
+    #' 
+    #' # run the burn-in
+    #' burn_in        = estimate_bsvar(10, specification)
+    #' 
+    #' # get the last draw
+    #' last_draw      = burn_in$get_last_draw()
+    #' 
+    #' # estimate the model
+    #' posterior      = estimate_bsvar(10, last_draw)
+    #' 
     get_last_draw      = function(){
       self$last_draw$clone()
     }, # END get_last_draw
     
     #' @description
     #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+    #' 
+    #' @examples
+    #' # upload data
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+    #' set.seed(123)
+    #' 
+    #' # estimate the model
+    #' posterior      = estimate_bsvar(10, specification, thin = 1)
+    #' 
+    #' # check normalisation status beforehand
+    #' posterior$is_normalised()
+    #' 
+    #' # normalise the posterior
+    #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+    #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
+    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' 
+    #' # check normalisation status afterwards
+    #' posterior$is_normalised()
+    #' 
     is_normalised      = function(){
       private$normalised
     }, # END is_normalised
@@ -401,6 +568,32 @@ specify_posterior_bsvar = R6::R6Class(
     #' @description
     #' Sets the private indicator \code{normalised} to TRUE.
     #' @param value (optional) a logical value to be passed to indicator \code{normalised}.
+    #' 
+    #' @examples
+    #' # This is an internal function that is run while executing normalise_posterior()
+    #' # Observe its working by analysing the workflow:
+    #' 
+    #' # upload data
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+    #' set.seed(123)
+    #' 
+    #' # estimate the model
+    #' posterior      = estimate_bsvar(10, specification, thin = 1)
+    #' 
+    #' # check normalisation status beforehand
+    #' posterior$is_normalised()
+    #' 
+    #' # normalise the posterior
+    #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+    #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
+    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' 
+    #' # check normalisation status afterwards
+    #' posterior$is_normalised()
+    #' 
     set_normalised     = function(value){
       if (missing(value)) {
         private$normalised <- TRUE

@@ -6,6 +6,15 @@
 \description{
 The class BSVAR-MIX presents complete specification for the BSVAR model with a zero-mean mixture of normals model for structural shocks.
 }
+\examples{
+data(us_fiscal_lsuw)
+spec = specify_bsvar_mix$new(
+   data = us_fiscal_lsuw,
+   p = 4,
+   M = 2
+)
+
+}
 \seealso{
 \code{\link{estimate_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}
 }

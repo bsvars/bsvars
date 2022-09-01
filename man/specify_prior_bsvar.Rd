@@ -6,6 +6,29 @@
 \description{
 The class PriorBSVAR presents a prior specification for the homoskedastic bsvar model.
 }
+\examples{
+prior = specify_prior_bsvar$new(N = 3, p = 1)  # a prior for 3-variable example with one lag
+prior$A                                        # show autoregressive prior mean
+
+
+## ------------------------------------------------
+## Method `specify_prior_bsvar$new`
+## ------------------------------------------------
+
+# a prior for 3-variable example with one lag and stationary data
+prior = specify_prior_bsvar$new(N = 3, p = 1, stationary = rep(TRUE, 3))
+prior$A # show autoregressive prior mean
+
+
+## ------------------------------------------------
+## Method `specify_prior_bsvar$get_prior`
+## ------------------------------------------------
+
+# a prior for 3-variable example with four lags
+prior = specify_prior_bsvar$new(N = 3, p = 4)
+prior$get_prior() # show the prior as list
+
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -58,6 +81,17 @@ Create a new prior specification PriorBSVAR.
 \subsection{Returns}{
 A new prior specification PriorBSVAR.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# a prior for 3-variable example with one lag and stationary data
+prior = specify_prior_bsvar$new(N = 3, p = 1, stationary = rep(TRUE, 3))
+prior$A # show autoregressive prior mean
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PriorBSVAR-get_prior"></a>}}
@@ -66,6 +100,17 @@ A new prior specification PriorBSVAR.
 Returns the elements of the prior specification PriorBSVAR as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar$get_prior()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# a prior for 3-variable example with four lags
+prior = specify_prior_bsvar$new(N = 3, p = 4)
+prior$get_prior() # show the prior as list
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

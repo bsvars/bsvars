@@ -6,6 +6,20 @@
 \description{
 The class PriorBSVAR-MSH presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
 }
+\examples{
+prior = specify_prior_bsvar_msh$new(N = 3, p = 1, M = 2)  # specify the prior
+prior$A                                        # show autoregressive prior mean
+
+
+## ------------------------------------------------
+## Method `specify_prior_bsvar_msh$get_prior`
+## ------------------------------------------------
+
+# a prior for 3-variable example with four lags and two regimes
+prior = specify_prior_bsvar_msh$new(N = 3, p = 4, M = 2)
+prior$get_prior() # show the prior as list
+
+}
 \section{Super class}{
 \code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-MSH}
 }
@@ -77,6 +91,17 @@ A new prior specification PriorBSVAR-MSH.
 Returns the elements of the prior specification PriorBSVAR-MSH as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_msh$get_prior()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# a prior for 3-variable example with four lags and two regimes
+prior = specify_prior_bsvar_msh$new(N = 3, p = 4, M = 2)
+prior$get_prior() # show the prior as list
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

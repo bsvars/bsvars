@@ -9,6 +9,101 @@ the last MCMC draw for the bsvar model with a zero-mean mixture of normals model
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
 }
+\examples{
+# This is a function that is used within estimate_bsvar()
+data(us_fiscal_lsuw)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+set.seed(123)
+estimate       = estimate_bsvar_mix(10, specification, thin = 1)
+class(estimate)
+
+
+## ------------------------------------------------
+## Method `specify_posterior_bsvar_mix$get_posterior`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+set.seed(123)
+estimate       = estimate_bsvar_mix(10, specification, thin = 1)
+estimate$get_posterior()
+
+
+## ------------------------------------------------
+## Method `specify_posterior_bsvar_mix$get_last_draw`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+
+# run the burn-in
+set.seed(123)
+burn_in        = estimate_bsvar_mix(10, specification, thin = 2)
+
+# get the last draw
+last_draw      = burn_in$get_last_draw()
+
+# estimate the model
+posterior      = estimate_bsvar_mix(10, last_draw, thin = 2)
+
+
+## ------------------------------------------------
+## Method `specify_posterior_bsvar_mix$is_normalised`
+## ------------------------------------------------
+
+# upload data
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+
+# estimate the model
+set.seed(123)
+posterior      = estimate_bsvar_mix(10, specification, thin = 1)
+
+# check normalisation status beforehand
+posterior$is_normalised()
+
+# normalise the posterior
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+
+# check normalisation status afterwards
+posterior$is_normalised()
+
+
+## ------------------------------------------------
+## Method `specify_posterior_bsvar_mix$set_normalised`
+## ------------------------------------------------
+
+# This is an internal function that is run while executing normalise_posterior()
+# Observe its working by analysing the workflow:
+
+# upload data
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+set.seed(123)
+
+# estimate the model
+posterior      = estimate_bsvar(10, specification, thin = 1)
+
+# check normalisation status beforehand
+posterior$is_normalised()
+
+# normalise the posterior
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+
+# check normalisation status afterwards
+posterior$is_normalised()
+
+}
 \seealso{
 \code{\link{estimate_bsvar_mix}}, \code{\link{specify_bsvar_mix}}
 }
@@ -63,6 +158,19 @@ Returns a list containing Bayesian estimation output.
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$get_posterior()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+set.seed(123)
+estimate       = estimate_bsvar_mix(10, specification, thin = 1)
+estimate$get_posterior()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAR-MIX-get_last_draw"></a>}}
@@ -73,6 +181,28 @@ Returns an object of class BSVAR-MIX with the last draw of the current MCMC run 
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$get_last_draw()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+
+# run the burn-in
+set.seed(123)
+burn_in        = estimate_bsvar_mix(10, specification, thin = 2)
+
+# get the last draw
+last_draw      = burn_in$get_last_draw()
+
+# estimate the model
+posterior      = estimate_bsvar_mix(10, last_draw, thin = 2)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAR-MIX-is_normalised"></a>}}
@@ -81,6 +211,34 @@ Returns an object of class BSVAR-MIX with the last draw of the current MCMC run 
 Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$is_normalised()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# upload data
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+
+# estimate the model
+set.seed(123)
+posterior      = estimate_bsvar_mix(10, specification, thin = 1)
+
+# check normalisation status beforehand
+posterior$is_normalised()
+
+# normalise the posterior
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+
+# check normalisation status afterwards
+posterior$is_normalised()
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -100,6 +258,37 @@ Sets the private indicator \code{normalised} to TRUE.
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# This is an internal function that is run while executing normalise_posterior()
+# Observe its working by analysing the workflow:
+
+# upload data
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+set.seed(123)
+
+# estimate the model
+posterior      = estimate_bsvar(10, specification, thin = 1)
+
+# check normalisation status beforehand
+posterior$is_normalised()
+
+# normalise the posterior
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+
+# check normalisation status afterwards
+posterior$is_normalised()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAR-MIX-clone"></a>}}

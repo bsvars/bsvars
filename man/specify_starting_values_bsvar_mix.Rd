@@ -6,6 +6,11 @@
 \description{
 The class StartingValuesBSVAR-MIX presents starting values for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 }
+\examples{
+# starting values for a bsvar model for a 3-variable system
+sv = specify_starting_values_bsvar_mix$new(N = 3, p = 1, M = 2, T = 100)
+
+}
 \section{Super classes}{
 \code{bsvars::StartingValuesBSVAR} -> \code{bsvars::StartingValuesBSVAR-MSH} -> \code{StartingValuesBSVAR-MIX}
 }

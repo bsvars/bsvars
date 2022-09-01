@@ -31,4 +31,8 @@
 #' U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/products/national-income-and-product-accounts}
 #' 
 #' FRED Economic Database, Federal Reserve Bank of St. Louis, \url{https://fred.stlouisfed.org/}
+#' 
+#' @examples 
+#' data(us_fiscal_lsuw)   # upload the data
+#' plot(us_fiscal_lsuw)   # plot the data
 "us_fiscal_lsuw"

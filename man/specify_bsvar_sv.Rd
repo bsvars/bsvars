@@ -6,6 +6,62 @@
 \description{
 The class BSVAR-SV presents complete specification for the BSVAR model with Stochastic Volatility heteroskedasticity.
 }
+\examples{
+data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+
+
+## ------------------------------------------------
+## Method `specify_bsvar_sv$get_data_matrices`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_data_matrices()
+
+
+## ------------------------------------------------
+## Method `specify_bsvar_sv$get_identification`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_identification()
+
+
+## ------------------------------------------------
+## Method `specify_bsvar_sv$get_prior`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_prior()
+
+
+## ------------------------------------------------
+## Method `specify_bsvar_sv$get_starting_values`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_starting_values()
+
+}
 \seealso{
 \code{\link{estimate_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}
 }
@@ -70,6 +126,20 @@ Returns the data matrices as the DataMatricesBSVAR object.
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_data_matrices()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_data_matrices()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVAR-SV-get_identification"></a>}}
@@ -78,6 +148,20 @@ Returns the data matrices as the DataMatricesBSVAR object.
 Returns the identifying restrictions as the IdentificationBSVARs object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_identification()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_identification()
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -90,6 +174,20 @@ Returns the prior specification as the PriorBSVAR-SV object.
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_prior()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_prior()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVAR-SV-get_starting_values"></a>}}
@@ -98,6 +196,20 @@ Returns the prior specification as the PriorBSVAR-SV object.
 Returns the starting values as the StartingValuesBSVAR-SV object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_starting_values()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+spec = specify_bsvar_sv$new(
+   data = us_fiscal_lsuw,
+   p = 4
+)
+spec$get_starting_values()
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

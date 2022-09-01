@@ -29,6 +29,26 @@ Normalises the sign of rows of matrix \eqn{B} MCMC draws,
  matrix elements and their functions such as the impulse response functions and other 
  economically interpretable values.
 }
+\examples{
+# upload data
+data(us_fiscal_lsuw)
+
+# specify the model and set seed
+specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
+set.seed(123)
+
+# run the burn-in
+burn_in        = estimate_bsvar_sv(10, specification)
+
+# estimate the model
+posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
+
+# normalise the posterior
+BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
+bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+
+}
 \references{
 Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multiple Equation Models. 
 \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.

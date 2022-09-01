@@ -31,6 +31,10 @@ data(us_fiscal_lsuw)
 \description{
 A system used to identify the US fiscal policy shocks.
 }
+\examples{
+data(us_fiscal_lsuw)   # upload the data
+plot(us_fiscal_lsuw)   # plot the data
+}
 \references{
 Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Implications for the Technology‐hours Debate. \emph{Journal of Money, Credit and Banking}, 41(6), 1071-1097, DOI: \doi{https://doi.org/10.1111/j.1538-4616.2009.00247.x}.
 

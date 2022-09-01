@@ -6,6 +6,41 @@
 \description{
 The class StartingValuesBSVAR presents starting values for the homoskedastic bsvar model.
 }
+\examples{
+# starting values for a homoskedastic bsvar for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar$new`
+## ------------------------------------------------
+
+# starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar$get_starting_values`
+## ------------------------------------------------
+
+# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+sv$get_starting_values()   # show starting values as list
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar$set_starting_values`
+## ------------------------------------------------
+
+# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -47,6 +82,16 @@ Create new starting values StartingValuesBSVAR.
 \subsection{Returns}{
 Starting values StartingValuesBSVAR.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-get_starting_values"></a>}}
@@ -55,6 +100,17 @@ Starting values StartingValuesBSVAR.
 Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$get_starting_values()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+sv$get_starting_values()   # show starting values as list
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -77,6 +133,21 @@ Returns the elements of the starting values StartingValuesBSVAR as a \code{list}
 \subsection{Returns}{
 An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-clone"></a>}}

@@ -6,10 +6,15 @@
 \alias{bsvars}
 \title{Bayesian Estimation of Structural Vector Autoregressive Models}
 \description{
-Efficient algorithms for Bayesian estimation of 
+Efficient and fast algorithms for Bayesian estimation of 
 Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. 
 A wide range of SVAR models is considered, including homo- and heteroskedastic specifications 
-and those with non-normal structural shocks.
+and those with non-normal structural shocks. The heteroskedastic SVAR model setup is similar as in 
+Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687> and Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>.
+The sampler of the structural matrix follows Waggoner & Zha (2003) ,doi:10.1016/S0165-1889(02)00168-9>, 
+whereas that for autoregressive parameters follows Chan, Koop, Yu (2022) <https://www.joshuachan.org/papers/OISV.pdf>. 
+The specification of Markov switching heteroskedasticity is inspired by Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>,
+and that of Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014) <doi:10.1016/j.csda.2013.01.002>.
 }
 \details{
 All the SVAR models in this package are specified by two equations, including 

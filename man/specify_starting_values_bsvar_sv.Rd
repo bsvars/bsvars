@@ -6,6 +6,33 @@
 \description{
 The class StartingValuesBSVAR-SV presents starting values for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
+\examples{
+# starting values for a bsvar model for a 3-variable system
+sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar_sv$get_starting_values`
+## ------------------------------------------------
+
+# starting values for a bsvar model with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+sv$get_starting_values()   # show starting values as list
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar_sv$set_starting_values`
+## ------------------------------------------------
+
+# starting values for a bsvar model with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
+}
 \section{Super class}{
 \code{bsvars::StartingValuesBSVAR} -> \code{StartingValuesBSVAR-SV}
 }
@@ -74,6 +101,17 @@ Returns the elements of the starting values StartingValuesBSVAR-SV as a \code{li
 \if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_sv$get_starting_values()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+sv$get_starting_values()   # show starting values as list
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-SV-set_starting_values"></a>}}
@@ -94,6 +132,21 @@ Returns the elements of the starting values StartingValuesBSVAR_SV as a \code{li
 \subsection{Returns}{
 An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-SV-clone"></a>}}

@@ -6,6 +6,31 @@
 \description{
 The class IdentificationBSVARs presents the identifying restrictions for the bsvar models.
 }
+\examples{
+specify_identification_bsvars$new(N = 3) # recursive specification for a 3-variable system
+
+B = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+specify_identification_bsvars$new(N = 3, B = B) # an alternative identification pattern
+
+
+## ------------------------------------------------
+## Method `specify_identification_bsvars$get_identification`
+## ------------------------------------------------
+
+B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+spec = specify_identification_bsvars$new(N = 3, B = B)
+spec$get_identification()
+
+
+## ------------------------------------------------
+## Method `specify_identification_bsvars$set_identification`
+## ------------------------------------------------
+
+spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+spec$set_identification(N = 3, B = B)  # modify an existing specification
+spec$get_identification()              # check the outcome
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -53,6 +78,17 @@ Returns the elements of the identification pattern IdentificationBSVARs as a \co
 \if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$get_identification()}\if{html}{\out{</div>}}
 }
 
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+spec = specify_identification_bsvars$new(N = 3, B = B)
+spec$get_identification()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-IdentificationBSVARs-set_identification"></a>}}
@@ -72,6 +108,17 @@ Set new starting values StartingValuesBSVAR.
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+spec$set_identification(N = 3, B = B)  # modify an existing specification
+spec$get_identification()              # check the outcome
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-IdentificationBSVARs-clone"></a>}}

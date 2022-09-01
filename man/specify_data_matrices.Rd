@@ -6,6 +6,21 @@
 \description{
 The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, and regressors, \eqn{X}, for the homoskedastic bsvar model.
 }
+\examples{
+data(us_fiscal_lsuw)
+YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
+dim(YX$Y); dim(YX$X)
+
+
+## ------------------------------------------------
+## Method `specify_data_matrices$get_data_matrices`
+## ------------------------------------------------
+
+data(us_fiscal_lsuw)
+YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
+YX$get_data_matrices()
+
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -52,6 +67,17 @@ New data matrices DataMatricesBSVAR.
 Returns the data matrices DataMatricesBSVAR as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$get_data_matrices()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{data(us_fiscal_lsuw)
+YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
+YX$get_data_matrices()
+
+}
+\if{html}{\out{</div>}}
+
 }
 
 }

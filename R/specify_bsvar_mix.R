@@ -4,6 +4,10 @@
 #' @description
 #' The class PriorBSVAR-MIX presents a prior specification for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 #' 
+#' @examples 
+#' prior = specify_prior_bsvar_mix$new(N = 3, p = 1, M = 2)  # specify the prior
+#' prior$A                                        # show autoregressive prior mean
+#' 
 #' @export
 specify_prior_bsvar_mix = R6::R6Class(
   "PriorBSVAR-MIX",
@@ -55,6 +59,10 @@ specify_prior_bsvar_mix = R6::R6Class(
 #'
 #' @description
 #' The class StartingValuesBSVAR-MIX presents starting values for the bsvar model with a zero-mean mixture of normals model for structural shocks.
+#' 
+#' @examples 
+#' # starting values for a bsvar model for a 3-variable system
+#' sv = specify_starting_values_bsvar_mix$new(N = 3, p = 1, M = 2, T = 100)
 #' 
 #' @export
 specify_starting_values_bsvar_mix = R6::R6Class(
@@ -120,6 +128,14 @@ specify_starting_values_bsvar_mix = R6::R6Class(
 #' The class BSVAR-MIX presents complete specification for the BSVAR model with a zero-mean mixture of normals model for structural shocks.
 #' 
 #' @seealso \code{\link{estimate_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}
+#' 
+#' @examples 
+#' data(us_fiscal_lsuw)
+#' spec = specify_bsvar_mix$new(
+#'    data = us_fiscal_lsuw,
+#'    p = 4,
+#'    M = 2
+#' )
 #' 
 #' @export
 specify_bsvar_mix = R6::R6Class(
@@ -205,6 +221,14 @@ specify_bsvar_mix = R6::R6Class(
 #' 
 #' @seealso \code{\link{estimate_bsvar_mix}}, \code{\link{specify_bsvar_mix}}
 #' 
+#' @examples 
+#' # This is a function that is used within estimate_bsvar()
+#' data(us_fiscal_lsuw)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+#' set.seed(123)
+#' estimate       = estimate_bsvar_mix(10, specification, thin = 1)
+#' class(estimate)
+#' 
 #' @export
 specify_posterior_bsvar_mix = R6::R6Class(
   "PosteriorBSVAR-MIX",
@@ -237,18 +261,66 @@ specify_posterior_bsvar_mix = R6::R6Class(
     
     #' @description
     #' Returns a list containing Bayesian estimation output.
+    #' 
+    #' @examples 
+    #' data(us_fiscal_lsuw)
+    #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+    #' set.seed(123)
+    #' estimate       = estimate_bsvar_mix(10, specification, thin = 1)
+    #' estimate$get_posterior()
+    #' 
     get_posterior       = function(){
-      self$posterior$clone()
+      self$posterior
     }, # END get_posterior
     
     #' @description
     #' Returns an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
+    #' 
+    #' @examples
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+    #' 
+    #' # run the burn-in
+    #' set.seed(123)
+    #' burn_in        = estimate_bsvar_mix(10, specification, thin = 2)
+    #' 
+    #' # get the last draw
+    #' last_draw      = burn_in$get_last_draw()
+    #' 
+    #' # estimate the model
+    #' posterior      = estimate_bsvar_mix(10, last_draw, thin = 2)
+    #' 
     get_last_draw      = function(){
       self$last_draw$clone()
     }, # END get_last_draw
     
     #' @description
     #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+    #' 
+    #' @examples
+    #' # upload data
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
+    #' 
+    #' # estimate the model
+    #' set.seed(123)
+    #' posterior      = estimate_bsvar_mix(10, specification, thin = 1)
+    #' 
+    #' # check normalisation status beforehand
+    #' posterior$is_normalised()
+    #' 
+    #' # normalise the posterior
+    #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+    #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
+    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' 
+    #' # check normalisation status afterwards
+    #' posterior$is_normalised()
+    #' 
     is_normalised      = function(){
       private$normalised
     }, # END is_normalised
@@ -256,6 +328,32 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' @description
     #' Sets the private indicator \code{normalised} to TRUE.
     #' @param value (optional) a logical value to be passed to indicator \code{normalised}.
+    #' 
+    #' @examples
+    #' # This is an internal function that is run while executing normalise_posterior()
+    #' # Observe its working by analysing the workflow:
+    #' 
+    #' # upload data
+    #' data(us_fiscal_lsuw)
+    #' 
+    #' # specify the model and set seed
+    #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+    #' set.seed(123)
+    #' 
+    #' # estimate the model
+    #' posterior      = estimate_bsvar(10, specification, thin = 1)
+    #' 
+    #' # check normalisation status beforehand
+    #' posterior$is_normalised()
+    #' 
+    #' # normalise the posterior
+    #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
+    #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
+    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' 
+    #' # check normalisation status afterwards
+    #' posterior$is_normalised()
+    #' 
     set_normalised     = function(value){
       if (missing(value)) {
         private$normalised <- TRUE

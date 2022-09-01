@@ -6,6 +6,11 @@
 \description{
 The class PriorBSVAR-MIX presents a prior specification for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 }
+\examples{
+prior = specify_prior_bsvar_mix$new(N = 3, p = 1, M = 2)  # specify the prior
+prior$A                                        # show autoregressive prior mean
+
+}
 \section{Super classes}{
 \code{bsvars::PriorBSVAR} -> \code{bsvars::PriorBSVAR-MSH} -> \code{PriorBSVAR-MIX}
 }
