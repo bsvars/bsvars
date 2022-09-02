@@ -13,7 +13,7 @@ structural shocks.
 
 # Installation
 
-Just open you **R** and type:
+Just open your **R** and type:
 
     install.packages("bsvars")
 
@@ -46,7 +46,7 @@ normalise_posterior(posterior, B_hat)                      # draws in posterior 
 # Now, you're ready to analyse your model!
 ```
 
-\#Progress bar
+# Progress bar
 
 MCMCs for multivariate dynamic structural models might take a while to
 run. **bsvars** relies on efficient algorithms and fast codes developed
