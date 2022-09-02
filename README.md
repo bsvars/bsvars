@@ -42,6 +42,8 @@ posterior      = estimate_bsvar_sv(50000, burn_in$get_last_draw(), thin = 10)
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
 normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+
+# Now, you're ready to analyse your model!
 ```
 
 \#Progress bar
