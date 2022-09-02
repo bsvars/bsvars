@@ -21,7 +21,7 @@ This package provides efficient algorithms for Bayesian estimation of Structural
 
 # Installation
 
-Just open you **R** and type:
+Just open your **R** and type:
 ```
 install.packages("bsvars")
 ```
@@ -54,7 +54,7 @@ normalise_posterior(posterior, B_hat)                      # draws in posterior 
 # Now, you're ready to analyse your model!
 ```
 
-#Progress bar
+# Progress bar
 
 MCMCs for multivariate dynamic structural models might take a while to run. **bsvars** relies on efficient algorithms and fast codes developed using **cpp** code via **Rcpp** and **RcppArmadillo** packages to cut the time of computations by orders of magnitude. Still, while waiting these a few minutes, you can track the progress by looking at the beautiful progress bar:
 
