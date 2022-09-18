@@ -68,9 +68,9 @@
 #' @importFrom GIGrvg rgig
 #' @importFrom R6 R6Class
 #' @importFrom Rcpp sourceCpp
-#' @importFrom RcppTN rtn
 #' @import RcppProgress
-#' @importFrom R6 R6Class
+#' @importFrom RcppTN rtn
+#' @importFrom stochvol svsample_fast_cpp
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
@@ -95,5 +95,12 @@
 #' # normalise the posterior
 #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-#' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' 
+#' # compute impulse responses 5 years ahead
+#' irf           = compute_impulse_responses(posterior, horizon = 20)
+#' 
+#' # compute forecast error variance decomposition 5 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 20)
+#' 
 NULL
