@@ -14,7 +14,8 @@ Imports:
     RcppProgress (>= 0.1),
     RcppTN,
     GIGrvg,
-    R6
+    R6,
+    stochvol
 Suggests: tinytest
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 RoxygenNote: 7.2.1
