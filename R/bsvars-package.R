@@ -95,5 +95,12 @@
 #' # normalise the posterior
 #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-#' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' 
+#' # compute impulse responses 5 years ahead
+#' irf           = compute_impulse_responses(posterior, horizon = 20)
+#' 
+#' # compute forecast error variance decomposition 5 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 20)
+#' 
 NULL
