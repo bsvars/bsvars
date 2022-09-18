@@ -1,7 +1,7 @@
 # bsvars 1.0.1.9000
 
-1. Included Imports from package **stochvol**
-2. Computations for impulse responses and forecast error variance decomposition
+1.  Included Imports from package **stochvol**
+2.  Computations for impulse responses and forecast error variance decomposition [#3](https://github.com/donotdespair/bsvars/issues/3)
 
 # bsvars 1.0.0
 
