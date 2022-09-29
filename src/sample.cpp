@@ -64,7 +64,7 @@ Rcpp::List logSDDR_homoskedasticity (
   double inv_sqrt_s_      = 0.0;
   vec sample_prior_s_(S);
   if ( sample_s_ ) {
-    sample_prior_s_       = prior_s_/as<vec>(Rcpp::rchisq(S, 3));
+    sample_prior_s_       = prior_s_/chi2rnd( 3, S );
     inv_sqrt_s_           = as_scalar(mean(pow(sample_prior_s_, -0.5)));
   } else {
     inv_sqrt_s_           = pow(prior_s_, -0.5);

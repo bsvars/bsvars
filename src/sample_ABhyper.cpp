@@ -38,8 +38,9 @@ void sample_A_homosk1 (
     rowvec  location  = prior_A_mean.row(n) * prior_A_Vinv + trans(zn) * Wn;
     
     mat     precision_chol = trimatu(chol(precision));
+    vec     xx(K, fill::randn);
     vec     draw      = solve(precision_chol, 
-                                solve(trans(precision_chol), trans(location)) + as<vec>(rnorm(K)));
+                                solve(trans(precision_chol), trans(location)) + xx);
     aux_A.row(n)      = trans(draw);
   } // END n loop
 } // END sample_A_homosk1
@@ -78,8 +79,9 @@ void sample_A_heterosk1 (
     rowvec  location  = prior_A_mean.row(n) * prior_A_Vinv + trans(zn_sigma) * Wn_sigma;
     
     mat     precision_chol = trimatu(chol(precision));
+    vec     xx(K, fill::randn);
     vec     draw      = solve(precision_chol, 
-                              solve(trans(precision_chol), trans(location)) + as<vec>(rnorm(K)));
+                              solve(trans(precision_chol), trans(location)) + xx);
     aux_A.row(n)      = trans(draw);
   } // END n loop
 } // END sample_A_heterosk1
@@ -126,13 +128,15 @@ void sample_B_homosk1 (
     }
     
     vec   alpha(rn);
-    vec   u                 = rnorm(posterior_nu + 1, 0, pow(posterior_nu, -0.5));
+    vec   u(posterior_nu + 1, fill::randn);
+    u                      *= pow(posterior_nu, -0.5);
     alpha(0)                = sqrt(as_scalar(sum(square(u))));
     if (R::runif(0,1)<0.5) {
       alpha(0)       *= -1;
     }
     if (rn>1){
-      vec nn                = rnorm(rn-1, 0, pow(posterior_nu, -0.5));
+      vec nn(rn-1, fill::randn);
+      nn                   *= pow(posterior_nu, -0.5);
       alpha.rows(1,rn-1)    = nn;
     }
     rowvec b0n              = alpha.t() * Wn * Un;
@@ -187,13 +191,15 @@ void sample_B_heterosk1 (
     }
     
     vec   alpha(rn);
-    vec   u                 = rnorm(posterior_nu+1, 0, pow(posterior_nu, -0.5));
+    vec   u(posterior_nu+1, fill::randn);
+    u                      *= pow(posterior_nu, -0.5);
     alpha(0)                = pow(as_scalar(sum(pow(u,2))), 0.5);
     if (R::runif(0,1)<0.5) {
       alpha(0)       *= -1;
     }
     if (rn>1){
-      vec nn                = Rcpp::rnorm(rn-1, 0, pow(posterior_nu, -0.5));
+      vec nn(rn-1, fill::randn);
+      nn                   *= pow(posterior_nu, -0.5);
       alpha.rows(1,rn-1)    = nn;
     }
     rowvec b0n              = alpha.t() * Wn * Un;
@@ -218,15 +224,15 @@ void sample_hyperparameters (
   for (int n=0; n<N; n++) {
     rn       += VB(n).n_rows;
   }
-  aux_hyper(4)    = ( as<double>(prior["hyper_S"]) + aux_hyper(2) + aux_hyper(3) ) / R::rchisq(as<double>(prior["hyper_V"]) + 4*as<double>(prior["hyper_a"]));
-  aux_hyper(3)    = R::rgamma( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
-            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(1)))));
-  aux_hyper(2)    = R::rgamma( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
-            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(0)))) );
+  aux_hyper(4)    = ( as<double>(prior["hyper_S"]) + aux_hyper(2) + aux_hyper(3) ) /  chi2rnd(as<double>(prior["hyper_V"]) + 4*as<double>(prior["hyper_a"]));
+  aux_hyper(3)    = randg(distr_param( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
+            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(1))))));
+  aux_hyper(2)    = randg(distr_param( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
+            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(0)))) ));
   aux_hyper(1)    = ( aux_hyper(3) + trace((aux_A - as<mat>(prior["A"])) * as<mat>(prior["A_V_inv"]) * trans(aux_A - as<mat>(prior["A"]))) ) /
-    R::rchisq( as<double>(prior["hyper_nu"]) + N * K );
+    chi2rnd( as<double>(prior["hyper_nu"]) + N * K );
   aux_hyper(0)    = ( aux_hyper(2) + trace(aux_B * as<mat>(prior["B_V_inv"]) * trans(aux_B) )) /
-    R::rchisq( as<double>(prior["hyper_nu"]) + rn );
+    chi2rnd( as<double>(prior["hyper_nu"]) + rn );
 } // END sample_hyperparameters
 
 

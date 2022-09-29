@@ -85,7 +85,7 @@ vec precision_sampler_ar1(
     const vec&     location
 ) {
   int T               = location.n_rows;
-  vec  epsilon        = rnorm(T);                             // sample normal draws using Rcpp::rnorm for compatibility with R's set.seed()
+  vec  epsilon(T, fill::randn);
   List precision_chol = cholesky_tridiagonal(precision_diag, precision_offdiag);    // Cholesky decomposition using a dedicated technique
   vec  aa             = forward_algorithm(precision_chol["chol_diag"],              // this forward substitution can be performed outside of the loop
                                           precision_chol["chol_offdiag"],
@@ -198,7 +198,7 @@ List svar_nc1 (
   
   // sample aux_s_n
   if ( sample_s_ ) {
-    aux_s_n               = (prior_sv_s_ + 2 * aux_sigma2_omega_n)/R::rchisq(3 + 2 * prior_sv_a_);
+    aux_s_n               = (prior_sv_s_ + 2 * aux_sigma2_omega_n)/chi2rnd(3 + 2 * prior_sv_a_);
   }
   
   // sample aux_sigma2_omega
@@ -219,7 +219,7 @@ List svar_nc1 (
   // sample aux_omega
   double    V_omega_inv = 1/( as_scalar(aux_h_n * diagmat(sigma_S_inv) * aux_h_n.t()) + pow(aux_sigma2_omega_n, -1) );
   double    omega_bar   = as_scalar(aux_h_n * diagmat(sigma_S_inv) * (U - alpha_S).t());
-  double    omega_aux   = R::rnorm(V_omega_inv*omega_bar, sqrt(V_omega_inv) );
+  double    omega_aux   = randn( distr_param(V_omega_inv*omega_bar, sqrt(V_omega_inv) ));
   
   // sample aux_h
   mat       V_h         = pow(omega_aux, 2) * diagmat(sigma_S_inv) + HH_rho;

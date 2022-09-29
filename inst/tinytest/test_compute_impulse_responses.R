@@ -11,7 +11,7 @@ B_hat               <- diag(sign(diag(BB))) %*% BB
 normalise_posterior(run_no1, B_hat)
 irf                 <- compute_impulse_responses(run_no1, horizon = 2)
 
-expect_identical(
+expect_equal(
   irf[1,1,1,1], 1,
   info = "compute_impulse_responses: unit own shock at 0 horizon."
 )
