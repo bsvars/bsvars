@@ -25,7 +25,7 @@ arma::field<arma::cube> bsvars_ir (
   
   for (int s=0; s<S; s++) {
     mat   irf_0         = inv(posterior_B.slice((s)));
-    irf_0               = diagmat(pow(diagvec(irf_0), -1)) * irf_0;
+    irf_0               = irf_0 * diagmat(pow(diagvec(irf_0), -1));
     mat   A_bold        = join_cols(posterior_A.slice(s).cols(0, N * p - 1), A_bold_tmp);
     mat   A_bold_power  = A_bold;
     
