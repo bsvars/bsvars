@@ -46,7 +46,7 @@ rowvec rDirichlet1 (
   const int K   = alpha.size();
   rowvec    draw(K);
   for (int k=0; k<K; k++) {
-    draw(k)     = R::rgamma(alpha(k), 1);
+    draw(k)     = randg(distr_param(alpha(k), 1.0));
   }
   return draw/sum(draw);
 } // END rDirichlet1
@@ -60,7 +60,7 @@ rowvec rIG2_Dirichlet1 (
   const int   M     = s.n_cols;
   rowvec      draw  = s;
   for (int m=0; m<M; m++) {
-    draw(m)        /= R::rchisq(nu(m));
+    draw(m)        /= chi2rnd(nu(m));
   }
   return draw/sum(draw);
 } // END rIG2_Dirichlet1
