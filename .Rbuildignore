@@ -6,4 +6,4 @@
 ^cran-comments\.md$
 cran-comments.md
 ^CRAN-SUBMISSION$
-^progress\.png$
+^inst/figures/progress\.png$

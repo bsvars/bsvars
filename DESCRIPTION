@@ -16,7 +16,8 @@ Imports:
     GIGrvg,
     R6,
     stochvol
-Suggests: tinytest
+Suggests: 
+    tinytest
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
-RoxygenNote: 7.2.1
 BugReports: https://github.com/donotdespair/bsvars/issues
+RoxygenNote: 7.2.1
