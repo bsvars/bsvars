@@ -5,12 +5,12 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with shocks following 
 a finite mixture of normal components via Gibbs sampler}
 \usage{
-estimate_bsvar_mix(S, specification, thin = 10, show_progress = TRUE)
+estimate_bsvar_mix(specification, S, thin = 10, show_progress = TRUE)
 }
 \arguments{
-\item{S}{a positive integer, the number of posterior draws to be generated}
-
 \item{specification}{an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.}
+
+\item{S}{a positive integer, the number of posterior draws to be generated}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 
@@ -70,6 +70,8 @@ The regime indicator \eqn{s_t} is either such that:
 These model selection also with this respect is made using function \code{\link{specify_bsvar_mix}}.
 }
 \examples{
+# simple workflow
+############################################################
 # upload data
 data(us_fiscal_lsuw)
 
@@ -78,11 +80,19 @@ specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate_bsvar_mix(50, specification)
+burn_in        = estimate_bsvar_mix(specification, 50)
 
 # estimate the model
-posterior      = estimate_bsvar_mix(100, burn_in$get_last_draw())
+posterior      = estimate_bsvar_mix(burn_in$get_last_draw(), 100)
 
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar_mix$new(p = 1, M = 2) |>
+  estimate_bsvar_mix(S = 50) |> 
+  compute_impulse_responses(horizon = 8) -> irf
+  
 }
 \references{
 The model, prior distributions, and estimation algorithms were proposed by

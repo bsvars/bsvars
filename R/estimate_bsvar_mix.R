@@ -38,8 +38,8 @@
 #' }
 #' These model selection also with this respect is made using function \code{\link{specify_bsvar_mix}}.
 #' 
-#' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.
+#' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
@@ -95,6 +95,8 @@
 #' Chib, S. (1996) Calculating posterior distributions and modal estimates in Markov mixture models. \emph{Journal of Econometrics}, \bold{75}(1), 79–97, \doi{https://doi.org/10.1016/0304-4076(95)01770-4}.
 #' 
 #' @examples
+#' # simple workflow
+#' ############################################################
 #' # upload data
 #' data(us_fiscal_lsuw)
 #' 
@@ -103,18 +105,29 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_mix(50, specification)
+#' burn_in        = estimate_bsvar_mix(specification, 50)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_mix(100, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar_mix(burn_in$get_last_draw(), 100)
 #' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate_bsvar_mix(S = 50) |> 
+#'   compute_impulse_responses(horizon = 8) -> irf
+#'   
 #' @export
-estimate_bsvar_mix <- function(S, specification, thin = 10, show_progress = TRUE) {
+estimate_bsvar_mix <- function(specification, S, thin = 10, show_progress = TRUE) {
   
+  # check the inputs
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument specification must be of class BSVAR-MIX generated using the specify_bsvar_mix$new() function." = any(class(specification) == "BSVAR-MIX"))
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   
+  # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
   VB                  = specification$identification$get_identification()
@@ -126,10 +139,16 @@ estimate_bsvar_mix <- function(S, specification, thin = 10, show_progress = TRUE
     model             = "sparseMIX"
   }
   
+  # estimation
   qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, FALSE, model, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification, qqq$posterior)
+  
+  # normalise output
+  BB                  = qqq$last_draw$B
+  BB                  = diag(sign(diag(BB))) %*% BB
+  normalise_posterior(output, BB)
   
   return(output)
 }

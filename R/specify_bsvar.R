@@ -466,7 +466,7 @@ specify_bsvar = R6::R6Class(
 #' data(us_fiscal_lsuw)
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 #' set.seed(123)
-#' estimate       = estimate_bsvar(50, specification)
+#' estimate       = estimate_bsvar(specification, 50)
 #' class(estimate)
 #' 
 #' @export
@@ -506,7 +506,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' data(us_fiscal_lsuw)
     #' specification  = specify_bsvar$new(us_fiscal_lsuw)
     #' set.seed(123)
-    #' estimate       = estimate_bsvar(50, specification)
+    #' estimate       = estimate_bsvar(specification, 50)
     #' estimate$get_posterior()
     #' 
     get_posterior       = function(){
@@ -524,13 +524,13 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # run the burn-in
-    #' burn_in        = estimate_bsvar(10, specification)
+    #' burn_in        = estimate_bsvar(specification, 10)
     #' 
     #' # get the last draw
     #' last_draw      = burn_in$get_last_draw()
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(10, last_draw)
+    #' posterior      = estimate_bsvar(last_draw, 10)
     #' 
     get_last_draw      = function(){
       self$last_draw$clone()
@@ -548,15 +548,15 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(10, specification, thin = 1)
+    #' posterior      = estimate_bsvar(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
     #' 
     #' # normalise the posterior
     #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
-    #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' B_hat         = diag((-1) * sign(diag(BB))) %*% BB         # set negative diagonal elements
+    #' normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' posterior$is_normalised()
@@ -581,7 +581,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(10, specification, thin = 1)
+    #' posterior      = estimate_bsvar(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
@@ -589,7 +589,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' # normalise the posterior
     #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
     #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-    #' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+    #' normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' posterior$is_normalised()

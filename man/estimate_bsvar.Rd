@@ -4,12 +4,12 @@
 \alias{estimate_bsvar}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-estimate_bsvar(S, specification, thin = 10, show_progress = TRUE)
+estimate_bsvar(specification, S, thin = 10, show_progress = TRUE)
 }
 \arguments{
-\item{S}{a positive integer, the number of posterior draws to be generated}
-
 \item{specification}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
+
+\item{S}{a positive integer, the number of posterior draws to be generated}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 
@@ -49,6 +49,8 @@ where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
 }
 \examples{
+# simple workflow
+############################################################
 # upload data
 data(us_fiscal_lsuw)
 
@@ -57,10 +59,18 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate_bsvar(50, specification)
+burn_in        = estimate_bsvar(specification, 50)
 
 # estimate the model
-posterior      = estimate_bsvar(100, burn_in$get_last_draw())
+posterior      = estimate_bsvar(burn_in$get_last_draw(), 100)
+
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1) |>
+  estimate_bsvar(S = 50) |> 
+  compute_impulse_responses(horizon = 8) -> irf
 
 }
 \references{
