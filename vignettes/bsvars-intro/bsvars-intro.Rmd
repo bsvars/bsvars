@@ -1,0 +1,465 @@
+---
+documentclass: jss
+classoption:
+  - nojss
+bibliography: bsvars.bib 
+author:
+  - name: Tomasz Woźniak
+    orcid: 0000-0003-2212-2378
+    affiliation: University of Melbourne
+    address: |
+      | Department of Economics
+      | University of Melbourne
+      | 111 Barry Street
+      | 3053 Carlton, VIC, Australia
+    email: \email{tomasz.wozniak@unimelb.edu.au}
+    url: https://github.com/donotdespair
+title:
+  formatted: "Fast and Efficient Bayesian Estimation of Structural VARs Using the \\proglang{R} Package \\pkg{bsvars}"
+  # If you use tex in the formatted title, also supply version without
+  plain:     "Fast and Efficient Bayesian Estimation of Structural VARs Using the R Package bsvars"
+  # For running headers, if needed
+  short:     "\\pkg{bsvars}: Bayesian Estimation of Structural VARs"
+abstract: >
+  \noindent The \proglang{R} package \pkg{bsvars} provides tools for empirical macroeconomic and financial analyses using Bayesian Structural Vector Autoregressions. It uses frontier econometric techniques and compiled code written using \proglang{cpp} to ensure fast estimation of these multivariate dynamic structural models possibly with a larger number of variables, complex identification strategies, or many Markov-switching regimes. The models can be identified using exclusion restrictions, heteroskedasticity, or non-normal residuals and used to compute impulse responses, forecast error variance and historical decompositions, and other interpretable outputs. The specifications for conditional variances include Stochastic Volatility, as well as Markov switching with the finite and estimated number of regimes, while those for non-normality include finite and sparse normal mixtures. All these features differenciate \pkg{bsvars} from existing \proglang{R} packages that either focus on a specific structural model, do not consider heteroskedastic shocks, or lack the implementation using compiled code. Finally, the package allows users to modify hierarchical prior distributions flexibly, and it provides useful routines for analysing posterior distributions of the parameters, shocks, volatilities, Markov regimes, and forecasts.
+keywords:
+  # at least one keyword must be supplied
+  formatted: [Bayesian inference, Structural VARs, Markov chain Monte Carlo, exclusion restrictions, heteroskedasticity, SV, Markov switching, finite mixture, sparse mixture]
+  plain:     [Bayesian inference, Structural VARs, Markov chain Monte Carlo, exclusion restrictions, heteroskedasticity, SV, Markov switching, finite mixture, sparse mixture]
+preamble: >
+  \usepackage[utf8]{inputenc}
+  \usepackage{amsmath}
+  \usepackage{natbib}
+  \usepackage{booktabs}
+output: rticles::jss_article
+---
+
+```{r, setup, include=FALSE}
+options(prompt = 'R> ', continue = '+ ')
+```
+
+
+
+<!-- \begin{center} -->
+<!-- \begin{tabular}{ l l} -->
+<!-- Install the package: & \code{install.packages("bsvars")}\\ -->
+<!-- Load the package: & \code{library(bsvars)}\\[1ex] -->
+<!-- CRAN repository: & \href{https://cran.r-project.org/package=bsvars}{cran.r-project.org/package=bsvars}\\ -->
+<!-- Development repository: & \href{https://github.com/donotdespair/bsvars}{github.com/donotdespair/bsvars}\\ -->
+<!-- Suggestions and bug reporting: & \href{https://github.com/donotdespair/bsvars/issues}{github.com/donotdespair/bsvars/issues} -->
+<!-- \end{tabular} -->
+<!-- \end{center} -->
+
+
+\section{Introduction}
+
+Since the publication of the seminal paper by \cite{sims1980macroeconomics} Structural Vector Autoregressions (SVARs) have become benchmark models for empirical macroeconomic analyses. Subsequently, they have found numerous applications in other fields and are now indispensable in everyday work at central banks, treasury departments and other economic governance institutions, as well as in finance, insurance, banking, and economic consulting. 
+
+The great popularity of these multivariate dynamic structural models was gained because they incorporate the reduced and structural forms into a unified framework. On the one hand, they capture the essential properties of macroeconomic and financial time series such as persistence, dynamic effects, system modelling, and potentially time-varying conditional variances. On the other hand, they control for the structure of an economy, system, or market through the contemporaneous effects and, thus, they identify contemporaneously and temporarily uncorrelated shocks that can be interpreted structurally. All these features make it possible to estimate the dynamic causal effects of the shocks on the measurements of interest. These effects are interpreted as the propagation of the well-isolated and unanticipated cause -- an orthogonal shock -- throughout the predictable future within the considered system of variables. 
+
+This flexibility comes at a cost of dealing with local identification of the model, sharply growing dimension of the parameter space with the increasing number of variables, and the estimation of latent variables. Bayesian inference provides original solutions to each of these challenges often deciding on the feasibility of the analyses with a demanded model including many variables, conditional heteroskedasticity, and elaborate identification of the structural shocks. In this context, Bayesian estimation using Markov Chain Monte Carlo methods grants the certainty of reliable estimation of the parameters of interest through the straightforward process of diagnosing the algorithm's convergence but it might incur substantial computational cost.
+
+The paper at hand and the corresponding package \pkg{bsvars} by \cite{bsvars} for \proglang{R} \citep{Rcore} provide tools for empirical macroeconomic and financial analyses using Bayesian SVARs. It addresses the considered challenges by choosing a convenient model formulation, applying frontier econometric techniques, and relying on compiled code written using \proglang{cpp} to ensure fast and efficient estimation. Additionally, it offers a great flexibility in choosing the model specification and identification pattern, modifying the prior assumptions, accessing interpretable tabulated or plotted outputs, and developing user's own original methods of analysis.
+
+More specifically, the package uses the VAR equation in its reduced form following  \cite{Banbura2010} \citep[see also][]{Wozniak2016} with the priors combining the interpretability of Minnesota prior by \cite{Doan1984} with the flexibility of hierarchical prior shrinkage as proposed by \cite{Giannone2015}. The structural matrix can be identified by exclusion restrictions as in \cite{WaggonerZha2003} or conditional heteroskedasticity following the ideas by \cite{Rigobon03} and \cite{LLM2010}, or by non-normal shocks as proposed by \cite{Lanne2010}. The signs of the structural matrix' rows are normalised using the method by \cite{WaggonerZha2003norm}. The package offers a range of models for conditional variance including a homoskedastic model with time-invariant variances, Stochastic volatility model as in \cite{LSUW2022} following the seminal paper by \cite{Primiceri2005}, Markov-switching heteroskedasticity as in \cite{LLM2010} with the Bayesian implementations following \cite{Wozniak2015} and \cite{LW2017}. The identification via exogenously determined regime changes by \cite{Rigobon03} and \cite{Lanne2008} is also implemented. The identification via non-normality of structural shocks follows the ideas by \cite{lanne2017} with a specific implementation through the finite mixtures of normal distributions proposed by \cite{Lanne2010} and a novel proposal of identification through sparse mixture of normal distributions following the ideas in \cite{malsiner2016model}. Finally, the package provides standard tools for empirical analysis including impulse responses, forecast error variance and historical decompositions, and forecasts.
+
+Multivariate dynamic modelling, both Bayesian and frequentist, has found some traction in \proglang{R} in the recent years, which resulted in many new packages available on the CRAN repository. The most relevant developments in frequentist approach include the package \pkg{MTS} by \cite{MTS} covering a wide range of benchmark models for multivariate time series analysis in economics in finance. If it's about structural models, then the seminal package \pkg{vars} by \cite{vars} covering homoskedastic VAR and Vector Error Correction (VEC) models provides an unmatched in its reliability teaching and basic analysis tool set. 
+
+Notable Bayesian implementations include two packages focusing on specific models important from the point of view of historical developments in the field, namely, tha package \pkg{BVAR} by \cite{BVAR} providing tools for the estimation and analysis proposed by \cite{Giannone2015} and package \pkg{bvarsv} by \cite{bvarsv} focusing on the heteroskedastic VAR proposed by \cite{Primiceri2005}. Another such package, that has been archived on CRAN, is the package \pkg{MSBVAR} by \cite{MSBVAR} focusing on the Markov switching model by \cite{Sims2006}. Another archived package \pkg{VARsignR} by \cite{VARsignR} provided comprehensive treatment of Bayesian SVARs identified via sign restrictions by \cite{uhlig2005effects}, \cite{rubio2010structural}, and \cite{fry2011sign}. The package \pkg{bvartools} by \cite{bvartools} provides some functionality focusing on Bayesian inference of reduced form VAR and VEC models. Finally, the package \pkg{shrinkTVP} by \cite{shrinkTVP} implementing heteroskedastic time-varying parameters regression model with shrinkage on the state space as proposed by \cite{Bitto2019} and \cite{Cadonna2020} gives a possibility of estimating an SVAR model as well.
+
+However, the most relevant package to compare to \pkg{bsvars} is the package \pkg{svars} by \cite{svars} focusing on frequentist inference for models identified via exclusion restrictions, heteroskedasticity, and non-normal shocks and implementing a range of models that are feasible to estimate using the maximum likelihood method. The similarity to the functionality of package \pkg{bsvars} include the selection of heteroskedastic models, such as the exogenous regime change and Markov-switching heteroskedasticity, as well as via non-normal residuals. The package \pkg{svars} implements bootstrap procedures for the analysis of empirical distributions of parameters of the model and it offers a range of specification testing procedures. 
+
+In this context, the \pkg{bsvars} package offers a range of novel solutions and models for Bayesian analysis. One differentiating example is the implementation of the SVAR model with Stochastic Volatility proposed by \cite{LSUW2022} that is not covered by the package \pkg{svars}. This model is particularly important in the context of the recent literature clearly indicating that the single extension of VARs leading to marginally largest improvements in the model fit or forecasting performance is the extension by the Stochastic Volatility as shown e.g. by \cite{Clark2015}, \cite{Chan2018}, \cite{carriero_large_2019}, \cite{chan2020large}, and \cite{bertsche2022identification}. Another such example are Markov switching and sparse mixture of normal components models in which the number of states is estimated. The essential features of the model are based on the hierarchical prior distribution proposed by \cite{malsiner2016model}, which decides on the infeasibility of their frequentist implementation. Additionally, the package \pkg{bsvars} benefits from the advantage of Bayesian approach that facilitates the estimation for models with potentially many variables, autoregressive lags inflating the dimension of parameters space relative to the number of observations in macroeconomics datasets, Markov-switching regimes or normal mixture components, all of which are the factors constraining the feasibility of maximum likelihood approaches. The model specification verification is performed using Savage-Dickey density ratio by \cite{Verdinelli1995} representing the Bayes factors for sharp hypotheses that are reliable, precisely estimated, and straightforward to compute once the posterior sample is available. Finally, the model specification, application of econometric advances and compiled code makes the estimation in package \pkg{bsvars} much faster than the implementations in packages \pkg{bvarsv} and \pkg{MSBVAR}.
+
+The remaining of this paper is organised as follows. The specific modelling choices that facilitate fast and efficient estimation are scrutinised in Section \ref{sec:svars}. 
+
+
+
+
+
+
+\section{Structural VARs}\label{sec:svars}
+
+All of the models in package \pkg{bsvars} share the reduced and structural form equations. The former is the VAR equation with $p$ lags specified for an $N$-vector $\mathbf{y}_t$ collecting observations on $N$ variables at time $t$:
+\begin{align}
+\mathbf{y}_t &= \mathbf{A}_1 \mathbf{y}_{t-1} + \dots + \mathbf{A}_p \mathbf{y}_{t-p} + \boldsymbol{\mu} +  \boldsymbol{\varepsilon}_t, \label{eq:var}
+\end{align}
+where $\mathbf{A}_i$ are $N\times N$ matrices of autoregressive slope parameters, $\boldsymbol{\mu}$ is an $N$-vector of constant terms, and $\boldsymbol{\varepsilon}_t$ collects $N$ reduced form shocks. Collect all the autoregressive matrices and the constant terms in an $N\times (Np+1)$ matrix $\mathbf{A} = \begin{bmatrix}\mathbf{A}_1& \dots & \mathbf{A}_p & \boldsymbol{\mu}\end{bmatrix}$. Then equation \eqref{eq:var} can be written in the matrix form as
+\begin{align}
+\mathbf{y}_t &= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t. \label{eq:rf}
+\end{align}
+Each of the rows of the matrix $\mathbf{A}$, denoted by $[\mathbf{A}]_{n\cdot}$ follows a multivariate conditional normal distribution, given the overall shrinkage hyper-parameter $\gamma_A$, with the mean vector $\underline{\mathbf{m}}_{n.A}$ and the covariance $\gamma_A\underline{\Omega}_A$, denoted by:
+\begin{align}
+[\mathbf{A}]_{n\cdot}'\mid\gamma_A \sim\mathcal{N}_{Np+1}\left( \underline{\mathbf{m}}_{n.A}, \gamma_A\underline{\Omega}_A \right),
+\end{align}
+where $\underline{\mathbf{m}}_{n.A}$ is specified in-line with the Minnesota prior by \cite{Doan1984} as a vector of zeros if all of the variables are unit-root stationary, or containing value 1 in its $n\textsuperscript{th}$ element if the $n\textsuperscript{th}$ variable is nonstationary. $\underline{\boldsymbol{\Omega}}_A$ is a diagonal matrix with vector $\begin{bmatrix}\mathbf{p}^{-2\prime}\otimes\boldsymbol{\imath}_N' & 100\boldsymbol{\imath}_d'\end{bmatrix}'$ on the main diagonal, where $\mathbf{p}$ is a vector containing a sequence of integers from 1 to $p$ and $\imath_N$ is an $N$-vector of ones. This specification includes the shrinkage level exponentially decaying with the increasing lag order, relatively large prior variances for the deterministic term parameters, and the flexibility of the hierarchical prior that leads to the estimation of the level of shrinkage as proposed by \cite{Giannone2015}. The latter feature is facilitated by assuming a prior on the overall reduced form parameters shrinkage that follows an inverted gamma 2 distribution \citep[see][Appendix A, for the detailed specification]{Bauwens1999} with scale $\underline{s}_A$ and shape $\underline{\nu}_A$, which is denoted by:
+\begin{align}
+\gamma_A \sim\mathcal{IG}2\left(\underline{s}_A, \underline{\nu}_A\right).
+\end{align}
+
+The structural form equation determines the linear relationship between the reduced-form residuals $\boldsymbol{\varepsilon}_t$ and the structural shocks $\mathbf{u}_t$ using the $N\times N$ structural matrix $\mathbf{B}$:
+\begin{align}
+\mathbf{B}\boldsymbol{\varepsilon}_t = \mathbf{u}_t.\label{eq:sf}
+\end{align}
+The structural matrix specifies the contemporaneous relationship between the variables in the system and determines the identification of the structural shocks from vector $\mathbf{u}_t$. Its appropriate construction may grant specific interpretation to one or many of the shocks. The package \pkg{bsvars} facilitates the identification of the structural matrix and the shocks via exclusion restrictions and through heteroskedasticity or non-normal shocks provided that appropriate model is chosen to work with. The zero restrictions are imposed on the structural matrix row-by-row following the framework proposed by \cite{WaggonerZha2003} via the following decomposition of the $n\textsuperscript{th}$ row of the structural matrix, denoted by $[\mathbf{B}]_{n\cdot}$:
+\begin{align}
+[\mathbf{B}]_{n\cdot} = \mathbf{b}_n\mathbf{V}_n, \label{eq:restrictions}
+\end{align}
+where $\mathbf{b}_n$ is a $1\times r_n$ vector collecting the elements to be estimated and the $r_n\times N$ matrix $\mathbf{V}_n$ including zeros and ones placing the estimated elements in the demanded elements of $[\mathbf{B}]_{n\cdot}$.
+
+Each of the vectors $\mathbf{b}_n$ follows an $r_n$-variate zero-mean normal prior distribution with the diagonal covariance and the diagonal element set to the structural shrinkage parameter $\gamma_B$:
+\begin{align}
+\mathbf{b}_n'\mid\gamma_B \sim\mathcal{N}_{r_n}\left( \mathbf{0}_{r_n}, \gamma_B\mathbf{I}_{r_n} \right),
+\end{align}
+where $\mathbf{0}_{r_n}$ denotes a vector of zeros and $\mathbf{I}_{r_n}$ -- the identity matrix. This prior specification is complemented by the inverted gamma 2 prior for $\gamma_B$:
+\begin{align}
+\gamma_B \sim\mathcal{IG}2\left(\underline{s}_B, \underline{\nu}_B\right).
+\end{align}
+
+Finally, all of the models share the zero-mean conditional normality of the structural shocks given the past observations with the diagonal covariance matrix with the $N$-vector of structural shocks' variances, $\boldsymbol{\sigma}_t^2$, on the main diagonal:
+\begin{align}
+\mathbf{u}_t\mid\mathbf{x}_t \sim\mathcal{N}_{N}\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_t^2\right) \right).
+\end{align}
+The diagonal covariance matrix, together with the joint normality, implies contemporaneous independence of the structural shocks which is the essential feature allowing for the estimation of dynamic effects to a well-isolated cause that is not influenced by other factors.
+
+The model parts described in the current section are common to all the models considered in the package \pkg{bsvars}. The alternative model specifications are distinguished by the characterisation of the conditional variances collected in vector $\boldsymbol{\sigma}_t^2$.
+
+
+\section{Models for Conditional Variances}\label{sec:variances}
+
+Version 1.0.0 of the \pkg{bsvars} package offers seven alternative specifications for the conditional variance process. 
+
+\subsection{Homoskedastic model}
+
+The first such specification is a homoskedastic model for which the conditional variance of every shock is equal to 
+\begin{align}
+\sigma_{n.t}^2 = 1 \label{eq:homosk}
+\end{align}
+for all $t$. This setup results in a simple SVAR model that is quick to estimate. Note that in this model the conditional covariance of the data vector, $\mathbf{y}_t$ is equal to $(B'B)^{-1}$. The point at which this model is standardized as in equation \eqref{eq:homosk} is the benchmark value for the standardization of all other heteroskedastic models.
+
+\subsection{Stochastic Volatility}
+
+The heteroskedastic model with Stochastic Volatility process follows the setup by \cite{LSUW2022}. In this model, the conditional variances for each of the shocks are given by
+\begin{align}
+\sigma_{n.t}^2 = \exp\left\{\omega_n h_{n.t}\right\}
+\end{align}
+where the parameter $\omega_n$ denotes the plus-minus square root of the conditional variance for the log-conditional variance process will be referred to as the \emph{volatility of the volatility}, and $h_{n.t}$ is the log-volatility process following an autoregressive equation
+\begin{align}
+h_{n.t} = \rho_n h_{n.t-1} + v_{n.t},
+\end{align}
+with the initial value $h_{n.0} = 0$, where $\rho_n$ is the autoregressive parameter and $v_{n.t}$ is the Stochastic Volatility innovation following the standard normal distribution. This specification grants the standardization about point from the equation \eqref{eq:homosk} by concentrating the prior probability mass of the conditional variances with an estimated level of shrinkage. Additionally, homoskedasticity can be verified by testing the restriction $\omega_n$ \citep[see][for more details on both points]{LSUW2022}. 
+
+The priors for this model include a uniform distribution for the autoregressive parameter 
+\begin{align}
+\rho_n \sim\mathcal{U}(-1,1),
+\end{align}
+which assures the stationarity of the log-volatility process and sets its unconditional expected value to $E[h_{n.t}]=0$. The prior distribution for the volatility of the volatility parameter follows a multi-level hierarchical structure given by:
+\begin{align}
+\omega_n\mid \sigma_{\omega.n}^2 &\sim\mathcal{N}\left(0, \sigma_{\omega.n}^2\right)\\
+\sigma_{\omega.n}^2 \mid \underline{s}_\sigma &\sim\mathcal{G}(\underline{s}_\sigma, \underline{a}_\sigma)\\
+\underline{s}_\sigma &\sim\mathcal{IG}2(\underline{s}, \underline{\nu})
+\end{align}
+where parameter $\sigma_{\omega.n}^2$ follows gamma distribution with expected value equal to $\underline{s}_\sigma\underline{a}_\sigma$. This prior specification combines the flexibility of a hierarchical priors with estimated hyper-parameters with the features demanded for SVARs \citep[see][]{LSUW2022}.
+
+\subsection{Markov-switching heteroskdasticity}
+
+Another model provides Markov-switching heteroskedasticity in which the time-variation of the conditional variances is determined by a discrete-valued Markov process $s_t$ with $M$ regimes:
+\begin{align}
+\sigma_{n.t}^2 = \sigma_{n.s_t}^2.
+\end{align}
+All of the variances switch their values at once and the latent Markov process takes the values $s_t = m\in\{1,\dots,M\}$. The properties of the Markov process itself are determined by the transition matrix $\mathbf{P}$ whose $[\mathbf{P}]_{i.j}$ element denotes the transition probability from regime $i$ to regime $j$ over the next period. The process' initial value is estimated and denoted by the $M$-vector $\boldsymbol{\pi}_0$. In this model, the variances in the $n\textsuperscript{th}$ equation sum to $M$ and are given equal prior probabilities equal to $M^{-1}$. Therefore, the prior for the rescaled conditional variances is the $M$-variate Dirichlet distribution:
+\begin{align}
+M^{-1}\left(\sigma_{n.1}^2, \dots, \sigma_{n.M}^2\right) \sim\mathcal{D}irichlet_M(\underline{e}_\sigma, \dots, \underline{e}_\sigma). \label{eq:sigmaMSprior}
+\end{align}
+Each of the rows of the transition matrix as well as the initial state probabilities follow the Dirichlet distribution as well:
+\begin{align}
+[\mathbf{P}]_{m\cdot} \sim\mathcal{D}irichlet_M(\underline{e}, \dots, \underline{e})\quad\text{and}\quad \boldsymbol{\pi}_0 \sim\mathcal{D}irichlet_M(\underline{e}_0, \dots, \underline{e}_0).
+\end{align}
+
+The package \pkg{bsvars} offers two alternative models based on the Markov-switching heteroskedasticity. The first is characterised by a stationary Markov process with no absorbing state, and with a positive minimum number of regime occurrences following \cite{LLM2010} and \cite{Wozniak2015}. In this model, the hyper-parameter is fixed to a value chosen by the user. The other model represents a novel proposal of a sparse representation that fixes $M=20$ and allows the number of regimes to be estimated following the ideas by \cite{malsiner2016model}. In this model, many of the regimes will have zero occurrences throughout the sample. This is achieved by specifying a hierarchical prior for the hyper-parameter $\underline{e}$:
+\begin{align}
+\underline{e} \sim \mathcal{IG}2\left(\underline{s}_e, \underline{\nu}_e\right). \label{eq:sparseprior}
+\end{align}
+This original parameterisation of the heteroskedastic process implements the standardisation of the Structural VAR model by centering the prior of the variances about the point in equation \eqref{eq:homosk}. 
+
+\subsection{Exogenous regime changes}
+
+This simple model is obtained by adapting the Markov switching model but assuming that the realizations of the process $s_t$ are known and provided by the user. Despite the evidence of poorly fitting the data \citep[see e.g.][]{Wozniak2015}, this class of models is popular to some extent due to the seminal developments by \cite{Rigobon03} and \cite{Lanne2008}.
+
+\subsection{Mixture of normal components}
+
+Identification via non-normality of the structural shocks is implemented in the package via the mixture of normal component model following the proposal by \cite{Lanne2010} and the Bayesian implementation by \cite{Wozniak2015}. In this model, the shocks follow the normal distribution given that the state variable $s_t=m\in\{1,\dots,M\}$;
+\begin{align}
+u_t\mid s_t=m \sim\mathcal{N}_N\left(\mathbf{0}_n, \boldsymbol{\sigma}_m^2 \right),
+\end{align}
+and where each state is predicted to occur in the next period with probability $\pi_m$. The $M$-vector collecting such probabilities is denoted by $\boldsymbol\pi$. Therefore, unconditionally, the shocks follow a mixture of zero-mean normal components with variance $\boldsymbol{\sigma}_m^2$ and the component probability $\pi_m$. The prior distribution for the conditional variances is the same as for the Markov-switching model and is given by equation \eqref{eq:sigmaMSprior}. The predictive state probabilities follow a Dirichlet distribution:
+\begin{align}
+\boldsymbol{\pi} \sim\mathcal{D}irichlet_M(\underline{e}, \dots, \underline{e}).\label{eq:dirichletmix}
+\end{align}
+Despite the predictive state probabilities being constant the classification of the observations into the states is performed via the estimated filtered probabilities $\Pr[s_t=m\mid y_t]$ \citep[see][for a recent review of the method]{song2021markov}.
+
+Also the mixture of normal components model comes in two versions. The first is the finite mixture model \citep[see e.g.][]{FruhwirthSchnatter2006} in which the number of states, $M$, is fixed and the state probabilities are positive. The latter condition requires non-zero regime occurrences over the sample. An alternative specification is referred to as the sparse mixture model and is based on the proposal by \cite{malsiner2016model}. In this model, the number of the finite mixture model's components is set to be larger than the real number of the components. The number of components with non-zero probability of occurrence is, therefore, estimated. This sparse structure of normal components many of which are allowed to have zero probability is implemented thanks to the prior specified for the hyper-parameter $\underline{e}$ of Dirichlet distribution as in equation \eqref{eq:sparseprior}.
+
+<!-- \section{Model diagnostics} -->
+
+<!-- \cite{Verdinelli1995} -->
+
+<!-- \subsection{Verifying heteroskedasticity} -->
+
+<!-- \subsection{Verifying structural identification} -->
+
+<!-- \subsection{Verifying autoregressive specification} -->
+
+
+\section{Posterior Samplers and Computational Details}\label{sec:posterior}
+
+In this section the claim that the \pkg{bsvars} package offers fast and efficient estimation algorithms thanks to the application of appropriate model specification, frontier econometric techniques, and compiled code is scrutinised. 
+
+The objective for choosing the model equations and the prior distributions was to make the estimation using Gibbs sampler technique \citep[see e.g.][]{CasellaGeorge1992} and well-specified easy-to-sample-from full conditional posterior distributions. Therefore, the package relies on the reduced form equation \eqref{eq:rf} for the VAR model. This choice is fairly uncommon in the SVAR literature but it simplifies the estimation of the autoregressive parameters $\mathbf{A}$ directly in the form as they are used for the computations of impulse responses or forecast error variance decomposition. This choice combined with the specification of the structural form equation \eqref{eq:sf} facilitates the application of the row-by-row sampler by \cite{chankoopyu2021}. As shown by \cite{carriero_large_2019} that relative to the joint estimation of the matrix $\mathbf{A}$ in one draw -- a usual practice in reduced form VARs, the row-by-row estimation in SVARs  can reduce computational complexity of Bayesian estimation from $\mathcal{O}(N^6)$ to $\mathcal{O}(N^4)$. 
+
+The estimation of the structural form equation \eqref{eq:sf} is implemented following the quickly converging, efficient, and providing excellent mixing sampling algorithm by \cite{WaggonerZha2003}. It offers a flexible framework for setting exclusion restrictions and was also adapted to the SVARs identified through heteroskedasticity by \cite{Wozniak2015}. The unique formulation of this equation is particularly convenient for complex heteroskedastic models facilitating the row-by-row estimation of matrix $\mathbf{A}$ and Gibbs sampler for the heteroskedastic process. None of the existing \proglang{R} packages implements either of these algorithms to date.
+
+The estimation of the Stochastic Volatility models is particularly requiring due to the $N$ independent latent volatility processes estimation that it involves. The implementation of crucial techniques is particularly important here. The sampling algorithms use the ten-component auxiliary mixture technique by \cite{Omori2007} that facilitates the estimation of the log-volatility using the simulation smoother by \cite{mccausland2011simulation} for conditionally Gaussian state-space models greatly speeding up the computations \citep[see][for the computational times comparison for various estimation algorithms]{twss_2021}. Additionally, our specification facilitates the algorithms to estimate heteroskedastic process if the signal from the data is strong, but it also allows them to heavily shrink the posterior towards homoskedasticity, as in equation \eqref{eq:homosk}, otherwise. The package implements the adaptation of the ancillarity-sufficiency interweaving strategy that is shown by \cite{Kastner2014} to improve the efficiency of the sampler when the heteroskedasticity is uncertain. Our implementation of the sampling algorithm closely follows the algorithms from package \pkg{stochvol} with necessary adaptations for the SVAR modelling and also benefits on the computational speed from the application of the normal random number generators from package \pkg{RcppZiggurat}.
+
+The estimation of the Markov switching and mixture models benefits mainly from the implementation of the forward-filtering backward-sampling estimation algorithm for the Markov process $s_t$ by \cite{Chib1996} in \proglang{cpp}. However, an additional step of choosing the parameterisation of the conditional variances as in equation \eqref{eq:sigmaMSprior}, requiring sampling from a new distribution defined by \cite{Wozniak2015}, assures excellent mixing and sampling efficiency improvements relative to alternative ways of standardising these parameters.
+
+All of the estimation routines for the Markov chain Monte Carlo estimation of the models and those for low level processing of the rich estimation output are implemented based using compiled code in \pkg{cpp}. This task is facilitated by the \pkg{Rcpp} package by \cite{eddelbuettel2011rcpp} and \cite{eddelbuettel_seamless_2013}. The \pkg{bsvars} package relies heavily on linear algebra and pseudo-random number generators (RNGs). The former is implemented using the package \pkg{RcppArmadillo} by \cite{eddelbuettel_rcpparmadillo2014} that is a collection of headers linking to the \proglang{cpp} library \pkg{armadillo} by \cite{sanderson2016armadillo}, as well as on several utility functions for operations on tri-diagonal matrices from package \pkg{stochvol} by \cite{factorstochvol}. Another essential element are the pseudo-random number generators. The latter refers to the RNGs from the standard normal distribution using package \pkg{RcppZiggurat} by \cite{RcppZiggurat} implementing the samplers by \cite{marsaglia2000ziggurat} and \cite{leong2005comment}, truncated normal distribution \pkg{RcppTN} by \cite{RcppTN} implementing the efficient sampler by \cite{Robert1995}, and generalised inverse Gaussian distribution using package \pkg{GIGrvg} by \cite{GIGrvg} implementing the sampler by \cite{hormann2014generating}. All of these developments make the algorithms computationally fast. Still, Bayesian estimation of multivariate dynamic structural models is a requiring task that might take from a minute to even several hours depending on the model specification. To give a better idea of the remaining time the current package displays a progress bar implemented using the package \pkg{RcppProgress} by \cite{RcppProgress}. Finally, the rich structure of the model specification including the prior distributions, identification pattern, and starting values, as well as the rich outputs from the estimation algorithms are organised using dedicated classes within the \pkg{R6} package by \cite{R6} functionality.
+
+
+
+\section{An Example for US Fiscal Policy Model}
+
+We present the functionality of the \pkg{bsvars} package on the three-variable fiscal policy data that has been widely discussed in econometric literature thanks to the application by \cite{mertens_reconciliation_2014} reconsidering the model by \cite{blanchard_empirical_2002}. This example has been revised recently by \cite{ramey2016macroeconomic}, \cite{lewis_identifying_2021}, and \cite{LSUW2022} that through new developments in identification and modelling discover new data features leading to updated economic analyses. The package includes time series for the total tax revenue, government spendings, and gross domestic product, all expressed in real, logarithmic, per person terms, for the period spanning the first quarter of 1950 and the last quarter of 2021 used by \cite{LSUW2022}. Load the package and data by:
+```{r load}
+library(bsvars)
+data(us_fiscal_lsuw)
+```
+
+```{r dataplot, fig.cap = "Time series for fiscal policy analysis", echo = FALSE}
+plot(us_fiscal_lsuw, main = "", lwd = 2, col = "deeppink2", bty = "n")
+```
+
+
+\subsection{The basic workflow}
+
+The estimation and analysis using the data proceeds in the following steps:
+
+1. Specify the model using the `specify_*` function for the demanded model
+2. Estimate the model using one of the `estimate_*` functions
+3. Normalise the posterior output using the `normalise_posterior()` function
+4. Analyse the posterior output by computing impulse responses using function \linebreak
+`compute_impulse_responses()`, forecast error variance decomposition using function `compute_variance_decompositions()`
+5. Provide the plots and tabular representations.
+
+This workflow is illustrated applying a homoskedastic SVAR with four lags and lower triangular identification of the system. 
+```{r specify}
+sp_bsvar  = specify_bsvar$new(us_fiscal_lsuw, 4)
+```
+```{r, echo = FALSE}
+A_ML = t(solve(tcrossprod(sp_bsvar$data_matrices$X,sp_bsvar$data_matrices$X), tcrossprod(sp_bsvar$data_matrices$X,sp_bsvar$data_matrices$Y)))
+sp_bsvar$starting_values$A = A_ML
+```
+
+As the argument `B` was not provided, the function automatically applied the lower-triangular identification. Additionally, the prior mean for matrix $\mathbf{A}$ has automatically been set to represent a multivariate random walk process with the prior mean for the first autoregressive matrix $\mathbf{A}_1$ set to an identity and to zeros for all other parameters:
+```{r show A mean}
+sp_bsvar$prior$A
+```
+In the second step, the model is estimated. It is recommended to take a two-step approach. In the first line below a shorter posterior sample is drawn for the MCMC to converge. This sample is stored in object `burn_in`. Subsequently, the last draw of this initial run, obtained by `burn_in$get_last_draw()`, is passed as the starting value to a new--final run of the estimation algorithm. Note that the function for the final run is set to display the informative progress bar tracking the advancement of the algorithm.
+```{r estimate}
+Sbi       = 5000
+S         = 10000
+set.seed(123)
+burn_in   = estimate_bsvar(Sbi, sp_bsvar, show_progress = FALSE)
+es_bsvar  = estimate_bsvar(S, burn_in$get_last_draw(), 1)
+```
+The estimation is followed by the normalisation of the system around a value that makes the diagonal elements of matrix $\mathbf{B}$ positive. In the computations below the last draw is used as the benchmark value. Note that the normalisation is performed by reference, that is, the elements of object `es_bsvar` are modified in this procedure. 
+```{r normalise}
+B_hat     = es_bsvar$last_draw$starting_values$B
+B_hat     = diag(sign(diag(B_hat))) %*% B_hat
+normalise_posterior(es_bsvar, B_hat)
+```
+In order to investigate whether the normalisation was successful histograms of the first column elements of matrix $\mathbf{B}$ is reported.
+```{r check normalisation, fig.cap = "Histograms of the structural matrix' first column elemens", echo = FALSE}
+par(mfrow = c(1,3), mar = c(4,4,2,0))
+hist(es_bsvar$posterior$B[1,1,], breaks = 100, col = "deeppink2", border = "deeppink3", main = "", xlab = expression(B[11]), freq = FALSE)
+hist(es_bsvar$posterior$B[2,1,], breaks = 100, col = "deeppink2", border = "deeppink3", main = "", xlab = expression(B[21]), ylab = "", freq = FALSE)
+hist(es_bsvar$posterior$B[3,1,], breaks = 100, col = "deeppink2", border = "deeppink3", main = "", xlab = expression(B[31]), ylab = "", freq = FALSE)
+```
+The histograms indicate a well-normalised sample as the symmetry around point zero has been removed. Consequently, the posterior sample is suitable for analysis and sample statistics, such as the mean reported below, can be computed and interpreted.
+```{r Bmean}
+apply(es_bsvar$posterior$B, 1:2, mean)
+```
+In the final step of the analysis of this workflow presentation, the posterior draws of the impulse responses are computed:
+```{r compute ir}
+ir_bsvar  = compute_impulse_responses(es_bsvar, horizon = 40)
+```
+The focus of the analysis using this model is the impact of an unanticipated one percent increase in the tax revenue on the gross domestic product, which is computed and plotted together with the corresponding 68% highest density interval.
+```{r plot ir, fig.cap = "Impulse response to a positive 1 percent total tax revenue shock", echo = FALSE}
+ir_mean   = apply(ir_bsvar[3,1,,], 1, mean)
+ir_hdi    = apply(ir_bsvar[3,1,,], 1, HDInterval::hdi, credMass = .68)
+plot(x = 0:40, y = ir_mean, type = "l", lwd = 2, col = "deeppink2", 
+     ylab = "change in gross domestic product [%]", 
+     xlab = "forecast horison [quarters]", ylim = range(ir_hdi), bty = "n")
+pinkpink  = rgb(238, 18, 137, 100, "pinkpink", 255)
+polygon(x = c(0:40,40:0), y = c(ir_hdi[1,],ir_hdi[2,41:1]), 
+        col = pinkpink, border = pinkpink)
+```
+The impact is positive and persistent over time and stabilises at a level of around 0.45 percent per quarter. The result obtained with the homoskedastic model is subsequently checked for robustness using more complex models.
+
+```{r compute fevd}
+vd_bsvar  = compute_variance_decompositions(es_bsvar, horizon = 40)
+```
+
+This analysis is complemented by the forecast error variance decomposition of the gross domestic product. The reported contributions indicate the dominant role of own shocks accounting for over 70 percent of the variability on all horizons. However, the unanticipated tax shock's impact is non-negligible accounting for 25--28 percent within a year and down to 18 percent in a longer perspective. The analysis of impulse responses and the forecast error variance decomposition documents the tax shock to be an important factor driving business cycle.
+```{r report fevd}
+h         = c(1:5, 9, 41)
+vd_mean   = round(t(apply(vd_bsvar[3,,h,], 1:2, mean)),2)
+colnames(vd_mean) = c("ttr shock", "gs shock", "gdp shock")
+vd_mean   = as.data.frame(vd_mean)
+hh        = matrix(
+  c("on impact", "1 quarter", "2 quarters", "3 quarters", "1 year", "2 years", "8 years"), 
+  ncol = 1)
+colnames(hh) = "horizon"
+vd_mean   = cbind(hh, vd_mean)
+knitr::kable(vd_mean, format = "latex", booktabs = T,
+             caption = "Gross domestic product's forecast error variance decomposition")
+```
+
+\subsection{Further illustration using heteroskedastic models}
+
+This simple analysis is now extended by heteroskedastic models with Stochastic Volatility and the Markov-switching model with an estimated number of regimes. These models exhibit the same identification patter of exclusion restrictions and the prior setup for the conditional mean model. Therefore, the SVAR with Stochastic Volatility is specified, estimated, normalised, and used to estimate impulse responses.
+```{r estimateSV}
+set.seed(123)
+sp_bsvar_sv   = specify_bsvar_sv$new(us_fiscal_lsuw, 4)
+```
+```{r, echo = FALSE}
+sp_bsvar_sv$starting_values$A = A_ML
+sp_bsvar_sv$prior$sv_s_ = .05
+```
+```{r estimateSV2}
+burn_in       = estimate_bsvar_sv(Sbi, sp_bsvar_sv, show_progress = FALSE)
+es_bsvar_sv   = estimate_bsvar_sv(S, burn_in$get_last_draw(), 1, FALSE)
+B_hat         = es_bsvar_sv$last_draw$starting_values$B
+B_hat         = diag(sign(diag(B_hat))) %*% B_hat
+normalise_posterior(es_bsvar_sv, B_hat)
+ir_bsvar_sv   = compute_impulse_responses(es_bsvar_sv, horizon = 40)
+```
+
+Similarly, the model with Markov-switching heteroskedasticity with two regimes.
+```{r estimateMS}
+sp_bsvar_ms  = specify_bsvar_msh$new(us_fiscal_lsuw, 4, 2)
+```
+```{r, echo = FALSE}
+sp_bsvar_ms$starting_values$A = A_ML
+```
+```{r estimateMS2}
+burn_in       = estimate_bsvar_msh(Sbi, sp_bsvar_ms, show_progress = FALSE)
+es_bsvar_ms   = estimate_bsvar_msh(S, burn_in$get_last_draw(), 1, FALSE)
+B_hat         = es_bsvar_ms$last_draw$starting_values$B
+B_hat         = diag(sign(diag(B_hat))) %*% B_hat
+normalise_posterior(es_bsvar_ms, B_hat)
+ir_bsvar_ms   = compute_impulse_responses(es_bsvar_ms, horizon = 40)
+```
+
+The impulse responses for the heteroskedastic models have similar shapes as that for the homoskedastic SVAR. There are some noticeable differences though. Firstly, the heteroskedastic models exhibit stronger persistence, which results in a higher level at which the effects stabilise in the long-term. It is equal to around 0.5 percent for the SVAR-SV models and just under 0.6 percent for the SVAR-MSH model quarterly. Additionally, as long as the impulse responses for the heteroskedastic models cannot be considered different from each other, the responses for SVAR-MSH model are clearly different from those obtained using homoskedastic one. Note that these results are not really comparable to those from the papers mentioned at the beginning of the current section. This is due to a different identification using exclusion restrictions and specification of deterministic terms in the conditional mean equation \citep[see][for more details]{LSUW2022}.
+```{r finalIR, fig.cap = "Impulse responses to total tax revenue from three models", echo = FALSE}
+ir_mean_sv    = apply(ir_bsvar_sv[3,1,,], 1, mean)
+ir_hdi_sv     = apply(ir_bsvar_sv[3,1,,], 1, HDInterval::hdi, credMass = .68)
+ir_mean_ms    = apply(ir_bsvar_ms[3,1,,], 1, mean)
+ir_hdi_ms     = apply(ir_bsvar_ms[3,1,,], 1, HDInterval::hdi, credMass = .68)
+blueblue      = rgb(0, 154, 205, 100, "blueblue", 255)
+greengreen    = rgb(67, 205, 128, 100, "greengreen", 255)
+plot(x = 0:40, y = ir_mean, type = "l", 
+     ylab = "change in gross domestic product [%]", 
+     xlab = "forecast horison [quarters]", ylim = range(ir_hdi,ir_hdi_sv,ir_hdi_ms), 
+     bty = "n", lty = 0)
+# polygon(x = c(0:40,40:0), y = c(ir_hdi[1,],ir_hdi[2,41:1]), 
+        # col = pinkpink, border = pinkpink)
+polygon(x = c(0:40,40:0), y = c(ir_hdi_sv[1,],ir_hdi_sv[2,41:1]), 
+        col = blueblue, border = blueblue)
+polygon(x = c(0:40,40:0), y = c(ir_hdi_ms[1,],ir_hdi_ms[2,41:1]), 
+        col = greengreen, border = greengreen)
+lines(x = 0:40, y = ir_mean, type = "l", lwd = 2, col = "deeppink2")
+lines(x = 0:40, y = ir_hdi[1,], type = "l", lwd = 2, col = "deeppink2", lty = 2)
+lines(x = 0:40, y = ir_hdi[2,], type = "l", lwd = 2, col = "deeppink2", lty = 2)
+lines(x = 0:40, y = ir_mean_sv, type = "l", lwd = 2, col = "deepskyblue3")
+lines(x = 0:40, y = ir_mean_ms, type = "l", lwd = 2, col = "seagreen3")
+legend("topright", legend = c("homoskedastic SVAR", "SVAR-SV", "SVAR-MSH"), lwd = rep(2, 3), col = c("deeppink2","deepskyblue3","seagreen3"), bty = "n")
+```
+
+
+
+Finally, heteroskedasticity is investigated using the plots of conditional standard deviations. In the homoskedastic model all the standard deviations are equal to one at all times, following equation \eqref{eq:homosk}. The plots indicate that the normalisation of the Markov-switching model is effective and the standard deviation hover around value one. There are, however, particular periods in which the standard deviation for some of the shocks clearly deviates from this value. One such example is the period of the COVID-19 pandemic that resulted in a higher level of volatility for the shock to gross domestic product or like the volatility spikes in mid-1970s, during the global financial crisis of 2008 and the COVID-19 pandemic for the unanticipated shock to total tax revenues. The standard deviations in the Stochastic Volatility model tend to differentiate more between the persistent periods of low and more occasional periods of high volatility. Conditional heteroskedasticity in these models seems strong and potentially providing identification of the structural system. This claim should be verified empirically though.
+```{r heteroskedasticity, fig.cap = "Conditional standard deviations for three models", echo = FALSE}
+sigma_mean_sv = apply(es_bsvar_sv$posterior$sigma, 1:2, mean)
+sigma_hdi_sv  = apply(es_bsvar_sv$posterior$sigma, 1:2, HDInterval::hdi, credMass = .68)
+T             = dim(sigma_mean_sv)[2]
+dates       = lubridate::ymd(
+  seq(
+    as.Date("1951-01-01"), 
+    by = "quarter", 
+    length.out = T
+  )
+)
+sigma_ms      = array(NA, c(dim(es_bsvar_sv$last_draw$data_matrices$Y), S))
+sigma_regimes = apply(es_bsvar_ms$posterior$xi, 2:3, which.max)
+for (s in 1:S) {
+  sigma_ms[,,s] = sqrt(es_bsvar_ms$posterior$sigma2[,sigma_regimes[,s],s])
+}
+sigma_mean_ms = apply(sigma_ms, 1:2, mean)
+sigma_hdi_ms  = apply(sigma_ms, 1:2, HDInterval::hdi, credMass = .68)
+var_names     = rownames(sp_bsvar_ms$data_matrices$Y)
+
+mar  = c(1,5,1,0)
+mar3 = c(4,5,1,0)
+
+par(mfrow = c(3,1), cex.lab = 1.5, cex.axis = 1.5)
+xlab = ""
+for (n in 1:3) {
+  if (n == 3) {
+    xlab = "time"
+    mar  = mar3
+  }
+  par(mar = mar)
+  rangee = range(sigma_hdi_sv[,n,],sigma_hdi_ms[,n,])
+  if (n == 1) {
+    rangee[2] = rangee[2] + 0.2
+  }
+  plot(x = dates, y = sigma_mean_sv[n,], type = "l", 
+       ylab = paste0("Volatility of ", var_names[n]), 
+       xlab = xlab, ylim = rangee, 
+       bty = "n")
+  if (n == 1) {
+    legend("top", legend = c("homoskedastic SVAR", "SVAR-SV", "SVAR-MSH"), lwd = rep(2, 3), col = c("deeppink2","deepskyblue3","seagreen3"), bty = "n", ncol = 3, cex = 1.3)
+  }
+  polygon(x = c(dates,dates[T:1]), y = c(sigma_hdi_sv[1,n,],sigma_hdi_sv[2,n,T:1]), 
+          col = blueblue, border = blueblue)
+  polygon(x = c(dates,dates[T:1]), y = c(sigma_hdi_ms[1,n,],sigma_hdi_ms[2,n,T:1]), 
+          col = greengreen, border = greengreen)
+  lines(x = dates, y = sigma_mean_ms[n,], type = "l", lwd = 2, col = "seagreen3")
+  lines(x = dates, y = sigma_mean_sv[n,], type = "l", lwd = 2, col = "deepskyblue3")
+  abline(h = 1, lwd = 2, col = "deeppink2")
+}
+```
+
+
+\section{Conclusion}
+
+The \pkg{bsvars} package offers fast and efficient algorithms for Bayesian estimation of a range of homo- and heteroskedastic Structural VARs. This is a distinguishing feature amongst existing \proglang{R} packages that either focus on a specific model, do not consider heteroskedastic shocks, or lack the implementation using compiled code. Additionally, thanks to the application of the frontier econometric techniques the package makes the estimation of multivariate dynamic structural models feasible even for a larger number of variables, complex identification strategies, or many Markov-switching regimes.
+
+The package is under intensive development and the upcoming features include:
+
+- computation of impulse responses, forecast error variance decompositions, and historical decompositions,
+- the analysis of structural shocks,
+- the analysis of heteroskedastic models,
+- model specification verification,
+- forecasting,
+- alternative dynamic models for the reduced form conditional mean equation,
+- more processes for heteroskedasticity,
+- more options for the prior distributions specification,
+- extensive visualisation possibilities, 
+- utility functions for the summary of the rich posterior output,
+- vignettes, tutorials, website, and social media accounts, and finally,
+- a companion package for the community-provided ways for model analyses.
+
+\newpage

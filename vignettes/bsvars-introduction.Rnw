@@ -1,0 +1,10 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{bsvars Bayesian Estimation of Structural VARs}
+%\VignetteKeywords{Bayesian inference, Structural VARs, Markov chain Monte Carlo, exclusion restrictions, heteroskedasticity, SV, Markov switching, finite mixture, sparse mixture}
+%\VignettePackage{bsvars}
+%\VignetteEncoding{UTF-8}
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{bsvars-intro.pdf}
+\end{document}
