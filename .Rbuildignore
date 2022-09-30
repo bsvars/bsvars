@@ -8,3 +8,4 @@ cran-comments.md
 ^CRAN-SUBMISSION$
 ^inst/figures/progress\.png$
 ^inst/figures$
+^vignettes/bsvars-intro$

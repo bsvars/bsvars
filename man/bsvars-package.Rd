@@ -63,13 +63,13 @@ set.seed(123)
 burn_in        = estimate_bsvar_sv(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 20)
 
 # compute impulse responses 5 years ahead
-irf           = compute_impulse_responses(posterior, horizon = 20)
+irf           = compute_impulse_responses(posterior, horizon = 8)
 
 # compute forecast error variance decomposition 5 years ahead
-fevd           = compute_variance_decompositions(posterior, horizon = 20)
+fevd           = compute_variance_decompositions(posterior, horizon = 8)
 
 }
 \references{

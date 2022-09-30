@@ -79,14 +79,14 @@ set.seed(123)
 burn_in        = estimate_bsvar_sv(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 20)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
-  estimate_bsvar_sv(S = 50) |> 
+  estimate_bsvar_sv(S = 20) |> 
   compute_impulse_responses(horizon = 8) -> irf
 
 }
