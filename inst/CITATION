@@ -1,0 +1,22 @@
+citHeader("To cite bsvars in publications use:")
+
+## R >= 2.8.0 passes package metadata to citation().
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("rugarch")
+
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s.", meta$Version)
+
+citEntry(
+  entry    = "Manual",
+  title    = "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models",
+  author   = personList(as.person("Tomasz Wo\\'zniak")),
+  year     = year,
+  note     = note,
+  url      = "https://cran.r-project.org/package=bsvars",
+  textVersion = paste(
+    paste("Tomasz Woźniak",
+      sprintf("(%s).", year),
+      "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models",
+	    note)
+  )
+)
