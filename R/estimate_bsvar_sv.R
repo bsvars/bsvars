@@ -32,8 +32,8 @@
 #' \deqn{h_{n.t} = g_n h_{n.t-1} + v_{n.t}}
 #' where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a standard normal error term.
 #' 
-#' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR-SV generated using the \code{specify_bsvar_sv$new()} function.
+#' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
@@ -78,6 +78,8 @@
 #' \doi{10.1016/j.csda.2013.01.002}.
 #' 
 #' @examples
+#' # simple workflow
+#' ############################################################
 #' # upload data
 #' data(us_fiscal_lsuw)
 #' 
@@ -86,27 +88,44 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(10, specification)
+#' burn_in        = estimate_bsvar_sv(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate_bsvar_sv(S = 50) |> 
+#'   compute_impulse_responses(horizon = 8) -> irf
 #' 
 #' @export
-estimate_bsvar_sv <- function(S, specification, thin = 10, show_progress = TRUE) {
+estimate_bsvar_sv <- function(specification, S, thin = 10, show_progress = TRUE) {
   
-  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
+  # check the inputs
   stopifnot("Argument specification must be of class BSVAR-SV generated using the specify_bsvar_sv$new() function." = any(class(specification) == "BSVAR-SV"))
+  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   
+  # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
   VB                  = specification$identification$get_identification()
   data_matrices       = specification$data_matrices$get_data_matrices()
   
+  # estimation
   qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, TRUE, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_sv$new(specification, qqq$posterior)
+  
+  # normalise output
+  BB                  = qqq$last_draw$B
+  BB                  = diag(sign(diag(BB))) %*% BB
+  normalise_posterior(output, BB)
   
   return(output)
 }

@@ -21,8 +21,8 @@
 #' 
 #' Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
 #' 
-#' @param S a positive integer, the number of posterior draws to be generated
 #' @param specification an object of class BSVAR generated using the \code{specify_bsvar$new()} function.
+#' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
@@ -50,6 +50,8 @@
 #' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 
 #' @examples
+#' # simple workflow
+#' ############################################################
 #' # upload data
 #' data(us_fiscal_lsuw)
 #' 
@@ -58,27 +60,44 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar(50, specification)
+#' burn_in        = estimate_bsvar(specification, 50)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar(100, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar(burn_in$get_last_draw(), 100)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate_bsvar(S = 50) |> 
+#'   compute_impulse_responses(horizon = 8) -> irf
 #' 
 #' @export
-estimate_bsvar <- function(S, specification, thin = 10, show_progress = TRUE) {
+estimate_bsvar <- function(specification, S, thin = 10, show_progress = TRUE) {
   
-  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
+  # check the inputs
   stopifnot("Argument specification must be of class BSVAR generated using the specify_bsvar$new() function." = any(class(specification) == "BSVAR"))
+  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   
+  # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
   VB                  = specification$identification$get_identification()
   data_matrices       = specification$data_matrices$get_data_matrices()
 
+  # estimation
   qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin, show_progress)
- 
+  
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar$new(specification, qqq$posterior)
    
+  # normalise output
+  BB                  = qqq$last_draw$B
+  BB                  = diag(sign(diag(BB))) %*% BB
+  normalise_posterior(output, BB)
+    
   return(output)
 }

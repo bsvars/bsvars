@@ -38,15 +38,15 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(10, specification)
+#' burn_in        = estimate_bsvar_sv(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
+#' posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
 #' 
 #' # normalise the posterior
 #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
-#' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-#' bsvars::normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' B_hat         = diag((-1) * sign(diag(BB))) %*% BB         # set negative diagonal elements
+#' normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
 #' 
 #' @export
 normalise_posterior <- function(posterior, B_hat) {

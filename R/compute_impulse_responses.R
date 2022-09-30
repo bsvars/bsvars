@@ -29,15 +29,10 @@
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar(10, specification)
+#' burn_in        = estimate_bsvar(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar(50, burn_in$get_last_draw())
-#' 
-#' # normalise the posterior
-#' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
-#' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-#' normalise_posterior(posterior, B_hat)              # draws in posterior are normalised
+#' posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 #' 
 #' # compute impulse responses 5 years ahead
 #' irf           = compute_impulse_responses(posterior, horizon = 20)

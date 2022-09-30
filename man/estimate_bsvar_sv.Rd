@@ -5,12 +5,12 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with 
 Stochastic Volatility heteroskedasticity via Gibbs sampler}
 \usage{
-estimate_bsvar_sv(S, specification, thin = 10, show_progress = TRUE)
+estimate_bsvar_sv(specification, S, thin = 10, show_progress = TRUE)
 }
 \arguments{
-\item{S}{a positive integer, the number of posterior draws to be generated}
-
 \item{specification}{an object of class BSVAR-SV generated using the \code{specify_bsvar_sv$new()} function.}
+
+\item{S}{a positive integer, the number of posterior draws to be generated}
 
 \item{thin}{a positive integer, specifying the frequency of MCMC output thinning}
 
@@ -66,6 +66,8 @@ and the log-volatility process \eqn{h_{n.t}} follows an autoregressive process:
 where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a standard normal error term.
 }
 \examples{
+# simple workflow
+############################################################
 # upload data
 data(us_fiscal_lsuw)
 
@@ -74,10 +76,18 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate_bsvar_sv(10, specification)
+burn_in        = estimate_bsvar_sv(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(50, burn_in$get_last_draw())
+posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar_sv$new(p = 1) |>
+  estimate_bsvar_sv(S = 50) |> 
+  compute_impulse_responses(horizon = 8) -> irf
 
 }
 \references{
