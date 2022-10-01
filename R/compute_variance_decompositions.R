@@ -41,7 +41,7 @@
 compute_variance_decompositions <- function(posterior, horizon) {
   
   stopifnot("Argument x must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
-  stopifnot("The posterior output must be normalised for the impulse responses to be interpretable." = posterior$is_normalised())
+  stopifnot("The posterior output must be normalised for the forecast error variance decomposition to be interpretable." = posterior$is_normalised())
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
 
   posterior_B     = posterior$posterior$B

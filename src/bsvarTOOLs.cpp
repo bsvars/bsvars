@@ -1,9 +1,7 @@
 #include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
 
 using namespace Rcpp;
 using namespace arma;
-
 
 
 // [[Rcpp::interfaces(cpp)]]
@@ -47,7 +45,7 @@ arma::field<arma::cube> bsvars_ir (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 arma::field<arma::cube> bsvars_fevd (
-    arma::field<arma::cube>   posterior_irf   // output of bsvars_irf
+    arma::field<arma::cube>&    posterior_irf   // output of bsvars_irf
 ) {
   
   const int       N = posterior_irf(0).n_rows;
@@ -72,3 +70,62 @@ arma::field<arma::cube> bsvars_fevd (
   
   return fevds;
 } // END bsvars_fevd
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::cube bsvars_structural_shocks (
+    const arma::cube&     posterior_B,    // (N, N, S)
+    const arma::cube&     posterior_A,    // (N, K, S)
+    const arma::mat&      Y,              // NxT dependent variables
+    const arma::mat&      X               // KxT dependent variables
+) {
+  
+  const int       N = Y.n_rows;
+  const int       T = Y.n_cols;
+  const int       S = posterior_B.n_slices;
+  
+  cube            structural_shocks(N, T, S);
+  
+  for (int s=0; s<S; s++) {
+    structural_shocks.slice(s)    = posterior_B.slice(s) * (Y - posterior_A.slice(s) * X);
+  } // END s loop
+  
+  return structural_shocks;
+} // END bsvars_structural_shocks
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::field<arma::cube> bsvars_hd (
+    arma::field<arma::cube>&    posterior_irf_T,    // output of bsvars_irf with irfs at T horizons
+    arma::cube&                 structural_shocks   // NxTxS output bsvars_structural_shocks
+) {
+  
+  const int       N = structural_shocks.n_rows;
+  const int       T = structural_shocks.n_cols;
+  const int       S = structural_shocks.n_slices;
+  
+  field<cube>     hds(S);
+  cube            aux_hds(N, N, T);
+  mat             posterior_irf_t(N, N);
+  
+  for (int s=0; s<S; s++) {
+    for (int t=0; t<T; t++) {
+      
+      cube        hds_at_t(N, N, t + 1);
+      for (int i=0; i<t; i++) {
+        posterior_irf_t   = posterior_irf_T(s).slice(t - i - 1);
+        hds_at_t.slice(i) = posterior_irf_t.each_col() % structural_shocks.slice(s).col(i);
+      } // END i loop
+      
+      aux_hds.slice(t) = sum(hds_at_t, 2);
+    } // END t loop
+    
+    hds(s)          = aux_hds;
+  } // END s loop
+  
+  return hds;
+} // END bsvars_hd
