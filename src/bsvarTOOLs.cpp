@@ -129,3 +129,4 @@ arma::field<arma::cube> bsvars_hd (
   
   return hds;
 } // END bsvars_hd
+
