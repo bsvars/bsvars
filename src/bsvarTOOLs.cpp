@@ -1,4 +1,6 @@
+
 #include <RcppArmadillo.h>
+#include "msh.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -151,4 +153,57 @@ arma::cube bsvars_fitted_values (
   
   return fitted_values;
 } // END bsvars_fitted_values
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::cube bsvars_filter_forecast_smooth (
+  Rcpp::List&       posterior,
+  const arma::mat&  Y,
+  const arma::mat&  X,
+  const bool        forecasted,
+  const bool        smoothed
+) {
+  
+  cube  posterior_B       = as<cube>(posterior["B"]);
+  cube  posterior_A       = as<cube>(posterior["A"]);
+  cube  posterior_sigma2  = as<cube>(posterior["sigma2"]);
+  cube  posterior_PR_TR   = as<cube>(posterior["PR_TR"]);
+  mat   posterior_pi_0    = as<mat>(posterior["pi_0"]);
+  
+  const int   N           = Y.n_rows;
+  const int   M           = posterior_PR_TR.n_rows;
+  const int   T           = Y.n_cols;
+  const int   S           = posterior_B.n_slices;
+  
+  cube  filtered_probabilities(M, T, S);
+  cube  for_smo_probabilities(M, T, S);
+  mat   shocks(N, T);
+  
+  for (int s=0; s<S; s++) {
+    shocks                            = posterior_B.slice(s) * ( Y - posterior_A.slice(s) * X );
+    
+    filtered_probabilities.slice(s)   = filtering_msh(
+      shocks, 
+      posterior_sigma2.slice(s), 
+      posterior_PR_TR.slice(s), 
+      posterior_pi_0.col(s)
+    );
+    
+    if (forecasted) {
+      for_smo_probabilities.slice(s)  = posterior_PR_TR.slice(s) * filtered_probabilities.slice(s);
+    } else if (smoothed) {
+      for_smo_probabilities.slice(s)  = smoothing_msh(shocks, posterior_PR_TR.slice(s), filtered_probabilities.slice(s));
+    }
+  } // END s loop
+  
+  cube  out     = filtered_probabilities;
+  if (forecasted || smoothed) {
+    out         = for_smo_probabilities;
+  }
+  
+  return out;
+} // END bsvars_filter_forecast_smooth
+
 

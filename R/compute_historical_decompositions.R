@@ -33,7 +33,7 @@
 #' # estimate the model
 #' posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 #' 
-#' # compute impulse responses 5 years ahead
+#' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
 #' 
 #' @export

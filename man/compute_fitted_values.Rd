@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute_fitted_values.R
 \name{compute_fitted_values}
 \alias{compute_fitted_values}
-\title{Computes posterior draws of fitted values}
+\title{Computes posterior draws of dependent variables' fitted values}
 \usage{
 compute_fitted_values(posterior)
 }
@@ -33,8 +33,8 @@ burn_in        = estimate_bsvar(specification, 10)
 # estimate the model
 posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 
-# compute impulse responses 5 years ahead
-shocks         = compute_fitted_values(posterior)
+# compute dependent variables' fitted values
+fitted         = compute_fitted_values(posterior)
 
 }
 \seealso{
