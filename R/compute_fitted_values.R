@@ -30,7 +30,7 @@
 #' posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 #' 
 #' # compute impulse responses 5 years ahead
-#' shocks         = compute_fitted_values(posterior)
+#' fitted         = compute_fitted_values(posterior)
 #' 
 #' @export
 compute_fitted_values <- function(posterior) {

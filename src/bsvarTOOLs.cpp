@@ -152,3 +152,5 @@ arma::cube bsvars_fitted_values (
   return fitted_values;
 } // END bsvars_fitted_values
 
+
+

@@ -6,6 +6,7 @@
 -   impulse responses and forecast error variance decomposition [#3](https://github.com/donotdespair/bsvars/issues/3),
 -   structural shocks and historical decompositions [#14](https://github.com/donotdespair/bsvars/issues/14)
 -   fitted values [#17](https://github.com/donotdespair/bsvars/issues/17)
+-   conditional standard deviations [#16](https://github.com/donotdespair/bsvars/issues/16)
 
 3.  Implemented faster samplers based on random number generators from **armadillo** via **RcppArmadillo** [#7](https://github.com/donotdespair/bsvars/issues/7)
 4.  The `estimate_bsvar*` functions now also normalise the output w.r.t. to a structural matrix with positive elements on the main diagonal [#9](https://github.com/donotdespair/bsvars/issues/9)
