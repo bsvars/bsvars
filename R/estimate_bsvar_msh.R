@@ -54,6 +54,7 @@
 #'  \item{PR_TR}{an \code{MxMxS} array with the posterior draws for the transition matrix.}
 #'  \item{xi}{an \code{MxTxS} array with the posterior draws for the regime allocation matrix.}
 #'  \item{pi_0}{an \code{MxS} matrix with the posterior draws for the initial state probabilities}
+#'  \item{sigma}{an \code{NxTxS} array with the posterior draws for the structural shocks conditional standard deviations' series over the sample period}
 #' }
 #' 
 #' \code{last_draw} an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}. 
