@@ -116,6 +116,13 @@ mat smoothing_msh (
   
   for (int t=T-2; t>=0; --t) {
     smoothed.col(t)   = (PR_TR * (smoothed.col(t+1)/(PR_TR.t() * filtered.col(t)) )) % filtered.col(t);
+    if (any(smoothed.col(t) < 0) || any(smoothed.col(t) > 1)) {
+      for (int m=0; m<M; m++) {
+        if (smoothed(m,t) > 1) {smoothed(m,t) = 1;}
+        if (smoothed(m,t) < 0) {smoothed(m,t) = 0;}
+      }
+      smoothed.col(t) = smoothed.col(t) / accu(smoothed.col(t));
+    }
   } // END t loop
   
   return smoothed;
