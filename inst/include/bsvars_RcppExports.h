@@ -130,6 +130,27 @@ namespace bsvars {
         return Rcpp::as<arma::field<arma::cube> >(rcpp_result_gen);
     }
 
+    inline arma::cube bsvars_fitted_values(arma::cube& posterior_A, arma::mat& X) {
+        typedef SEXP(*Ptr_bsvars_fitted_values)(SEXP,SEXP);
+        static Ptr_bsvars_fitted_values p_bsvars_fitted_values = NULL;
+        if (p_bsvars_fitted_values == NULL) {
+            validateSignature("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::mat&)");
+            p_bsvars_fitted_values = (Ptr_bsvars_fitted_values)R_GetCCallable("bsvars", "_bsvars_bsvars_fitted_values");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_bsvars_fitted_values(Shield<SEXP>(Rcpp::wrap(posterior_A)), Shield<SEXP>(Rcpp::wrap(X)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<arma::cube >(rcpp_result_gen);
+    }
+
     inline Rcpp::List bsvar_msh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const Rcpp::List& starting_values, const int thin = 100, const bool finiteM = true, const bool MSnotMIX = true, const std::string name_model = "", const bool show_progress = true) {
         typedef SEXP(*Ptr_bsvar_msh_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvar_msh_cpp p_bsvar_msh_cpp = NULL;

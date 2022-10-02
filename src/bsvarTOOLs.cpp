@@ -129,3 +129,26 @@ arma::field<arma::cube> bsvars_hd (
   
   return hds;
 } // END bsvars_hd
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::cube bsvars_fitted_values (
+  arma::cube&     posterior_A,        // NxKxS
+  arma::mat&      X                   // KxT
+) {
+  
+  const int   N = posterior_A.n_rows;
+  const int   S = posterior_A.n_slices;
+  const int   T = X.n_cols;
+  
+  cube    fitted_values(N, T, S);
+  
+  for (int s=0; s<S; s++) {
+    fitted_values.slice(s) = posterior_A.slice(s) * X;
+  } // END s loop
+  
+  return fitted_values;
+} // END bsvars_fitted_values
+
