@@ -36,4 +36,14 @@ arma::cube bsvars_fitted_values (
     arma::mat&      X                   // KxT
 );
 
+
+arma::cube bsvars_filter_forecast_smooth (
+    Rcpp::List&       posterior,
+    const arma::mat&  Y,
+    const arma::mat&  X,
+    const bool        forecasted,
+    const bool        smoothed
+);
+
+
 #endif  // _BSVARTOOLS_H_
