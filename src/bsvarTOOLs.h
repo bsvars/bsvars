@@ -31,6 +31,9 @@ arma::field<arma::cube> bsvars_hd (
 );
 
 
-
+arma::cube bsvars_fitted_values (
+    arma::cube&     posterior_A,        // NxKxS
+    arma::mat&      X                   // KxT
+);
 
 #endif  // _BSVARTOOLS_H_
