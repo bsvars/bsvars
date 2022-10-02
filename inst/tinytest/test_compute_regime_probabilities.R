@@ -55,7 +55,6 @@ expect_identical(
 )
 
 
-
 # for filtered
 set.seed(1)
 suppressMessages(
@@ -86,7 +85,6 @@ expect_true(
 )
 
 
-
 # for smoothed
 set.seed(1)
 suppressMessages(
@@ -100,6 +98,7 @@ expect_true(
   all(rp >= 0 & rp <= 1),
   info = "compute_regime_probabilities: smoothed: all within [0,1]."
 )
+
 
 
 # for bsvar
