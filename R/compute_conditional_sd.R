@@ -29,7 +29,7 @@
 #' # estimate the model
 #' posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 #' 
-#' # compute impulse responses 5 years ahead
+#' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
 #' 
 #' @export

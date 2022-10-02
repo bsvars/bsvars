@@ -1,5 +1,5 @@
 
-#' @title Computes posterior draws of fitted values
+#' @title Computes posterior draws of dependent variables' fitted values
 #'
 #' @description Each of the draws from the posterior estimation of a model is transformed into
 #' a draw from the posterior distribution of the fitted values. 
@@ -29,7 +29,7 @@
 #' # estimate the model
 #' posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
 #' 
-#' # compute impulse responses 5 years ahead
+#' # compute dependent variables' fitted values
 #' fitted         = compute_fitted_values(posterior)
 #' 
 #' @export
