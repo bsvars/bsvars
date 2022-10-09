@@ -165,7 +165,7 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' 
 #' @export
 estimate.PosteriorBSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
-  
+
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
@@ -175,8 +175,8 @@ estimate.PosteriorBSVARSV <- function(specification, S, thin = 10, show_progress
   # estimation
   qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, TRUE, show_progress)
   
-  specification$starting_values$set_starting_values(qqq$last_draw)
-  output              = specify_posterior_bsvar_sv$new(specification, qqq$posterior)
+  specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
+  output              = specify_posterior_bsvar_sv$new(specification$last_draw, qqq$posterior)
   
   # normalise output
   BB                  = qqq$last_draw$B

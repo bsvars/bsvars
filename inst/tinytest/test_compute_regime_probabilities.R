@@ -6,14 +6,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
 )
-run_no1             <- estimate_bsvar_msh(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
 
 set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
     specify_bsvar_msh$new(M = 2) |>
-    estimate_bsvar_msh(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     compute_regime_probabilities()
 )
 
@@ -33,14 +33,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar_mix$new(us_fiscal_lsuw, M=2)
 )
-run_no1             <- estimate_bsvar_mix(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
 
 set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
     specify_bsvar_mix$new(M = 2) |>
-    estimate_bsvar_mix(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     compute_regime_probabilities()
 )
 
@@ -60,7 +60,7 @@ set.seed(1)
 suppressMessages(
   rp                <- us_fiscal_lsuw |>
     specify_bsvar_msh$new(M = 2) |>
-    estimate_bsvar_msh(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     compute_regime_probabilities(type = "filtered")
 )
 
@@ -75,7 +75,7 @@ set.seed(1)
 suppressMessages(
   rp                <- us_fiscal_lsuw |>
     specify_bsvar_msh$new(M = 2) |>
-    estimate_bsvar_msh(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     compute_regime_probabilities(type = "forecasted")
 )
 
@@ -90,7 +90,7 @@ set.seed(1)
 suppressMessages(
   rp                <- us_fiscal_lsuw |>
     specify_bsvar_msh$new(M = 2) |>
-    estimate_bsvar_msh(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     compute_regime_probabilities(type = "smoothed")
 )
 
@@ -106,7 +106,7 @@ set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
     specify_bsvar$new() |>
-    estimate_bsvar(S = 3, thin = 1, show_progress = FALSE)
+    estimate(S = 3, thin = 1, show_progress = FALSE)
 )
 
 expect_error(

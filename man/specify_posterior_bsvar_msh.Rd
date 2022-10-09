@@ -10,11 +10,11 @@ Note that due to the thinning of the MCMC output the starting value in element \
 might not be equal to the last draw provided in element \code{posterior}.
 }
 \examples{
-# This is a function that is used within estimate_bsvar()
+# This is a function that is used within estimate()
 data(us_fiscal_lsuw)
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
 set.seed(123)
-estimate       = estimate_bsvar_msh(specification, 10, thin = 1)
+estimate       = estimate(specification, 10, thin = 1)
 class(estimate)
 
 
@@ -25,7 +25,7 @@ class(estimate)
 data(us_fiscal_lsuw)
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
 set.seed(123)
-estimate       = estimate_bsvar_msh(specification, 10, thin = 1)
+estimate       = estimate(specification, 10, thin = 1)
 estimate$get_posterior()
 
 
@@ -40,13 +40,10 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
 
 # run the burn-in
 set.seed(123)
-burn_in        = estimate_bsvar_msh(specification, 10, thin = 2)
-
-# get the last draw
-last_draw      = burn_in$get_last_draw()
+burn_in        = estimate(specification, 10, thin = 2)
 
 # estimate the model
-posterior      = estimate_bsvar_msh(last_draw, 10, thin = 2)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 
 ## ------------------------------------------------
@@ -61,7 +58,7 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate_bsvar_msh(specification, 10, thin = 1)
+posterior      = estimate(specification, 10, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -90,7 +87,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate_bsvar(specification, 10, thin = 1)
+posterior      = estimate(specification, 10, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -105,12 +102,12 @@ posterior$is_normalised()
 
 }
 \seealso{
-\code{\link{estimate_bsvar_msh}}, \code{\link{specify_bsvar_msh}}
+\code{\link{estimate}}, \code{\link{specify_bsvar_msh}}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{last_draw}}{an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.}
+\item{\code{last_draw}}{an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.}
 
 \item{\code{posterior}}{a list containing Bayesian estimation output.}
 }
@@ -163,7 +160,7 @@ Returns a list containing Bayesian estimation output.
 \preformatted{data(us_fiscal_lsuw)
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
 set.seed(123)
-estimate       = estimate_bsvar_msh(specification, 10, thin = 1)
+estimate       = estimate(specification, 10, thin = 1)
 estimate$get_posterior()
 
 }
@@ -176,7 +173,7 @@ estimate$get_posterior()
 \if{html}{\out{<a id="method-PosteriorBSVARMSH-get_last_draw"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVARMSH-get_last_draw}{}}}
 \subsection{Method \code{get_last_draw()}}{
-Returns an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
+Returns an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_msh$get_last_draw()}\if{html}{\out{</div>}}
 }
@@ -190,13 +187,10 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
 
 # run the burn-in
 set.seed(123)
-burn_in        = estimate_bsvar_msh(specification, 10, thin = 2)
-
-# get the last draw
-last_draw      = burn_in$get_last_draw()
+burn_in        = estimate(specification, 10, thin = 2)
 
 # estimate the model
-posterior      = estimate_bsvar_msh(last_draw, 10, thin = 2)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 }
 \if{html}{\out{</div>}}
@@ -223,7 +217,7 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate_bsvar_msh(specification, 10, thin = 1)
+posterior      = estimate(specification, 10, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -271,7 +265,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate_bsvar(specification, 10, thin = 1)
+posterior      = estimate(specification, 10, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()

@@ -212,8 +212,8 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate_bsvar_sv(S = 10) |>
-#'   estimate_bsvar_sv(S = 20) |>  
+#'   estimate(S = 10) |>
+#'   estimate(S = 20) |>  
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export

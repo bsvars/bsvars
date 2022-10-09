@@ -34,19 +34,26 @@ prior$get_prior() # show the prior as list
 \describe{
 \item{\code{A}}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}.}
 
-\item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
+\item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution for each of 
+the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
 
-\item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
+\item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior distribution 
+for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
 
-\item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.}
+\item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter of 
+the generalised-normal prior distribution for the structural matrix \eqn{B}.}
 
-\item{\code{hyper_nu}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
+\item{\code{hyper_nu}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
 
-\item{\code{hyper_a}}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters.}
+\item{\code{hyper_a}}{a positive scalar, the shape parameter of the gamma prior for the two overall 
+shrinkage parameters.}
 
-\item{\code{hyper_V}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.}
+\item{\code{hyper_V}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for 
+the level 3 hierarchy of shrinkage parameters.}
 
-\item{\code{hyper_S}}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.}
+\item{\code{hyper_S}}{a positive scalar,  the scale parameter of the inverted-gamma 2 for 
+the level 3 hierarchy of shrinkage parameters.}
 }
 \if{html}{\out{</div>}}
 }
@@ -74,7 +81,9 @@ Create a new prior specification PriorBSVAR.
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
 
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
+the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
+otherwise to random walk.}
 }
 \if{html}{\out{</div>}}
 }

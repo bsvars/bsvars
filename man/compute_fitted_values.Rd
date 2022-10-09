@@ -9,7 +9,7 @@ compute_fitted_values(posterior)
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
 PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running one of the \code{estimate_bsvar_*} functions.}
+obtained by running the \code{estimate} function.}
 }
 \value{
 An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
@@ -25,20 +25,29 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
-burn_in        = estimate_bsvar(specification, 10)
+burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in, 50)
 
 # compute dependent variables' fitted values
 fitted         = compute_fitted_values(posterior)
 
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1) |>
+  estimate(S = 50) |> 
+  estimate(S = 100) |> 
+  compute_fitted_values() -> fitted
+
 }
 \seealso{
-\code{\link{estimate_bsvar}}, \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_sv}}, \code{\link{estimate_bsvar_mix}}
+\code{\link{estimate}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -90,10 +90,10 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 20)
 #' 
-#' # compute impulse responses 5 years ahead
-#' irf           = compute_impulse_responses(posterior, horizon = 20)
+#' # compute impulse responses 2 years ahead
+#' irf           = compute_impulse_responses(posterior, horizon = 8)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -104,7 +104,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 2) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 50) |> 
+#'   estimate(S = 20) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevds
 #' 
 NULL

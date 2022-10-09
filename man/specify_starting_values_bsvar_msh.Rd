@@ -130,7 +130,7 @@ Returns the elements of the starting values StartingValuesBSVARMSH as a \code{li
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object of class StartingValuesBSVAR-MS including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
+An object of class StartingValuesBSVAR-MS including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

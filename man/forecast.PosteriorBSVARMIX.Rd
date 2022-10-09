@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
-PosteriorBSVARMIX obtained by running one of the \code{estimate_bsvar_mix} function.}
+PosteriorBSVARMIX obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
 }
@@ -36,10 +36,10 @@ set.seed(123)
 specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 
 # run the burn-in
-burn_in        = estimate_bsvar_mix(specification, 10)
+burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar_mix(burn_in$get_last_draw(), 20)
+posterior      = estimate(burn_in, 20)
 
 # sample from predictive density 1 year ahead
 predictive     = forecast(posterior, 4)
@@ -49,7 +49,8 @@ predictive     = forecast(posterior, 4)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_mix$new(p = 1, M = 2) |>
-  estimate_bsvar_mix(S = 20) |> 
+  estimate(S = 10) |>
+  estimate(S = 20) |>  
   forecast(horizon = 4) -> predictive
   
 }

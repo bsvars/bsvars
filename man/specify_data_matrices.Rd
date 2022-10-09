@@ -4,7 +4,8 @@
 \alias{specify_data_matrices}
 \title{R6 Class Representing DataMatricesBSVAR}
 \description{
-The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, and regressors, \eqn{X}, for the homoskedastic bsvar model.
+The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, 
+and regressors, \eqn{X}, for the homoskedastic bsvar model.
 }
 \examples{
 data(us_fiscal_lsuw)

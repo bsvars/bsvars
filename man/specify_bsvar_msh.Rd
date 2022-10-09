@@ -68,7 +68,7 @@ spec$get_starting_values()
 
 }
 \seealso{
-\code{\link{estimate_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}
+\code{\link{estimate}}, \code{\link{specify_posterior_bsvar_msh}}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

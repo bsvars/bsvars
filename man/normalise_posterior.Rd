@@ -38,10 +38,10 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate_bsvar_sv(specification, 10)
+burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in, 50)
 
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
@@ -54,7 +54,7 @@ Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multi
 \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.
 }
 \seealso{
-\code{\link{estimate_bsvar}}, \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_sv}}, \code{\link{estimate_bsvar_mix}}
+\code{\link{estimate}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

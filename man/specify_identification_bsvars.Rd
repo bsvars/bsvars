@@ -61,7 +61,9 @@ Create new identifying restrictions IdentificationBSVARs.
 \describe{
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
 }
 \if{html}{\out{</div>}}
 }
@@ -104,7 +106,9 @@ Set new starting values StartingValuesBSVAR.
 \describe{
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
 }
 \if{html}{\out{</div>}}
 }

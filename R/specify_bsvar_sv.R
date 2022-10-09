@@ -360,7 +360,7 @@ specify_bsvar_sv = R6::R6Class(
 #' @export
 specify_posterior_bsvar_sv = R6::R6Class(
   "PosteriorBSVARSV",
-  
+   
   private = list(
     normalised = FALSE
   ), # END private

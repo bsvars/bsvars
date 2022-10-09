@@ -6,14 +6,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar$new(us_fiscal_lsuw)
 )
-run_no1             <- estimate_bsvar(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 ff                  <- forecast(run_no1, horizon = 2)
 
 set.seed(1)
 suppressMessages(
   ff2              <- us_fiscal_lsuw |>
     specify_bsvar$new() |>
-    estimate_bsvar(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     forecast(horizon = 2)
 )
 
@@ -47,14 +47,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
 )
-run_no1             <- estimate_bsvar_msh(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 ff                  <- forecast(run_no1, horizon = 2)
 
 set.seed(1)
 suppressMessages(
   ff2              <- us_fiscal_lsuw |>
     specify_bsvar_msh$new(M = 2) |>
-    estimate_bsvar_msh(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     forecast(horizon = 2)
 )
 
@@ -96,14 +96,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
 )
-run_no1             <- estimate_bsvar_mix(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 ff                  <- forecast(run_no1, horizon = 2)
 
 set.seed(1)
 suppressMessages(
   ff2              <- us_fiscal_lsuw |>
     specify_bsvar_mix$new(M = 2) |>
-    estimate_bsvar_mix(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     forecast(horizon = 2)
 )
 
@@ -145,14 +145,14 @@ set.seed(1)
 suppressMessages(
   specification_no1 <- specify_bsvar_sv$new(us_fiscal_lsuw)
 )
-run_no1             <- estimate_bsvar_sv(specification_no1, 3, 1, show_progress = FALSE)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 ff                  <- forecast(run_no1, horizon = 2)
 
 set.seed(1)
 suppressMessages(
   ff2              <- us_fiscal_lsuw |>
     specify_bsvar_sv$new() |>
-    estimate_bsvar_sv(S = 3, thin = 1, show_progress = FALSE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
     forecast(horizon = 2)
 )
 

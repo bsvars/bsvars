@@ -143,8 +143,8 @@ estimate.PosteriorBSVAR <- function(specification, S, thin = 10, show_progress =
   # estimation
   qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin, show_progress)
   
-  specification$starting_values$set_starting_values(qqq$last_draw)
-  output              = specify_posterior_bsvar$new(specification, qqq$posterior)
+  specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
+  output              = specify_posterior_bsvar$new(specification$last_draw, qqq$posterior)
   
   # normalise output
   BB                  = qqq$last_draw$B

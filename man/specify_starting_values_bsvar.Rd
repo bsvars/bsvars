@@ -48,7 +48,8 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution.}
+\item{\code{hyper}}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the 
+hierarchical prior distribution.}
 }
 \if{html}{\out{</div>}}
 }
@@ -126,12 +127,14 @@ Returns the elements of the starting values StartingValuesBSVAR as a \code{list}
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.}
+\item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
+\code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+An object of class StartingValuesBSVAR including the last draw of the current MCMC 
+as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

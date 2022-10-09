@@ -47,7 +47,7 @@
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 50) -> posterior
 #' regimes        = compute_regime_probabilities(posterior)

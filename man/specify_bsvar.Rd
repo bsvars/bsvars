@@ -63,7 +63,7 @@ spec$get_starting_values()
 
 }
 \seealso{
-\code{\link{estimate_bsvar}}, \code{\link{specify_posterior_bsvar}}
+\code{\link{estimate}}, \code{\link{specify_posterior_bsvar}}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -107,9 +107,13 @@ Create a new specification of the homoskedastic bsvar model BSVAR.
 
 \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
 
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
 
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
+the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
+otherwise to random walk.}
 }
 \if{html}{\out{</div>}}
 }

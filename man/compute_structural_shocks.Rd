@@ -9,8 +9,8 @@ compute_structural_shocks(posterior)
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
 PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running one of the \code{estimate_bsvar_*} functions. The draws must be normalised
-using function \code{normalise_posterior()} for the structural shocks to be interpretable.}
+obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 }
 \value{
 An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
@@ -26,20 +26,29 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 2)
 
 # run the burn-in
-burn_in        = estimate_bsvar(specification, 10)
+burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate_bsvar(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in$get_last_draw(), 50)
 
 # compute structural shocks
 shocks         = compute_structural_shocks(posterior)
 
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1) |>
+  estimate(S = 10) |> 
+  estimate(S = 50) |> 
+  compute_structural_shocks() -> ss
+
 }
 \seealso{
-\code{\link{estimate_bsvar}}, \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_sv}}, \code{\link{estimate_bsvar_mix}}
+\code{\link{estimate}}, \code{\link{normalise_posterior}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -16,7 +16,7 @@ spec = specify_bsvar_mix$new(
 
 }
 \seealso{
-\code{\link{estimate_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}
+\code{\link{estimate}}, \code{\link{specify_posterior_bsvar_mix}}
 }
 \section{Super class}{
 \code{bsvars::BSVARMSH} -> \code{BSVARMIX}
