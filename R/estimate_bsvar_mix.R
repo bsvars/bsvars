@@ -38,12 +38,12 @@
 #' }
 #' These model selection also with this respect is made using function \code{\link{specify_bsvar_mix}}.
 #' 
-#' @param specification an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.
+#' @param specification an object of class BSVARMIX generated using the \code{specify_bsvar_mix$new()} function.
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
-#' @return An object of class PosteriorBSVAR-MIX containing the Bayesian estimation output and containing two elements:
+#' @return An object of class PosteriorBSVARMIX containing the Bayesian estimation output and containing two elements:
 #' 
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
 #'  \describe{
@@ -57,7 +57,7 @@
 #'  \item{sigma}{an \code{NxTxS} array with the posterior draws for the structural shocks conditional standard deviations' series over the sample period}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
+#' \code{last_draw} an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
 #'
 #' @seealso \code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise_posterior}}
 #'
@@ -124,7 +124,7 @@ estimate_bsvar_mix <- function(specification, S, thin = 10, show_progress = TRUE
   
   # check the inputs
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
-  stopifnot("Argument specification must be of class BSVAR-MIX generated using the specify_bsvar_mix$new() function." = any(class(specification) == "BSVAR-MIX"))
+  stopifnot("Argument specification must be of class BSVARMIX generated using the specify_bsvar_mix$new() function." = any(class(specification) == "BSVARMIX"))
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
   stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   

@@ -8,7 +8,7 @@ a finite mixture of normal components via Gibbs sampler}
 estimate_bsvar_mix(specification, S, thin = 10, show_progress = TRUE)
 }
 \arguments{
-\item{specification}{an object of class BSVAR-MIX generated using the \code{specify_bsvar_mix$new()} function.}
+\item{specification}{an object of class BSVARMIX generated using the \code{specify_bsvar_mix$new()} function.}
 
 \item{S}{a positive integer, the number of posterior draws to be generated}
 
@@ -17,7 +17,7 @@ estimate_bsvar_mix(specification, S, thin = 10, show_progress = TRUE)
 \item{show_progress}{a logical value, if \code{TRUE} the estimation progress bar is visible}
 }
 \value{
-An object of class PosteriorBSVAR-MIX containing the Bayesian estimation output and containing two elements:
+An object of class PosteriorBSVARMIX containing the Bayesian estimation output and containing two elements:
 
  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
  \describe{
@@ -31,7 +31,7 @@ An object of class PosteriorBSVAR-MIX containing the Bayesian estimation output 
  \item{sigma}{an \code{NxTxS} array with the posterior draws for the structural shocks conditional standard deviations' series over the sample period}
 }
 
-\code{last_draw} an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
+\code{last_draw} an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
 }
 \description{
 Estimates the SVAR with non-normal residuals following a finite \code{M} mixture of normal distributions proposed by Woźniak & Droumaguet (2022).

@@ -12,7 +12,7 @@
 #'  economically interpretable values. 
 #' 
 #' @param posterior posterior estimation outcome - an object of either of classes: 
-#' PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 #' containing, amongst other draws, the \code{S} draws from the posterior 
 #' distribution of the \code{NxN} matrix of contemporaneous relationships \eqn{B}. 
 #' These draws are to be normalised with respect to:
@@ -51,7 +51,7 @@
 #' @export
 normalise_posterior <- function(posterior, B_hat) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
+  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   posterior_B     = posterior$posterior$B
   N               = dim(posterior_B)[1]
   last_draw_B     = array(NA, c(N, N, 1))

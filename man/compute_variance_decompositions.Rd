@@ -8,7 +8,7 @@ compute_variance_decompositions(posterior, horizon)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of one of the classes: 
-PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 obtained by running one of the \code{estimate_bsvar_*} functions - these draws must be normalised
 using function \code{normalise_posterior()} for the forecast error variance decomposition to be interpretable.}
 

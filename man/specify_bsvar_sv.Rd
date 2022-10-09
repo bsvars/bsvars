@@ -4,7 +4,7 @@
 \alias{specify_bsvar_sv}
 \title{R6 Class representing the specification of the BSVAR model with Stochastic Volatility heteroskedasticity.}
 \description{
-The class BSVAR-SV presents complete specification for the BSVAR model with Stochastic Volatility heteroskedasticity.
+The class BSVARSV presents complete specification for the BSVAR model with Stochastic Volatility heteroskedasticity.
 }
 \examples{
 data(us_fiscal_lsuw)
@@ -72,30 +72,30 @@ spec$get_starting_values()
 
 \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVAR-SV with the prior specification.}
+\item{\code{prior}}{an object PriorBSVARSV with the prior specification.}
 
 \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVAR-SV with the starting values.}
+\item{\code{starting_values}}{an object StartingValuesBSVARSV with the starting values.}
 }
 \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-BSVAR-SV-new}{\code{specify_bsvar_sv$new()}}
-\item \href{#method-BSVAR-SV-get_data_matrices}{\code{specify_bsvar_sv$get_data_matrices()}}
-\item \href{#method-BSVAR-SV-get_identification}{\code{specify_bsvar_sv$get_identification()}}
-\item \href{#method-BSVAR-SV-get_prior}{\code{specify_bsvar_sv$get_prior()}}
-\item \href{#method-BSVAR-SV-get_starting_values}{\code{specify_bsvar_sv$get_starting_values()}}
-\item \href{#method-BSVAR-SV-clone}{\code{specify_bsvar_sv$clone()}}
+\item \href{#method-BSVARSV-new}{\code{specify_bsvar_sv$new()}}
+\item \href{#method-BSVARSV-get_data_matrices}{\code{specify_bsvar_sv$get_data_matrices()}}
+\item \href{#method-BSVARSV-get_identification}{\code{specify_bsvar_sv$get_identification()}}
+\item \href{#method-BSVARSV-get_prior}{\code{specify_bsvar_sv$get_prior()}}
+\item \href{#method-BSVARSV-get_starting_values}{\code{specify_bsvar_sv$get_starting_values()}}
+\item \href{#method-BSVARSV-clone}{\code{specify_bsvar_sv$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-new}{}}}
+\if{html}{\out{<a id="method-BSVARSV-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVAR-SV.
+Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$new(data, p = 1L, B, stationary = rep(FALSE, ncol(data)))}\if{html}{\out{</div>}}
 }
@@ -114,12 +114,12 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVAR-SV.
+A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-get_data_matrices"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-get_data_matrices}{}}}
+\if{html}{\out{<a id="method-BSVARSV-get_data_matrices"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-get_data_matrices}{}}}
 \subsection{Method \code{get_data_matrices()}}{
 Returns the data matrices as the DataMatricesBSVAR object.
 \subsection{Usage}{
@@ -142,8 +142,8 @@ spec$get_data_matrices()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-get_identification"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-get_identification}{}}}
+\if{html}{\out{<a id="method-BSVARSV-get_identification"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-get_identification}{}}}
 \subsection{Method \code{get_identification()}}{
 Returns the identifying restrictions as the IdentificationBSVARs object.
 \subsection{Usage}{
@@ -166,10 +166,10 @@ spec$get_identification()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-get_prior"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-get_prior}{}}}
+\if{html}{\out{<a id="method-BSVARSV-get_prior"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-get_prior}{}}}
 \subsection{Method \code{get_prior()}}{
-Returns the prior specification as the PriorBSVAR-SV object.
+Returns the prior specification as the PriorBSVARSV object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_prior()}\if{html}{\out{</div>}}
 }
@@ -190,10 +190,10 @@ spec$get_prior()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-get_starting_values"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-get_starting_values}{}}}
+\if{html}{\out{<a id="method-BSVARSV-get_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-get_starting_values}{}}}
 \subsection{Method \code{get_starting_values()}}{
-Returns the starting values as the StartingValuesBSVAR-SV object.
+Returns the starting values as the StartingValuesBSVARSV object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_starting_values()}\if{html}{\out{</div>}}
 }
@@ -214,8 +214,8 @@ spec$get_starting_values()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-SV-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-SV-clone}{}}}
+\if{html}{\out{<a id="method-BSVARSV-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

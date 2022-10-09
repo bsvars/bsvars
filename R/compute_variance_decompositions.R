@@ -5,7 +5,7 @@
 #' is transformed into a draw from the posterior distribution of the forecast error variance decomposition. 
 #' 
 #' @param posterior posterior estimation outcome - an object of one of the classes: 
-#' PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 #' obtained by running one of the \code{estimate_bsvar_*} functions - these draws must be normalised
 #' using function \code{normalise_posterior()} for the forecast error variance decomposition to be interpretable.
 #' @param horizon a positive integer number denoting the forecast horizon for the impulse responses computations.
@@ -40,7 +40,7 @@
 #' @export
 compute_variance_decompositions <- function(posterior, horizon) {
   
-  stopifnot("Argument x must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
+  stopifnot("Argument x must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   stopifnot("The posterior output must be normalised for the forecast error variance decomposition to be interpretable." = posterior$is_normalised())
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
 

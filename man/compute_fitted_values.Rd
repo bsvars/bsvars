@@ -8,7 +8,7 @@ compute_fitted_values(posterior)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 obtained by running one of the \code{estimate_bsvar_*} functions.}
 }
 \value{

@@ -1,8 +1,8 @@
 
-#' R6 Class Representing PriorBSVAR-MSH
+#' R6 Class Representing PriorBSVARMSH
 #'
 #' @description
-#' The class PriorBSVAR-MSH presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
+#' The class PriorBSVARMSH presents a prior specification for the bsvar model with Markov Switching Heteroskedasticity.
 #' 
 #' @examples 
 #' prior = specify_prior_bsvar_msh$new(N = 3, p = 1, M = 2)  # specify the prior
@@ -10,7 +10,7 @@
 #' 
 #' @export
 specify_prior_bsvar_msh = R6::R6Class(
-  "PriorBSVAR-MSH",
+  "PriorBSVARMSH",
   
   inherit = specify_prior_bsvar,
   
@@ -50,12 +50,12 @@ specify_prior_bsvar_msh = R6::R6Class(
     PR_TR      = matrix(),
     
     #' @description
-    #' Create a new prior specification PriorBSVAR-MSH.
+    #' Create a new prior specification PriorBSVARMSH.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
-    #' @return A new prior specification PriorBSVAR-MSH.
+    #' @return A new prior specification PriorBSVARMSH.
     initialize = function(N, p, M, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
@@ -70,7 +70,7 @@ specify_prior_bsvar_msh = R6::R6Class(
     }, # END initialize
     
     #' @description
-    #' Returns the elements of the prior specification PriorBSVAR-MSH as a \code{list}.
+    #' Returns the elements of the prior specification PriorBSVARMSH as a \code{list}.
     #' 
     #' @examples 
     #' # a prior for 3-variable example with four lags and two regimes
@@ -101,10 +101,10 @@ specify_prior_bsvar_msh = R6::R6Class(
 
 
 
-#' R6 Class Representing StartingValuesBSVAR-MSH
+#' R6 Class Representing StartingValuesBSVARMSH
 #'
 #' @description
-#' The class StartingValuesBSVAR-MSH presents starting values for the bsvar model with Markov Switching Heteroskedasticity.
+#' The class StartingValuesBSVARMSH presents starting values for the bsvar model with Markov Switching Heteroskedasticity.
 #' 
 #' @examples 
 #' # starting values for a bsvar model for a 3-variable system
@@ -112,7 +112,7 @@ specify_prior_bsvar_msh = R6::R6Class(
 #' 
 #' @export
 specify_starting_values_bsvar_msh = R6::R6Class(
-  "StartingValuesBSVAR-MSH",
+  "StartingValuesBSVARMSH",
   
   inherit = specify_starting_values_bsvar,
   
@@ -188,7 +188,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     }, # END get_starting_values
     
     #' @description
-    #' Returns the elements of the starting values StartingValuesBSVAR-MSH as a \code{list}.
+    #' Returns the elements of the starting values StartingValuesBSVARMSH as a \code{list}.
     #' @param last_draw a list containing the last draw.
     #' @return An object of class StartingValuesBSVAR-MS including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
     #' 
@@ -219,7 +219,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
 #' R6 Class representing the specification of the BSVAR model with Markov Switching Heteroskedasticity.
 #'
 #' @description
-#' The class BSVAR-MSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
+#' The class BSVARMSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
 #' 
 #' @seealso \code{\link{estimate_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}
 #' 
@@ -233,7 +233,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
 #' 
 #' @export
 specify_bsvar_msh = R6::R6Class(
-  "BSVAR-MSH",
+  "BSVARMSH",
   
   public = list(
     
@@ -243,27 +243,27 @@ specify_bsvar_msh = R6::R6Class(
     #' @field identification an object IdentificationBSVARs with the identifying restrictions. 
     identification         = list(),
     
-    #' @field prior an object PriorBSVAR-MSH with the prior specification. 
+    #' @field prior an object PriorBSVARMSH with the prior specification. 
     prior                  = list(),
     
     #' @field data_matrices an object DataMatricesBSVAR with the data matrices.
     data_matrices          = list(),
     
-    #' @field starting_values an object StartingValuesBSVAR-MSH with the starting values.
+    #' @field starting_values an object StartingValuesBSVARMSH with the starting values.
     starting_values        = list(),
     
     #' @field finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
     finiteM                = logical(),
     
     #' @description
-    #' Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVAR-MSH.
+    #' Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVARMSH.
     #' @param data a \code{(T+p)xN} matrix with time series data.
     #' @param p a positive integer providing model's autoregressive lag order.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @param finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
-    #' @return A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVAR-MSH.
+    #' @return A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
     initialize = function(
     data,
     p = 1L,
@@ -331,7 +331,7 @@ specify_bsvar_msh = R6::R6Class(
     }, # END get_identification
     
     #' @description
-    #' Returns the prior specification as the PriorBSVAR-MSH object.
+    #' Returns the prior specification as the PriorBSVARMSH object.
     #' 
     #' @examples 
     #' data(us_fiscal_lsuw)
@@ -347,7 +347,7 @@ specify_bsvar_msh = R6::R6Class(
     }, # END get_prior
     
     #' @description
-    #' Returns the starting values as the StartingValuesBSVAR-MSH object.
+    #' Returns the starting values as the StartingValuesBSVARMSH object.
     #' 
     #' @examples 
     #' data(us_fiscal_lsuw)
@@ -367,10 +367,10 @@ specify_bsvar_msh = R6::R6Class(
 
 
 
-#' R6 Class Representing PosteriorBSVAR-MSH
+#' R6 Class Representing PosteriorBSVARMSH
 #'
 #' @description
-#' The class PosteriorBSVAR-MSH contains posterior output and the specification including 
+#' The class PosteriorBSVARMSH contains posterior output and the specification including 
 #' the last MCMC draw for the bsvar model with Markov Switching Heteroskedasticity. 
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
@@ -387,7 +387,7 @@ specify_bsvar_msh = R6::R6Class(
 #' 
 #' @export
 specify_posterior_bsvar_msh = R6::R6Class(
-  "PosteriorBSVAR-MSH",
+  "PosteriorBSVARMSH",
   
   private = list(
     normalised = FALSE
@@ -395,20 +395,20 @@ specify_posterior_bsvar_msh = R6::R6Class(
   
   public = list(
     
-    #' @field last_draw an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}. 
+    #' @field last_draw an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}. 
     last_draw = list(),
     
     #' @field posterior a list containing Bayesian estimation output.
     posterior = list(),
     
     #' @description
-    #' Create a new posterior output PosteriorBSVAR-MSH.
-    #' @param specification_bsvar an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value.
+    #' Create a new posterior output PosteriorBSVARMSH.
+    #' @param specification_bsvar an object of class BSVARMSH with the last draw of the current MCMC run as the starting value.
     #' @param posterior_bsvar a list containing Bayesian estimation output.
-    #' @return A posterior output PosteriorBSVAR-MSH.
+    #' @return A posterior output PosteriorBSVARMSH.
     initialize = function(specification_bsvar, posterior_bsvar) {
       
-      stopifnot("Argument specification_bsvar must be of class BSVAR-MSH." = any(class(specification_bsvar) == "BSVAR-MSH"))
+      stopifnot("Argument specification_bsvar must be of class BSVARMSH." = any(class(specification_bsvar) == "BSVARMSH"))
       stopifnot("Argument posterior_bsvar must must contain MCMC output." = is.list(posterior_bsvar) & is.array(posterior_bsvar$B) & is.array(posterior_bsvar$A) & is.matrix(posterior_bsvar$hyper) & is.array(posterior_bsvar$xi))
       
       self$last_draw    = specification_bsvar
@@ -430,7 +430,7 @@ specify_posterior_bsvar_msh = R6::R6Class(
     }, # END get_posterior
     
     #' @description
-    #' Returns an object of class BSVAR-MSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
+    #' Returns an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}.
     #' 
     #' @examples
     #' data(us_fiscal_lsuw)

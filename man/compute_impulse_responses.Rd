@@ -8,7 +8,7 @@ compute_impulse_responses(posterior, horizon)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 obtained by running one of the \code{estimate_bsvar_*} functions. The draws must be normalised
 using function \code{normalise_posterior()} for the impulse responses to be interpretable.}
 

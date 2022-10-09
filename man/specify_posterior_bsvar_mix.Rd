@@ -2,9 +2,9 @@
 % Please edit documentation in R/specify_bsvar_mix.R
 \name{specify_posterior_bsvar_mix}
 \alias{specify_posterior_bsvar_mix}
-\title{R6 Class Representing PosteriorBSVAR-MIX}
+\title{R6 Class Representing PosteriorBSVARMIX}
 \description{
-The class PosteriorBSVAR-MIX contains posterior output and the specification including 
+The class PosteriorBSVARMIX contains posterior output and the specification including 
 the last MCMC draw for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 might not be equal to the last draw provided in element \code{posterior}.
@@ -110,7 +110,7 @@ posterior$is_normalised()
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{last_draw}}{an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.}
+\item{\code{last_draw}}{an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.}
 
 \item{\code{posterior}}{a list containing Bayesian estimation output.}
 }
@@ -119,19 +119,19 @@ posterior$is_normalised()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-PosteriorBSVAR-MIX-new}{\code{specify_posterior_bsvar_mix$new()}}
-\item \href{#method-PosteriorBSVAR-MIX-get_posterior}{\code{specify_posterior_bsvar_mix$get_posterior()}}
-\item \href{#method-PosteriorBSVAR-MIX-get_last_draw}{\code{specify_posterior_bsvar_mix$get_last_draw()}}
-\item \href{#method-PosteriorBSVAR-MIX-is_normalised}{\code{specify_posterior_bsvar_mix$is_normalised()}}
-\item \href{#method-PosteriorBSVAR-MIX-set_normalised}{\code{specify_posterior_bsvar_mix$set_normalised()}}
-\item \href{#method-PosteriorBSVAR-MIX-clone}{\code{specify_posterior_bsvar_mix$clone()}}
+\item \href{#method-PosteriorBSVARMIX-new}{\code{specify_posterior_bsvar_mix$new()}}
+\item \href{#method-PosteriorBSVARMIX-get_posterior}{\code{specify_posterior_bsvar_mix$get_posterior()}}
+\item \href{#method-PosteriorBSVARMIX-get_last_draw}{\code{specify_posterior_bsvar_mix$get_last_draw()}}
+\item \href{#method-PosteriorBSVARMIX-is_normalised}{\code{specify_posterior_bsvar_mix$is_normalised()}}
+\item \href{#method-PosteriorBSVARMIX-set_normalised}{\code{specify_posterior_bsvar_mix$set_normalised()}}
+\item \href{#method-PosteriorBSVARMIX-clone}{\code{specify_posterior_bsvar_mix$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-new}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new posterior output PosteriorBSVAR-MIX.
+Create a new posterior output PosteriorBSVARMIX.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$new(specification_bsvar, posterior_bsvar)}\if{html}{\out{</div>}}
 }
@@ -139,19 +139,19 @@ Create a new posterior output PosteriorBSVAR-MIX.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{specification_bsvar}}{an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value.}
+\item{\code{specification_bsvar}}{an object of class BSVARMIX with the last draw of the current MCMC run as the starting value.}
 
 \item{\code{posterior_bsvar}}{a list containing Bayesian estimation output.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A posterior output PosteriorBSVAR-MIX.
+A posterior output PosteriorBSVARMIX.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-get_posterior"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-get_posterior}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-get_posterior"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-get_posterior}{}}}
 \subsection{Method \code{get_posterior()}}{
 Returns a list containing Bayesian estimation output.
 \subsection{Usage}{
@@ -173,10 +173,10 @@ estimate$get_posterior()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-get_last_draw"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-get_last_draw}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-get_last_draw"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-get_last_draw}{}}}
 \subsection{Method \code{get_last_draw()}}{
-Returns an object of class BSVAR-MIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
+Returns an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_mix$get_last_draw()}\if{html}{\out{</div>}}
 }
@@ -205,8 +205,8 @@ posterior      = estimate_bsvar_mix(last_draw, 10, thin = 2)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-is_normalised"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-is_normalised}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-is_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-is_normalised}{}}}
 \subsection{Method \code{is_normalised()}}{
 Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
 \subsection{Usage}{
@@ -243,8 +243,8 @@ posterior$is_normalised()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-set_normalised"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-set_normalised}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-set_normalised"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-set_normalised}{}}}
 \subsection{Method \code{set_normalised()}}{
 Sets the private indicator \code{normalised} to TRUE.
 \subsection{Usage}{
@@ -291,8 +291,8 @@ posterior$is_normalised()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAR-MIX-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAR-MIX-clone}{}}}
+\if{html}{\out{<a id="method-PosteriorBSVARMIX-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVARMIX-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

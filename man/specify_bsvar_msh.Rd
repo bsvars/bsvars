@@ -4,7 +4,7 @@
 \alias{specify_bsvar_msh}
 \title{R6 Class representing the specification of the BSVAR model with Markov Switching Heteroskedasticity.}
 \description{
-The class BSVAR-MSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
+The class BSVARMSH presents complete specification for the BSVAR model with Markov Switching Heteroskedasticity.
 }
 \examples{
 data(us_fiscal_lsuw)
@@ -77,11 +77,11 @@ spec$get_starting_values()
 
 \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVAR-MSH with the prior specification.}
+\item{\code{prior}}{an object PriorBSVARMSH with the prior specification.}
 
 \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVAR-MSH with the starting values.}
+\item{\code{starting_values}}{an object StartingValuesBSVARMSH with the starting values.}
 
 \item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
 }
@@ -90,19 +90,19 @@ spec$get_starting_values()
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-BSVAR-MSH-new}{\code{specify_bsvar_msh$new()}}
-\item \href{#method-BSVAR-MSH-get_data_matrices}{\code{specify_bsvar_msh$get_data_matrices()}}
-\item \href{#method-BSVAR-MSH-get_identification}{\code{specify_bsvar_msh$get_identification()}}
-\item \href{#method-BSVAR-MSH-get_prior}{\code{specify_bsvar_msh$get_prior()}}
-\item \href{#method-BSVAR-MSH-get_starting_values}{\code{specify_bsvar_msh$get_starting_values()}}
-\item \href{#method-BSVAR-MSH-clone}{\code{specify_bsvar_msh$clone()}}
+\item \href{#method-BSVARMSH-new}{\code{specify_bsvar_msh$new()}}
+\item \href{#method-BSVARMSH-get_data_matrices}{\code{specify_bsvar_msh$get_data_matrices()}}
+\item \href{#method-BSVARMSH-get_identification}{\code{specify_bsvar_msh$get_identification()}}
+\item \href{#method-BSVARMSH-get_prior}{\code{specify_bsvar_msh$get_prior()}}
+\item \href{#method-BSVARMSH-get_starting_values}{\code{specify_bsvar_msh$get_starting_values()}}
+\item \href{#method-BSVARMSH-clone}{\code{specify_bsvar_msh$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-new}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVAR-MSH.
+Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVARMSH.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$new(
   data,
@@ -132,12 +132,12 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVAR-MSH.
+A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-get_data_matrices"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-get_data_matrices}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-get_data_matrices"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-get_data_matrices}{}}}
 \subsection{Method \code{get_data_matrices()}}{
 Returns the data matrices as the DataMatricesBSVAR object.
 \subsection{Usage}{
@@ -161,8 +161,8 @@ spec$get_data_matrices()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-get_identification"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-get_identification}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-get_identification"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-get_identification}{}}}
 \subsection{Method \code{get_identification()}}{
 Returns the identifying restrictions as the IdentificationBSVARs object.
 \subsection{Usage}{
@@ -186,10 +186,10 @@ spec$get_identification()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-get_prior"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-get_prior}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-get_prior"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-get_prior}{}}}
 \subsection{Method \code{get_prior()}}{
-Returns the prior specification as the PriorBSVAR-MSH object.
+Returns the prior specification as the PriorBSVARMSH object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_prior()}\if{html}{\out{</div>}}
 }
@@ -211,10 +211,10 @@ spec$get_prior()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-get_starting_values"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-get_starting_values}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-get_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-get_starting_values}{}}}
 \subsection{Method \code{get_starting_values()}}{
-Returns the starting values as the StartingValuesBSVAR-MSH object.
+Returns the starting values as the StartingValuesBSVARMSH object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_starting_values()}\if{html}{\out{</div>}}
 }
@@ -236,8 +236,8 @@ spec$get_starting_values()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MSH-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MSH-clone}{}}}
+\if{html}{\out{<a id="method-BSVARMSH-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

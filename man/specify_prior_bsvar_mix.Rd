@@ -2,9 +2,9 @@
 % Please edit documentation in R/specify_bsvar_mix.R
 \name{specify_prior_bsvar_mix}
 \alias{specify_prior_bsvar_mix}
-\title{R6 Class Representing PriorBSVAR-MIX}
+\title{R6 Class Representing PriorBSVARMIX}
 \description{
-The class PriorBSVAR-MIX presents a prior specification for the bsvar model with a zero-mean mixture of normals model for structural shocks.
+The class PriorBSVARMIX presents a prior specification for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 }
 \examples{
 prior = specify_prior_bsvar_mix$new(N = 3, p = 1, M = 2)  # specify the prior
@@ -12,7 +12,7 @@ prior$A                                        # show autoregressive prior mean
 
 }
 \section{Super classes}{
-\code{bsvars::PriorBSVAR} -> \code{bsvars::PriorBSVAR-MSH} -> \code{PriorBSVAR-MIX}
+\code{bsvars::PriorBSVAR} -> \code{bsvars::PriorBSVARMSH} -> \code{PriorBSVARMIX}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -44,20 +44,20 @@ prior$A                                        # show autoregressive prior mean
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-PriorBSVAR-MIX-clone}{\code{specify_prior_bsvar_mix$clone()}}
+\item \href{#method-PriorBSVARMIX-clone}{\code{specify_prior_bsvar_mix$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVAR-MSH" data-id="get_prior"><a href='../../bsvars/html/PriorBSVAR-MSH.html#method-PriorBSVAR-MSH-get_prior'><code>bsvars::PriorBSVAR-MSH$get_prior()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVAR-MSH" data-id="initialize"><a href='../../bsvars/html/PriorBSVAR-MSH.html#method-PriorBSVAR-MSH-initialize'><code>bsvars::PriorBSVAR-MSH$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVARMSH" data-id="get_prior"><a href='../../bsvars/html/PriorBSVARMSH.html#method-PriorBSVARMSH-get_prior'><code>bsvars::PriorBSVARMSH$get_prior()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVARMSH" data-id="initialize"><a href='../../bsvars/html/PriorBSVARMSH.html#method-PriorBSVARMSH-initialize'><code>bsvars::PriorBSVARMSH$initialize()</code></a></span></li>
 </ul>
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAR-MIX-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAR-MIX-clone}{}}}
+\if{html}{\out{<a id="method-PriorBSVARMIX-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVARMIX-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

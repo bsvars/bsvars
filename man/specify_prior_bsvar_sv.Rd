@@ -2,9 +2,9 @@
 % Please edit documentation in R/specify_bsvar_sv.R
 \name{specify_prior_bsvar_sv}
 \alias{specify_prior_bsvar_sv}
-\title{R6 Class Representing PriorBSVAR-SV}
+\title{R6 Class Representing PriorBSVARSV}
 \description{
-The class PriorBSVAR-SV presents a prior specification for the bsvar model with Stochastic Volatility heteroskedasticity.
+The class PriorBSVARSV presents a prior specification for the bsvar model with Stochastic Volatility heteroskedasticity.
 }
 \examples{
 prior = specify_prior_bsvar_sv$new(N = 3, p = 1) # a prior for 3-variable example with one lag
@@ -21,7 +21,7 @@ prior$get_prior() # show the prior as list
 
 }
 \section{Super class}{
-\code{bsvars::PriorBSVAR} -> \code{PriorBSVAR-SV}
+\code{bsvars::PriorBSVAR} -> \code{PriorBSVARSV}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -51,16 +51,16 @@ prior$get_prior() # show the prior as list
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-PriorBSVAR-SV-new}{\code{specify_prior_bsvar_sv$new()}}
-\item \href{#method-PriorBSVAR-SV-get_prior}{\code{specify_prior_bsvar_sv$get_prior()}}
-\item \href{#method-PriorBSVAR-SV-clone}{\code{specify_prior_bsvar_sv$clone()}}
+\item \href{#method-PriorBSVARSV-new}{\code{specify_prior_bsvar_sv$new()}}
+\item \href{#method-PriorBSVARSV-get_prior}{\code{specify_prior_bsvar_sv$get_prior()}}
+\item \href{#method-PriorBSVARSV-clone}{\code{specify_prior_bsvar_sv$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAR-SV-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAR-SV-new}{}}}
+\if{html}{\out{<a id="method-PriorBSVARSV-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVARSV-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new prior specification PriorBSVAR-SV.
+Create a new prior specification PriorBSVARSV.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$new(N, p, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
 }
@@ -77,14 +77,14 @@ Create a new prior specification PriorBSVAR-SV.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new prior specification PriorBSVAR-SV.
+A new prior specification PriorBSVARSV.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAR-SV-get_prior"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAR-SV-get_prior}{}}}
+\if{html}{\out{<a id="method-PriorBSVARSV-get_prior"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVARSV-get_prior}{}}}
 \subsection{Method \code{get_prior()}}{
-Returns the elements of the prior specification PriorBSVAR-SV as a \code{list}.
+Returns the elements of the prior specification PriorBSVARSV as a \code{list}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$get_prior()}\if{html}{\out{</div>}}
 }
@@ -102,8 +102,8 @@ prior$get_prior() # show the prior as list
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAR-SV-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAR-SV-clone}{}}}
+\if{html}{\out{<a id="method-PriorBSVARSV-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVARSV-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
