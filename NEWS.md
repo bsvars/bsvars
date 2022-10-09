@@ -14,6 +14,7 @@
 5.  Changed the order of arguments in the `estimate_bsvar*` functions with `posterior` first to facilitate workflows using the pipe `|>` [#10](https://github.com/donotdespair/bsvars/issues/10)
 6.  Include citation info for the package [#12](https://github.com/donotdespair/bsvars/issues/12)
 7.  Corrected sampler for AR parameter of the SV equations [#19](https://github.com/donotdespair/bsvars/issues/19)
+8.  Added samplers from joint predictive densities [#15](https://github.com/donotdespair/bsvars/issues/15)
 
 
 # bsvars 1.0.0

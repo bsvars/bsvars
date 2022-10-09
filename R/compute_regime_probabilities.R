@@ -8,7 +8,7 @@
 #' or the smoothed probabilities, when \code{type = "smoothed"}, .
 #' 
 #' @param posterior posterior estimation outcome of regime-dependent heteroskedastic models 
-#' - an object of either of the classes: PosteriorBSVAR-MSH, or PosteriorBSVAR-MIX
+#' - an object of either of the classes: PosteriorBSVARMSH, or PosteriorBSVARMIX
 #' obtained by running one of the \code{estimate_bsvar_*} functions.
 #' @param type one of the values \code{"realized"}, \code{"filtered"}, \code{"forecasted"}, or \code{"smoothed"}
 #' denoting the type of probabilities to be computed.
@@ -46,7 +46,7 @@
 #' @export
 compute_regime_probabilities <- function(posterior, type = c("realized", "filtered", "forecasted", "smoothed")) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions for regime change or mixture models." = any(class(posterior)[1] == c("PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX")))
+  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions for regime change or mixture models." = any(class(posterior)[1] == c("PosteriorBSVARMSH", "PosteriorBSVARMIX")))
   
   type          = match.arg(type)
   

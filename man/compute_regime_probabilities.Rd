@@ -11,7 +11,7 @@ compute_regime_probabilities(
 }
 \arguments{
 \item{posterior}{posterior estimation outcome of regime-dependent heteroskedastic models 
-- an object of either of the classes: PosteriorBSVAR-MSH, or PosteriorBSVAR-MIX
+- an object of either of the classes: PosteriorBSVARMSH, or PosteriorBSVARMIX
 obtained by running one of the \code{estimate_bsvar_*} functions.}
 
 \item{type}{one of the values \code{"realized"}, \code{"filtered"}, \code{"forecasted"}, or \code{"smoothed"}

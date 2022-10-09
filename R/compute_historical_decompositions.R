@@ -5,7 +5,7 @@
 #' a draw from the posterior distribution of the historical decompositions. 
 #' 
 #' @param posterior posterior estimation outcome - an object of either of the classes: 
-#' PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 #' obtained by running one of the \code{estimate_bsvar_*} functions. The draws must be normalised
 #' using function \code{normalise_posterior()} for the historical decompositions to be interpretable.
 #' 
@@ -39,7 +39,7 @@
 #' @export
 compute_historical_decompositions <- function(posterior) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
+  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   stopifnot("The posterior output must be normalised for the historical decompositions to be interpretable." = posterior$is_normalised())
   
   posterior_B     = posterior$posterior$B

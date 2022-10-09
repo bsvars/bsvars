@@ -26,7 +26,7 @@ Rcpp::List forecast_bsvar_msh (
 Rcpp::List forecast_bsvar_sv (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
-    arma::cube&   posterior_h_T,      // NxS
+    arma::vec&   posterior_h_T,       // Nx1
     arma::mat&    posterior_rho,      // NxS
     arma::mat&    posterior_omega,    // NxS
     arma::vec&    X_T,                // (K)

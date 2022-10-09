@@ -2,9 +2,9 @@
 % Please edit documentation in R/specify_bsvar_mix.R
 \name{specify_starting_values_bsvar_mix}
 \alias{specify_starting_values_bsvar_mix}
-\title{R6 Class Representing StartingValuesBSVAR-MIX}
+\title{R6 Class Representing StartingValuesBSVARMIX}
 \description{
-The class StartingValuesBSVAR-MIX presents starting values for the bsvar model with a zero-mean mixture of normals model for structural shocks.
+The class StartingValuesBSVARMIX presents starting values for the bsvar model with a zero-mean mixture of normals model for structural shocks.
 }
 \examples{
 # starting values for a bsvar model for a 3-variable system
@@ -12,7 +12,7 @@ sv = specify_starting_values_bsvar_mix$new(N = 3, p = 1, M = 2, T = 100)
 
 }
 \section{Super classes}{
-\code{bsvars::StartingValuesBSVAR} -> \code{bsvars::StartingValuesBSVAR-MSH} -> \code{StartingValuesBSVAR-MIX}
+\code{bsvars::StartingValuesBSVAR} -> \code{bsvars::StartingValuesBSVARMSH} -> \code{StartingValuesBSVARMIX}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -36,23 +36,23 @@ sv = specify_starting_values_bsvar_mix$new(N = 3, p = 1, M = 2, T = 100)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-StartingValuesBSVAR-MIX-new}{\code{specify_starting_values_bsvar_mix$new()}}
-\item \href{#method-StartingValuesBSVAR-MIX-clone}{\code{specify_starting_values_bsvar_mix$clone()}}
+\item \href{#method-StartingValuesBSVARMIX-new}{\code{specify_starting_values_bsvar_mix$new()}}
+\item \href{#method-StartingValuesBSVARMIX-clone}{\code{specify_starting_values_bsvar_mix$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVAR-MSH" data-id="get_starting_values"><a href='../../bsvars/html/StartingValuesBSVAR-MSH.html#method-StartingValuesBSVAR-MSH-get_starting_values'><code>bsvars::StartingValuesBSVAR-MSH$get_starting_values()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVAR-MSH" data-id="set_starting_values"><a href='../../bsvars/html/StartingValuesBSVAR-MSH.html#method-StartingValuesBSVAR-MSH-set_starting_values'><code>bsvars::StartingValuesBSVAR-MSH$set_starting_values()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="get_starting_values"><a href='../../bsvars/html/StartingValuesBSVARMSH.html#method-StartingValuesBSVARMSH-get_starting_values'><code>bsvars::StartingValuesBSVARMSH$get_starting_values()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="set_starting_values"><a href='../../bsvars/html/StartingValuesBSVARMSH.html#method-StartingValuesBSVARMSH-set_starting_values'><code>bsvars::StartingValuesBSVARMSH$set_starting_values()</code></a></span></li>
 </ul>
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVAR-MIX-new"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-MIX-new}{}}}
+\if{html}{\out{<a id="method-StartingValuesBSVARMIX-new"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMIX-new}{}}}
 \subsection{Method \code{new()}}{
-Create new starting values StartingValuesBSVAR-MIX.
+Create new starting values StartingValuesBSVARMIX.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(N, p, M, T, finiteM = TRUE)}\if{html}{\out{</div>}}
 }
@@ -73,12 +73,12 @@ Create new starting values StartingValuesBSVAR-MIX.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Starting values StartingValuesBSVAR-MIX.
+Starting values StartingValuesBSVARMIX.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVAR-MIX-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-MIX-clone}{}}}
+\if{html}{\out{<a id="method-StartingValuesBSVARMIX-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMIX-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

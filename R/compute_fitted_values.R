@@ -5,7 +5,7 @@
 #' a draw from the posterior distribution of the fitted values. 
 #' 
 #' @param posterior posterior estimation outcome - an object of either of the classes: 
-#' PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 #' obtained by running one of the \code{estimate_bsvar_*} functions.
 #' 
 #' @return An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
@@ -35,7 +35,7 @@
 #' @export
 compute_fitted_values <- function(posterior) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVAR-MSH", "PosteriorBSVAR-MIX", "PosteriorBSVAR-SV")))
+  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   
   posterior_A     = posterior$posterior$A
   X               = posterior$last_draw$data_matrices$X

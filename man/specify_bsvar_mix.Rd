@@ -4,7 +4,7 @@
 \alias{specify_bsvar_mix}
 \title{R6 Class representing the specification of the BSVAR model with a zero-mean mixture of normals model for structural shocks.}
 \description{
-The class BSVAR-MIX presents complete specification for the BSVAR model with a zero-mean mixture of normals model for structural shocks.
+The class BSVARMIX presents complete specification for the BSVAR model with a zero-mean mixture of normals model for structural shocks.
 }
 \examples{
 data(us_fiscal_lsuw)
@@ -19,7 +19,7 @@ spec = specify_bsvar_mix$new(
 \code{\link{estimate_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}
 }
 \section{Super class}{
-\code{bsvars::BSVAR-MSH} -> \code{BSVAR-MIX}
+\code{bsvars::BSVARMSH} -> \code{BSVARMIX}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -28,11 +28,11 @@ spec = specify_bsvar_mix$new(
 
 \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVAR-MIX with the prior specification.}
+\item{\code{prior}}{an object PriorBSVARMIX with the prior specification.}
 
 \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVAR-MIX with the starting values.}
+\item{\code{starting_values}}{an object StartingValuesBSVARMIX with the starting values.}
 
 \item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
 }
@@ -41,25 +41,25 @@ spec = specify_bsvar_mix$new(
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-BSVAR-MIX-new}{\code{specify_bsvar_mix$new()}}
-\item \href{#method-BSVAR-MIX-clone}{\code{specify_bsvar_mix$clone()}}
+\item \href{#method-BSVARMIX-new}{\code{specify_bsvar_mix$new()}}
+\item \href{#method-BSVARMIX-clone}{\code{specify_bsvar_mix$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR-MSH" data-id="get_data_matrices"><a href='../../bsvars/html/BSVAR-MSH.html#method-BSVAR-MSH-get_data_matrices'><code>bsvars::BSVAR-MSH$get_data_matrices()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR-MSH" data-id="get_identification"><a href='../../bsvars/html/BSVAR-MSH.html#method-BSVAR-MSH-get_identification'><code>bsvars::BSVAR-MSH$get_identification()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR-MSH" data-id="get_prior"><a href='../../bsvars/html/BSVAR-MSH.html#method-BSVAR-MSH-get_prior'><code>bsvars::BSVAR-MSH$get_prior()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR-MSH" data-id="get_starting_values"><a href='../../bsvars/html/BSVAR-MSH.html#method-BSVAR-MSH-get_starting_values'><code>bsvars::BSVAR-MSH$get_starting_values()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_data_matrices"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_data_matrices'><code>bsvars::BSVARMSH$get_data_matrices()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_identification"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_identification'><code>bsvars::BSVARMSH$get_identification()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_prior"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_prior'><code>bsvars::BSVARMSH$get_prior()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_starting_values"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_starting_values'><code>bsvars::BSVARMSH$get_starting_values()</code></a></span></li>
 </ul>
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MIX-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MIX-new}{}}}
+\if{html}{\out{<a id="method-BSVARMIX-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMIX-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with a zero-mean mixture of normals model for structural shocks, BSVAR-MIX.
+Create a new specification of the BSVAR model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_mix$new(
   data,
@@ -89,12 +89,12 @@ Create a new specification of the BSVAR model with a zero-mean mixture of normal
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new complete specification for the bsvar model with a zero-mean mixture of normals model for structural shocks, BSVAR-MIX.
+A new complete specification for the bsvar model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVAR-MIX-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVAR-MIX-clone}{}}}
+\if{html}{\out{<a id="method-BSVARMIX-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMIX-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

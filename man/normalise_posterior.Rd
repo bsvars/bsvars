@@ -8,7 +8,7 @@ normalise_posterior(posterior, B_hat)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of classes: 
-PosteriorBSVAR, PosteriorBSVAR-MSH, PosteriorBSVAR-MIX, or PosteriorBSVAR-SV
+PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
 containing, amongst other draws, the \code{S} draws from the posterior 
 distribution of the \code{NxN} matrix of contemporaneous relationships \eqn{B}. 
 These draws are to be normalised with respect to:}

@@ -32,12 +32,12 @@
 #' \deqn{h_{n.t} = g_n h_{n.t-1} + v_{n.t}}
 #' where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a standard normal error term.
 #' 
-#' @param specification an object of class BSVAR-SV generated using the \code{specify_bsvar_sv$new()} function.
+#' @param specification an object of class BSVARSV generated using the \code{specify_bsvar_sv$new()} function.
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
-#' @return An object of class PosteriorBSVAR-SV containing the Bayesian estimation output and containing two elements:
+#' @return An object of class PosteriorBSVARSV containing the Bayesian estimation output and containing two elements:
 #' 
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing:
 #'  \describe{
@@ -52,7 +52,7 @@
 #'  \item{s_}{an \code{S}-vector with the posterior draws of the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVAR-SV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}. 
+#' \code{last_draw} an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}. 
 #'
 #' @seealso \code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise_posterior}}
 #'
@@ -105,7 +105,7 @@
 estimate_bsvar_sv <- function(specification, S, thin = 10, show_progress = TRUE) {
   
   # check the inputs
-  stopifnot("Argument specification must be of class BSVAR-SV generated using the specify_bsvar_sv$new() function." = any(class(specification) == "BSVAR-SV"))
+  stopifnot("Argument specification must be of class BSVARSV generated using the specify_bsvar_sv$new() function." = any(class(specification) == "BSVARSV"))
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
   stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
