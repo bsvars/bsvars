@@ -1,0 +1,95 @@
+
+#' @title Bayesian estimation of Structural Vector Autoregressions via Gibbs sampler
+#'
+#' @description Estimates homo- or heteroskedastic SVAR models using the Gibbs sampler proposed by Waggoner & Zha (2003)
+#' for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
+#' for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
+#' follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
+#' overall shrinkage parameters estimated using a 3-level hierarchical prior distribution. A variety of models
+#' for conditional variances are possible including versions of Stochastic Volatility and Markov-switching heteroskedasticity.
+#' Non-normal specifications include finite and sparse normal mixture model for the structural shocks.
+#' See section \bold{Details} for the model equations.
+#' 
+#' @details 
+#' The homoskedastic SVAR model is given by the reduced form equation:
+#' \deqn{Y = AX + E}
+#' where \eqn{Y} is an \code{NxT} matrix of dependent variables, \eqn{X} is a \code{KxT} matrix of explanatory variables, 
+#' \eqn{E} is an \code{NxT} matrix of reduced form error terms, and \eqn{A} is an \code{NxK} matrix of autoregressive slope coefficients and parameters on deterministic terms in \eqn{X}.
+#' 
+#' The structural equation is given by
+#' \deqn{BE = U}
+#' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
+#' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
+#' 
+#' The structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
+#' 
+#' The various SVAR models estimated differ by the specification of structural shocks
+#' variances. Their specification depends on the \code{specify_bsvar*} function used. The different models include:
+#' \itemize{
+#'   \item homoskedastic model with unit variances
+#'   \item heteroskedastic model with stationary Markov switching in the variances
+#'   \item heteroskedastic model with Stochastic Volatility process for variances
+#'   \item non-normal model with a finite mixture of normal components and component-specific variances
+#'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
+#'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
+#' }
+#' 
+#' @param specification an object of class BSVAR, BSVARMSH, BSVARMIX, or BSVARSV generated using one of the \code{specify_bsvar*} functions
+#' or an object of class PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV generated using the function \code{estimate}.
+#' The latter type of input facilitates the continuation of the MCMC sampling starting from the last draw of the previous run.
+#' @param S a positive integer, the number of posterior draws to be generated
+#' @param thin a positive integer, specifying the frequency of MCMC output thinning
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
+#' 
+#' @return An object of class PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV containing the Bayesian estimation output and containing two elements:
+#' 
+#' \code{posterior} a list with a collection of \code{S} draws from the posterior distribution generated via Gibbs sampler containing many arrays and vectors whose selection depends on the model specification.
+#' \code{last_draw} an object of class BSVAR, BSVARMSH, BSVARMIX, or BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
+#'
+#' @seealso \code{\link{specify_bsvar}}, \code{\link{specify_bsvar_msh}}, \code{\link{specify_bsvar_mix}}, \code{\link{specify_bsvar_sv}}, \code{\link{normalise_posterior}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
+#' 
+#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
+#'
+#' Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
+#' 
+#' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+#' set.seed(123)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 50)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 100)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 50) |> 
+#'   compute_impulse_responses(horizon = 8) -> irf
+#' 
+#' @export
+estimate <- function(specification, S, thin = 10, show_progress = TRUE) {
+  
+  # check the inputs
+  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
+  stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
+  
+  # call method
+  UseMethod("estimate", specification)
+}

@@ -49,6 +49,8 @@
 #' 
 #' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 
+#' @method estimate BSVAR
+#' 
 #' @examples
 #' # simple workflow
 #' ############################################################
@@ -60,27 +62,21 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar(specification, 50)
+#' burn_in        = estimate(specification, 50)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar(burn_in$get_last_draw(), 100)
+#' posterior      = estimate(burn_in$get_last_draw(), 100)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate_bsvar(S = 50) |> 
-#'   compute_impulse_responses(horizon = 8) -> irf
+#'   estimate(S = 50) |> 
+#'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate_bsvar <- function(specification, S, thin = 10, show_progress = TRUE) {
-  
-  # check the inputs
-  stopifnot("Argument specification must be of class BSVAR generated using the specify_bsvar$new() function." = any(class(specification) == "BSVAR"))
-  stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
-  stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
-  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
+estimate.BSVAR <- function(specification, S, thin = 10, show_progress = TRUE) {
   
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
@@ -99,5 +95,61 @@ estimate_bsvar <- function(specification, S, thin = 10, show_progress = TRUE) {
   BB                  = diag(sign(diag(BB))) %*% BB
   normalise_posterior(output, BB)
     
+  return(output)
+}
+
+
+#' @inherit estimate.BSVAR
+#' 
+#' @method estimate PosteriorBSVAR
+#' 
+#' @param specification an object of class PosteriorBSVAR generated using the \code{estimate.BSVAR()} function.
+#' This setup facilitates the continuation of the MCMC sampling starting from the last draw of the previous run.
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 50)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 100)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 50) |> 
+#'   estimate(S = 100) |> 
+#'   compute_impulse_responses(horizon = 4) -> irf
+#' 
+#' @export
+estimate.PosteriorBSVAR <- function(specification, S, thin = 10, show_progress = TRUE) {
+  
+  # get the inputs to estimation
+  prior               = specification$last_draw$prior$get_prior()
+  starting_values     = specification$last_draw$starting_values$get_starting_values()
+  VB                  = specification$last_draw$identification$get_identification()
+  data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
+  
+  # estimation
+  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, thin, show_progress)
+  
+  specification$starting_values$set_starting_values(qqq$last_draw)
+  output              = specify_posterior_bsvar$new(specification, qqq$posterior)
+  
+  # normalise output
+  BB                  = qqq$last_draw$B
+  BB                  = diag(sign(diag(BB))) %*% BB
+  normalise_posterior(output, BB)
+  
   return(output)
 }
