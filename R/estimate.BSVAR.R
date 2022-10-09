@@ -35,7 +35,7 @@
 #'  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters of the hierarchical prior distribution}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}. 
+#' \code{last_draw} an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
 #'
 #' @seealso \code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise_posterior}}
 #'
@@ -65,7 +65,7 @@
 #' burn_in        = estimate(specification, 50)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 100)
+#' posterior      = estimate(burn_in, 100)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################

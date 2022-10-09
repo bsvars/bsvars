@@ -6,7 +6,7 @@
 #' 
 #' @param posterior posterior estimation outcome - an object of either of the classes: 
 #' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-#' obtained by running one of the \code{estimate_bsvar_*} functions.
+#' obtained by running the \code{estimate} function.
 #' @param horizon a positive integer, specifying the forecasting horizon.
 #' 
 #' @return A list of class \code{Forecasts} containing the
@@ -30,10 +30,10 @@
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar(burn_in$get_last_draw(), 20)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # sample from predictive density 1 year ahead
 #' predictive     = forecast(posterior, 4)
@@ -43,7 +43,8 @@
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate_bsvar(S = 20) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   forecast(horizon = 4) -> predictive
 #' 
 #' @export
@@ -56,7 +57,7 @@ forecast <- function(posterior, horizon) {
 #' @method forecast PosteriorBSVAR
 #' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVAR obtained by running one of the \code{estimate_bsvar} function.
+#' PosteriorBSVAR obtained by running the \code{estimate} function.
 #' 
 #' @return A list of class \code{Forecasts} containing the
 #' draws from the predictive density. The output list includes element:
@@ -85,7 +86,7 @@ forecast.PosteriorBSVAR = function(posterior, horizon) {
 #' @method forecast PosteriorBSVARMSH
 #' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARMSH obtained by running one of the \code{estimate_bsvar_msh} function.
+#' PosteriorBSVARMSH obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
@@ -96,10 +97,10 @@ forecast.PosteriorBSVAR = function(posterior, horizon) {
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_msh(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_msh(burn_in$get_last_draw(), 20)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # sample from predictive density 1 year ahead
 #' predictive     = forecast(posterior, 4)
@@ -109,7 +110,8 @@ forecast.PosteriorBSVAR = function(posterior, horizon) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate_bsvar_msh(S = 20) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
@@ -135,7 +137,7 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon) {
 #' @method forecast PosteriorBSVARMIX
 #' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARMIX obtained by running one of the \code{estimate_bsvar_mix} function.
+#' PosteriorBSVARMIX obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
@@ -146,10 +148,10 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon) {
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_mix(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_mix(burn_in$get_last_draw(), 20)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # sample from predictive density 1 year ahead
 #' predictive     = forecast(posterior, 4)
@@ -159,7 +161,8 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate_bsvar_mix(S = 20) |> 
+#'   estimate(S = 10) |>
+#'   estimate(S = 20) |>  
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
@@ -185,7 +188,7 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon) {
 #' @method forecast PosteriorBSVARSV
 #' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARSV obtained by running one of the \code{estimate_bsvar_sv} function.
+#' PosteriorBSVARSV obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
@@ -196,10 +199,10 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon) {
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 20)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # sample from predictive density 1 year ahead
 #' predictive     = forecast(posterior, 4)
@@ -209,7 +212,8 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate_bsvar_sv(S = 20) |> 
+#'   estimate_bsvar_sv(S = 10) |>
+#'   estimate_bsvar_sv(S = 20) |>  
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export

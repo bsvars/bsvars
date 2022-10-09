@@ -83,19 +83,28 @@
 #' data(us_fiscal_lsuw)
 #' 
 #' # specify the model and set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 2)
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # compute impulse responses 5 years ahead
 #' irf           = compute_impulse_responses(posterior, horizon = 20)
 #' 
-#' # compute forecast error variance decomposition 5 years ahead
-#' fevd           = compute_variance_decompositions(posterior, horizon = 20)
+#' # compute forecast error variance decomposition 2 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 50) |> 
+#'   compute_variance_decompositions(horizon = 8) -> fevds
 #' 
 NULL

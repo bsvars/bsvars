@@ -57,7 +57,7 @@
 #'  \item{sigma}{an \code{NxTxS} array with the posterior draws for the structural shocks conditional standard deviations' series over the sample period}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_msh()}. 
+#' \code{last_draw} an object of class BSVARMSH with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
 #' 
 #' @seealso \code{\link{specify_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}, \code{\link{normalise_posterior}}
 #'
@@ -111,13 +111,14 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
 #'   estimate(S = 50) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 

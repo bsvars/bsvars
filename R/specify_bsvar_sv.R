@@ -180,7 +180,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
     #' @description
     #' Returns the elements of the starting values StartingValuesBSVAR_SV as a \code{list}.
     #' @param last_draw a list containing the last draw of the current MCMC run.
-    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
     #' 
     #' @examples 
     #' # starting values for a bsvar model with 1 lag for a 3-variable system
@@ -212,7 +212,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
 #' @description
 #' The class BSVARSV presents complete specification for the BSVAR model with Stochastic Volatility heteroskedasticity.
 #' 
-#' @seealso \code{\link{estimate_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_posterior_bsvar_sv}}
 #' 
 #' @examples 
 #' data(us_fiscal_lsuw)
@@ -347,14 +347,14 @@ specify_bsvar_sv = R6::R6Class(
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
 #' 
-#' @seealso \code{\link{estimate_bsvar_sv}}, \code{\link{specify_bsvar_sv}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_bsvar_sv}}
 #' 
 #' @examples 
-#' # This is a function that is used within estimate_bsvar()
+#' # This is a function that is used within estimate()
 #' data(us_fiscal_lsuw)
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 #' set.seed(123)
-#' estimate       = estimate_bsvar_sv(specification, 10)
+#' estimate       = estimate(specification, 10)
 #' class(estimate)
 #' 
 #' @export
@@ -367,7 +367,8 @@ specify_posterior_bsvar_sv = R6::R6Class(
   
   public = list(
     
-    #' @field last_draw an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}. 
+    #' @field last_draw an object of class BSVARSV with the last draw of the current MCMC run 
+    #' as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
     last_draw = list(),
     
     #' @field posterior a list containing Bayesian estimation output.
@@ -375,7 +376,8 @@ specify_posterior_bsvar_sv = R6::R6Class(
     
     #' @description
     #' Create a new posterior output PosteriorBSVARSV.
-    #' @param specification_bsvar an object of class BSVARSV with the last draw of the current MCMC run as the starting value.
+    #' @param specification_bsvar an object of class BSVARSV with the last draw of the current MCMC 
+    #' run as the starting value.
     #' @param posterior_bsvar a list containing Bayesian estimation output.
     #' @return A posterior output PosteriorBSVARSV.
     initialize = function(specification_bsvar, posterior_bsvar) {
@@ -394,7 +396,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' data(us_fiscal_lsuw)
     #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
     #' set.seed(123)
-    #' estimate       = estimate_bsvar_sv(specification, 10)
+    #' estimate       = estimate(specification, 10)
     #' estimate$get_posterior()
     #' 
     get_posterior       = function(){
@@ -402,7 +404,8 @@ specify_posterior_bsvar_sv = R6::R6Class(
     }, # END get_posterior
     
     #' @description
-    #' Returns an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}.
+    #' Returns an object of class BSVARSV with the last draw of the current MCMC run as 
+    #' the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
     #' 
     #' @examples
     #' data(us_fiscal_lsuw)
@@ -412,13 +415,10 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # run the burn-in
-    #' burn_in        = estimate_bsvar_sv(specification, 10)
-    #' 
-    #' # get the last draw
-    #' last_draw      = burn_in$get_last_draw()
+    #' burn_in        = estimate(specification, 10)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar_sv(last_draw, 10)
+    #' posterior      = estimate(burn_in, 10)
     #' 
     get_last_draw      = function(){
       self$last_draw$clone()
@@ -436,7 +436,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' 
     #' # estimate the model
     #' set.seed(123)
-    #' posterior      = estimate_bsvar_sv(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
@@ -469,7 +469,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' 
     #' # estimate the model
     #' set.seed(123)
-    #' posterior      = estimate_bsvar_sv(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()

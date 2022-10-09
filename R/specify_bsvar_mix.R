@@ -127,7 +127,7 @@ specify_starting_values_bsvar_mix = R6::R6Class(
 #' @description
 #' The class BSVARMIX presents complete specification for the BSVAR model with a zero-mean mixture of normals model for structural shocks.
 #' 
-#' @seealso \code{\link{estimate_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_posterior_bsvar_mix}}
 #' 
 #' @examples 
 #' data(us_fiscal_lsuw)
@@ -219,14 +219,14 @@ specify_bsvar_mix = R6::R6Class(
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
 #' 
-#' @seealso \code{\link{estimate_bsvar_mix}}, \code{\link{specify_bsvar_mix}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_bsvar_mix}}
 #' 
 #' @examples 
-#' # This is a function that is used within estimate_bsvar()
+#' # This is a function that is used within estimate()
 #' data(us_fiscal_lsuw)
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
 #' set.seed(123)
-#' estimate       = estimate_bsvar_mix(specification, 10, thin = 1)
+#' estimate       = estimate(specification, 10, thin = 1)
 #' class(estimate)
 #' 
 #' @export
@@ -239,7 +239,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
   
   public = list(
     
-    #' @field last_draw an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}. 
+    #' @field last_draw an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
     last_draw = list(),
     
     #' @field posterior a list containing Bayesian estimation output.
@@ -266,7 +266,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' data(us_fiscal_lsuw)
     #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
     #' set.seed(123)
-    #' estimate       = estimate_bsvar_mix(specification, 10, thin = 1)
+    #' estimate       = estimate(specification, 10, thin = 1)
     #' estimate$get_posterior()
     #' 
     get_posterior       = function(){
@@ -274,7 +274,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     }, # END get_posterior
     
     #' @description
-    #' Returns an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_mix()}.
+    #' Returns an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
     #' 
     #' @examples
     #' data(us_fiscal_lsuw)
@@ -284,13 +284,10 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' 
     #' # run the burn-in
     #' set.seed(123)
-    #' burn_in        = estimate_bsvar_mix(specification, 10, thin = 2)
-    #' 
-    #' # get the last draw
-    #' last_draw      = burn_in$get_last_draw()
+    #' burn_in        = estimate(specification, 10, thin = 2)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar_mix(last_draw, 10, thin = 2)
+    #' posterior      = estimate(burn_in, 10, thin = 2)
     #' 
     get_last_draw      = function(){
       self$last_draw$clone()
@@ -308,7 +305,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' 
     #' # estimate the model
     #' set.seed(123)
-    #' posterior      = estimate_bsvar_mix(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
@@ -341,7 +338,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()

@@ -52,7 +52,7 @@
 #'  \item{s_}{an \code{S}-vector with the posterior draws of the scale of the gamma prior of the hierarchical prior for \code{sigma2_omega}}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar_sv()}. 
+#' \code{last_draw} an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
 #'
 #' @seealso \code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise_posterior}}
 #'
@@ -93,13 +93,14 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
 #'   estimate(S = 20) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 

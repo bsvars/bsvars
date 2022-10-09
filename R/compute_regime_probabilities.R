@@ -9,14 +9,14 @@
 #' 
 #' @param posterior posterior estimation outcome of regime-dependent heteroskedastic models 
 #' - an object of either of the classes: PosteriorBSVARMSH, or PosteriorBSVARMIX
-#' obtained by running one of the \code{estimate_bsvar_*} functions.
+#' obtained by running the \code{estimate} function.
 #' @param type one of the values \code{"realized"}, \code{"filtered"}, \code{"forecasted"}, or \code{"smoothed"}
 #' denoting the type of probabilities to be computed.
 #' 
 #' @return An object of class PosteriorRegimePr, that is, an \code{MxTxS} array with attribute PosteriorRegimePr 
 #' containing \code{S} draws of the regime probabilities.
 #'
-#' @seealso \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_mix}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -29,13 +29,13 @@
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 4, M = 2)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 2, M = 2)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_msh(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_msh(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # compute the posterior draws of realized regime indicators
 #' regimes        = compute_regime_probabilities(posterior)
@@ -43,10 +43,20 @@
 #' # compute the posterior draws of filtered probabilities
 #' filtered       = compute_regime_probabilities(posterior, "filtered")
 #' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 50) -> posterior
+#' regimes        = compute_regime_probabilities(posterior)
+#' filtered       = compute_regime_probabilities(posterior, "filtered")
+#' 
 #' @export
 compute_regime_probabilities <- function(posterior, type = c("realized", "filtered", "forecasted", "smoothed")) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions for regime change or mixture models." = any(class(posterior)[1] == c("PosteriorBSVARMSH", "PosteriorBSVARMIX")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for regime change or mixture models." = any(class(posterior)[1] == c("PosteriorBSVARMSH", "PosteriorBSVARMIX")))
   
   type          = match.arg(type)
   

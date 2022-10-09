@@ -21,7 +21,7 @@
 #' @return Nothing. The normalised elements overwrite the corresponding elements of 
 #' the first argument \code{posterior_B} by reference.
 #' 
-#' @seealso \code{\link{estimate_bsvar}}, \code{\link{estimate_bsvar_msh}}, \code{\link{estimate_bsvar_sv}}, \code{\link{estimate_bsvar_mix}}
+#' @seealso \code{\link{estimate}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -38,10 +38,10 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate_bsvar_sv(specification, 10)
+#' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate_bsvar_sv(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # normalise the posterior
 #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
@@ -51,7 +51,7 @@
 #' @export
 normalise_posterior <- function(posterior, B_hat) {
   
-  stopifnot("Argument posterior must contain estimation output from one of the estimate_bsvar* functions." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   posterior_B     = posterior$posterior$B
   N               = dim(posterior_B)[1]
   last_draw_B     = array(NA, c(N, N, 1))

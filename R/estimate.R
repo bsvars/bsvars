@@ -80,6 +80,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 50) |> 
+#'   estimate(S = 100) |> 
 #'   compute_impulse_responses(horizon = 8) -> irf
 #' 
 #' @export

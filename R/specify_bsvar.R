@@ -17,32 +17,41 @@ specify_prior_bsvar = R6::R6Class(
     #' @field A an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}. 
     A          = matrix(),
     
-    #' @field A_V_inv a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.
+    #' @field A_V_inv a \code{KxK} precision matrix of the normal prior distribution for each of 
+    #' the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.
     A_V_inv    = matrix(),
     
-    #' @field B_V_inv an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.
+    #' @field B_V_inv an \code{NxN} precision matrix of the generalised-normal prior distribution 
+    #' for the structural matrix \eqn{B}. This precision matrix is equation invariant.
     B_V_inv    = matrix(),
     
-    #' @field B_nu a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.
+    #' @field B_nu a positive integer greater of equal than \code{N}, a shape parameter of 
+    #' the generalised-normal prior distribution for the structural matrix \eqn{B}.
     B_nu       = NA,
     
-    #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
+    #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+    #' distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
     hyper_nu   = NA,
     
-    #' @field hyper_a a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters.
+    #' @field hyper_a a positive scalar, the shape parameter of the gamma prior for the two overall 
+    #' shrinkage parameters.
     hyper_a    = NA,
     
-    #' @field hyper_V a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
+    #' @field hyper_V a positive scalar,  the shape parameter of the inverted-gamma 2 for 
+    #' the level 3 hierarchy of shrinkage parameters.
     hyper_V    = NA,
     
-    #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
+    #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for 
+    #' the level 3 hierarchy of shrinkage parameters.
     hyper_S    = NA,
     
     #' @description
     #' Create a new prior specification PriorBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
+    #' otherwise to random walk.
     #' @return A new prior specification PriorBSVAR.
     #' @examples 
     #' # a prior for 3-variable example with one lag and stationary data
@@ -111,7 +120,8 @@ specify_starting_values_bsvar = R6::R6Class(
     #' @field B an \code{NxN} matrix of starting values for the parameter \eqn{B}. 
     B             = matrix(),
     
-    #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution. 
+    #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the 
+    #' hierarchical prior distribution. 
     hyper         = numeric(),
     
     #' @description
@@ -151,8 +161,10 @@ specify_starting_values_bsvar = R6::R6Class(
     
     #' @description
     #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-    #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
-    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
+    #' \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
+    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC 
+    #' as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
     #' 
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -196,7 +208,9 @@ specify_identification_bsvars = R6::R6Class(
     #' @description
     #' Create new identifying restrictions IdentificationBSVARs.
     #' @param N a positive integer - the number of dependent variables in the model.
-    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @return Identifying restrictions IdentificationBSVARs.
     initialize = function(N, B) {
       if (missing(B)) {
@@ -227,7 +241,9 @@ specify_identification_bsvars = R6::R6Class(
     #' @description
     #' Set new starting values StartingValuesBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
-    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' 
     #' @examples 
     #' spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
@@ -255,7 +271,8 @@ specify_identification_bsvars = R6::R6Class(
 #' R6 Class Representing DataMatricesBSVAR
 #'
 #' @description
-#' The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, and regressors, \eqn{X}, for the homoskedastic bsvar model.
+#' The class DataMatricesBSVAR presents the data matrices of dependent variables, \eqn{Y}, 
+#' and regressors, \eqn{X}, for the homoskedastic bsvar model.
 #' 
 #' @examples 
 #' data(us_fiscal_lsuw)
@@ -324,7 +341,7 @@ specify_data_matrices = R6::R6Class(
 #' @description
 #' The class BSVAR presents complete specification for the homoskedastic bsvar model.
 #' 
-#' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_posterior_bsvar}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_posterior_bsvar}}
 #' 
 #' @examples 
 #' data(us_fiscal_lsuw)
@@ -358,8 +375,12 @@ specify_bsvar = R6::R6Class(
     #' Create a new specification of the homoskedastic bsvar model BSVAR.
     #' @param data a \code{(T+p)xN} matrix with time series data.
     #' @param p a positive integer providing model's autoregressive lag order.
-    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
+    #' otherwise to random walk.
     #' @return A new complete specification for the homoskedastic bsvar model BSVAR.
     initialize = function(
       data,
@@ -459,14 +480,14 @@ specify_bsvar = R6::R6Class(
 #' Note that due to the thinning of the MCMC output the starting value in element \code{last_draw}
 #' might not be equal to the last draw provided in element \code{posterior}.
 #' 
-#' @seealso \code{\link{estimate_bsvar}}, \code{\link{specify_bsvar}}
+#' @seealso \code{\link{estimate}}, \code{\link{specify_bsvar}}
 #' 
 #' @examples 
-#' # This is a function that is used within estimate_bsvar()
+#' # This is a function that is used within estimate()
 #' data(us_fiscal_lsuw)
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 #' set.seed(123)
-#' estimate       = estimate_bsvar(specification, 50)
+#' estimate       = estimate(specification, 50)
 #' class(estimate)
 #' 
 #' @export
@@ -479,16 +500,20 @@ specify_posterior_bsvar = R6::R6Class(
   
   public = list(
     
-    #' @field last_draw an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}. 
+    #' @field last_draw an object of class BSVAR with the last draw of the current MCMC run as 
+    #' the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
     last_draw = list(),
     
-    #' @field posterior a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+    #' @field posterior a list containing Bayesian estimation output collected in elements 
+    #' an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
     posterior = list(),
     
     #' @description
     #' Create a new posterior output PosteriorBSVAR.
-    #' @param specification_bsvar an object of class BSVAR with the last draw of the current MCMC run as the starting value.
-    #' @param posterior_bsvar a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+    #' @param specification_bsvar an object of class BSVAR with the last draw of the current 
+    #' MCMC run as the starting value.
+    #' @param posterior_bsvar a list containing Bayesian estimation output collected in elements 
+    #' an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
     #' @return A posterior output PosteriorBSVAR.
     initialize = function(specification_bsvar, posterior_bsvar) {
       
@@ -500,13 +525,14 @@ specify_posterior_bsvar = R6::R6Class(
     }, # END initialize
     
     #' @description
-    #' Returns a list containing Bayesian estimation output collected in elements an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
+    #' Returns a list containing Bayesian estimation output collected in elements 
+    #' an \code{NxNxS} array \code{B}, an \code{NxKxS} array \code{A}, and a \code{5xS} matrix \code{hyper}.
     #' 
     #' @examples 
     #' data(us_fiscal_lsuw)
     #' specification  = specify_bsvar$new(us_fiscal_lsuw)
     #' set.seed(123)
-    #' estimate       = estimate_bsvar(specification, 50)
+    #' estimate       = estimate(specification, 50)
     #' estimate$get_posterior()
     #' 
     get_posterior       = function(){
@@ -514,7 +540,8 @@ specify_posterior_bsvar = R6::R6Class(
     }, # END get_posterior
     
     #' @description
-    #' Returns an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{bsvar()}.
+    #' Returns an object of class BSVAR with the last draw of the current MCMC run as 
+    #' the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
     #' 
     #' @examples
     #' data(us_fiscal_lsuw)
@@ -524,20 +551,18 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # run the burn-in
-    #' burn_in        = estimate_bsvar(specification, 10)
-    #' 
-    #' # get the last draw
-    #' last_draw      = burn_in$get_last_draw()
+    #' burn_in        = estimate(specification, 10)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(last_draw, 10)
+    #' posterior      = estimate(burn_in, 10)
     #' 
     get_last_draw      = function(){
       self$last_draw$clone()
     }, # END get_last_draw
     
     #' @description
-    #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+    #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} 
+    #' and \code{FALSE} otherwise.
     #' 
     #' @examples
     #' # upload data
@@ -548,7 +573,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
@@ -581,7 +606,7 @@ specify_posterior_bsvar = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # estimate the model
-    #' posterior      = estimate_bsvar(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 10, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
