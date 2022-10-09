@@ -55,7 +55,7 @@ the time of computations by orders of magnitude. Still, while waiting
 these a few minutes, you can track the progress by looking at the
 beautiful progress bar:
 
-![bsvars::progress_bar](inst/figures/progress.png)
+![bsvars::progress_bar](inst/varia/progress.png)
 
 ## License
 
