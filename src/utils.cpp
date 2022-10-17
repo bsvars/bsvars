@@ -7,7 +7,9 @@ using namespace arma;
 
 
 /*______________________function orthogonal_complement_matrix_TW______________________*/
-mat orthogonal_complement_matrix_TW (const mat& x) {
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::mat orthogonal_complement_matrix_TW (const arma::mat& x) {
   // # x is a mxn matrix and m>n
   // # the function returns a mx(m-n) matrix, out, that is an orthogonal complement of x, i.e.:
   // # t(x)%*%out = 0 and det(cbind(x,out))!=0
@@ -22,6 +24,8 @@ mat orthogonal_complement_matrix_TW (const mat& x) {
 
 
 
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 arma::vec log_mean (
     arma::mat     log_density     // n x s matrix with log density ordinates
 ) {

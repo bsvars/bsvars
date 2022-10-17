@@ -48,14 +48,16 @@ void sample_A_homosk1 (
 
 
 /*______________________function sample_A_heterosk1 ______________________*/
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 void sample_A_heterosk1 (
-    mat&        aux_A,          // NxK
-    const mat&  aux_B,          // NxN
-    const vec&  aux_hyper,      // NxM
-    const mat&  aux_sigma,      // NxT conditional STANDARD DEVIATIONS
-    const mat&  Y,              // NxT dependent variables
-    const mat&  X,              // KxT dependent variables
-    const List& prior           // a list of priors - original dimensions
+    arma::mat&        aux_A,          // NxK
+    const arma::mat&  aux_B,          // NxN
+    const arma::vec&  aux_hyper,      // NxM
+    const arma::mat&  aux_sigma,      // NxT conditional STANDARD DEVIATIONS
+    const arma::mat&  Y,              // NxT dependent variables
+    const arma::mat&  X,              // KxT dependent variables
+    const Rcpp::List& prior           // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_A by reference
   const int N         = aux_A.n_rows;
@@ -147,15 +149,17 @@ void sample_B_homosk1 (
 
 
 /*______________________function sample_B_heterosk1______________________*/
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 void sample_B_heterosk1 (
-    mat&        aux_B,          // NxN
-    const mat&  aux_A,          // NxK
-    const vec&  aux_hyper,      // NxM
-    const mat&  aux_sigma,      // NxT conditional STANDARD DEVIATIONS
-    const mat&  Y,              // NxT dependent variables
-    const mat&  X,              // KxT dependent variables
-    const List& prior,          // a list of priors - original dimensions
-    const field<mat>& VB        // restrictions on B0
+    arma::mat&        aux_B,          // NxN
+    const arma::mat&  aux_A,          // NxK
+    const arma::vec&  aux_hyper,      // NxM
+    const arma::mat&  aux_sigma,      // NxT conditional STANDARD DEVIATIONS
+    const arma::mat&  Y,              // NxT dependent variables
+    const arma::mat&  X,              // KxT dependent variables
+    const Rcpp::List& prior,          // a list of priors - original dimensions
+    const arma::field<arma::mat>& VB        // restrictions on B0
 ) {
   // the function changes the value of aux_B0 and aux_Bplus by reference (filling it with a new draw)
   const int N               = aux_B.n_rows;
@@ -210,12 +214,14 @@ void sample_B_heterosk1 (
 
 
 /*______________________function sample_hyperparameters______________________*/
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 void sample_hyperparameters (
-    vec&              aux_hyper,
-    const mat&        aux_B,
-    const mat&        aux_A,
-    const field<mat>& VB,
-    const List&       prior
+    arma::vec&              aux_hyper,
+    const arma::mat&        aux_B,
+    const arma::mat&        aux_A,
+    const arma::field<arma::mat>& VB,
+    const Rcpp::List&       prior
 ) {
   // the function changes the value of aux_hyper by reference (filling it with a new draw)
   const int N = aux_B.n_rows;

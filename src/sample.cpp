@@ -14,9 +14,11 @@ using namespace arma;
 // fixed to one draw, sampling without replacement, and changed output type to int
 // IMPORTANT: always #include <RcppArmadilloExtensions/sample.h>
 //---------------------------------------------------------------------------------------------------
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 int csample_num1 (
-    NumericVector x,
-    NumericVector prob = NumericVector::create()
+    Rcpp::NumericVector x,
+    Rcpp::NumericVector prob = NumericVector::create()
 ) {
   bool replace = false;
   NumericVector ret = Rcpp::RcppArmadillo::sample(x, 1, replace, prob);

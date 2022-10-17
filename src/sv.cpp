@@ -157,15 +157,17 @@ vec find_mixture_indicator_cdf (
 
 
 /*______________________function svar_nc1______________________*/
-List svar_nc1 (
-  rowvec&         aux_h_n,            // 1xT
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List svar_nc1 (
+  arma::rowvec&   aux_h_n,            // 1xT
   double&         aux_rho_n,
   double&         aux_omega_n,
   double&         aux_sigma2_omega_n, // omega prior hyper-parameter 
   double&         aux_s_n,             // scale of IG2 prior for aux_sigma2_omega_n
-  urowvec&        aux_S_n,            // 1xT
-  const rowvec&   u,                  // 1xT
-  const List&     prior,
+  arma::urowvec&  aux_S_n,            // 1xT
+  const arma::rowvec&   u,                  // 1xT
+  const Rcpp::List&     prior,
   bool            sample_s_ = true
 ) {
   // fixed values for auxiliary mixture
