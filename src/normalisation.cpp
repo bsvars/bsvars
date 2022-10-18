@@ -7,6 +7,8 @@ using namespace arma;
 
 
 /*______________________function normalisation_wz2003_s______________________*/
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 arma::rowvec normalisation_wz2003_s (
     const arma::mat& B,                   // NxN
     const arma::mat& B_hat_inv,           // NxN
@@ -34,8 +36,8 @@ arma::rowvec normalisation_wz2003_s (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 void normalisation_wz2003 (
-    arma::cube& posterior_B,            // NxNxS
-    const arma::mat& B_hat              // NxN
+    arma::cube&       posterior_B,            // NxNxS
+    const arma::mat&  B_hat              // NxN
 ) {
   // changes posterior_B by reference filling it with normalised values
   const int   N       = posterior_B.n_rows;

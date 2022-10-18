@@ -10,6 +10,8 @@ using namespace arma;
 
 /*______________________function do_rgig1______________________*/
 // utility function copied from package factorstochvol
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 double do_rgig1(
     double lambda, 
     double chi, 
@@ -24,9 +26,11 @@ double do_rgig1(
 
 /*______________________function cholesky_tridiagonal______________________*/
 // utility function from file precision_sampler.cpp
-List cholesky_tridiagonal(
-    const vec&    omega_diag,
-    const double& omega_offdiag
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List cholesky_tridiagonal(
+    const arma::vec&    omega_diag,
+    const double&       omega_offdiag
 ) {
   const int T = omega_diag.n_elem - 1;
   vec chol_diag(T+1);
@@ -43,10 +47,12 @@ List cholesky_tridiagonal(
 
 /*______________________function forward_algorithm______________________*/
 // utility function from file precision_sampler.cpp
-vec forward_algorithm(
-    const vec& chol_diag,
-    const vec& chol_offdiag,
-    const vec& covector
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::vec forward_algorithm(
+    const arma::vec& chol_diag,
+    const arma::vec& chol_offdiag,
+    const arma::vec& covector
 ) {
   const int T = chol_diag.n_elem - 1;
   vec htmp(T+1);
@@ -61,10 +67,12 @@ vec forward_algorithm(
 
 /*______________________function backward_algorithm______________________*/
 // utility function from file precision_sampler.cpp
-vec backward_algorithm(
-    const vec& chol_diag,
-    const vec& chol_offdiag,
-    const vec& htmp
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::vec backward_algorithm(
+    const arma::vec& chol_diag,
+    const arma::vec& chol_offdiag,
+    const arma::vec& htmp
 ) {
   const int T = chol_diag.size() - 1;
   vec h(T+1);
@@ -79,10 +87,12 @@ vec backward_algorithm(
 
 /*______________________function precision_sampler_ar1______________________*/
 // utility function from file precision_sampler.cpp
-vec precision_sampler_ar1(
-    const vec&     precision_diag,
-    const double&  precision_offdiag,
-    const vec&     location
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::vec precision_sampler_ar1(
+    const arma::vec&     precision_diag,
+    const double&        precision_offdiag,
+    const arma::vec&     location
 ) {
   int T               = location.n_rows;
   vec  epsilon(T, fill::randn);
@@ -100,9 +110,11 @@ vec precision_sampler_ar1(
 
 /*______________________function inverse_transform_sampling______________________*/
 // utility function from file utils_latent_states.cc from the source code of package stochvol
-uvec inverse_transform_sampling (
-    const vec&  mixprob,
-    const int   T
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::uvec inverse_transform_sampling (
+    const arma::vec&  mixprob,
+    const int         T
 ) {
   uvec r(T);
   for (int j = 0; j < T; j++) {
@@ -134,8 +146,10 @@ uvec inverse_transform_sampling (
 
 /*______________________function find_mixture_indicator_cdf______________________*/
 // utility function from file utils_latent_states.cc from the source code of package stochvol
-vec find_mixture_indicator_cdf (
-  const vec& datanorm           // provide all that is conditionally normal
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::vec find_mixture_indicator_cdf (
+  const arma::vec& datanorm           // provide all that is conditionally normal
 ){
   // fixed values for auxiliary mixture
   const NumericVector alpha_s = NumericVector::create(1.92677,1.34744,0.73504,0.02266,0-0.85173,-1.97278,-3.46788,-5.55246,-8.68384,-14.65000);
