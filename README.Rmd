@@ -22,12 +22,12 @@ This package provides efficient algorithms for Bayesian estimation of Structural
 # Installation
 
 Just open your **R** and type:
-```{R}
+```
 install.packages("bsvars")
 ```
 
 The package is under intensive development. To the the newest changes install it by typing:
-```{r}
+```
 devtools::install_git("https://github.com/donotdespair/bsvars.git")
 ```
 
