@@ -15,7 +15,39 @@ structural shocks.
 
 Just open your **R** and type:
 
-    install.packages("bsvars")
+``` r
+install.packages("bsvars")
+#> Installing package into '/private/var/folders/_d/j7rqc71x2y54_69_6v6q33fr0000gn/T/RtmpnPokGG/temp_libpath476d50c28265'
+#> (as 'lib' is unspecified)
+#> 
+#> The downloaded binary packages are in
+#>  /var/folders/_d/j7rqc71x2y54_69_6v6q33fr0000gn/T//RtmpaAR3ev/downloaded_packages
+```
+
+The package is under intensive development. To the the newest changes
+install it by typing:
+
+``` r
+devtools::install_git("https://github.com/donotdespair/bsvars.git")
+#> Downloading git repo https://github.com/donotdespair/bsvars.git
+#> '/usr/bin/git' clone --depth 1 --no-hardlinks https://github.com/donotdespair/bsvars.git /var/folders/_d/j7rqc71x2y54_69_6v6q33fr0000gn/T//RtmpaAR3ev/file483b5da8d9d7
+#> 
+#> * checking for file ‘/private/var/folders/_d/j7rqc71x2y54_69_6v6q33fr0000gn/T/RtmpaAR3ev/file483b5da8d9d7/DESCRIPTION’ ... OK
+#> * preparing ‘bsvars’:
+#> * checking DESCRIPTION meta-information ... OK
+#> * cleaning src
+#> * checking for LF line-endings in source and make files and shell scripts
+#> * checking for empty or unneeded directories
+#> * looking to see if a ‘data/datalist’ file should be added
+#>   NB: this package now depends on R (>= 3.5.0)
+#>   WARNING: Added dependency on R >= 3.5.0 because serialized objects in
+#>   serialize/load version 3 cannot be read in older versions of R.
+#>   File(s) containing such objects:
+#>     ‘bsvars/data/us_fiscal_lsuw.rda’
+#> * building ‘bsvars_1.0.1.9000.tar.gz’
+#> Installing package into '/private/var/folders/_d/j7rqc71x2y54_69_6v6q33fr0000gn/T/RtmpnPokGG/temp_libpath476d50c28265'
+#> (as 'lib' is unspecified)
+```
 
 # Start your Bayesian analysis of data
 
