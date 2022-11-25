@@ -125,6 +125,9 @@ specify_starting_values_bsvar_sv = R6::R6Class(
     #' @field omega an \code{N}-vector with values of SV process conditional standard deviations.
     omega         = numeric(),
     
+    #' @field sigma2v an \code{N}-vector with values of SV process conditional variances.
+    sigma2v       = numeric(),
+    
     #' @field S an \code{NxT} integer matrix with the auxiliary mixture component indicators.
     S             = matrix(),
     
@@ -150,6 +153,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
       self$h              = matrix(rnorm(N * T, sd = .01), N, T)
       self$rho            = rep(.5, N)
       self$omega          = rep(.1, N)
+      self$sigma2v        = rep(.1^2, N)
       self$S              = matrix(1, N, T)
       self$sigma2_omega   = rep(1, N)
       self$s_             = rep(0.05, N)
@@ -171,6 +175,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
         h                 = self$h,
         rho               = self$rho,
         omega             = self$omega,
+        sigma2v           = self$sigma2v,
         S                 = self$S,
         sigma2_omega      = self$sigma2_omega,
         s_                = self$s_
@@ -198,6 +203,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
       self$h              = last_draw$h
       self$rho            = last_draw$rho
       self$omega          = last_draw$omega
+      self$sigma2v        = last_draw$sigma2v
       self$S              = last_draw$S
       self$sigma2_omega   = last_draw$sigma2_omega
       self$s_             = last_draw$s_
@@ -242,17 +248,22 @@ specify_bsvar_sv = R6::R6Class(
     #' @field starting_values an object StartingValuesBSVARSV with the starting values.
     starting_values        = list(),
     
+    #' @field centred_sv a logical value - if true a centred parameterisation of the Stochastic Volatility process is estimated. Otherwise, its non-centred parameterisation is estimated. See Lütkepohl, Shang, Uzeda, Woźniak (2022) for more info.
+    centred_sv             = logical(),
+    
     #' @description
     #' Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.
     #' @param data a \code{(T+p)xN} matrix with time series data.
     #' @param p a positive integer providing model's autoregressive lag order.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param centred_sv a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @return A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
     initialize = function(
     data,
     p = 1L,
     B,
+    centred_sv = FALSE,
     stationary = rep(FALSE, ncol(data))
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
@@ -273,6 +284,7 @@ specify_bsvar_sv = R6::R6Class(
       self$identification  = specify_identification_bsvars$new(N, B)
       self$prior           = specify_prior_bsvar_sv$new(N, p, stationary)
       self$starting_values = specify_starting_values_bsvar_sv$new(N, self$p, T)
+      self$centred_sv      = centred_sv
     }, # END initialize
     
     #' @description

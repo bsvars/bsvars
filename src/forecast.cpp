@@ -108,7 +108,8 @@ Rcpp::List forecast_bsvar_sv (
     arma::mat&    posterior_rho,      // NxS
     arma::mat&    posterior_omega,    // NxS
     arma::vec&    X_T,                // (K)
-    const int     horizon
+    const int     horizon,
+    const bool    centred_sv = FALSE
 ) {
   
   const int       N = posterior_B.n_rows;
@@ -133,7 +134,11 @@ Rcpp::List forecast_bsvar_sv (
       
       for (int n=0; n<N; n++) {
         xx        = randn();
-        ht(n)     = posterior_omega(n, s) * (posterior_rho(n, s) * ht(n) + xx);
+        if ( centred_sv ) {
+          ht(n)     = posterior_rho(n, s) * ht(n) + posterior_omega(n, s) * xx;
+        } else {
+          ht(n)     = posterior_omega(n, s) * (posterior_rho(n, s) * ht(n) + xx);
+        }
         forecasts_sigma2(n, h, s) = exp(ht(n));
       }
       
