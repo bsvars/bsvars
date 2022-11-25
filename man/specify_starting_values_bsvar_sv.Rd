@@ -51,6 +51,8 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 \item{\code{omega}}{an \code{N}-vector with values of SV process conditional standard deviations.}
 
+\item{\code{sigma2v}}{an \code{N}-vector with values of SV process conditional variances.}
+
 \item{\code{S}}{an \code{NxT} integer matrix with the auxiliary mixture component indicators.}
 
 \item{\code{sigma2_omega}}{an \code{N}-vector with variances of the zero-mean normal prior for \eqn{\omega_n}.}

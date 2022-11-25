@@ -227,8 +227,9 @@ forecast.PosteriorBSVARSV = function(posterior, horizon) {
   T                 = ncol(posterior$last_draw$data_matrices$X)
   X_T               = posterior$last_draw$data_matrices$X[,T]
   posterior_h_T     = posterior$posterior$h[,T,]
+  centred_sv        = posterior$last_draw$centred_sv
 
-  fore            = .Call(`_bsvars_forecast_bsvar_sv`, posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, horizon)
+  fore            = .Call(`_bsvars_forecast_bsvar_sv`, posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, horizon, centred_sv)
   class(fore)     = "Forecasts"
   
   return(fore)

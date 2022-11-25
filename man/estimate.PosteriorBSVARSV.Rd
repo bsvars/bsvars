@@ -36,13 +36,17 @@ An object of class PosteriorBSVARSV containing the Bayesian estimation output an
 \code{last_draw} an object of class BSVARSV with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
 }
 \description{
-Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2022).
+Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity 
+proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2022).
 Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
-for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
-for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
-follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. The SV model 
-is estimated in a non-centred parameterisation using a range of techniques including: 
+for the structural matrix \eqn{B} and the equation-by-equation sampler 
+by Chan, Koop, & Yu (2021)
+for the autoregressive slope parameters \eqn{A}. Additionally, 
+the parameter matrices \eqn{A} and \eqn{B}
+follow a Minnesota prior and generalised-normal prior distributions 
+respectively with the matrix-specific
+overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. 
+The SV model is estimated using a range of techniques including: 
 simulation smoother, auxiliary mixture, ancillarity-sufficiency interweaving strategy, 
 and generalised inverse Gaussian distribution summarised by Kastner & Frühwirth-Schnatter (2014). 
 See section \bold{Details} for the model equations.
@@ -57,14 +61,29 @@ The structural equation is given by
 \deqn{BE = U}
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
-
 Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
-The conditional variance of the \code{n}th shock at time \code{t} is given by:
+
+Two alternative specifications of the conditional variance of the \code{n}th shock at time \code{t} 
+can be estimated: non-centred Stochastic Volatility by Lütkepohl, Shang, Uzeda, and Woźniak (2022) 
+or centred Stochastic Volatility by Chan, Koop, & Yu (2021).
+
+The non-centred Stochastic Volatility by Lütkepohl, Shang, Uzeda, and Woźniak (2022) 
+is selected by setting argument \code{centred_sv} of function \code{specify_bsvar_sv$new()} to value \code{FALSE}.
+It has the conditional variances given by:
 \deqn{Var_{t-1}[u_{n.t}] = exp(w_n h_{n.t})}
 where \eqn{w_n} is the estimated conditional standard deviation of the log-conditional variance
 and the log-volatility process \eqn{h_{n.t}} follows an autoregressive process:
 \deqn{h_{n.t} = g_n h_{n.t-1} + v_{n.t}}
 where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a standard normal error term.
+
+The centred Stochastic Volatility by Chan, Koop, & Yu (2021)
+is selected by setting argument \code{centred_sv} of function \code{specify_bsvar_sv$new()} to value \code{TRUE}.
+Its conditional variances are given by:
+\deqn{Var_{t-1}[u_{n.t}] = exp(h_{n.t})}
+where the log-conditional variances \eqn{h_{n.t}} follow an autoregressive process:
+\deqn{h_{n.t} = g_n h_{n.t-1} + v_{n.t}}
+where \eqn{h_{n.0}=0}, \eqn{g_n} is an autoregressive parameter and \eqn{v_{n.t}} is a zero-mean normal error term
+with variance \eqn{s_{v.n}^2}.
 }
 \examples{
 # simple workflow

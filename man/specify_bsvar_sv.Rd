@@ -77,6 +77,8 @@ spec$get_starting_values()
 \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
 \item{\code{starting_values}}{an object StartingValuesBSVARSV with the starting values.}
+
+\item{\code{centred_sv}}{a logical value - if true a centred parameterisation of the Stochastic Volatility process is estimated. Otherwise, its non-centred parameterisation is estimated. See Lütkepohl, Shang, Uzeda, Woźniak (2022) for more info.}
 }
 \if{html}{\out{</div>}}
 }
@@ -97,7 +99,13 @@ spec$get_starting_values()
 \subsection{Method \code{new()}}{
 Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$new(data, p = 1L, B, stationary = rep(FALSE, ncol(data)))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$new(
+  data,
+  p = 1L,
+  B,
+  centred_sv = FALSE,
+  stationary = rep(FALSE, ncol(data))
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -108,6 +116,8 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
 \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
 
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+
+\item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
 }

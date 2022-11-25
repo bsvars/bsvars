@@ -188,3 +188,31 @@ expect_error(
   info = "forecast: sv: specify horizon."
 )
 
+
+# for bsvar_sv centred
+set.seed(1)
+suppressMessages(
+  specification_no1 <- specify_bsvar_sv$new(us_fiscal_lsuw, centred_sv = TRUE)
+)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
+ff                  <- forecast(run_no1, horizon = 2)
+
+set.seed(1)
+suppressMessages(
+  ff2              <- us_fiscal_lsuw |>
+    specify_bsvar_sv$new(centred_sv = TRUE) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
+    forecast(horizon = 2)
+)
+
+
+expect_identical(
+  ff$forecasts[1,1,1], ff2$forecasts[1,1,1],
+  info = "forecast: sv centred: forecast identical for normal and pipe workflow."
+)
+
+expect_identical(
+  ff$forecasts_sigma[1,1,1], ff2$forecasts_sigma[1,1,1],
+  info = "forecast: sv centred: sigma forecast identical for normal and pipe workflow."
+)
+
