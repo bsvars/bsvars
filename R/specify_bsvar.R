@@ -33,17 +33,8 @@ specify_prior_bsvar = R6::R6Class(
     #' distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
     hyper_nu   = NA,
     
-    #' @field hyper_a a positive scalar, the shape parameter of the gamma prior for the two overall 
-    #' shrinkage parameters.
-    hyper_a    = NA,
-    
-    #' @field hyper_V a positive scalar,  the shape parameter of the inverted-gamma 2 for 
-    #' the level 3 hierarchy of shrinkage parameters.
-    hyper_V    = NA,
-    
-    #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for 
-    #' the level 3 hierarchy of shrinkage parameters.
-    hyper_S    = NA,
+    #' @field hyper_s a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
+    hyper_s    = NA,
     
     #' @description
     #' Create a new prior specification PriorBSVAR.
@@ -69,9 +60,7 @@ specify_prior_bsvar = R6::R6Class(
       self$B_V_inv      = diag(N)
       self$B_nu         = N
       self$hyper_nu     = 3
-      self$hyper_a      = 1
-      self$hyper_V      = 3
-      self$hyper_S      = 1
+      self$hyper_s      = 1
     }, # END initialize
     
     #' @description
@@ -89,9 +78,7 @@ specify_prior_bsvar = R6::R6Class(
         B_V_inv  = self$B_V_inv,
         B_nu     = self$B_nu,
         hyper_nu = self$hyper_nu,
-        hyper_a  = self$hyper_a,
-        hyper_V  = self$hyper_V,
-        hyper_S  = self$hyper_S
+        hyper_s  = self$hyper_s
       )
     } # END get_prior
     

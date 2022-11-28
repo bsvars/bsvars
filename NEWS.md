@@ -16,6 +16,7 @@
 7.  Corrected sampler for AR parameter of the SV equations [#19](https://github.com/donotdespair/bsvars/issues/19)
 8.  Added samplers from joint predictive densities [#15](https://github.com/donotdespair/bsvars/issues/15)
 9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/donotdespair/bsvars/issues/22)
+10. Simplified the prior hierarchy for the shrinkage parameters of matrices \eqn{B} and \eqn{A} [#24](https://github.com/donotdespair/bsvars/issues/24)
 
 # bsvars 1.0.0
 

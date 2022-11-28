@@ -234,14 +234,9 @@ void sample_hyperparameters (
   for (int n=0; n<N; n++) {
     rn       += VB(n).n_rows;
   }
-  aux_hyper(4)    = ( as<double>(prior["hyper_S"]) + aux_hyper(2) + aux_hyper(3) ) /  chi2rnd(as<double>(prior["hyper_V"]) + 4*as<double>(prior["hyper_a"]));
-  aux_hyper(3)    = randg(distr_param( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
-            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(1))))));
-  aux_hyper(2)    = randg(distr_param( as<double>(prior["hyper_a"]) + 0.5*as<double>(prior["hyper_nu"]) ,
-            1/((1/aux_hyper(4)) + (1/(2*aux_hyper(0)))) ));
-  aux_hyper(1)    = ( aux_hyper(3) + trace((aux_A - as<mat>(prior["A"])) * as<mat>(prior["A_V_inv"]) * trans(aux_A - as<mat>(prior["A"]))) ) /
+  aux_hyper(1)    = ( as<double>(prior["hyper_s"]) + trace((aux_A - as<mat>(prior["A"])) * as<mat>(prior["A_V_inv"]) * trans(aux_A - as<mat>(prior["A"]))) ) /
     chi2rnd( as<double>(prior["hyper_nu"]) + N * K );
-  aux_hyper(0)    = ( aux_hyper(2) + trace(aux_B * as<mat>(prior["B_V_inv"]) * trans(aux_B) )) /
+  aux_hyper(0)    = ( as<double>(prior["hyper_s"]) + trace(aux_B * as<mat>(prior["B_V_inv"]) * trans(aux_B) )) /
     chi2rnd( as<double>(prior["hyper_nu"]) + rn );
 } // END sample_hyperparameters
 

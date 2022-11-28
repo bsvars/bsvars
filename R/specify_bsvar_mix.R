@@ -31,14 +31,8 @@ specify_prior_bsvar_mix = R6::R6Class(
     #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
     hyper_nu   = NA,
     
-    #' @field hyper_a a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters.
-    hyper_a    = NA,
-    
-    #' @field hyper_V a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
-    hyper_V    = NA,
-    
-    #' @field hyper_S a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.
-    hyper_S    = NA,
+    #' @field hyper_s a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
+    hyper_s    = NA,
     
     #' @field sigma_nu a positive scalar,  the shape parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.
     sigma_nu   = 3,

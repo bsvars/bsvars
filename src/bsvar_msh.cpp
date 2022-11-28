@@ -64,7 +64,7 @@ Rcpp::List bsvar_msh_cpp (
   cube  posterior_PR_TR(M, M, SS);
   mat   posterior_pi_0(M, SS);
   cube  posterior_xi(M, T, SS);
-  mat   posterior_hyper(5, SS);
+  mat   posterior_hyper(2, SS);
   cube  posterior_sigma(N, T, SS);
   
   int   ss = 0;
