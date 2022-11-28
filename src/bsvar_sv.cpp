@@ -78,7 +78,7 @@ Rcpp::List bsvar_sv_cpp (
   
   cube  posterior_B(N, N, SS);
   cube  posterior_A(N, K, SS);
-  mat   posterior_hyper(5, SS);
+  mat   posterior_hyper(2, SS);
   cube  posterior_h(N, T, SS);
   mat   posterior_rho(N, SS);
   mat   posterior_omega(N, SS);

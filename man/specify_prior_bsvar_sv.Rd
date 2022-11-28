@@ -36,11 +36,7 @@ prior$get_prior() # show the prior as list
 
 \item{\code{hyper_nu}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
 
-\item{\code{hyper_a}}{a positive scalar, the shape parameter of the gamma prior for the two overall shrinkage parameters.}
-
-\item{\code{hyper_V}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.}
-
-\item{\code{hyper_S}}{a positive scalar,  the scale parameter of the inverted-gamma 2 for the level 3 hierarchy of shrinkage parameters.}
+\item{\code{hyper_s}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
 
 \item{\code{sv_a_}}{a positive scalar, the shape parameter of the gamma prior in the hierarchical prior for \eqn{\sigma^2_{\omega}}.}
 

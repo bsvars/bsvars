@@ -33,7 +33,7 @@ Estimates the homoskedastic SVAR using the Gibbs sampler proposed by Waggoner & 
 for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-overall shrinkage parameters estimated using a 3-level hierarchical prior distribution. 
+overall shrinkage parameters estimated using a hierarchical prior distribution. 
 See section \bold{Details} for the model equations.
 }
 \details{

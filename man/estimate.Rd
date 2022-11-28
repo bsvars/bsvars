@@ -28,7 +28,7 @@ Estimates homo- or heteroskedastic SVAR models using the Gibbs sampler proposed 
 for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
 for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-overall shrinkage parameters estimated using a 3-level hierarchical prior distribution. A variety of models
+overall shrinkage parameters estimated using a hierarchical prior distribution. A variety of models
 for conditional variances are possible including versions of Stochastic Volatility and Markov-switching heteroskedasticity.
 Non-normal specifications include finite and sparse normal mixture model for the structural shocks.
 See section \bold{Details} for the model equations.

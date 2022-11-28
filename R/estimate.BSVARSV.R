@@ -11,7 +11,7 @@
 #' the parameter matrices \eqn{A} and \eqn{B}
 #' follow a Minnesota prior and generalised-normal prior distributions 
 #' respectively with the matrix-specific
-#' overall shrinkage parameters estimated thanks to a 3-level hierarchical prior distribution. 
+#' overall shrinkage parameters estimated thanks to a hierarchical prior distribution. 
 #' The SV model is estimated using a range of techniques including: 
 #' simulation smoother, auxiliary mixture, ancillarity-sufficiency interweaving strategy, 
 #' and generalised inverse Gaussian distribution summarised by Kastner & Frühwirth-Schnatter (2014). 

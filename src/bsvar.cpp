@@ -49,7 +49,7 @@ Rcpp::List bsvar_cpp(
   
   cube  posterior_B(N, N, SS);
   cube  posterior_A(N, K, SS);
-  mat   posterior_hyper(5, SS);
+  mat   posterior_hyper(2, SS);
   
   int   ss = 0;
   
