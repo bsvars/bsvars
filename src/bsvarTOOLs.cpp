@@ -8,6 +8,35 @@ using namespace arma;
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
+arma::cube bsvars_ir1 (
+    arma::mat&    aux_B,              // (N, N)
+    arma::mat&    aux_A,              // (N, K)
+    const int     horizon,
+    const int     p
+) {
+  
+  const int       N = aux_B.n_rows;
+  cube            aux_irfs(N, N, horizon + 1);  // + 0 horizons
+  mat             A_bold_tmp(N * (p - 1), N * p, fill::eye);
+  
+    mat   irf_0         = inv(aux_B);
+    irf_0               = irf_0 * diagmat(pow(diagvec(irf_0), -1));
+    mat   A_bold        = join_cols(aux_A.cols(0, N * p - 1), A_bold_tmp);
+    mat   A_bold_power  = A_bold;
+    
+    aux_irfs.slice(0)   = irf_0;
+    
+    for (int h=1; h<horizon + 1; h++) {
+      aux_irfs.slice(h) = A_bold_power.submat(0, 0, N-1, N-1) * irf_0;
+      A_bold_power      = A_bold_power * A_bold;
+    } // END h loop
+    
+  return aux_irfs;
+} // END bsvars_ir1
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 arma::field<arma::cube> bsvars_ir (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
@@ -18,24 +47,11 @@ arma::field<arma::cube> bsvars_ir (
   const int       N = posterior_B.n_rows;
   const int       S = posterior_B.n_slices;
   
+  cube            aux_irfs(N, N, horizon + 1);
   field<cube>     irfs(S);
-  cube            aux_irfs(N, N, horizon + 1);  // + 0 horizons
-  
-  mat             A_bold_tmp(N * (p - 1), N * p, fill::eye);
   
   for (int s=0; s<S; s++) {
-    mat   irf_0         = inv(posterior_B.slice((s)));
-    irf_0               = irf_0 * diagmat(pow(diagvec(irf_0), -1));
-    mat   A_bold        = join_cols(posterior_A.slice(s).cols(0, N * p - 1), A_bold_tmp);
-    mat   A_bold_power  = A_bold;
-    
-    aux_irfs.slice(0)   = irf_0;
-    
-    for (int h=1; h<horizon + 1; h++) {
-      aux_irfs.slice(h) = A_bold_power.submat(0, 0, N-1, N-1) * irf_0;
-      A_bold_power      = A_bold_power * A_bold;
-    } // END h loop
-    
+    aux_irfs            = bsvars_ir1( posterior_B.slice(s), posterior_A.slice(s), horizon, p );
     irfs(s)             = aux_irfs;
   } // END s loop
   
