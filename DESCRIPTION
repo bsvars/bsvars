@@ -20,4 +20,4 @@ Suggests:
     tinytest
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 BugReports: https://github.com/donotdespair/bsvars/issues
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
