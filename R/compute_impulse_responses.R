@@ -9,6 +9,9 @@
 #' obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
 #' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
 #' @param horizon a positive integer number denoting the forecast horizon for the impulse responses computations.
+#' @param standardise a logical value. If \code{TRUE}, the impulse responses are standardised 
+#' so that the variables' own shocks at horizon 0 are equal to 1. Otherwise, the parameter estimates 
+#' determine this magnitude.
 #' 
 #' @return An object of class PosteriorIR, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorIR 
 #' containing \code{S} draws of the impulse responses.
@@ -47,7 +50,7 @@
 #'   compute_impulse_responses(horizon = 8) -> ir
 #' 
 #' @export
-compute_impulse_responses <- function(posterior, horizon) {
+compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
   
   stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
   stopifnot("The posterior output must be normalised for the impulse responses to be interpretable." = posterior$is_normalised())
@@ -59,7 +62,7 @@ compute_impulse_responses <- function(posterior, horizon) {
   p               = (dim(posterior_A)[2] - 1) / N
   S               = dim(posterior_A)[3]
   
-  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p)
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
   
   irfs            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
