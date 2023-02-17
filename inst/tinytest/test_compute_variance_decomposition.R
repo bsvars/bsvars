@@ -23,7 +23,7 @@ expect_error(
 
 expect_identical(
   sum(fevd[1,,1,1]), 100,
-  info = "compute_variance_decompositions: sum tp 100%."
+  info = "compute_variance_decompositions: sum to 100%."
 )
 
 expect_identical(
