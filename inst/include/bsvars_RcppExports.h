@@ -46,17 +46,17 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
-    inline arma::cube bsvars_ir1(arma::mat& aux_B, arma::mat& aux_A, const int horizon, const int p) {
-        typedef SEXP(*Ptr_bsvars_ir1)(SEXP,SEXP,SEXP,SEXP);
+    inline arma::cube bsvars_ir1(arma::mat& aux_B, arma::mat& aux_A, const int horizon, const int p, const bool standardise = false) {
+        typedef SEXP(*Ptr_bsvars_ir1)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvars_ir1 p_bsvars_ir1 = NULL;
         if (p_bsvars_ir1 == NULL) {
-            validateSignature("arma::cube(*bsvars_ir1)(arma::mat&,arma::mat&,const int,const int)");
+            validateSignature("arma::cube(*bsvars_ir1)(arma::mat&,arma::mat&,const int,const int,const bool)");
             p_bsvars_ir1 = (Ptr_bsvars_ir1)R_GetCCallable("bsvars", "_bsvars_bsvars_ir1");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_bsvars_ir1(Shield<SEXP>(Rcpp::wrap(aux_B)), Shield<SEXP>(Rcpp::wrap(aux_A)), Shield<SEXP>(Rcpp::wrap(horizon)), Shield<SEXP>(Rcpp::wrap(p)));
+            rcpp_result_gen = p_bsvars_ir1(Shield<SEXP>(Rcpp::wrap(aux_B)), Shield<SEXP>(Rcpp::wrap(aux_A)), Shield<SEXP>(Rcpp::wrap(horizon)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(standardise)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -67,17 +67,17 @@ namespace bsvars {
         return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
-    inline arma::field<arma::cube> bsvars_ir(arma::cube& posterior_B, arma::cube& posterior_A, const int horizon, const int p) {
-        typedef SEXP(*Ptr_bsvars_ir)(SEXP,SEXP,SEXP,SEXP);
+    inline arma::field<arma::cube> bsvars_ir(arma::cube& posterior_B, arma::cube& posterior_A, const int horizon, const int p, const bool standardise = false) {
+        typedef SEXP(*Ptr_bsvars_ir)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvars_ir p_bsvars_ir = NULL;
         if (p_bsvars_ir == NULL) {
-            validateSignature("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int)");
+            validateSignature("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int,const bool)");
             p_bsvars_ir = (Ptr_bsvars_ir)R_GetCCallable("bsvars", "_bsvars_bsvars_ir");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_bsvars_ir(Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(posterior_A)), Shield<SEXP>(Rcpp::wrap(horizon)), Shield<SEXP>(Rcpp::wrap(p)));
+            rcpp_result_gen = p_bsvars_ir(Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(posterior_A)), Shield<SEXP>(Rcpp::wrap(horizon)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(standardise)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

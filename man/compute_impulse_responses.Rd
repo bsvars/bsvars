@@ -4,7 +4,7 @@
 \alias{compute_impulse_responses}
 \title{Computes posterior draws of impulse responses}
 \usage{
-compute_impulse_responses(posterior, horizon)
+compute_impulse_responses(posterior, horizon, standardise = FALSE)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
@@ -13,6 +13,10 @@ obtained by running the \code{estimate} function. The interpretation depends on 
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 
 \item{horizon}{a positive integer number denoting the forecast horizon for the impulse responses computations.}
+
+\item{standardise}{a logical value. If \code{TRUE}, the impulse responses are standardised 
+so that the variables' own shocks at horizon 0 are equal to 1. Otherwise, the parameter estimates 
+determine this magnitude.}
 }
 \value{
 An object of class PosteriorIR, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorIR 

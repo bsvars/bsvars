@@ -12,7 +12,8 @@ arma::cube bsvars_ir1 (
     arma::mat&    aux_B,              // (N, N)
     arma::mat&    aux_A,              // (N, K)
     const int     horizon,
-    const int     p
+    const int     p,
+    const bool    standardise = false
 ) {
   
   const int       N = aux_B.n_rows;
@@ -20,7 +21,9 @@ arma::cube bsvars_ir1 (
   mat             A_bold_tmp(N * (p - 1), N * p, fill::eye);
   
     mat   irf_0         = inv(aux_B);
-    irf_0               = irf_0 * diagmat(pow(diagvec(irf_0), -1));
+    if ( standardise ) {
+      irf_0             = irf_0 * diagmat(pow(diagvec(irf_0), -1));
+    }
     mat   A_bold        = join_cols(aux_A.cols(0, N * p - 1), A_bold_tmp);
     mat   A_bold_power  = A_bold;
     
@@ -41,7 +44,8 @@ arma::field<arma::cube> bsvars_ir (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     const int     horizon,
-    const int     p
+    const int     p,
+    const bool    standardise = false
 ) {
   
   const int       N = posterior_B.n_rows;
@@ -51,7 +55,7 @@ arma::field<arma::cube> bsvars_ir (
   field<cube>     irfs(S);
   
   for (int s=0; s<S; s++) {
-    aux_irfs            = bsvars_ir1( posterior_B.slice(s), posterior_A.slice(s), horizon, p );
+    aux_irfs            = bsvars_ir1( posterior_B.slice(s), posterior_A.slice(s), horizon, p , standardise);
     irfs(s)             = aux_irfs;
   } // END s loop
   

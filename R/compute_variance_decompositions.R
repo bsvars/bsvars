@@ -59,7 +59,7 @@ compute_variance_decompositions <- function(posterior, horizon) {
   p               = (dim(posterior_A)[2] - 1) / N
   S               = dim(posterior_A)[3]
   
-  posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p)
+  posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, FALSE)
   qqq             = .Call(`_bsvars_bsvars_fevd`, posterior_irf)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))

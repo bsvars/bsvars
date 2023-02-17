@@ -9,7 +9,8 @@ arma::cube bsvars_ir1 (
     arma::mat&    aux_B,              // (N, N)
     arma::mat&    aux_A,              // (N, K)
     const int     horizon,
-    const int     p
+    const int     p,
+    const bool    standardise = false
 );
 
 
@@ -17,7 +18,8 @@ arma::field<arma::cube> bsvars_ir (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     const int     horizon,
-    const int     p
+    const int     p,
+    const bool    standardise = false
 );
 
 
