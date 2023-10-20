@@ -89,6 +89,7 @@ estimate <- function(specification, S, thin = 10, show_progress = TRUE) {
   # check the inputs
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)
   stopifnot("Argument thin must be a positive integer number." = thin > 0 & thin %% 1 == 0)
+  stopifnot("Argument S must be a positive integer multiplication of argument thin." = S %% thin == 0)
   stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   
   # call method

@@ -54,3 +54,14 @@ expect_identical(
   run_no2$last_draw$starting_values$B[1,1],
   info = "estimate_bsvar_sv centred: the last_draw(s) of two runs to be identical."
 )
+
+# a test of a good setting of S and thin
+expect_error(
+  estimate(specification_no1, 3, 2, show_progress = FALSE),
+  info = "Argument S is not a positive integer multiplication of argument thin."
+)
+
+expect_error(
+  estimate(specification_no1, 2, 3, show_progress = FALSE),
+  info = "Argument S is not a positive integer multiplication of argument thin."
+)
