@@ -27,6 +27,11 @@ Rcpp::List bsvar_sv_cpp (
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
   
+  std::string oo = "";
+  if ( thin != 1 ) {
+    oo      = ordinal(thin) + " ";
+  }
+  
   std::string       name_model = "";
   if ( centred_sv ) {
     name_model        = "    Centred";
@@ -42,7 +47,7 @@ Rcpp::List bsvar_sv_cpp (
     Rcout << "   " << name_model << " SV model is estimated             |" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-    Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
+    Rcout << "    Every " << oo << "draw is saved via MCMC thinning" << endl;
     Rcout << " Press Esc to interrupt the computations" << endl;
     Rcout << "**************************************************|" << endl;
   }

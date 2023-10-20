@@ -8,4 +8,6 @@ arma::mat orthogonal_complement_matrix_TW (const arma::mat& x);
 
 arma::vec log_mean (arma::mat log_density);
 
+std::string ordinal(int n);
+
 #endif  // _UTILS_H_

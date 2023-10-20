@@ -26,6 +26,12 @@ Rcpp::List bsvar_msh_cpp (
     const std::string       name_model = "",// just 3 characters
     const bool              show_progress = true
 ) {
+  
+  std::string oo = "";
+  if ( thin != 1 ) {
+    oo      = ordinal(thin) + " ";
+  }
+  
   // Progress bar setup
   vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
   if (show_progress) {
@@ -35,7 +41,7 @@ Rcpp::List bsvar_msh_cpp (
     Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
-    Rcout << "    Every " << thin << "th draw is saved via MCMC thinning" << endl;
+    Rcout << "    Every " << oo << "draw is saved via MCMC thinning" << endl;
     Rcout << " Press Esc to interrupt the computations" << endl;
     Rcout << "**************************************************|" << endl;
   }

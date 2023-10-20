@@ -18,6 +18,7 @@
 9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/donotdespair/bsvars/issues/22)
 10. Simplified the prior hierarchy for the shrinkage parameters of matrices \eqn{B} and \eqn{A} [#24](https://github.com/donotdespair/bsvars/issues/24)
 11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [@mfaragd](https://github.com/mfaragd) [#33](https://github.com/donotdespair/bsvars/issues/33)
+12. Improved the ordinal numerals presentation for thinning in the progress bar [#27](https://github.com/donotdespair/bsvars/issues/27)
 
 # bsvars 1.0.0
 

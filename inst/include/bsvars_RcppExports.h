@@ -898,6 +898,27 @@ namespace bsvars {
         return Rcpp::as<arma::vec >(rcpp_result_gen);
     }
 
+    inline std::string ordinal(int n) {
+        typedef SEXP(*Ptr_ordinal)(SEXP);
+        static Ptr_ordinal p_ordinal = NULL;
+        if (p_ordinal == NULL) {
+            validateSignature("std::string(*ordinal)(int)");
+            p_ordinal = (Ptr_ordinal)R_GetCCallable("bsvars", "_bsvars_ordinal");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ordinal(Shield<SEXP>(Rcpp::wrap(n)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<std::string >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_bsvars_RCPPEXPORTS_H_GEN_

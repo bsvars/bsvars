@@ -1577,6 +1577,40 @@ RcppExport SEXP _bsvars_log_mean(SEXP log_densitySEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// ordinal
+std::string ordinal(int n);
+static SEXP _bsvars_ordinal_try(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(ordinal(n));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_ordinal(SEXP nSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_ordinal_try(nSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _bsvars_RcppExport_validate(const char* sig) { 
@@ -1624,6 +1658,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::List(*svar_ce1)(arma::rowvec&,double&,double&,double&,double&,double&,arma::urowvec&,const arma::rowvec&,const Rcpp::List&,bool)");
         signatures.insert("arma::mat(*orthogonal_complement_matrix_TW)(const arma::mat&)");
         signatures.insert("arma::vec(*log_mean)(arma::mat)");
+        signatures.insert("std::string(*ordinal)(int)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -1672,6 +1707,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_svar_ce1", (DL_FUNC)_bsvars_svar_ce1_try);
     R_RegisterCCallable("bsvars", "_bsvars_orthogonal_complement_matrix_TW", (DL_FUNC)_bsvars_orthogonal_complement_matrix_TW_try);
     R_RegisterCCallable("bsvars", "_bsvars_log_mean", (DL_FUNC)_bsvars_log_mean_try);
+    R_RegisterCCallable("bsvars", "_bsvars_ordinal", (DL_FUNC)_bsvars_ordinal_try);
     R_RegisterCCallable("bsvars", "_bsvars_RcppExport_validate", (DL_FUNC)_bsvars_RcppExport_validate);
     return R_NilValue;
 }
@@ -1719,6 +1755,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_svar_ce1", (DL_FUNC) &_bsvars_svar_ce1, 10},
     {"_bsvars_orthogonal_complement_matrix_TW", (DL_FUNC) &_bsvars_orthogonal_complement_matrix_TW, 1},
     {"_bsvars_log_mean", (DL_FUNC) &_bsvars_log_mean, 1},
+    {"_bsvars_ordinal", (DL_FUNC) &_bsvars_ordinal, 1},
     {"_bsvars_RcppExport_registerCCallable", (DL_FUNC) &_bsvars_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };
