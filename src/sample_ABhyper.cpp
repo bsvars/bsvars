@@ -219,14 +219,14 @@ void sample_B_heterosk1 (
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-arma::mat sample_hyperparameters (
+void sample_hyperparameters (
     arma::mat               aux_hyper,        // (2*N+1) x 2 :: col 0 for B, col 1 for A
     const arma::mat&        aux_B,            // NxN
     const arma::mat&        aux_A,
     const arma::field<arma::mat>& VB,
     const Rcpp::List&       prior
 ) {
-  // the function returns aux_hyper
+  // the function returns aux_hyper by reference (filling it with a new draw)
   
   const int N = aux_B.n_rows;
   const int K = aux_A.n_cols;
@@ -280,7 +280,5 @@ arma::mat sample_hyperparameters (
       as_scalar((aux_A.row(n) - prior_A.row(n)) * prior_A_V_inv * trans(aux_A.row(n) - prior_A.row(n)));
     shape_tmp         = prior_hyper_nu_A + K;
     aux_hyper(n, 1)   = scale_tmp / R::rchisq(shape_tmp);
-  }
-  
-  return aux_hyper;
+  } // END n loop
 } // END sample_hyperparameters
