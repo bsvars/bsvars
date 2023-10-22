@@ -1,4 +1,4 @@
-# bsvars 1.0.1.9000
+# bsvars 2.0.0
 
 1.  Included Imports from package **stochvol**
 2.  Posterior computations for:

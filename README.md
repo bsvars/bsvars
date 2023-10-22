@@ -20,7 +20,7 @@ Just open your **R** and type:
 The package is under intensive development. To the the newest changes
 install it by typing:
 
-    devtools::install_git("https://github.com/donotdespair/bsvars.git")
+    devtools::install_git("https://github.com/bsvars/bsvars.git")
 
 # Start your Bayesian analysis of data
 
@@ -38,17 +38,25 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
  
 # run the burn-in
-burn_in        = estimate_bsvar_sv(1000, specification)
+burn_in        = estimate(1000, specification)
 
 # estimate the model
-posterior      = estimate_bsvar_sv(50000, burn_in$get_last_draw(), thin = 10)
-
-# normalise the posterior
-BB            = posterior$last_draw$starting_values$B      # get the last draw of B
-B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+posterior      = estimate(50000, burn_in$get_last_draw(), thin = 10)
 
 # Now, you're ready to analyse your model!
+```
+
+Starting from **bsvars** version 2.0.0 a simplified workflow using the
+`|>` is possible:
+
+``` r
+library(bsvars)
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar_sv$new(p = 4) |>
+  estimate(S = 1000) |> 
+  estimate(S = 50000) |> 
+  compute_impulse_responses(horizon = 8) -> irfs
 ```
 
 # Progress bar
@@ -60,7 +68,10 @@ the time of computations by orders of magnitude. Still, while waiting
 these a few minutes, you can track the progress by looking at the
 beautiful progress bar:
 
-![bsvars::progress_bar](inst/varia/progress.png)
+<figure>
+<img src="inst/varia/progress.png" alt="bsvars::progress_bar" />
+<figcaption aria-hidden="true">bsvars::progress_bar</figcaption>
+</figure>
 
 ## License
 
