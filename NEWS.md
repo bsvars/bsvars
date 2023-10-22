@@ -16,7 +16,7 @@
 7.  Corrected sampler for AR parameter of the SV equations [#19](https://github.com/donotdespair/bsvars/issues/19)
 8.  Added samplers from joint predictive densities [#15](https://github.com/donotdespair/bsvars/issues/15)
 9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/donotdespair/bsvars/issues/22)
-10. Introduced a three-level local-glogal equation-specific prior shrinkage hierarchy for the parameters of matrices \eqn{B} and \eqn{A} [#34](https://github.com/donotdespair/bsvars/issues/34)
+10. Introduced a three-level local-global equation-specific prior shrinkage hierarchy for the parameters of matrices \eqn{B} and \eqn{A} [#34](https://github.com/donotdespair/bsvars/issues/34)
 11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [@mfaragd](https://github.com/mfaragd) [#33](https://github.com/donotdespair/bsvars/issues/33)
 12. Improved the ordinal numerals presentation for thinning in the progress bar [#27](https://github.com/donotdespair/bsvars/issues/27)
 
