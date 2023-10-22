@@ -48,13 +48,13 @@ Rcpp::List bsvar_cpp(
   
   mat   aux_B       = as<mat>(starting_values["B"]);
   mat   aux_A       = as<mat>(starting_values["A"]);
-  vec   aux_hyper   = as<vec>(starting_values["hyper"]);
+  mat   aux_hyper   = as<mat>(starting_values["hyper"]);
   
   const int   SS    = floor(S / thin);
   
   cube  posterior_B(N, N, SS);
   cube  posterior_A(N, K, SS);
-  mat   posterior_hyper(2, SS);
+  cube  posterior_hyper(2 * N + 1, 2, SS);
   
   int   ss = 0;
   
@@ -72,7 +72,7 @@ Rcpp::List bsvar_cpp(
     if (s % thin == 0) {
       posterior_B.slice(ss)    = aux_B;
       posterior_A.slice(ss)    = aux_A;
-      posterior_hyper.col(ss)  = aux_hyper;
+      posterior_hyper.slice(ss)  = aux_hyper;
       ss++;
     }
   } // END s loop

@@ -58,7 +58,7 @@ Rcpp::List bsvar_msh_cpp (
   mat   aux_PR_TR   = as<mat>(starting_values["PR_TR"]);
   vec   aux_pi_0    = as<vec>(starting_values["pi_0"]);
   mat   aux_xi      = as<mat>(starting_values["xi"]);
-  vec   aux_hyper   = as<vec>(starting_values["hyper"]);  // 5x1 (gamma_0, gamma_+, s_0, s_+, s_)
+  mat   aux_hyper   = as<mat>(starting_values["hyper"]);
   
   const int   M     = aux_PR_TR.n_rows;
   
@@ -70,7 +70,7 @@ Rcpp::List bsvar_msh_cpp (
   cube  posterior_PR_TR(M, M, SS);
   mat   posterior_pi_0(M, SS);
   cube  posterior_xi(M, T, SS);
-  mat   posterior_hyper(2, SS);
+  cube  posterior_hyper(2 * N + 1, 2, SS);
   cube  posterior_sigma(N, T, SS);
   
   int   ss = 0;
@@ -114,7 +114,7 @@ Rcpp::List bsvar_msh_cpp (
       posterior_PR_TR.slice(ss)  = aux_PR_TR;
       posterior_pi_0.col(ss)     = aux_pi_0;
       posterior_xi.slice(ss)     = aux_xi;
-      posterior_hyper.col(ss)    = aux_hyper;
+      posterior_hyper.slice(ss)  = aux_hyper;
       posterior_sigma.slice(ss)  = aux_sigma;
       ss++;
     }
