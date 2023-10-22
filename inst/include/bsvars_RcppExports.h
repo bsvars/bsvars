@@ -567,11 +567,11 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
-    inline void sample_A_homosk1(arma::mat& aux_A, const arma::mat& aux_B, const arma::vec& aux_hyper, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior) {
+    inline void sample_A_homosk1(arma::mat& aux_A, const arma::mat& aux_B, const arma::mat& aux_hyper, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior) {
         typedef SEXP(*Ptr_sample_A_homosk1)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_A_homosk1 p_sample_A_homosk1 = NULL;
         if (p_sample_A_homosk1 == NULL) {
-            validateSignature("void(*sample_A_homosk1)(arma::mat&,const arma::mat&,const arma::vec&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
+            validateSignature("void(*sample_A_homosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
             p_sample_A_homosk1 = (Ptr_sample_A_homosk1)R_GetCCallable("bsvars", "_bsvars_sample_A_homosk1");
         }
         RObject rcpp_result_gen;
@@ -587,11 +587,11 @@ namespace bsvars {
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
     }
 
-    inline void sample_A_heterosk1(arma::mat& aux_A, const arma::mat& aux_B, const arma::vec& aux_hyper, const arma::mat& aux_sigma, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior) {
+    inline void sample_A_heterosk1(arma::mat& aux_A, const arma::mat& aux_B, const arma::mat& aux_hyper, const arma::mat& aux_sigma, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior) {
         typedef SEXP(*Ptr_sample_A_heterosk1)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_A_heterosk1 p_sample_A_heterosk1 = NULL;
         if (p_sample_A_heterosk1 == NULL) {
-            validateSignature("void(*sample_A_heterosk1)(arma::mat&,const arma::mat&,const arma::vec&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
+            validateSignature("void(*sample_A_heterosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
             p_sample_A_heterosk1 = (Ptr_sample_A_heterosk1)R_GetCCallable("bsvars", "_bsvars_sample_A_heterosk1");
         }
         RObject rcpp_result_gen;
@@ -607,11 +607,11 @@ namespace bsvars {
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
     }
 
-    inline void sample_B_homosk1(arma::mat& aux_B, const arma::mat& aux_A, const arma::vec& aux_hyper, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB) {
+    inline void sample_B_homosk1(arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& aux_hyper, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB) {
         typedef SEXP(*Ptr_sample_B_homosk1)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_B_homosk1 p_sample_B_homosk1 = NULL;
         if (p_sample_B_homosk1 == NULL) {
-            validateSignature("void(*sample_B_homosk1)(arma::mat&,const arma::mat&,const arma::vec&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
+            validateSignature("void(*sample_B_homosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
             p_sample_B_homosk1 = (Ptr_sample_B_homosk1)R_GetCCallable("bsvars", "_bsvars_sample_B_homosk1");
         }
         RObject rcpp_result_gen;
@@ -627,11 +627,11 @@ namespace bsvars {
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
     }
 
-    inline void sample_B_heterosk1(arma::mat& aux_B, const arma::mat& aux_A, const arma::vec& aux_hyper, const arma::mat& aux_sigma, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB) {
+    inline void sample_B_heterosk1(arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& aux_hyper, const arma::mat& aux_sigma, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB) {
         typedef SEXP(*Ptr_sample_B_heterosk1)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_B_heterosk1 p_sample_B_heterosk1 = NULL;
         if (p_sample_B_heterosk1 == NULL) {
-            validateSignature("void(*sample_B_heterosk1)(arma::mat&,const arma::mat&,const arma::vec&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
+            validateSignature("void(*sample_B_heterosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
             p_sample_B_heterosk1 = (Ptr_sample_B_heterosk1)R_GetCCallable("bsvars", "_bsvars_sample_B_heterosk1");
         }
         RObject rcpp_result_gen;
@@ -647,11 +647,11 @@ namespace bsvars {
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
     }
 
-    inline void sample_hyperparameters(arma::vec& aux_hyper, const arma::mat& aux_B, const arma::mat& aux_A, const arma::field<arma::mat>& VB, const Rcpp::List& prior) {
+    inline void sample_hyperparameters(arma::mat& aux_hyper, const arma::mat& aux_B, const arma::mat& aux_A, const arma::field<arma::mat>& VB, const Rcpp::List& prior) {
         typedef SEXP(*Ptr_sample_hyperparameters)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_hyperparameters p_sample_hyperparameters = NULL;
         if (p_sample_hyperparameters == NULL) {
-            validateSignature("void(*sample_hyperparameters)(arma::vec&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const Rcpp::List&)");
+            validateSignature("void(*sample_hyperparameters)(arma::mat&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const Rcpp::List&)");
             p_sample_hyperparameters = (Ptr_sample_hyperparameters)R_GetCCallable("bsvars", "_bsvars_sample_hyperparameters");
         }
         RObject rcpp_result_gen;
