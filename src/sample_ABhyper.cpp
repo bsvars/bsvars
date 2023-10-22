@@ -220,7 +220,7 @@ void sample_B_heterosk1 (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 void sample_hyperparameters (
-    arma::mat               aux_hyper,        // (2*N+1) x 2 :: col 0 for B, col 1 for A
+    arma::mat&              aux_hyper,       // (2*N+1) x 2 :: col 0 for B, col 1 for A
     const arma::mat&        aux_B,            // NxN
     const arma::mat&        aux_A,
     const arma::field<arma::mat>& VB,
