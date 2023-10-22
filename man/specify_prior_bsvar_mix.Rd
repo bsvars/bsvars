@@ -25,9 +25,29 @@ prior$A                                        # show autoregressive prior mean
 
 \item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.}
 
-\item{\code{hyper_nu}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
+\item{\code{hyper_nu_B}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+for the overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_s}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.}
+\item{\code{hyper_a_B}}{a positive scalar, the shape parameter of the gamma prior
+for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{B}.}
+
+\item{\code{hyper_s_BB}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
+
+\item{\code{hyper_nu_BB}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
+
+\item{\code{hyper_nu_A}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+for the overall shrinkage parameter for matrix \eqn{A}.}
+
+\item{\code{hyper_a_A}}{a positive scalar, the shape parameter of the gamma prior
+for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{A}.}
+
+\item{\code{hyper_s_AA}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
+
+\item{\code{hyper_nu_AA}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
 
 \item{\code{sigma_nu}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
 

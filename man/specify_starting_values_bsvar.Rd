@@ -48,7 +48,7 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the 
+\item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
 }
 \if{html}{\out{</div>}}

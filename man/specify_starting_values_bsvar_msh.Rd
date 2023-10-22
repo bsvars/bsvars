@@ -43,7 +43,8 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution.}
+\item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
+hierarchical prior distribution.}
 
 \item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
 
