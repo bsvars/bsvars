@@ -29,12 +29,37 @@ specify_prior_bsvar = R6::R6Class(
     #' the generalised-normal prior distribution for the structural matrix \eqn{B}.
     B_nu       = NA,
     
-    #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior 
-    #' distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
-    hyper_nu   = NA,
+    #' @field hyper_nu_B a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the overall shrinkage parameter for matrix \eqn{B}.
+    hyper_nu_B = NA,
     
-    #' @field hyper_s a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
-    hyper_s    = NA,
+    #' @field hyper_a_B a positive scalar, the shape parameter of the gamma prior
+    #' for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{B}.
+    hyper_a_B  = NA,
+    
+    #' @field hyper_s_BB a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.
+    hyper_s_BB  = NA,
+    
+    #' @field hyper_nu_BB a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.
+    hyper_nu_BB  = NA,
+    
+    #' @field hyper_nu_A a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+    #' for the overall shrinkage parameter for matrix \eqn{A}.
+    hyper_nu_A  = NA,
+    
+    #' @field hyper_a_A a positive scalar, the shape parameter of the gamma prior
+    #' for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{A}.
+    hyper_a_A  = NA,
+    
+    #' @field hyper_s_AA a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.
+    hyper_s_AA  = NA,
+    
+    #' @field hyper_nu_AA a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.
+    hyper_nu_AA  = NA,
     
     #' @description
     #' Create a new prior specification PriorBSVAR.
@@ -59,8 +84,14 @@ specify_prior_bsvar = R6::R6Class(
       self$A_V_inv      = diag(c(kronecker((1:p)^2, rep(1, N) ), 1))
       self$B_V_inv      = diag(N)
       self$B_nu         = N
-      self$hyper_nu     = 3
-      self$hyper_s      = 1
+      self$hyper_nu_B   = 10
+      self$hyper_a_B    = 10
+      self$hyper_s_BB   = 100
+      self$hyper_nu_BB  = 1
+      self$hyper_nu_A   = 10
+      self$hyper_a_A    = 10
+      self$hyper_s_AA   = 10
+      self$hyper_nu_AA  = 10
     }, # END initialize
     
     #' @description
@@ -77,8 +108,14 @@ specify_prior_bsvar = R6::R6Class(
         A_V_inv  = self$A_V_inv,
         B_V_inv  = self$B_V_inv,
         B_nu     = self$B_nu,
-        hyper_nu = self$hyper_nu,
-        hyper_s  = self$hyper_s
+        hyper_nu_B  = self$hyper_nu_B,
+        hyper_a_B   = self$hyper_a_B,
+        hyper_s_BB  = self$hyper_s_BB,
+        hyper_nu_BB = self$hyper_nu_BB,
+        hyper_nu_A  = self$hyper_nu_A,
+        hyper_a_A   = self$hyper_a_A,
+        hyper_s_AA  = self$hyper_s_AA,
+        hyper_nu_AA = self$hyper_nu_AA
       )
     } # END get_prior
     
@@ -107,9 +144,9 @@ specify_starting_values_bsvar = R6::R6Class(
     #' @field B an \code{NxN} matrix of starting values for the parameter \eqn{B}. 
     B             = matrix(),
     
-    #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the 
+    #' @field hyper a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
     #' hierarchical prior distribution. 
-    hyper         = numeric(),
+    hyper         = matrix(),
     
     #' @description
     #' Create new starting values StartingValuesBSVAR.
@@ -127,7 +164,7 @@ specify_starting_values_bsvar = R6::R6Class(
       K                   = N * p + 1
       self$B              = diag(N)
       self$A              = cbind(diag(runif(N)), matrix(0, N, K - N))
-      self$hyper          = c(1,rep(1,4))
+      self$hyper          = matrix(10, 2 * N + 1, 2)
     }, # END initialize
     
     #' @description
@@ -505,7 +542,7 @@ specify_posterior_bsvar = R6::R6Class(
     initialize = function(specification_bsvar, posterior_bsvar) {
       
       stopifnot("Argument specification_bsvar must be of class BSVAR." = any(class(specification_bsvar) == "BSVAR"))
-      stopifnot("Argument posterior_bsvar must must contain MCMC output." = is.list(posterior_bsvar) & is.array(posterior_bsvar$B) & is.array(posterior_bsvar$A) & is.matrix(posterior_bsvar$hyper))
+      stopifnot("Argument posterior_bsvar must must contain MCMC output." = is.list(posterior_bsvar) & is.array(posterior_bsvar$B) & is.array(posterior_bsvar$A) & is.array(posterior_bsvar$hyper))
       
       self$last_draw    = specification_bsvar
       self$posterior    = posterior_bsvar

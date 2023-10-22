@@ -28,11 +28,37 @@ specify_prior_bsvar_mix = R6::R6Class(
     #' @field B_nu a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.
     B_nu       = NA,
     
-    #' @field hyper_nu a positive scalar, the shape parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
-    hyper_nu   = NA,
+    #' @field hyper_nu_B a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the overall shrinkage parameter for matrix \eqn{B}.
+    hyper_nu_B = NA,
     
-    #' @field hyper_s a positive scalar, the scale parameter of the inverted-gamma 2 prior distribution for the two overall shrinkage parameters for matrices \eqn{B} and \eqn{A}.
-    hyper_s    = NA,
+    #' @field hyper_a_B a positive scalar, the shape parameter of the gamma prior
+    #' for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{B}.
+    hyper_a_B  = NA,
+    
+    #' @field hyper_s_BB a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.
+    hyper_s_BB  = NA,
+    
+    #' @field hyper_nu_BB a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.
+    hyper_nu_BB  = NA,
+    
+    #' @field hyper_nu_A a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+    #' for the overall shrinkage parameter for matrix \eqn{A}.
+    hyper_nu_A  = NA,
+    
+    #' @field hyper_a_A a positive scalar, the shape parameter of the gamma prior
+    #' for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{A}.
+    hyper_a_A  = NA,
+    
+    #' @field hyper_s_AA a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.
+    hyper_s_AA  = NA,
+    
+    #' @field hyper_nu_AA a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    #' for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.
+    hyper_nu_AA  = NA,
     
     #' @field sigma_nu a positive scalar,  the shape parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.
     sigma_nu   = 3,
@@ -72,8 +98,9 @@ specify_starting_values_bsvar_mix = R6::R6Class(
     #' @field B an \code{NxN} matrix of starting values for the parameter \eqn{B}. 
     B             = matrix(),
     
-    #' @field hyper a \code{5}-vector of starting values for the shrinkage hyper-parameters of the hierarchical prior distribution. 
-    hyper         = numeric(),
+    #' @field hyper a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
+    #' hierarchical prior distribution. 
+    hyper         = matrix(),
     
     #' @field sigma2 an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.
     sigma2        = matrix(),
@@ -247,7 +274,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     initialize = function(specification_bsvar, posterior_bsvar) {
       
       stopifnot("Argument specification_bsvar must be of class BSVARMIX." = any(class(specification_bsvar) == "BSVARMIX"))
-      stopifnot("Argument posterior_bsvar must must contain MCMC output." = is.list(posterior_bsvar) & is.array(posterior_bsvar$B) & is.array(posterior_bsvar$A) & is.matrix(posterior_bsvar$hyper) & is.matrix(posterior_bsvar$pi_0))
+      stopifnot("Argument posterior_bsvar must must contain MCMC output." = is.list(posterior_bsvar) & is.array(posterior_bsvar$B) & is.array(posterior_bsvar$A) & is.array(posterior_bsvar$hyper) & is.matrix(posterior_bsvar$pi_0))
       
       self$last_draw    = specification_bsvar
       self$posterior    = posterior_bsvar
