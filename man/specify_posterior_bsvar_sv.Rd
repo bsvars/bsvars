@@ -14,7 +14,7 @@ might not be equal to the last draw provided in element \code{posterior}.
 data(us_fiscal_lsuw)
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
-estimate       = estimate(specification, 10)
+estimate       = estimate(specification, 5, thin = 1)
 class(estimate)
 
 
@@ -25,7 +25,7 @@ class(estimate)
 data(us_fiscal_lsuw)
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 set.seed(123)
-estimate       = estimate(specification, 10)
+estimate       = estimate(specification, 5, thin = 1)
 estimate$get_posterior()
 
 
@@ -40,10 +40,10 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5, thin = 1)
 
 # estimate the model
-posterior      = estimate(burn_in, 10)
+posterior      = estimate(burn_in, 5, thin = 1)
 
 
 ## ------------------------------------------------
@@ -58,7 +58,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 5, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -87,7 +87,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 5, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -162,7 +162,7 @@ Returns a list containing Bayesian estimation.
 \preformatted{data(us_fiscal_lsuw)
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 set.seed(123)
-estimate       = estimate(specification, 10)
+estimate       = estimate(specification, 5, thin = 1)
 estimate$get_posterior()
 
 }
@@ -190,10 +190,10 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5, thin = 1)
 
 # estimate the model
-posterior      = estimate(burn_in, 10)
+posterior      = estimate(burn_in, 5, thin = 1)
 
 }
 \if{html}{\out{</div>}}
@@ -220,7 +220,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 5, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -268,7 +268,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 
 # estimate the model
 set.seed(123)
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 5, thin = 1)
 
 # check normalisation status beforehand
 posterior$is_normalised()

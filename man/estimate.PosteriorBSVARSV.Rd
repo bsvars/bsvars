@@ -107,7 +107,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 10, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }

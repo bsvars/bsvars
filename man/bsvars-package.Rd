@@ -64,7 +64,7 @@ set.seed(123)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 # compute impulse responses 2 years ahead
 irf           = compute_impulse_responses(posterior, horizon = 8)

@@ -112,7 +112,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' posterior      = estimate(burn_in, 10, thin = 2)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -120,7 +120,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 10, thin = 2) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
@@ -180,7 +180,7 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 10, thin = 2) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export

@@ -41,7 +41,7 @@ set.seed(123)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 10, thin = 1)
 
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B

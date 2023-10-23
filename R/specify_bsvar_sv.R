@@ -391,7 +391,7 @@ specify_bsvar_sv = R6::R6Class(
 #' data(us_fiscal_lsuw)
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 #' set.seed(123)
-#' estimate       = estimate(specification, 10)
+#' estimate       = estimate(specification, 5, thin = 1)
 #' class(estimate)
 #' 
 #' @export
@@ -433,7 +433,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' data(us_fiscal_lsuw)
     #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
     #' set.seed(123)
-    #' estimate       = estimate(specification, 10)
+    #' estimate       = estimate(specification, 5, thin = 1)
     #' estimate$get_posterior()
     #' 
     get_posterior       = function(){
@@ -452,10 +452,10 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' set.seed(123)
     #' 
     #' # run the burn-in
-    #' burn_in        = estimate(specification, 10)
+    #' burn_in        = estimate(specification, 5, thin = 1)
     #' 
     #' # estimate the model
-    #' posterior      = estimate(burn_in, 10)
+    #' posterior      = estimate(burn_in, 5, thin = 1)
     #' 
     get_last_draw      = function(){
       self$last_draw$clone()
@@ -473,7 +473,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' 
     #' # estimate the model
     #' set.seed(123)
-    #' posterior      = estimate(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 5, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
@@ -506,7 +506,7 @@ specify_posterior_bsvar_sv = R6::R6Class(
     #' 
     #' # estimate the model
     #' set.seed(123)
-    #' posterior      = estimate(specification, 10, thin = 1)
+    #' posterior      = estimate(specification, 5, thin = 1)
     #' 
     #' # check normalisation status beforehand
     #' posterior$is_normalised()
