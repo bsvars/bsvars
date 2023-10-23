@@ -1,26 +1,30 @@
 # bsvars 2.0.0
 
+Published on 23 October 2023
+
 1.  Included Imports from package **stochvol**
 2.  Posterior computations for:
 
--   impulse responses and forecast error variance decomposition [#3](https://github.com/donotdespair/bsvars/issues/3),
--   structural shocks and historical decompositions [#14](https://github.com/donotdespair/bsvars/issues/14)
--   fitted values [#17](https://github.com/donotdespair/bsvars/issues/17)
--   conditional standard deviations [#16](https://github.com/donotdespair/bsvars/issues/16)
--   regime probabilities for MS and MIX models [#18](https://github.com/donotdespair/bsvars/issues/18)
+-   impulse responses and forecast error variance decomposition [#3](https://github.com/bsvars/bsvars/issues/3),
+-   structural shocks and historical decompositions [#14](https://github.com/bsvars/bsvars/issues/14)
+-   fitted values [#17](https://github.com/bsvars/bsvars/issues/17)
+-   conditional standard deviations [#16](https://github.com/bsvars/bsvars/issues/16)
+-   regime probabilities for MS and MIX models [#18](https://github.com/bsvars/bsvars/issues/18)
 
-3.  Implemented faster samplers based on random number generators from **armadillo** via **RcppArmadillo** [#7](https://github.com/donotdespair/bsvars/issues/7)
-4.  The `estimate_bsvar*` functions now also normalise the output w.r.t. to a structural matrix with positive elements on the main diagonal [#9](https://github.com/donotdespair/bsvars/issues/9)
-5.  Changed the order of arguments in the `estimate_bsvar*` functions with `posterior` first to facilitate workflows using the pipe `|>` [#10](https://github.com/donotdespair/bsvars/issues/10)
-6.  Include citation info for the package [#12](https://github.com/donotdespair/bsvars/issues/12)
-7.  Corrected sampler for AR parameter of the SV equations [#19](https://github.com/donotdespair/bsvars/issues/19)
-8.  Added samplers from joint predictive densities [#15](https://github.com/donotdespair/bsvars/issues/15)
-9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/donotdespair/bsvars/issues/22)
-10. Introduced a three-level local-global equation-specific prior shrinkage hierarchy for the parameters of matrices \eqn{B} and \eqn{A} [#34](https://github.com/donotdespair/bsvars/issues/34)
-11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [@mfaragd](https://github.com/mfaragd) [#33](https://github.com/donotdespair/bsvars/issues/33)
-12. Improved the ordinal numerals presentation for thinning in the progress bar [#27](https://github.com/donotdespair/bsvars/issues/27)
+3.  Implemented faster samplers based on random number generators from **armadillo** via **RcppArmadillo** [#7](https://github.com/bsvars/bsvars/issues/7)
+4.  The `estimate_bsvar*` functions now also normalise the output w.r.t. to a structural matrix with positive elements on the main diagonal [#9](https://github.com/bsvars/bsvars/issues/9)
+5.  Changed the order of arguments in the `estimate_bsvar*` functions with `posterior` first to facilitate workflows using the pipe `|>` [#10](https://github.com/bsvars/bsvars/issues/10)
+6.  Include citation info for the package [#12](https://github.com/bsvars/bsvars/issues/12)
+7.  Corrected sampler for AR parameter of the SV equations [#19](https://github.com/bsvars/bsvars/issues/19)
+8.  Added samplers from joint predictive densities [#15](https://github.com/bsvars/bsvars/issues/15)
+9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/bsvars/bsvars/issues/22)
+10. Introduced a three-level local-global equation-specific prior shrinkage hierarchy for the parameters of matrices \eqn{B} and \eqn{A} [#34](https://github.com/bsvars/bsvars/issues/34)
+11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [@mfaragd](https://github.com/mfaragd) [#33](https://github.com/bsvars/bsvars/issues/33)
+12. Improved the ordinal numerals presentation for thinning in the progress bar [#27](https://github.com/bsvars/bsvars/issues/27)
 
 # bsvars 1.0.0
+
+Published on 1 September 2022
 
 1.  repo transferred from GitLab to GitHub
 2.  repository is made public
