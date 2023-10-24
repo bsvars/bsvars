@@ -1,3 +1,24 @@
+## Communication from ligges@statistik.tu-dortmund.de after the initial submission
+
+I corrected the links following the NOTE! Thanks!
+
+```
+Best regards,
+CRAN teams' auto-check service
+Flavor: r-devel-linux-x86_64-debian-gcc, r-devel-windows-x86_64
+Check: CRAN incoming feasibility, Result: NOTE
+  Maintainer: 'Tomasz Woźniak <wozniak.tom@pm.me>'
+
+  Found the following (possibly) invalid URLs:
+    URL: https://github.com/donotdespair/bsvars/actions/workflows/R-CMD-check.yaml (moved to https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml)
+      From: README.md
+      Status: 301
+      Message: Moved Permanently
+    For content that is 'Moved Permanently', please change http to https,
+    add trailing slashes, or replace the old by the new URL.
+```
+
+
 ## R CMD check results
 
 There were no ERRORs, WARNINGs, or NOTEs.
