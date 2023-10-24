@@ -10,3 +10,4 @@
 *.o
 src/bsvar.o
 src/bsvar_msh.o
+docs

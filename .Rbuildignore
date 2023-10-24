@@ -7,3 +7,6 @@
 cran-comments.md
 ^CRAN-SUBMISSION$
 ^inst/varia$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
