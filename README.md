@@ -81,5 +81,5 @@ Copyright © 2022 Tomasz Woźniak (email: <wozniak.tom@pm.me>)
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/donotdespair/bsvars/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/donotdespair/bsvars/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
