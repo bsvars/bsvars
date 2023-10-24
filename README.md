@@ -38,10 +38,10 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
  
 # run the burn-in
-burn_in        = estimate(1000, specification)
+burn_in        = estimate(specification, 1000)
 
 # estimate the model
-posterior      = estimate(50000, burn_in$get_last_draw(), thin = 10)
+posterior      = estimate(burn_in, 50000, thin = 10)
 
 # Now, you're ready to analyse your model!
 ```
@@ -52,6 +52,7 @@ Starting from **bsvars** version 2.0.0 a simplified workflow using the
 ``` r
 library(bsvars)
 set.seed(123)
+data(us_fiscal_lsuw)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 4) |>
   estimate(S = 1000) |> 
@@ -68,10 +69,20 @@ the time of computations by orders of magnitude. Still, while waiting
 these a few minutes, you can track the progress by looking at the
 beautiful progress bar:
 
-<figure>
-<img src="inst/varia/progress.png" alt="bsvars::progress_bar" />
-<figcaption aria-hidden="true">bsvars::progress_bar</figcaption>
-</figure>
+    > estimate(specification, 1000)
+    **************************************************|
+    bsvars: Bayesian Structural Vector Autoregressions|
+    **************************************************|
+     Gibbs sampler for the SVAR-SV model              |
+       Non-centred SV model is estimated             |
+    **************************************************|
+     Progress of the MCMC simulation for 1000 draws
+        Every 10th draw is saved via MCMC thinning
+     Press Esc to interrupt the computations
+    **************************************************|
+    0%   10   20   30   40   50   60   70   80   90   100%
+    [----|----|----|----|----|----|----|----|----|----|
+    ******************
 
 ## License
 
