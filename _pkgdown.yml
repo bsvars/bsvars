@@ -1,6 +1,9 @@
-url: ~
+url: https://bsvars.github.io/bsvars/
 template:
   bootstrap: 5
+
+development:
+  mode: auto
 
 reference:
 - title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"

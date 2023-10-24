@@ -21,3 +21,4 @@ Suggests:
 LinkingTo: Rcpp, RcppProgress, RcppArmadillo, RcppTN
 BugReports: https://github.com/bsvars/bsvars/issues
 RoxygenNote: 7.2.3
+URL: https://bsvars.github.io/bsvars/
