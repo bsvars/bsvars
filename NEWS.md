@@ -1,3 +1,9 @@
+# bsvars 2.0.0.9000
+
+The package is under intensive development, and more functionalities will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/3) towards the next version 2.1.0.
+
+Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
+
 # bsvars 2.0.0
 
 Published on 23 October 2023
