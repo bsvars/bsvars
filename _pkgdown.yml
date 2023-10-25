@@ -3,7 +3,7 @@ template:
   bootstrap: 5
 
 development:
-  mode: devel
+  mode: auto
 
 reference:
 - title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"

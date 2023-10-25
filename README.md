@@ -19,7 +19,9 @@ Carlo methods. A wide range of SVAR models is considered, including
 homo- and heteroskedastic specifications and those with non-normal
 structural shocks. All models include three-level equation-specific
 local-global hierarchical prior distribution for the estimated level of
-shrinkage for autoregressive and structural parameters.
+shrinkage for autoregressive and structural parameters. Additionally,
+the package facilitates predictive and structural analyses with a
+variety of tools and methods.
 
 The heteroskedastic SVAR model setup is similar as in [Woźniak &
 Droumaguet (2015)](http://doi.org/10.13140/RG.2.2.19492.55687) and
@@ -53,12 +55,12 @@ Frühwirth-Schnatter
   feature a three-level local-global hierarchical prior that estimates
   the equation-specific level of shrinkage
 - In **five models** the structural shocks are conditionally normal with
-  zero mean and diagonal covariance matrix with for variances that are:
-  - homoskedastic with unit variances
-  - heteroskedastic following non-centred **Stochastic Volatility**
-  - heteroskedastic following centred **Stochastic Volatility**
-  - heteroskedastic with stationary **Markov Switching**
-  - heteroskedastic with **sparse Markov Switching** where the number of
+  zero mean and diagonal covariance matrix with variances that are:
+  - equal to one
+  - time-varying following non-centred **Stochastic Volatility**
+  - time-varying following centred **Stochastic Volatility**
+  - time-varying with stationary **Markov Switching**
+  - time-varying with **sparse Markov Switching** where the number of
     volatility regimes is estimated
 - In **two more models** non-normal structural shocks following
   - a finite **mixture of normal** components and component-specific

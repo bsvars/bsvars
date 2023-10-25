@@ -22,7 +22,7 @@ An **R** package for Bayesian Estimation of Structural Vector Autoregressive Mod
 [![R-CMD-check](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This package provides efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks. All models include three-level equation-specific local-global hierarchical prior distribution for the estimated level of shrinkage for autoregressive and structural parameters.
+This package provides efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks. All models include three-level equation-specific local-global hierarchical prior distribution for the estimated level of shrinkage for autoregressive and structural parameters. Additionally, the package facilitates predictive and structural analyses with a variety of tools and methods.
 
 The heteroskedastic SVAR model setup is similar as in [Woźniak & Droumaguet (2015)](http://doi.org/10.13140/RG.2.2.19492.55687) and [Lütkepohl & Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862). The sampler of the structural matrix follows [Waggoner & Zha (2003)](doi:10.1016/S0165-1889(02)00168-9), whereas that for autoregressive parameters follows [Chan, Koop, Yu (2022)](https://www.joshuachan.org/papers/OISV.pdf). The specification of Markov switching heteroskedasticity is inspired by [Song & Woźniak (2021)](http://doi.org/10.1016/j.jedc.2020.10386210.1093/acrefore/9780190625979.013.174), and that of Stochastic Volatility model by [Kastner & Frühwirth-Schnatter (2014)](http://doi.org/10.1016/j.jedc.2020.10386210.1016/j.csda.2013.01.002).
 
@@ -37,12 +37,12 @@ The heteroskedastic SVAR model setup is similar as in [Woźniak & Droumaguet (20
 ```
 - The models are identified via exclusion restrictions, heteroskedasticity, or non-normality
 - Autoregressive parameters `A` and the structural matrix `B` are feature a three-level local-global hierarchical prior that estimates the equation-specific level of shrinkage
-- In **five models** the structural shocks are conditionally normal with zero mean and diagonal covariance matrix with  for variances that are:
-  - homoskedastic with unit variances
-  - heteroskedastic following non-centred **Stochastic Volatility**
-  - heteroskedastic following centred **Stochastic Volatility**
-  - heteroskedastic with stationary **Markov Switching**
-  - heteroskedastic with **sparse Markov Switching** where the number of volatility regimes is estimated
+- In **five models** the structural shocks are conditionally normal with zero mean and diagonal covariance matrix with variances that are:
+  - equal to one
+  - time-varying following non-centred **Stochastic Volatility**
+  - time-varying following centred **Stochastic Volatility**
+  - time-varying with stationary **Markov Switching**
+  - time-varying with **sparse Markov Switching** where the number of volatility regimes is estimated
 - In **two more models** non-normal structural shocks following
   - a finite **mixture of normal** components and component-specific variances
   - a **sparse mixture of normal** components and component-specific variances where the number of states is estimated
