@@ -67,7 +67,7 @@
 <p>An <strong>R</strong> package for Bayesian Estimation of Structural Vector Autoregressive Models</p>
 <!-- badges: start -->
 
-<p>This package provides efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks. All models include three-level equation-specific local-global hierarchical prior distribution for the estimated level of shrinkage for autoregressive and structural parameters.</p>
+<p>This package provides efficient algorithms for Bayesian estimation of Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. A wide range of SVAR models is considered, including homo- and heteroskedastic specifications and those with non-normal structural shocks. All models include three-level equation-specific local-global hierarchical prior distribution for the estimated level of shrinkage for autoregressive and structural parameters. Additionally, the package facilitates predictive and structural analyses with a variety of tools and methods.</p>
 <p>The heteroskedastic SVAR model setup is similar as in <a href="http://doi.org/10.13140/RG.2.2.19492.55687" class="external-link">Woźniak &amp; Droumaguet (2015)</a> and <a href="http://doi.org/10.1016/j.jedc.2020.103862" class="external-link">Lütkepohl &amp; Woźniak (2020)</a>. The sampler of the structural matrix follows <a href="doi:10.1016/S0165-1889(02)00168-9">Waggoner &amp; Zha (2003)</a>, whereas that for autoregressive parameters follows <a href="https://www.joshuachan.org/papers/OISV.pdf" class="external-link">Chan, Koop, Yu (2022)</a>. The specification of Markov switching heteroskedasticity is inspired by <a href="http://doi.org/10.1016/j.jedc.2020.10386210.1093/acrefore/9780190625979.013.174" class="external-link">Song &amp; Woźniak (2021)</a>, and that of Stochastic Volatility model by <a href="http://doi.org/10.1016/j.jedc.2020.10386210.1016/j.csda.2013.01.002" class="external-link">Kastner &amp; Frühwirth-Schnatter (2014)</a>.</p>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -84,16 +84,16 @@
 <ul>
 <li>The models are identified via exclusion restrictions, heteroskedasticity, or non-normality</li>
 <li>Autoregressive parameters <code>A</code> and the structural matrix <code>B</code> are feature a three-level local-global hierarchical prior that estimates the equation-specific level of shrinkage</li>
-<li>In <strong>five models</strong> the structural shocks are conditionally normal with zero mean and diagonal covariance matrix with for variances that are:
+<li>In <strong>five models</strong> the structural shocks are conditionally normal with zero mean and diagonal covariance matrix with variances that are:
 <ul>
-<li>homoskedastic with unit variances</li>
-<li>heteroskedastic following non-centred <strong>Stochastic Volatility</strong>
+<li>equal to one</li>
+<li>time-varying following non-centred <strong>Stochastic Volatility</strong>
 </li>
-<li>heteroskedastic following centred <strong>Stochastic Volatility</strong>
+<li>time-varying following centred <strong>Stochastic Volatility</strong>
 </li>
-<li>heteroskedastic with stationary <strong>Markov Switching</strong>
+<li>time-varying with stationary <strong>Markov Switching</strong>
 </li>
-<li>heteroskedastic with <strong>sparse Markov Switching</strong> where the number of volatility regimes is estimated</li>
+<li>time-varying with <strong>sparse Markov Switching</strong> where the number of volatility regimes is estimated</li>
 </ul>
 </li>
 <li>In <strong>two more models</strong> non-normal structural shocks following
