@@ -36,10 +36,17 @@ Frühwirth-Schnatter
 
 ## Features
 
+#### Structural Vector Autoregressions
+
 - All the models in the **bsvars** package consist of the Vector
-  Autoregressive equation `Y = AX + E`, with autoregressive parameters
-  `A` and error terms `E`, and the structural equation `BE = U` with
-  structural shocks `U`
+  Autoregressive equation, with autoregressive parameters `A` and error
+  terms `E`, and the structural equation with structural shocks `U`
+
+<!-- -->
+
+        Y = AX + E           (VAR equation)
+       BE = U                (structural equation)
+
 - The models are identified via exclusion restrictions,
   heteroskedasticity, or non-normality
 - Autoregressive parameters `A` and the structural matrix `B` are
@@ -58,12 +65,15 @@ Frühwirth-Schnatter
     variances
   - a **sparse mixture of normal** components and component-specific
     variances where the number of states is estimated
+
+#### Simple workflows
+
 - Specify the models using `specify_bsvar_*()` functions
 - Estimate the models using the `estimate()` method
 - Predict the future using the `predict()` method
-- Provide structural analyses using impulse responses, forecast error
-  variance decompositions, historical decompositions, and structural
-  shocks using functions `compute_impulse_responses()`,
+- Provide structural analyses using **impulse responses**, forecast
+  error variance decompositions, historical decompositions, and
+  structural shocks using functions `compute_impulse_responses()`,
   `compute_variance_decompositions()`,
   `compute_historical_decompositions()`, and
   `compute_structural_shocks()` respectively
@@ -71,6 +81,9 @@ Frühwirth-Schnatter
   regimes using functions `compute_fitted_values()`,
   `compute_conditional_sd()`, and `compute_regime_probabilities()`
   respectively
+
+#### Fast and efficient computations
+
 - Extraordinary computational speed is obtained by combining
   - the implementation of frontier econometric techniques, and
   - compiled code written in **cpp**
