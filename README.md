@@ -68,7 +68,8 @@ Frühwirth-Schnatter
 
 #### Simple workflows
 
-- Specify the models using `specify_bsvar_*()` functions
+- Specify the models using `specify_bsvar_*()` functions, for instance,
+  `specify_bsvar()`
 - Estimate the models using the `estimate()` method
 - Predict the future using the `predict()` method
 - Provide structural analyses using **impulse responses**, forecast
@@ -141,8 +142,8 @@ Just open your **R** and type:
 
     install.packages("bsvars")
 
-The package is under intensive development. To the the newest changes
-install it by typing:
+The developer’s version of the package with the newest features can be
+installed by typing:
 
     devtools::install_git("https://github.com/bsvars/bsvars.git")
 
