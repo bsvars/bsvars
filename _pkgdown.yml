@@ -1,0 +1,42 @@
+url: https://bsvars.github.io/bsvars/
+template:
+  bootstrap: 5
+
+development:
+  mode: auto
+
+reference:
+- title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"
+  desc: "Browse package information"
+- contents:
+  - bsvars-package 
+  - bsvars 
+- title: "Data"
+  desc: "Upload sample data set"
+- contents:
+  - us_fiscal_lsuw  
+- title: "Model specification"
+  desc: "Choose a model to work with"
+- contents:
+  - matches("specify_bsvar")
+- title: "More detailed model specification"
+  desc: "Adjust or inspect the specified model"
+- contents:
+  - matches("specify_data")
+  - matches("specify_iden")
+  - matches("specify_prior")
+  - matches("specify_start")
+- title: "Estimation"
+  desc: "Run Bayesian estimation of your model and inspect the outputs"
+- contents:
+  - matches("estimate")
+  - matches("normalise")
+  - matches("specify_posterior")
+- title: "Forecasting"
+  desc: "Predict future values of your variables"
+- contents:
+  - matches("forecast")
+- title: "Structural analyses"
+  desc: "Compute interpretable outcomes"
+- contents:
+  - matches("compute")
