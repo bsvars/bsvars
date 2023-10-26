@@ -179,4 +179,8 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 </a>
 <a href="https://www.linkedin.com/in/tomasz-wo%C5%BAniak-7b85361b1">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
+</a> <a href="https://fosstodon.org/@tomaszwozniak">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
+</a> <a href="https://bsky.app/profile/tomaszwozniak.bsky.social">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
 </a>
