@@ -546,27 +546,6 @@ namespace bsvars {
         return Rcpp::as<int >(rcpp_result_gen);
     }
 
-    inline Rcpp::List logSDDR_homoskedasticity(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_ = true) {
-        typedef SEXP(*Ptr_logSDDR_homoskedasticity)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_logSDDR_homoskedasticity p_logSDDR_homoskedasticity = NULL;
-        if (p_logSDDR_homoskedasticity == NULL) {
-            validateSignature("Rcpp::List(*logSDDR_homoskedasticity)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
-            p_logSDDR_homoskedasticity = (Ptr_logSDDR_homoskedasticity)R_GetCCallable("bsvars", "_bsvars_logSDDR_homoskedasticity");
-        }
-        RObject rcpp_result_gen;
-        {
-            RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_logSDDR_homoskedasticity(Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(sample_s_)));
-        }
-        if (rcpp_result_gen.inherits("interrupted-error"))
-            throw Rcpp::internal::InterruptedException();
-        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
-            throw Rcpp::LongjumpException(rcpp_result_gen);
-        if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
-    }
-
     inline void sample_A_homosk1(arma::mat& aux_A, const arma::mat& aux_B, const arma::mat& aux_hyper, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior) {
         typedef SEXP(*Ptr_sample_A_homosk1)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_A_homosk1 p_sample_A_homosk1 = NULL;
@@ -917,6 +896,27 @@ namespace bsvars {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<std::string >(rcpp_result_gen);
+    }
+
+    inline Rcpp::List verify_volatility_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_ = true) {
+        typedef SEXP(*Ptr_verify_volatility_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_verify_volatility_cpp p_verify_volatility_cpp = NULL;
+        if (p_verify_volatility_cpp == NULL) {
+            validateSignature("Rcpp::List(*verify_volatility_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
+            p_verify_volatility_cpp = (Ptr_verify_volatility_cpp)R_GetCCallable("bsvars", "_bsvars_verify_volatility_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_verify_volatility_cpp(Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(sample_s_)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
 }
