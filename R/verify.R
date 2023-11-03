@@ -119,6 +119,9 @@ verify_volatility <- function(posterior) {
 #' @export
 verify_volatility.PosteriorBSVARSV <- function(posterior) {
   
+  centred_sv          = posterior$last_draw$centred_sv
+  stopifnot("There is not a known method of verifying heteroskedasticity using SDDR for a centered SV model.", !centred_sv)
+  
   # get the inputs to estimation
   just_posterior  = posterior$posterior
   prior           = posterior$last_draw$prior$get_prior()
@@ -130,4 +133,43 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
   
   class(sddr)     = "SDDR"
   return(sddr)
+}
+
+
+
+#' @inherit verify_volatility
+#' @method verify_volatility PosteriorBSVAR
+#' @inheritParams verify_volatility
+#'
+#' @description Displays information that the model is homoskedastic.
+#' 
+#' @return Nothing. Just displays a message: The model is homoskedastic.
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # run the burn-in
+#' posterior      = estimate(specification, 5, thin = 1)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_volatility(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 5, thin = 1) |> 
+#'   verify_volatility() -> sddr
+#'   
+#' @export
+verify_volatility.PosteriorBSVAR <- function(posterior) {
+  message("The model is homoskedastic.")
 }
