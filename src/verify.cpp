@@ -113,3 +113,42 @@ Rcpp::List verify_volatility_cpp (
     )
   );
 } // END verify_volatility_cpp
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+double dig2dirichlet (
+    const arma::vec&  x,                // M-vector of positive rv summing up to 1
+    const arma::vec&  a,                // M-vector of positive parameters
+    const arma::vec&  b,                // M-vector of positive parameters
+    const bool  logarithm = true  
+) {
+  // density ordinate of ig2-based Dirichlet distribution
+  double constant_ig2d    = lgamma(accu(a) / 2) - accu(lgamma(a  / 2)) - accu(log(b));
+  double kernel_ig2d      = accu(0.5 * (a + 2) % (log(b) - log(x))) - ( 0.5 * accu(a) * log(accu(b / x)) );
+  double out              = constant_ig2d + kernel_ig2d;
+  
+  if ( !logarithm ) {
+    out =  exp(out);
+  }
+  return out;
+} // END dig2dirichlet
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+double ddirichlet (
+    const arma::vec&  x,                // M-vector of positive rv summing up to 1
+    const arma::vec&  a,                // M-vector of positive parameters
+    const bool  logarithm = true  
+) {
+  // density ordinate of Dirichlet distribution
+  double constant_d       = lgamma(accu(a)) - accu(lgamma(a));
+  double kernel_d         = accu((a - 1) % log(x));
+  double out              = constant_d + kernel_d;
+  
+  if ( !logarithm ) {
+    out =  exp(out);
+  }
+  return out;
+} // END ddirichlet

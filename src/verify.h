@@ -14,4 +14,18 @@ Rcpp::List verify_volatility_cpp (
 );
 
 
+double dig2dirichlet (
+    const arma::vec&  x,                // M-vector of positive rv summing up to 1
+    const arma::vec&  a,                // M-vector of positive parameters
+    const arma::vec&  b,                // M-vector of positive parameters
+    const bool  logarithm = true  
+);
+
+
+double ddirichlet (
+    const arma::vec&  x,                // M-vector of positive rv summing up to 1
+    const arma::vec&  a,                // M-vector of positive parameters
+    const bool  logarithm = true  
+);
+
 #endif  // _VERIFY_H_
