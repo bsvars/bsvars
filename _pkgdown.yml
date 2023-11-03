@@ -53,3 +53,7 @@ reference:
   desc: "Compute interpretable outcomes"
 - contents:
   - matches("compute")
+- title: "Model diagnostics"
+  desc: "Verify heteroskedasticity (in preparation: structural identification, and Granger causality)"
+- contents:
+  - matches("verify")

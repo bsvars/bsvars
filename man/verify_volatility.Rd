@@ -51,18 +51,17 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 10, thin = 2)
+posterior      = estimate(specification, 60, thin = 1)
 
-# estimate the model
-posterior      = estimate(burn_in, 120, thin = 1)
+# verify heteroskedasticity
+sddr           = verify_volatility(posterior)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
-  estimate(S = 10, thin = 2) |> 
-  estimate(S = 120, thin = 1) |> 
+  estimate(S = 60, thin = 1) |> 
   verify_volatility() -> sddr
 
 }
