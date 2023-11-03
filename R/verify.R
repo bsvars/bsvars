@@ -34,13 +34,10 @@
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
-#' @references Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
+#' @references 
+#' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
 #' 
-#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
-#'
-#' Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-#' 
-#' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T., (2023) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 #' 
 #' @examples
 #' # simple workflow
