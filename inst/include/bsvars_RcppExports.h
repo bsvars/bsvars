@@ -898,17 +898,17 @@ namespace bsvars {
         return Rcpp::as<std::string >(rcpp_result_gen);
     }
 
-    inline Rcpp::List verify_volatility_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_ = true) {
-        typedef SEXP(*Ptr_verify_volatility_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_verify_volatility_cpp p_verify_volatility_cpp = NULL;
-        if (p_verify_volatility_cpp == NULL) {
-            validateSignature("Rcpp::List(*verify_volatility_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
-            p_verify_volatility_cpp = (Ptr_verify_volatility_cpp)R_GetCCallable("bsvars", "_bsvars_verify_volatility_cpp");
+    inline Rcpp::List verify_volatility_sv_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_ = true) {
+        typedef SEXP(*Ptr_verify_volatility_sv_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_verify_volatility_sv_cpp p_verify_volatility_sv_cpp = NULL;
+        if (p_verify_volatility_sv_cpp == NULL) {
+            validateSignature("Rcpp::List(*verify_volatility_sv_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
+            p_verify_volatility_sv_cpp = (Ptr_verify_volatility_sv_cpp)R_GetCCallable("bsvars", "_bsvars_verify_volatility_sv_cpp");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_verify_volatility_cpp(Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(sample_s_)));
+            rcpp_result_gen = p_verify_volatility_sv_cpp(Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(sample_s_)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -919,11 +919,11 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
-    inline double dig2dirichlet(const arma::vec& x, const arma::vec& a, const arma::vec& b, const bool logarithm = true) {
+    inline double dig2dirichlet(const arma::rowvec& x, const arma::rowvec& a, const arma::rowvec& b, const bool logarithm = true) {
         typedef SEXP(*Ptr_dig2dirichlet)(SEXP,SEXP,SEXP,SEXP);
         static Ptr_dig2dirichlet p_dig2dirichlet = NULL;
         if (p_dig2dirichlet == NULL) {
-            validateSignature("double(*dig2dirichlet)(const arma::vec&,const arma::vec&,const arma::vec&,const bool)");
+            validateSignature("double(*dig2dirichlet)(const arma::rowvec&,const arma::rowvec&,const arma::rowvec&,const bool)");
             p_dig2dirichlet = (Ptr_dig2dirichlet)R_GetCCallable("bsvars", "_bsvars_dig2dirichlet");
         }
         RObject rcpp_result_gen;
@@ -940,11 +940,11 @@ namespace bsvars {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline double ddirichlet(const arma::vec& x, const arma::vec& a, const bool logarithm = true) {
+    inline double ddirichlet(const arma::rowvec& x, const arma::rowvec& a, const bool logarithm = true) {
         typedef SEXP(*Ptr_ddirichlet)(SEXP,SEXP,SEXP);
         static Ptr_ddirichlet p_ddirichlet = NULL;
         if (p_ddirichlet == NULL) {
-            validateSignature("double(*ddirichlet)(const arma::vec&,const arma::vec&,const bool)");
+            validateSignature("double(*ddirichlet)(const arma::rowvec&,const arma::rowvec&,const bool)");
             p_ddirichlet = (Ptr_ddirichlet)R_GetCCallable("bsvars", "_bsvars_ddirichlet");
         }
         RObject rcpp_result_gen;
@@ -959,6 +959,27 @@ namespace bsvars {
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<double >(rcpp_result_gen);
+    }
+
+    inline Rcpp::List verify_volatility_msh_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X) {
+        typedef SEXP(*Ptr_verify_volatility_msh_cpp)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_verify_volatility_msh_cpp p_verify_volatility_msh_cpp = NULL;
+        if (p_verify_volatility_msh_cpp == NULL) {
+            validateSignature("Rcpp::List(*verify_volatility_msh_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
+            p_verify_volatility_msh_cpp = (Ptr_verify_volatility_msh_cpp)R_GetCCallable("bsvars", "_bsvars_verify_volatility_msh_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_verify_volatility_msh_cpp(Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
 }

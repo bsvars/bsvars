@@ -49,7 +49,7 @@
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' set.seed(123)
 #' 
-#' # run the burn-in
+#' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
 #' # verify heteroskedasticity
@@ -69,6 +69,48 @@ verify_volatility <- function(posterior) {
   # call method
   UseMethod("verify_volatility", posterior)
 }
+
+
+
+
+
+#' @inherit verify_volatility
+#' @method verify_volatility PosteriorBSVAR
+#' @inheritParams verify_volatility
+#'
+#' @description Displays information that the model is homoskedastic.
+#' 
+#' @return Nothing. Just displays a message: The model is homoskedastic.
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 5, thin = 1)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_volatility(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 5, thin = 1) |> 
+#'   verify_volatility() -> sddr
+#'   
+#' @export
+verify_volatility.PosteriorBSVAR <- function(posterior) {
+  message("The model is homoskedastic.")
+}
+
 
 
 
@@ -102,7 +144,7 @@ verify_volatility <- function(posterior) {
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' set.seed(123)
 #' 
-#' # run the burn-in
+#' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
 #' # verify heteroskedasticity
@@ -130,7 +172,7 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
     X               = posterior$last_draw$data_matrices$X
     
     # estimate the SDDR
-    sddr            = .Call(`_bsvars_verify_volatility_cpp`, just_posterior, prior, Y, X, TRUE)
+    sddr            = .Call(`_bsvars_verify_volatility_sv_cpp`, just_posterior, prior, Y, X, TRUE)
     
     class(sddr)     = "SDDR"
     return(sddr)
@@ -139,13 +181,24 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 
 
 
+
 #' @inherit verify_volatility
-#' @method verify_volatility PosteriorBSVAR
+#' @method verify_volatility PosteriorBSVARMIX
 #' @inheritParams verify_volatility
 #'
-#' @description Displays information that the model is homoskedastic.
+#' @description Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
+#' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
+#' The hypothesis of homoskedasticity is represented by restriction:
+#' \deqn{H_0: \sigma^2_{n.1} = ... = \sigma^2_{n.M} = 1}
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+#' less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(\omega_n = 0 | data) - log p(\omega_n = 0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
+#' numerical integration.
 #' 
-#' @return Nothing. Just displays a message: The model is homoskedastic.
+#' @seealso \code{\link{specify_bsvar_mix}}, \code{\link{estimate}}
 #'
 #' @examples
 #' # simple workflow
@@ -154,11 +207,11 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' data(us_fiscal_lsuw)
 #' 
 #' # specify the model and set seed
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' set.seed(123)
 #' 
-#' # run the burn-in
-#' posterior      = estimate(specification, 5, thin = 1)
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
 #' 
 #' # verify heteroskedasticity
 #' sddr           = verify_volatility(posterior)
@@ -167,11 +220,84 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 5, thin = 1) |> 
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate(S = 60, thin = 1) |> 
 #'   verify_volatility() -> sddr
 #'   
 #' @export
-verify_volatility.PosteriorBSVAR <- function(posterior) {
-  message("The model is homoskedastic.")
+verify_volatility.PosteriorBSVARMIX <- function(posterior) {
+
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
+}
+
+
+
+
+
+#' @inherit verify_volatility
+#' @method verify_volatility PosteriorBSVARMSH
+#' @inheritParams verify_volatility
+#'
+#' @description Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
+#' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
+#' The hypothesis of homoskedasticity is represented by restriction:
+#' \deqn{H_0: \sigma^2_{n.1} = ... = \sigma^2_{n.M} = 1}
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+#' less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(\omega_n = 0 | data) - log p(\omega_n = 0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
+#' numerical integration.
+#' 
+#' @seealso \code{\link{specify_bsvar_msh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_volatility(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 60, thin = 1) |> 
+#'   verify_volatility() -> sddr
+#'   
+#' @export
+verify_volatility.PosteriorBSVARMSH <- function(posterior) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
 }

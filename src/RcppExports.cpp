@@ -1573,9 +1573,9 @@ RcppExport SEXP _bsvars_ordinal(SEXP nSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// verify_volatility_cpp
-Rcpp::List verify_volatility_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_);
-static SEXP _bsvars_verify_volatility_cpp_try(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
+// verify_volatility_sv_cpp
+Rcpp::List verify_volatility_sv_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X, const bool sample_s_);
+static SEXP _bsvars_verify_volatility_sv_cpp_try(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type posterior(posteriorSEXP);
@@ -1583,15 +1583,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const bool >::type sample_s_(sample_s_SEXP);
-    rcpp_result_gen = Rcpp::wrap(verify_volatility_cpp(posterior, prior, Y, X, sample_s_));
+    rcpp_result_gen = Rcpp::wrap(verify_volatility_sv_cpp(posterior, prior, Y, X, sample_s_));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_verify_volatility_cpp(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
+RcppExport SEXP _bsvars_verify_volatility_sv_cpp(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP sample_s_SEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_verify_volatility_cpp_try(posteriorSEXP, priorSEXP, YSEXP, XSEXP, sample_s_SEXP));
+        rcpp_result_gen = PROTECT(_bsvars_verify_volatility_sv_cpp_try(posteriorSEXP, priorSEXP, YSEXP, XSEXP, sample_s_SEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1612,13 +1612,13 @@ RcppExport SEXP _bsvars_verify_volatility_cpp(SEXP posteriorSEXP, SEXP priorSEXP
     return rcpp_result_gen;
 }
 // dig2dirichlet
-double dig2dirichlet(const arma::vec& x, const arma::vec& a, const arma::vec& b, const bool logarithm);
+double dig2dirichlet(const arma::rowvec& x, const arma::rowvec& a, const arma::rowvec& b, const bool logarithm);
 static SEXP _bsvars_dig2dirichlet_try(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP logarithmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type a(aSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type b(bSEXP);
     Rcpp::traits::input_parameter< const bool >::type logarithm(logarithmSEXP);
     rcpp_result_gen = Rcpp::wrap(dig2dirichlet(x, a, b, logarithm));
     return rcpp_result_gen;
@@ -1649,12 +1649,12 @@ RcppExport SEXP _bsvars_dig2dirichlet(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP l
     return rcpp_result_gen;
 }
 // ddirichlet
-double ddirichlet(const arma::vec& x, const arma::vec& a, const bool logarithm);
+double ddirichlet(const arma::rowvec& x, const arma::rowvec& a, const bool logarithm);
 static SEXP _bsvars_ddirichlet_try(SEXP xSEXP, SEXP aSEXP, SEXP logarithmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type a(aSEXP);
     Rcpp::traits::input_parameter< const bool >::type logarithm(logarithmSEXP);
     rcpp_result_gen = Rcpp::wrap(ddirichlet(x, a, logarithm));
     return rcpp_result_gen;
@@ -1665,6 +1665,43 @@ RcppExport SEXP _bsvars_ddirichlet(SEXP xSEXP, SEXP aSEXP, SEXP logarithmSEXP) {
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
         rcpp_result_gen = PROTECT(_bsvars_ddirichlet_try(xSEXP, aSEXP, logarithmSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// verify_volatility_msh_cpp
+Rcpp::List verify_volatility_msh_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X);
+static SEXP _bsvars_verify_volatility_msh_cpp_try(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type posterior(posteriorSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(verify_volatility_msh_cpp(posterior, prior, Y, X));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_verify_volatility_msh_cpp(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_verify_volatility_msh_cpp_try(posteriorSEXP, priorSEXP, YSEXP, XSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1731,9 +1768,10 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::mat(*orthogonal_complement_matrix_TW)(const arma::mat&)");
         signatures.insert("arma::vec(*log_mean)(arma::mat)");
         signatures.insert("std::string(*ordinal)(int)");
-        signatures.insert("Rcpp::List(*verify_volatility_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
-        signatures.insert("double(*dig2dirichlet)(const arma::vec&,const arma::vec&,const arma::vec&,const bool)");
-        signatures.insert("double(*ddirichlet)(const arma::vec&,const arma::vec&,const bool)");
+        signatures.insert("Rcpp::List(*verify_volatility_sv_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
+        signatures.insert("double(*dig2dirichlet)(const arma::rowvec&,const arma::rowvec&,const arma::rowvec&,const bool)");
+        signatures.insert("double(*ddirichlet)(const arma::rowvec&,const arma::rowvec&,const bool)");
+        signatures.insert("Rcpp::List(*verify_volatility_msh_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -1782,9 +1820,10 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_orthogonal_complement_matrix_TW", (DL_FUNC)_bsvars_orthogonal_complement_matrix_TW_try);
     R_RegisterCCallable("bsvars", "_bsvars_log_mean", (DL_FUNC)_bsvars_log_mean_try);
     R_RegisterCCallable("bsvars", "_bsvars_ordinal", (DL_FUNC)_bsvars_ordinal_try);
-    R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_cpp", (DL_FUNC)_bsvars_verify_volatility_cpp_try);
+    R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_sv_cpp", (DL_FUNC)_bsvars_verify_volatility_sv_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_dig2dirichlet", (DL_FUNC)_bsvars_dig2dirichlet_try);
     R_RegisterCCallable("bsvars", "_bsvars_ddirichlet", (DL_FUNC)_bsvars_ddirichlet_try);
+    R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_msh_cpp", (DL_FUNC)_bsvars_verify_volatility_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_RcppExport_validate", (DL_FUNC)_bsvars_RcppExport_validate);
     return R_NilValue;
 }
@@ -1832,9 +1871,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_orthogonal_complement_matrix_TW", (DL_FUNC) &_bsvars_orthogonal_complement_matrix_TW, 1},
     {"_bsvars_log_mean", (DL_FUNC) &_bsvars_log_mean, 1},
     {"_bsvars_ordinal", (DL_FUNC) &_bsvars_ordinal, 1},
-    {"_bsvars_verify_volatility_cpp", (DL_FUNC) &_bsvars_verify_volatility_cpp, 5},
+    {"_bsvars_verify_volatility_sv_cpp", (DL_FUNC) &_bsvars_verify_volatility_sv_cpp, 5},
     {"_bsvars_dig2dirichlet", (DL_FUNC) &_bsvars_dig2dirichlet, 4},
     {"_bsvars_ddirichlet", (DL_FUNC) &_bsvars_ddirichlet, 3},
+    {"_bsvars_verify_volatility_msh_cpp", (DL_FUNC) &_bsvars_verify_volatility_msh_cpp, 4},
     {"_bsvars_RcppExport_registerCCallable", (DL_FUNC) &_bsvars_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

@@ -25,7 +25,7 @@ data(us_fiscal_lsuw)
 specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
-# run the burn-in
+# estimate the model
 posterior      = estimate(specification, 5, thin = 1)
 
 # verify heteroskedasticity

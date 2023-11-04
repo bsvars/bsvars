@@ -9,7 +9,7 @@ using namespace arma;
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-Rcpp::List verify_volatility_cpp (
+Rcpp::List verify_volatility_sv_cpp (
     const Rcpp::List&       posterior,  // a list of posteriors
     const Rcpp::List&       prior,      // a list of priors - original dimensions
     const arma::mat&        Y,          // NxT dependent variables
@@ -115,12 +115,13 @@ Rcpp::List verify_volatility_cpp (
 } // END verify_volatility_cpp
 
 
+
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 double dig2dirichlet (
-    const arma::vec&  x,                // M-vector of positive rv summing up to 1
-    const arma::vec&  a,                // M-vector of positive parameters
-    const arma::vec&  b,                // M-vector of positive parameters
+    const arma::rowvec&  x,                // M-vector of positive rv summing up to 1
+    const arma::rowvec&  a,                // M-vector of positive parameters
+    const arma::rowvec&  b,                // M-vector of positive parameters
     const bool  logarithm = true  
 ) {
   // density ordinate of ig2-based Dirichlet distribution
@@ -135,11 +136,12 @@ double dig2dirichlet (
 } // END dig2dirichlet
 
 
+
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 double ddirichlet (
-    const arma::vec&  x,                // M-vector of positive rv summing up to 1
-    const arma::vec&  a,                // M-vector of positive parameters
+    const arma::rowvec&  x,                // M-vector of positive rv summing up to 1
+    const arma::rowvec&  a,                // M-vector of positive parameters
     const bool  logarithm = true  
 ) {
   // density ordinate of Dirichlet distribution
@@ -152,3 +154,89 @@ double ddirichlet (
   }
   return out;
 } // END ddirichlet
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List verify_volatility_msh_cpp (
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X          // KxT explanatory variables
+) {
+  
+  cube  posterior_sigma2    = posterior["sigma2"];
+  cube  posterior_B         = posterior["B"];
+  cube  posterior_A         = posterior["A"];
+  cube  posterior_xi        = posterior["xi"];
+  
+  const int   M             = posterior_xi.n_rows;
+  const int   N             = posterior_B.n_rows;
+  const int   T             = Y.n_cols;
+  const int   S             = posterior_B.n_slices;
+  const double MM           = M;
+  
+  rowvec      homoskedasticity_hypothesis(M, fill::ones);
+  
+  // compute denominator
+  
+  rowvec  prior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
+  rowvec  prior_s(M, fill::value(as<double>(prior["sigma_s"])));
+  
+  double  log_denominator = dig2dirichlet( homoskedasticity_hypothesis, prior_nu, prior_s );
+  
+  // compute numerator
+  mat     log_numerator_s(N, S);
+  for (int s = 0; s < S; s++) {
+    for (int n = 0; n < N; n++) {
+      
+      rowvec posterior_nu   = sum(posterior_xi.slice(s), 1).t() + as<double>(prior["sigma_nu"]);
+      
+      mat posterior_s(N, M);
+      posterior_s.fill(prior["sigma_s"]);
+      for (int m=0; m<M; m++) {
+        for (int t=0; t<T; t++) {
+          if (posterior_xi(m,t,s)==1) {
+            posterior_s.col(m) += square(posterior_B.slice(s) * (Y.col(t) - posterior_A.slice(s) * X.col(t)));
+          }
+        }
+      }
+      
+      log_numerator_s(n,s)  = M * log(M) * dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
+      
+    } // END n loop
+  } // END s loop
+  
+  // compute the log of the mean numerator exp(log_numerator)
+  vec log_numerator           = log_mean(log_numerator_s);
+  
+  int   nse_subsamples        = 30;
+  mat   se_components(N, nse_subsamples);
+  int   nn                    = floor(S/nse_subsamples);
+  uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
+  
+  
+  
+  for (int i=0; i<nse_subsamples; i++) {
+    // sub-sampling elements' indicators
+    uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
+    
+    // log numerator
+    se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
+  } // END i loop
+  
+  vec logSDDR_se              = stddev(se_components, 1, 1);
+  
+  // compute the standard error 
+  return List::create(
+    _["logSDDR"]     = log_numerator - log_denominator,
+    _["log_SDDR_se"] = logSDDR_se,
+    _["components"]  = List::create(
+      _["log_denominator"]    = log_denominator,
+      _["log_numerator"]      = log_numerator,
+      _["log_numerator_s"]    = log_numerator_s,
+      _["se_components"]      = se_components
+    )
+  );
+} // END verify_volatility_msh_cpp
