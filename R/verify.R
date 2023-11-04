@@ -120,19 +120,21 @@ verify_volatility <- function(posterior) {
 verify_volatility.PosteriorBSVARSV <- function(posterior) {
   
   centred_sv          = posterior$last_draw$centred_sv
-  stopifnot("There is not a known method of verifying heteroskedasticity using SDDR for a centered SV model.", !centred_sv)
-  
-  # get the inputs to estimation
-  just_posterior  = posterior$posterior
-  prior           = posterior$last_draw$prior$get_prior()
-  Y               = posterior$last_draw$data_matrices$Y
-  X               = posterior$last_draw$data_matrices$X
-  
-  # estimate the SDDR
-  sddr            = .Call(`_bsvars_verify_volatility_cpp`, just_posterior, prior, Y, X, TRUE)
-  
-  class(sddr)     = "SDDR"
-  return(sddr)
+  if ( centred_sv ) {
+    message("There is not a known method of verifying heteroskedasticity using SDDR for a centered SV model.")
+  } else {
+    # get the inputs to estimation
+    just_posterior  = posterior$posterior
+    prior           = posterior$last_draw$prior$get_prior()
+    Y               = posterior$last_draw$data_matrices$Y
+    X               = posterior$last_draw$data_matrices$X
+    
+    # estimate the SDDR
+    sddr            = .Call(`_bsvars_verify_volatility_cpp`, just_posterior, prior, Y, X, TRUE)
+    
+    class(sddr)     = "SDDR"
+    return(sddr)
+  }
 }
 
 

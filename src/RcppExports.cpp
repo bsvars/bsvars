@@ -1611,6 +1611,79 @@ RcppExport SEXP _bsvars_verify_volatility_cpp(SEXP posteriorSEXP, SEXP priorSEXP
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// dig2dirichlet
+double dig2dirichlet(const arma::vec& x, const arma::vec& a, const arma::vec& b, const bool logarithm);
+static SEXP _bsvars_dig2dirichlet_try(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP logarithmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const bool >::type logarithm(logarithmSEXP);
+    rcpp_result_gen = Rcpp::wrap(dig2dirichlet(x, a, b, logarithm));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_dig2dirichlet(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP logarithmSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_dig2dirichlet_try(xSEXP, aSEXP, bSEXP, logarithmSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// ddirichlet
+double ddirichlet(const arma::vec& x, const arma::vec& a, const bool logarithm);
+static SEXP _bsvars_ddirichlet_try(SEXP xSEXP, SEXP aSEXP, SEXP logarithmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< const bool >::type logarithm(logarithmSEXP);
+    rcpp_result_gen = Rcpp::wrap(ddirichlet(x, a, logarithm));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_ddirichlet(SEXP xSEXP, SEXP aSEXP, SEXP logarithmSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_ddirichlet_try(xSEXP, aSEXP, logarithmSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _bsvars_RcppExport_validate(const char* sig) { 
@@ -1659,6 +1732,8 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::vec(*log_mean)(arma::mat)");
         signatures.insert("std::string(*ordinal)(int)");
         signatures.insert("Rcpp::List(*verify_volatility_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&,const bool)");
+        signatures.insert("double(*dig2dirichlet)(const arma::vec&,const arma::vec&,const arma::vec&,const bool)");
+        signatures.insert("double(*ddirichlet)(const arma::vec&,const arma::vec&,const bool)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -1708,6 +1783,8 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_log_mean", (DL_FUNC)_bsvars_log_mean_try);
     R_RegisterCCallable("bsvars", "_bsvars_ordinal", (DL_FUNC)_bsvars_ordinal_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_cpp", (DL_FUNC)_bsvars_verify_volatility_cpp_try);
+    R_RegisterCCallable("bsvars", "_bsvars_dig2dirichlet", (DL_FUNC)_bsvars_dig2dirichlet_try);
+    R_RegisterCCallable("bsvars", "_bsvars_ddirichlet", (DL_FUNC)_bsvars_ddirichlet_try);
     R_RegisterCCallable("bsvars", "_bsvars_RcppExport_validate", (DL_FUNC)_bsvars_RcppExport_validate);
     return R_NilValue;
 }
@@ -1756,6 +1833,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_log_mean", (DL_FUNC) &_bsvars_log_mean, 1},
     {"_bsvars_ordinal", (DL_FUNC) &_bsvars_ordinal, 1},
     {"_bsvars_verify_volatility_cpp", (DL_FUNC) &_bsvars_verify_volatility_cpp, 5},
+    {"_bsvars_dig2dirichlet", (DL_FUNC) &_bsvars_dig2dirichlet, 4},
+    {"_bsvars_ddirichlet", (DL_FUNC) &_bsvars_ddirichlet, 3},
     {"_bsvars_RcppExport_registerCCallable", (DL_FUNC) &_bsvars_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

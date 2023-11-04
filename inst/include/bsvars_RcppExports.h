@@ -919,6 +919,48 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
+    inline double dig2dirichlet(const arma::vec& x, const arma::vec& a, const arma::vec& b, const bool logarithm = true) {
+        typedef SEXP(*Ptr_dig2dirichlet)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_dig2dirichlet p_dig2dirichlet = NULL;
+        if (p_dig2dirichlet == NULL) {
+            validateSignature("double(*dig2dirichlet)(const arma::vec&,const arma::vec&,const arma::vec&,const bool)");
+            p_dig2dirichlet = (Ptr_dig2dirichlet)R_GetCCallable("bsvars", "_bsvars_dig2dirichlet");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dig2dirichlet(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(a)), Shield<SEXP>(Rcpp::wrap(b)), Shield<SEXP>(Rcpp::wrap(logarithm)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
+    inline double ddirichlet(const arma::vec& x, const arma::vec& a, const bool logarithm = true) {
+        typedef SEXP(*Ptr_ddirichlet)(SEXP,SEXP,SEXP);
+        static Ptr_ddirichlet p_ddirichlet = NULL;
+        if (p_ddirichlet == NULL) {
+            validateSignature("double(*ddirichlet)(const arma::vec&,const arma::vec&,const bool)");
+            p_ddirichlet = (Ptr_ddirichlet)R_GetCCallable("bsvars", "_bsvars_ddirichlet");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ddirichlet(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(a)), Shield<SEXP>(Rcpp::wrap(logarithm)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_bsvars_RCPPEXPORTS_H_GEN_
