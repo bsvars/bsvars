@@ -240,3 +240,107 @@ Rcpp::List verify_volatility_msh_cpp (
     )
   );
 } // END verify_volatility_msh_cpp
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+double dmvnorm_chol_precision (
+    const arma::rowvec&   x,  
+    const arma::rowvec&   location,  
+    const arma::mat&      chol_precision, 
+    const bool            logarithm = true
+) { 
+  // computes the density of a multivariate normal distribution with location
+  // the Cholesky decomposition of precision matrix
+  
+  const int     N       = x.n_elem; 
+  const double  log2pi  = std::log(2.0 * M_PI);
+  
+  double val;
+  double sign;
+  log_det(val, sign, chol_precision);
+  
+  double    const_norm  = -0.5 * N * log2pi + val;
+  
+  vec       quad_tmp    = trans(x * chol_precision) - solve(chol_precision, trans(location));
+  double    kernel_norm = -0.5 * as_scalar(trans(quad_tmp) * quad_tmp);
+  double    out         = const_norm + kernel_norm;
+  
+  if ( !logarithm ) {
+    out =  exp(out);
+  }
+  return out;
+} // END dmvnorm_precision
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List verify_autoregressive_cpp (
+    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 99 stands for not verivied
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X           // KxT explanatory variables
+) {
+  
+  // hypothesis
+  
+  cube    posterior_A         = posterior["A"];
+  cube    posterior_B         = posterior["B"];
+  cube    posterior_hyper     = posterior["hyper"];
+  
+  double  prior_hyper_nu_A    = as<double>(prior["hyper_nu_A"]);
+  double  prior_hyper_a_A     = as<double>(prior["hyper_a_A"]);
+  double  prior_hyper_s_AA    = as<double>(prior["hyper_s_AA"]);
+  double  prior_hyper_nu_AA   = as<double>(prior["hyper_nu_AA"]);
+  
+  mat     prior_A             = as<mat>(prior["A"]);
+  mat     prior_A_V_inv       = as<mat>(prior["A_V_inv"]);
+  
+  const int N                 = posterior_A.n_rows;
+  const int K                 = posterior_A.n_cols;
+  const int S                 = posterior_A.n_slices;
+  const double log2pi         = std::log(2.0 * M_PI);
+  
+  mat prior_A_mean            = as<mat>(prior["A"]);
+  mat prior_A_Vinv            = as<mat>(prior["A_V_inv"]);
+  rowvec    zerosA(K);
+  
+  // compute denominator
+  mat hyper_sample(2 * N + 1, S);
+  hyper_sample.row(2 * N)     = trans(prior_hyper_s_AA / chi2rnd( prior_hyper_nu_AA, S ));
+  
+  mat log_denominator_s(N, S);
+  for (int n=0; n<N; n++) {
+    for (int s=0; s<S; s++) {
+      double gamma_draw       = randg( distr_param(prior_hyper_a_A, hyper_sample(2 * N, s)) );
+      hyper_sample(N + n, s)  = gamma_draw;
+      hyper_sample(n, s)      = gamma_draw / chi2rnd( prior_hyper_nu_A );
+      
+      double const_prior      = - 0.5 * K * ( log2pi + log(hyper_sample(n, s)) );
+      double kernel_prior     = - 0.5 * pow(hyper_sample(n, s), -1) * as_scalar( (hypothesis.row(n) - prior_A.row(n)) * trans((hypothesis.row(n) - prior_A.row(n))) );
+      
+      log_denominator_s(n, s) = const_prior + kernel_prior;
+    } // END s loop
+  } // END n loop
+  
+  
+  // compute numerator
+  mat       log_numerator_s(N, S);
+  for (int n=0; n<N; n++) {
+    for (int s=0; s<S; s++) {
+      mat   A0          = posterior_A.slice(s);
+      A0.row(n)         = zerosA;
+      vec   zn          = vectorise( posterior_B.slice(s) * (Y - A0 * X) );
+      mat   Wn          = kron( trans(X), posterior_B.slice(s).col(n) );
+      
+      mat     precision       = (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(Wn) * Wn;
+      rowvec  location        = prior_A_mean.row(n) * (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(zn) * Wn;
+      mat     precision_chol  = trimatu(chol(precision));
+      
+      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
+    } // END s loop
+  } // END n loop
+  
+  
+} // END verify_autoregressive_cpp

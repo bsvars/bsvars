@@ -33,7 +33,24 @@ Rcpp::List verify_volatility_msh_cpp (
     const Rcpp::List&       posterior,  // a list of posteriors
     const Rcpp::List&       prior,      // a list of priors - original dimensions
     const arma::mat&        Y,          // NxT dependent variables
-    const arma::mat&        X          // KxT explanatory variables
+    const arma::mat&        X           // KxT explanatory variables
+);
+
+
+double dmvnorm_precision (
+    const arma::rowvec&   x,  
+    const arma::rowvec&   mean,  
+    const arma::mat&      precision, 
+    const bool            logarithm = true
+);
+
+
+Rcpp::List verify_autoregressive_cpp (
+    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 99 stands for not verivied
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X           // KxT explanatory variables
 );
 
 
