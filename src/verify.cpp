@@ -94,8 +94,6 @@ Rcpp::List verify_volatility_sv_cpp (
       inv_sqrt_s_             = pow(prior_s_, -0.5);
     }
     double log_denominator_i  = - 0.5 * log(2 * M_PI) + log(inv_sqrt_s_) - log(pow(prior_a_, 2) - 0.25) + R::lgammafn(prior_a_ + 1.5) - R::lgammafn(prior_a_);
-    
-    // log numerator
     se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator_i;
   } // END i loop
   
@@ -211,18 +209,15 @@ Rcpp::List verify_volatility_msh_cpp (
   // compute the log of the mean numerator exp(log_numerator)
   vec log_numerator           = log_mean(log_numerator_s);
   
+  // NSE computations
   int   nse_subsamples        = 30;
   mat   se_components(N, nse_subsamples);
   int   nn                    = floor(S/nse_subsamples);
   uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
   
-  
-  
   for (int i=0; i<nse_subsamples; i++) {
     // sub-sampling elements' indicators
     uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
-    
-    // log numerator
     se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
   } // END i loop
   
@@ -276,7 +271,7 @@ double dmvnorm_chol_precision (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 Rcpp::List verify_autoregressive_cpp (
-    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 99 stands for not verivied
+    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 999 stands for not verivied
     const Rcpp::List&       posterior,  // a list of posteriors
     const Rcpp::List&       prior,      // a list of priors - original dimensions
     const arma::mat&        Y,          // NxT dependent variables
@@ -306,41 +301,91 @@ Rcpp::List verify_autoregressive_cpp (
   mat prior_A_Vinv            = as<mat>(prior["A_V_inv"]);
   rowvec    zerosA(K);
   
-  // compute denominator
+  // intermediate output matrices
+  double    log_numerator = 0;
+  vec       log_numerator_n(N);
+  mat       log_numerator_s(N, S);
+  double    log_denominator = 0;
+  vec       log_denominator_n(N);
+  mat       log_denominator_s(N, S);
+  
+  // for NSE computations
+  int   nse_subsamples        = 30;
+  rowvec    se_components(nse_subsamples);
+  int   nn                    = floor(S/nse_subsamples);
+  uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
+  
+  // level 1 prior - no need for loop
   mat hyper_sample(2 * N + 1, S);
   hyper_sample.row(2 * N)     = trans(prior_hyper_s_AA / chi2rnd( prior_hyper_nu_AA, S ));
   
-  mat log_denominator_s(N, S);
   for (int n=0; n<N; n++) {
+
+    // investigate hypothesis
+    uvec  indi                = find( hypothesis.row(n) == 999 );
+    if ( indi.n_elem == 0 ) {
+      continue;
+    }
+          
     for (int s=0; s<S; s++) {
+      
+      // compute denominator
       double gamma_draw       = randg( distr_param(prior_hyper_a_A, hyper_sample(2 * N, s)) );
       hyper_sample(N + n, s)  = gamma_draw;
       hyper_sample(n, s)      = gamma_draw / chi2rnd( prior_hyper_nu_A );
       
-      double const_prior      = - 0.5 * K * ( log2pi + log(hyper_sample(n, s)) );
-      double kernel_prior     = - 0.5 * pow(hyper_sample(n, s), -1) * as_scalar( (hypothesis.row(n) - prior_A.row(n)) * trans((hypothesis.row(n) - prior_A.row(n))) );
+      double const_prior      = - 0.5 * indi.n_elem * ( log2pi + log(hyper_sample(n, s)) );
+      rowvec hypothesis_n     = hypothesis.row(n) - prior_A.row(n);
+      double kernel_prior     = - 0.5 * pow(hyper_sample(n, s), -1) * accu( pow( hypothesis_n.cols(indi), 2)  );
       
       log_denominator_s(n, s) = const_prior + kernel_prior;
-    } // END s loop
-  } // END n loop
-  
-  
-  // compute numerator
-  mat       log_numerator_s(N, S);
-  for (int n=0; n<N; n++) {
-    for (int s=0; s<S; s++) {
+      
+      // compute numerator
       mat   A0          = posterior_A.slice(s);
       A0.row(n)         = zerosA;
       vec   zn          = vectorise( posterior_B.slice(s) * (Y - A0 * X) );
       mat   Wn          = kron( trans(X), posterior_B.slice(s).col(n) );
       
-      mat     precision       = (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(Wn) * Wn;
-      rowvec  location        = prior_A_mean.row(n) * (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(zn) * Wn;
+      mat     precision_tmp   = (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(Wn) * Wn;
+      rowvec  location_tmp    = prior_A_mean.row(n) * (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(zn) * Wn;
+      mat     precision       = precision_tmp.submat(indi, indi);
+      rowvec  location        = location_tmp.cols(indi);
       mat     precision_chol  = trimatu(chol(precision));
       
       log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
     } // END s loop
+    
+    // wrap up the SDDR computation
+    log_numerator_n(n)        = as_scalar(log_mean(log_numerator_s.row(n)));
+    log_denominator_n(n)      = as_scalar(log_mean(log_denominator_s.row(n)));
+    
+    log_numerator            += log_numerator_n(n);
+    log_denominator          += log_denominator_n(n);
+    
+    // NSE computations
+    for (int i=0; i<nse_subsamples; i++) {
+      // sub-sampling elements' indicators
+      uvec  indi              = seq_1S.subvec(i*nn, (i+1)*nn-1);
+      
+      rowvec log_numerator_s_subsample      = log_numerator_s.row(n);
+      rowvec log_denominator_s_subsample    = log_denominator_s.row(n);
+  
+      se_components(i)       += as_scalar(log_mean(log_numerator_s_subsample.cols(indi)) 
+                                          - log_mean(log_denominator_s_subsample.cols(indi)));
+    } // END i loop
   } // END n loop
   
+  double logSDDR_se           = stddev(se_components, 1);
   
+  return List::create(
+    _["logSDDR"]     = log_numerator - log_denominator,
+    _["log_SDDR_se"] = logSDDR_se,
+    _["components"]  = List::create(
+      _["log_denominator"]    = log_denominator,
+      _["log_numerator"]      = log_numerator,
+      _["log_numerator_s"]    = log_numerator_s,
+      _["log_denominator_s"]  = log_denominator_s,
+      _["se_components"]      = se_components
+    )
+  );
 } // END verify_autoregressive_cpp

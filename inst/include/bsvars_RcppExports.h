@@ -982,6 +982,48 @@ namespace bsvars {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
+    inline double dmvnorm_chol_precision(const arma::rowvec& x, const arma::rowvec& location, const arma::mat& chol_precision, const bool logarithm = true) {
+        typedef SEXP(*Ptr_dmvnorm_chol_precision)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_dmvnorm_chol_precision p_dmvnorm_chol_precision = NULL;
+        if (p_dmvnorm_chol_precision == NULL) {
+            validateSignature("double(*dmvnorm_chol_precision)(const arma::rowvec&,const arma::rowvec&,const arma::mat&,const bool)");
+            p_dmvnorm_chol_precision = (Ptr_dmvnorm_chol_precision)R_GetCCallable("bsvars", "_bsvars_dmvnorm_chol_precision");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dmvnorm_chol_precision(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(location)), Shield<SEXP>(Rcpp::wrap(chol_precision)), Shield<SEXP>(Rcpp::wrap(logarithm)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
+    inline Rcpp::List verify_autoregressive_cpp(const arma::mat& hypothesis, const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X) {
+        typedef SEXP(*Ptr_verify_autoregressive_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_verify_autoregressive_cpp p_verify_autoregressive_cpp = NULL;
+        if (p_verify_autoregressive_cpp == NULL) {
+            validateSignature("Rcpp::List(*verify_autoregressive_cpp)(const arma::mat&,const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
+            p_verify_autoregressive_cpp = (Ptr_verify_autoregressive_cpp)R_GetCCallable("bsvars", "_bsvars_verify_autoregressive_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_verify_autoregressive_cpp(Shield<SEXP>(Rcpp::wrap(hypothesis)), Shield<SEXP>(Rcpp::wrap(posterior)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_bsvars_RCPPEXPORTS_H_GEN_
