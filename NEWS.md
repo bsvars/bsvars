@@ -1,8 +1,9 @@
 # bsvars 2.0.0.9000
 
-1. Included Bayesian procedures for verifying structural shocks' heteroskedastiicty equation-by-equation using Savage-Dickey density rations [#26](https://github.com/bsvars/bsvars/issues/26)
+1. Included Bayesian procedures for verifying structural shocks' heteroskedastiicty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
+2. Included Bayesian procedures for verifying joint hypotheses for autoregressive parameters using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
 
-The package is under intensive development, and more functionalities will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/3) towards the next version 2.1.0.
+The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/3) towards the next version 2.1.0.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
