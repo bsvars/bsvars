@@ -83,7 +83,7 @@ posterior$is_normalised()
 data(us_fiscal_lsuw)
 
 # specify the model and set seed
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
 set.seed(123)
 
 # estimate the model
@@ -261,7 +261,7 @@ Sets the private indicator \code{normalised} to TRUE.
 data(us_fiscal_lsuw)
 
 # specify the model and set seed
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
 set.seed(123)
 
 # estimate the model

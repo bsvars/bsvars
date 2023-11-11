@@ -103,6 +103,7 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
   data,
   p = 1L,
   B,
+  exogenous = NULL,
   centred_sv = FALSE,
   stationary = rep(FALSE, ncol(data))
 )}\if{html}{\out{</div>}}
@@ -116,6 +117,8 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
 \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
 
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+
+\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
 

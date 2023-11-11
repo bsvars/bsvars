@@ -78,7 +78,7 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn
 \subsection{Method \code{new()}}{
 Create a new prior specification PriorBSVARSV.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$new(N, p, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_sv$new(N, p, d = 0, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -87,6 +87,8 @@ Create a new prior specification PriorBSVARSV.
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+
+\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
 }

@@ -121,20 +121,22 @@ specify_starting_values_bsvar_mix = R6::R6Class(
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param M an integer greater than 1 - the number of components of the mixture of normals.
     #' @param T a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.
+    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param finiteM a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.
     #' @return Starting values StartingValuesBSVARMIX.
-    initialize = function(N, p, M, T, finiteM = TRUE){
+    initialize = function(N, p, M, T, d = 0, finiteM = TRUE){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument M must be an integer number greater than 1." = M > 1 & M %% 1 == 0)
       stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
+      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       stopifnot("Argument finiteM must be a logical value." = is.logical(finiteM) & length(finiteM) == 1)
       
       if (!finiteM) {
         M = 20
       }
       
-      super$initialize(N, p, M, T)
+      super$initialize(N, p, M, T, d)
     } # END initialize
     
   ) # END public
@@ -190,6 +192,7 @@ specify_bsvar_mix = R6::R6Class(
     #' @param p a positive integer providing model's autoregressive lag order.
     #' @param M an integer greater than 1 - the number of components of the mixture of normals.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @param finiteM a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.
     #' @return A new complete specification for the bsvar model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
@@ -198,6 +201,7 @@ specify_bsvar_mix = R6::R6Class(
     p = 1L,
     M,
     B,
+    exogenous = NULL,
     stationary = rep(FALSE, ncol(data)),
     finiteM = TRUE
     ) {
@@ -207,6 +211,10 @@ specify_bsvar_mix = R6::R6Class(
       TT            = nrow(data)
       T             = TT - self$p
       N             = ncol(data)
+      d             = 0
+      if (!is.null(exogenous)) {
+        d           = ncol(exogenous)
+      }
       
       if (!finiteM) {
         M = 20
@@ -221,10 +229,10 @@ specify_bsvar_mix = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
       
-      self$data_matrices   = specify_data_matrices$new(data, p)
+      self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(N, B)
-      self$prior           = specify_prior_bsvar_mix$new(N, p, M, stationary)
-      self$starting_values = specify_starting_values_bsvar_mix$new(N, self$p, M, T, finiteM)
+      self$prior           = specify_prior_bsvar_mix$new(N, p, d, M, stationary)
+      self$starting_values = specify_starting_values_bsvar_mix$new(N, self$p, M, T, d, finiteM)
     } # END initialize
   ) # END public
 ) # END specify_bsvar_mix
@@ -355,7 +363,7 @@ specify_posterior_bsvar_mix = R6::R6Class(
     #' data(us_fiscal_lsuw)
     #' 
     #' # specify the model and set seed
-    #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
+    #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 4, M = 2)
     #' set.seed(123)
     #' 
     #' # estimate the model
