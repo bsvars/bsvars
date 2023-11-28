@@ -85,7 +85,7 @@
 #' data(us_fiscal_ex)      # upload exogenous variables
 #' 
 #' # specify the model and set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 2, exogenous = us_fiscal_ex)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4, exogenous = us_fiscal_ex)
 #' set.seed(123)
 #' 
 #' # run the burn-in
@@ -104,7 +104,7 @@
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 2, exogenous = us_fiscal_ex) |>
+#'   specify_bsvar_sv$new(p = 4, exogenous = us_fiscal_ex) |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevds
