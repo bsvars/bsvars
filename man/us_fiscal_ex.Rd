@@ -4,9 +4,9 @@
 \name{us_fiscal_ex}
 \alias{us_fiscal_ex}
 \title{A 3-variable system of exogenous variables for the US fiscal model for 
-the period 1950 Q1 -- 2021 Q4}
+the period 1948 Q1 -- 2023 Q2}
 \format{
-A matrix and a \code{ts} object with time series of 288 observations on 3 variables:
+A matrix and a \code{ts} object with time series of 302 observations on 3 variables:
 \describe{
   \item{t}{a time trend}
   \item{t^2}{a quadratic trend}
@@ -14,7 +14,7 @@ A matrix and a \code{ts} object with time series of 288 observations on 3 variab
 }
 
 The series are as described by Mertens & Ravn (2014). The data was used by 
-Lütkepohl, Shang, Uzeda, Woźniak (2022).
+Lütkepohl, Shang, Uzeda, Woźniak (2023).
 }
 \usage{
 data(us_fiscal_ex)
@@ -29,6 +29,6 @@ plot(us_fiscal_ex)   # plot the data
 \references{
 Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2023) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 }
 \keyword{datasets}
