@@ -47,3 +47,12 @@ expect_true(
   class(forecast(run_no1, 2, exogenous_forecast = matrix(0, 2, 3))) == "Forecasts",
   info = "Exogenous in forecast."
 )
+
+
+exx = us_fiscal_ex
+exx[,1] = 1
+expect_error(
+  specify_bsvar$new(us_fiscal_lsuw, exogenous = exx),
+  pattern = "constant",
+  info = "Constant term in exogenous."
+)
