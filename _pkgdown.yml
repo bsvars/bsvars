@@ -27,7 +27,8 @@ reference:
 - title: "Data"
   desc: "Upload sample data set"
 - contents:
-  - us_fiscal_lsuw  
+  - us_fiscal_lsuw
+  - us_fiscal_ex
 - title: "Model specification"
   desc: "Choose a model to work with"
 - contents:
