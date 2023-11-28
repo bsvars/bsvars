@@ -3,6 +3,7 @@
 1. Included Bayesian procedure for verifying structural shocks' heteroskedastiicty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
 2. Included Bayesian procedure for verifying joint hypotheses on autoregressive parameters using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
 3. Included the possibility of specifying exogenous variables or deterministic terms and included the deterministic terms used by Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
+4. Updated the data as in Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
 
 The package is under intensive development, and more functionalities will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/3) towards the next version 2.1.0.
 
