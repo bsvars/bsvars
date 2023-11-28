@@ -343,6 +343,12 @@ specify_data_matrices = R6::R6Class(
         stopifnot("Argument exogenous has to contain at the same number of rows as argument data." = (ncol(exogenous) >= 1 & nrow(data) == nrow(exogenous)))
         stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous)) == 0 )
         d = ncol(exogenous)
+        Td = nrow(exogenous)
+        test_exogenous = 0
+        for (i in 1:d) {
+          test_exogenous = test_exogenous + prod(exogenous[,i]/mean(exogenous[,i]) == rep(1,Td))
+        }
+        stopifnot("Argument exogenous cannot include a constant term." = test_exogenous == 0 )
       }
       
       TT            = nrow(data)
