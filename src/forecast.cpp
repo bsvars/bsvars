@@ -12,26 +12,29 @@ Rcpp::List forecast_bsvar (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
     const int     horizon
 ) {
   
   const int       N = posterior_B.n_rows;
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
+  const int       d = exogenous_forecast.n_cols;
   
   cube            forecasts(N, horizon, S);
   vec             one(1, fill::value(1));
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2);
-    vec Xt        = join_cols(x_t, one);
+    vec x_t       = X_T.rows(0, K - 2 - d);
+    vec ex        = X_T.rows(K - d , K - 1);
+    vec Xt        = join_cols(x_t, one, ex);
     
     mat Sigma     = inv_sympd(trans(posterior_B.slice(s)) * posterior_B.slice(s));
     
     for (int h=0; h<horizon; h++) {
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one);
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop
@@ -53,6 +56,7 @@ Rcpp::List forecast_bsvar_msh (
     arma::cube&   posterior_PR_TR,    // (M, M, S)
     arma::vec&    X_T,                // (K)
     arma::vec&    S_T,                // (M)
+    arma::mat&    exogenous_forecast, // (horizon, d)
     const int     horizon
 ) {
   
@@ -60,6 +64,7 @@ Rcpp::List forecast_bsvar_msh (
   const int       M = posterior_PR_TR.n_rows;
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
+  const int       d = exogenous_forecast.n_cols;
   
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2(N, horizon, S);
@@ -67,8 +72,9 @@ Rcpp::List forecast_bsvar_msh (
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2);
-    vec Xt        = join_cols(x_t, one);
+    vec x_t       = X_T.rows(0, K - 2 - d);
+    vec ex        = X_T.rows(K - d , K - 1);
+    vec Xt        = join_cols(x_t, one, ex);
     
     mat B_inv     = inv(posterior_B.slice(s));
     vec PR_ST     = S_T;
@@ -85,7 +91,7 @@ Rcpp::List forecast_bsvar_msh (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one);
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop
@@ -108,6 +114,7 @@ Rcpp::List forecast_bsvar_sv (
     arma::mat&    posterior_rho,      // NxS
     arma::mat&    posterior_omega,    // NxS
     arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
     const int     horizon,
     const bool    centred_sv = FALSE
 ) {
@@ -115,6 +122,7 @@ Rcpp::List forecast_bsvar_sv (
   const int       N = posterior_B.n_rows;
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
+  const int       d = exogenous_forecast.n_cols;
   
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2(N, horizon, S);
@@ -122,8 +130,9 @@ Rcpp::List forecast_bsvar_sv (
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2);
-    vec Xt        = join_cols(x_t, one);
+    vec x_t       = X_T.rows(0, K - 2 - d);
+    vec ex        = X_T.rows(K - d , K - 1);
+    vec Xt        = join_cols(x_t, one, ex);
     vec ht        = posterior_h_T;
     
     mat B_inv     = inv(posterior_B.slice(s));
@@ -144,7 +153,7 @@ Rcpp::List forecast_bsvar_sv (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one);
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop

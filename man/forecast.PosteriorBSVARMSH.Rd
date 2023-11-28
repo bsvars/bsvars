@@ -4,13 +4,16 @@
 \alias{forecast.PosteriorBSVARMSH}
 \title{Forecasting using Structural Vector Autoregression}
 \usage{
-\method{forecast}{PosteriorBSVARMSH}(posterior, horizon)
+\method{forecast}{PosteriorBSVARMSH}(posterior, horizon, exogenous_forecast = NULL)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
 PosteriorBSVARMSH obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
+
+\item{exogenous_forecast}{a matrix of dimension \code{horizon x d} containing 
+forecasted values of the exogenous variables.}
 }
 \value{
 A list of class \code{Forecasts} containing the

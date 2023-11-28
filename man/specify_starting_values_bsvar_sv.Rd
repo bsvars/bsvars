@@ -77,7 +77,7 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVARSV.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_sv$new(N, p, T)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_sv$new(N, p, T, d = 0)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -88,6 +88,8 @@ Create new starting values StartingValuesBSVARSV.
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
 
 \item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
+
+\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
 }
 \if{html}{\out{</div>}}
 }

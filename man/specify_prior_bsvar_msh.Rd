@@ -80,7 +80,7 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn
 \subsection{Method \code{new()}}{
 Create a new prior specification PriorBSVARMSH.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_msh$new(N, p, M, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_msh$new(N, p, d = 0, M, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -89,6 +89,8 @@ Create a new prior specification PriorBSVARMSH.
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+
+\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
 
 \item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
 

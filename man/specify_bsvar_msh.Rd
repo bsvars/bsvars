@@ -109,6 +109,7 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
   p = 1L,
   M,
   B,
+  exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
 )}\if{html}{\out{</div>}}
@@ -124,6 +125,8 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
 \item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
 
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+
+\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
 
