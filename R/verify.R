@@ -301,3 +301,263 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
   class(sddr)     = "SDDR"
   return(sddr)
 }
+
+
+
+
+
+
+
+
+#' @title Verifies hypotheses involving autoregressive parameters
+#'
+#' @description Computes the logarithm of Bayes factor for the joint hypothesis, 
+#' \eqn{H_0}, possibly for many autoregressive parameters represented by argument 
+#' \code{hypothesis} via Savage-Dickey Density Ration (SDDR).
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+#' less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(H_0 | data) - log p(H_0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' hypothesis. The estimation of both elements of the difference requires 
+#' numerical integration.
+#' 
+#' @param posterior the \code{posterior} element of the list from the estimation outcome
+#' @param hypothesis an \code{NxK} matrix of the same dimension as the autoregressive 
+#' matrix \eqn{A} with numeric values for the parameters to be verified,
+#' in which case the values represent the joint hypothesis, and missing value \code{NA} 
+#' for these parameters that are not tested
+#' 
+#' @return An object of class SDDR that is a list of three components:
+#' 
+#' \code{logSDDR} a scalar with values of the logarithm of the Bayes factors for 
+#' the autoregressive hypothesis for each of the shocks
+#' 
+#' \code{log_SDDR_se} an \code{N}-vector with estimation standard errors of the logarithm of 
+#' the Bayes factors reported in output element \code{logSDDR} that are computed based on 30 random 
+#' sub-samples of the log-ordinates of the marginal posterior and prior distributions.
+#' 
+#' \code{components} a list of three components for the computation of the Bayes factor
+#' \describe{
+#'   \item{log_denominator}{an \code{N}-vector with values of the logarithm of the Bayes factor denominators}
+#'   \item{log_numerator}{an \code{N}-vector with values of the logarithm of the Bayes factor numerators}
+#'   \item{log_numerator_s}{an \code{NxS} matrix of the log-full conditional posterior density ordinates computed to estimate the numerator}
+#'   \item{log_denominator_s}{an \code{NxS} matrix of the log-full conditional posterior density ordinates computed to estimate the denominator}
+#'   \item{se_components}{a \code{30}-vector containing the log-Bayes factors on the basis of which the standard errors are computed}
+#' }
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 60, thin = 1) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression <- function(posterior, hypothesis) {
+  
+  stopifnot("Argument hypothesis must be a numeric matrix." = is.matrix(hypothesis) & is.numeric(hypothesis))
+  
+  # call method
+  UseMethod("verify_autoregression", posterior)
+}
+
+
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVAR
+#' @inheritParams verify_autoregression
+#' 
+#' @export
+verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_homosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
+}
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVARSV
+#' @inheritParams verify_autoregression
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 60, thin = 1) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
+}
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVARMIX
+#' @inheritParams verify_autoregression
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate(S = 60, thin = 1) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
+}
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVARMSH
+#' @inheritParams verify_autoregression
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 60, thin = 1)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 60, thin = 1) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression.PosteriorBSVARMSH <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDR"
+  return(sddr)
+}

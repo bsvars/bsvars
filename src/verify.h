@@ -45,13 +45,21 @@ double dmvnorm_precision (
 );
 
 
-Rcpp::List verify_autoregressive_cpp (
-    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 99 stands for not verivied
+Rcpp::List verify_autoregressive_heterosk_cpp (
+    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 999 stands for not verivied
     const Rcpp::List&       posterior,  // a list of posteriors
     const Rcpp::List&       prior,      // a list of priors - original dimensions
     const arma::mat&        Y,          // NxT dependent variables
     const arma::mat&        X           // KxT explanatory variables
 );
 
+
+Rcpp::List verify_autoregressive_homosk_cpp (
+    const arma::mat&        hypothesis, // an NxK matrix of values under the null; value 999 stands for not verivied
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X           // KxT explanatory variables
+);
 
 #endif  // _VERIFY_H_
