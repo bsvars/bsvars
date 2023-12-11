@@ -58,7 +58,7 @@ set.seed(123)
 # estimate the model
 posterior      = estimate(specification, 60, thin = 1)
 
-# verify heteroskedasticity
+# verify autoregression
 H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 sddr           = verify_autoregression(posterior, H0)

@@ -54,6 +54,6 @@ reference:
 - contents:
   - matches("compute")
 - title: "Model diagnostics"
-  desc: "Verify heteroskedasticity (in preparation: structural identification, and Granger causality)"
+  desc: "Verify heteroskedasticity and autoregressive parameters (in preparation: structural identification)"
 - contents:
   - matches("verify")

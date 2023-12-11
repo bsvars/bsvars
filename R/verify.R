@@ -364,7 +364,7 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
 #' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
-#' # verify heteroskedasticity
+#' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 #' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 #' sddr           = verify_autoregression(posterior, H0)
@@ -430,7 +430,7 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
 #' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
-#' # verify heteroskedasticity
+#' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 #' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 #' sddr           = verify_autoregression(posterior, H0)
@@ -480,7 +480,7 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
 #' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
-#' # verify heteroskedasticity
+#' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 #' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 #' sddr           = verify_autoregression(posterior, H0)
@@ -530,7 +530,7 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
 #' # estimate the model
 #' posterior      = estimate(specification, 60, thin = 1)
 #' 
-#' # verify heteroskedasticity
+#' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 #' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 #' sddr           = verify_autoregression(posterior, H0)
