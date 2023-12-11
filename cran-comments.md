@@ -6,11 +6,12 @@ There were no ERRORs, WARNINGs, or NOTEs.
 
 Checking examples for two functions takes more time:
 ```
-─  checking examples ... [38s/39s] OK (38.9s)
+─  checking examples ... [48s/48s] OK (48.4s)
    Examples with CPU (user + system) or elapsed time > 5s
-                                       user system elapsed
-   verify_volatility                  9.237  0.081   9.319
-   verify_volatility.PosteriorBSVARSV 9.219  0.063   9.282
+                                           user system elapsed
+   verify_volatility                      9.234  0.060   9.295
+   verify_volatility.PosteriorBSVARSV     9.232  0.057   9.288
+   verify_autoregression.PosteriorBSVARSV 9.221  0.047   9.267
 ```
 This is the fastest check for this functions that is possible. The statistical 
 methods for the evaluation of Numerical Standard Errors using subsampling require 
@@ -23,3 +24,4 @@ Passing on all platforms!
 
 ## Check at using `rhub::check_for_cran()`
 
+All god here!
