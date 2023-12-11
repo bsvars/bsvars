@@ -81,23 +81,27 @@ Rcpp::List verify_volatility_sv_cpp (
   int   nn                    = floor(S/nse_subsamples);
   uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
   
-  for (int i=0; i<nse_subsamples; i++) {
-    // sub-sampling elements' indicators
-    uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
-    
-    // log denominator
-    inv_sqrt_s_      = 0.0;
-    if ( sample_s_ ) {
-      vec sample_prior_s_i    = prior_s_/sample_prior_s_.rows(indi);
-      inv_sqrt_s_             = as_scalar(mean(pow(sample_prior_s_i, -0.5)));
-    } else {
-      inv_sqrt_s_             = pow(prior_s_, -0.5);
-    }
-    double log_denominator_i  = - 0.5 * log(2 * M_PI) + log(inv_sqrt_s_) - log(pow(prior_a_, 2) - 0.25) + R::lgammafn(prior_a_ + 1.5) - R::lgammafn(prior_a_);
-    se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator_i;
-  } // END i loop
+  vec logSDDR_se(N);
   
-  vec logSDDR_se              = stddev(se_components, 1, 1);
+  if ( S >= 60 ) {
+    for (int i=0; i<nse_subsamples; i++) {
+      // sub-sampling elements' indicators
+      uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
+      
+      // log denominator
+      inv_sqrt_s_      = 0.0;
+      if ( sample_s_ ) {
+        vec sample_prior_s_i    = prior_s_/sample_prior_s_.rows(indi);
+        inv_sqrt_s_             = as_scalar(mean(pow(sample_prior_s_i, -0.5)));
+      } else {
+        inv_sqrt_s_             = pow(prior_s_, -0.5);
+      }
+      double log_denominator_i  = - 0.5 * log(2 * M_PI) + log(inv_sqrt_s_) - log(pow(prior_a_, 2) - 0.25) + R::lgammafn(prior_a_ + 1.5) - R::lgammafn(prior_a_);
+      se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator_i;
+    } // END i loop
+    
+    logSDDR_se              = stddev(se_components, 1, 1);
+  } // END if
   
   // compute the standard error 
   return List::create(
@@ -214,13 +218,17 @@ Rcpp::List verify_volatility_msh_cpp (
   int   nn                    = floor(S/nse_subsamples);
   uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
   
-  for (int i=0; i<nse_subsamples; i++) {
-    // sub-sampling elements' indicators
-    uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
-    se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
-  } // END i loop
+  vec logSDDR_se(N);
   
-  vec logSDDR_se              = stddev(se_components, 1, 1);
+  if ( S >= 60 ) {
+    for (int i=0; i<nse_subsamples; i++) {
+      // sub-sampling elements' indicators
+      uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
+      se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
+    } // END i loop
+    
+    logSDDR_se              = stddev(se_components, 1, 1);
+  } // END if
   
   // compute the standard error 
   return List::create(
@@ -309,6 +317,7 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
   double    log_denominator = 0;
   vec       log_denominator_n(N);
   mat       log_denominator_s(N, S);
+  double    logSDDR_se = 0;
   
   // for NSE computations
   int   nse_subsamples        = 30;
@@ -370,19 +379,23 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
     log_denominator          += log_denominator_n(n);
     
     // NSE computations
-    for (int i=0; i<nse_subsamples; i++) {
-      // sub-sampling elements' indicators
-      uvec  indi              = seq_1S.subvec(i*nn, (i+1)*nn-1);
-      
-      rowvec log_numerator_s_subsample      = log_numerator_s.row(n);
-      rowvec log_denominator_s_subsample    = log_denominator_s.row(n);
-  
-      se_components(i)       += as_scalar(log_mean(log_numerator_s_subsample.cols(indi)) 
-                                          - log_mean(log_denominator_s_subsample.cols(indi)));
-    } // END i loop
+    if ( S >= 60) {
+      for (int i=0; i<nse_subsamples; i++) {
+        // sub-sampling elements' indicators
+        uvec  indi              = seq_1S.subvec(i*nn, (i+1)*nn-1);
+        
+        rowvec log_numerator_s_subsample      = log_numerator_s.row(n);
+        rowvec log_denominator_s_subsample    = log_denominator_s.row(n);
+        
+        se_components(i)       += as_scalar(log_mean(log_numerator_s_subsample.cols(indi)) 
+                                              - log_mean(log_denominator_s_subsample.cols(indi)));
+      } // END i loop
+    } // END if  
   } // END n loop
   
-  double logSDDR_se           = stddev(se_components, 1);
+  if ( S >= 60) {
+    logSDDR_se           = stddev(se_components, 1);
+  } // END if  
   
   return List::create(
     _["logSDDR"]     = log_numerator - log_denominator,
@@ -437,6 +450,7 @@ Rcpp::List verify_autoregressive_homosk_cpp (
   double    log_denominator = 0;
   vec       log_denominator_n(N);
   mat       log_denominator_s(N, S);
+  double    logSDDR_se = 0;
   
   // for NSE computations
   int   nse_subsamples        = 30;
@@ -492,19 +506,23 @@ Rcpp::List verify_autoregressive_homosk_cpp (
     log_denominator          += log_denominator_n(n);
     
     // NSE computations
-    for (int i=0; i<nse_subsamples; i++) {
-      // sub-sampling elements' indicators
-      uvec  indi              = seq_1S.subvec(i*nn, (i+1)*nn-1);
-      
-      rowvec log_numerator_s_subsample      = log_numerator_s.row(n);
-      rowvec log_denominator_s_subsample    = log_denominator_s.row(n);
-      
-      se_components(i)       += as_scalar(log_mean(log_numerator_s_subsample.cols(indi)) 
-                                            - log_mean(log_denominator_s_subsample.cols(indi)));
-    } // END i loop
+    if ( S >= 60 ) {
+      for (int i=0; i<nse_subsamples; i++) {
+        // sub-sampling elements' indicators
+        uvec  indi              = seq_1S.subvec(i*nn, (i+1)*nn-1);
+        
+        rowvec log_numerator_s_subsample      = log_numerator_s.row(n);
+        rowvec log_denominator_s_subsample    = log_denominator_s.row(n);
+        
+        se_components(i)       += as_scalar(log_mean(log_numerator_s_subsample.cols(indi)) 
+                                              - log_mean(log_denominator_s_subsample.cols(indi)));
+      } // END i loop
+    } // END if
   } // END n loop
   
-  double logSDDR_se           = stddev(se_components, 1);
+  if ( S >= 60 ) {
+    logSDDR_se           = stddev(se_components, 1);
+  } // END if
   
   return List::create(
     _["logSDDR"]     = log_numerator - log_denominator,

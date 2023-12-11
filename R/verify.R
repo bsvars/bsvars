@@ -50,7 +50,7 @@
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify heteroskedasticity
 #' sddr           = verify_volatility(posterior)
@@ -60,7 +60,7 @@
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_volatility() -> sddr
 #' 
 #' @export
@@ -145,7 +145,7 @@ verify_volatility.PosteriorBSVAR <- function(posterior) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify heteroskedasticity
 #' sddr           = verify_volatility(posterior)
@@ -155,7 +155,7 @@ verify_volatility.PosteriorBSVAR <- function(posterior) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_volatility() -> sddr
 #'   
 #' @export
@@ -211,7 +211,7 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify heteroskedasticity
 #' sddr           = verify_volatility(posterior)
@@ -221,7 +221,7 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_volatility() -> sddr
 #'   
 #' @export
@@ -273,7 +273,7 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify heteroskedasticity
 #' sddr           = verify_volatility(posterior)
@@ -283,7 +283,7 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_volatility() -> sddr
 #'   
 #' @export
@@ -362,7 +362,7 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -374,7 +374,7 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_autoregression(hypothesis = H0) -> sddr
 #' 
 #' @export
@@ -428,7 +428,7 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -440,7 +440,7 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_autoregression(hypothesis = H0) -> sddr
 #' 
 #' @export
@@ -478,7 +478,7 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -490,7 +490,7 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_autoregression(hypothesis = H0) -> sddr
 #' 
 #' @export
@@ -528,7 +528,7 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' 
 #' # estimate the model
-#' posterior      = estimate(specification, 60, thin = 1)
+#' posterior      = estimate(specification, 10, thin = 1)
 #' 
 #' # verify autoregression
 #' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -540,7 +540,7 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate(S = 60, thin = 1) |> 
+#'   estimate(S = 10, thin = 1) |> 
 #'   verify_autoregression(hypothesis = H0) -> sddr
 #' 
 #' @export
