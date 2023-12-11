@@ -54,10 +54,11 @@ suggestions and requests are warmly welcome!
 }
 \examples{
 # upload data
-data(us_fiscal_lsuw)
+data(us_fiscal_lsuw)    # upload dependent variables
+data(us_fiscal_ex)      # upload exogenous variables
 
 # specify the model and set seed
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 2)
+specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4, exogenous = us_fiscal_ex)
 set.seed(123)
 
 # run the burn-in
@@ -76,7 +77,7 @@ fevd           = compute_variance_decompositions(posterior, horizon = 8)
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 2) |>
+  specify_bsvar_sv$new(p = 4, exogenous = us_fiscal_ex) |>
   estimate(S = 10) |> 
   estimate(S = 20) |> 
   compute_variance_decompositions(horizon = 8) -> fevds

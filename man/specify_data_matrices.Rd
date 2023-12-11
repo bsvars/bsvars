@@ -45,7 +45,7 @@ YX$get_data_matrices()
 \subsection{Method \code{new()}}{
 Create new data matrices DataMatricesBSVAR.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$new(data, p = 1L)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$new(data, p = 1L, exogenous = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -54,6 +54,9 @@ Create new data matrices DataMatricesBSVAR.
 \item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
 
 \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
+
+\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables. 
+This matrix should not include a constant term.}
 }
 \if{html}{\out{</div>}}
 }

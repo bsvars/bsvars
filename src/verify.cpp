@@ -94,8 +94,6 @@ Rcpp::List verify_volatility_sv_cpp (
       inv_sqrt_s_             = pow(prior_s_, -0.5);
     }
     double log_denominator_i  = - 0.5 * log(2 * M_PI) + log(inv_sqrt_s_) - log(pow(prior_a_, 2) - 0.25) + R::lgammafn(prior_a_ + 1.5) - R::lgammafn(prior_a_);
-    
-    // log numerator
     se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator_i;
   } // END i loop
   
@@ -210,18 +208,15 @@ Rcpp::List verify_volatility_msh_cpp (
   // compute the log of the mean numerator exp(log_numerator)
   vec log_numerator           = log_mean(log_numerator_s);
   
+  // NSE computations
   int   nse_subsamples        = 30;
   mat   se_components(N, nse_subsamples);
   int   nn                    = floor(S/nse_subsamples);
   uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
   
-  
-  
   for (int i=0; i<nse_subsamples; i++) {
     // sub-sampling elements' indicators
     uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
-    
-    // log numerator
     se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
   } // END i loop
   

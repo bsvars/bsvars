@@ -55,7 +55,7 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVARMIX.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(N, p, M, T, finiteM = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -68,6 +68,8 @@ Create new starting values StartingValuesBSVARMIX.
 \item{\code{M}}{an integer greater than 1 - the number of components of the mixture of normals.}
 
 \item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
+
+\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
 
 \item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
 }

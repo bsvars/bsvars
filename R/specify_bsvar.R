@@ -65,6 +65,7 @@ specify_prior_bsvar = R6::R6Class(
     #' Create a new prior specification PriorBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
     #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
     #' otherwise to random walk.
@@ -74,14 +75,15 @@ specify_prior_bsvar = R6::R6Class(
     #' prior = specify_prior_bsvar$new(N = 3, p = 1, stationary = rep(TRUE, 3))
     #' prior$A # show autoregressive prior mean
     #' 
-    initialize = function(N, p, stationary = rep(FALSE, N)){
+    initialize = function(N, p, d = 0, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
+      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       stopifnot("Argument stationary must be a logical vector of length N." = length(stationary) == N & is.logical(stationary))
       
-      K                 = N * p + 1
+      K                 = N * p + 1 + d
       self$A            = cbind(diag(as.numeric(!stationary)), matrix(0, N, K - N))
-      self$A_V_inv      = diag(c(kronecker((1:p)^2, rep(1, N) ), 1))
+      self$A_V_inv      = diag(c(kronecker((1:p)^2, rep(1, N) ), rep(1, d + 1)))
       self$B_V_inv      = diag(N)
       self$B_nu         = N
       self$hyper_nu_B   = 10
@@ -152,16 +154,18 @@ specify_starting_values_bsvar = R6::R6Class(
     #' Create new starting values StartingValuesBSVAR.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @return Starting values StartingValuesBSVAR.
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
     #' sv = specify_starting_values_bsvar$new(N = 3, p = 4)
     #' 
-    initialize = function(N, p){
+    initialize = function(N, p, d = 0){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
+      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
 
-      K                   = N * p + 1
+      K                   = N * p + 1 + d
       self$B              = diag(N)
       self$A              = cbind(diag(runif(N)), matrix(0, N, K - N))
       self$hyper          = matrix(10, 2 * N + 1, 2)
@@ -319,8 +323,10 @@ specify_data_matrices = R6::R6Class(
     #' Create new data matrices DataMatricesBSVAR.
     #' @param data a \code{(T+p)xN} matrix with time series data.
     #' @param p a positive integer providing model's autoregressive lag order.
+    #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
+    #' This matrix should not include a constant term.
     #' @return New data matrices DataMatricesBSVAR.
-    initialize = function(data, p = 1L) {
+    initialize = function(data, p = 1L, exogenous = NULL) {
       if (missing(data)) {
         stop("Argument data has to be specified")
       } else {
@@ -330,6 +336,21 @@ specify_data_matrices = R6::R6Class(
       }
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       
+      if (is.null(exogenous)) {
+        d = 0
+      } else {
+        stopifnot("Argument exogenous has to be a matrix." = is.matrix(exogenous) & is.numeric(exogenous))
+        stopifnot("Argument exogenous has to contain at the same number of rows as argument data." = (ncol(exogenous) >= 1 & nrow(data) == nrow(exogenous)))
+        stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous)) == 0 )
+        d = ncol(exogenous)
+        Td = nrow(exogenous)
+        test_exogenous = 0
+        for (i in 1:d) {
+          test_exogenous = test_exogenous + prod(exogenous[,i]/mean(exogenous[,i]) == rep(1,Td))
+        }
+        stopifnot("Argument exogenous cannot include a constant term." = test_exogenous == 0 )
+      }
+      
       TT            = nrow(data)
       T             = TT - p
       
@@ -338,7 +359,11 @@ specify_data_matrices = R6::R6Class(
       for (i in 1:p) {
         X           = cbind(X, data[(p + 1):TT - i,])
       }
-      self$X        = t(cbind(X, rep(1, T)))
+      X             = cbind(X, rep(1, T))
+      if (!is.null(data)) {
+        X           = cbind(X, exogenous[(p + 1):TT,])
+      }
+      self$X        = t(X)
     }, # END initialize
     
     #' @description
@@ -402,6 +427,7 @@ specify_bsvar = R6::R6Class(
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
     #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
     #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
     #' otherwise to random walk.
@@ -410,6 +436,7 @@ specify_bsvar = R6::R6Class(
       data,
       p = 1L,
       B,
+      exogenous = NULL,
       stationary = rep(FALSE, ncol(data))
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
@@ -418,6 +445,10 @@ specify_bsvar = R6::R6Class(
       TT            = nrow(data)
       T             = TT - self$p
       N             = ncol(data)
+      d             = 0
+      if (!is.null(exogenous)) {
+        d           = ncol(exogenous)
+      }
       
       if (missing(B)) {
         message("The identification is set to the default option of lower-triangular structural matrix.")
@@ -426,10 +457,10 @@ specify_bsvar = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
       
-      self$data_matrices   = specify_data_matrices$new(data, p)
+      self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(N, B)
-      self$prior           = specify_prior_bsvar$new(N, p, stationary)
-      self$starting_values = specify_starting_values_bsvar$new(N, self$p)
+      self$prior           = specify_prior_bsvar$new(N, p, d, stationary)
+      self$starting_values = specify_starting_values_bsvar$new(N, self$p, d)
     }, # END initialize
     
     #' @description

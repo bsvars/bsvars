@@ -97,7 +97,13 @@ spec$get_starting_values()
 \subsection{Method \code{new()}}{
 Create a new specification of the homoskedastic bsvar model BSVAR.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar$new(data, p = 1L, B, stationary = rep(FALSE, ncol(data)))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar$new(
+  data,
+  p = 1L,
+  B,
+  exogenous = NULL,
+  stationary = rep(FALSE, ncol(data))
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -110,6 +116,8 @@ Create a new specification of the homoskedastic bsvar model BSVAR.
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
+
+\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
 the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 

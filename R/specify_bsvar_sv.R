@@ -70,14 +70,16 @@ specify_prior_bsvar_sv = R6::R6Class(
     #' Create a new prior specification PriorBSVARSV.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
+    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @return A new prior specification PriorBSVARSV.
-    initialize = function(N, p, stationary = rep(FALSE, N)){
+    initialize = function(N, p, d = 0, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
+      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       stopifnot("Argument stationary must be a logical vector of length N." = length(stationary) == N & is.logical(stationary))
       
-      super$initialize(N, p, stationary)
+      super$initialize(N, p, d, stationary)
       self$sv_a_             = 1
       self$sv_s_             = 0.1
     }, # END initialize
@@ -167,13 +169,15 @@ specify_starting_values_bsvar_sv = R6::R6Class(
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param T a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.
+    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @return Starting values StartingValuesBSVARSV.
-    initialize = function(N, p, T){
+    initialize = function(N, p, T, d = 0){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
+      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       
-      super$initialize(N, p)
+      super$initialize(N, p, d)
       
       self$h              = matrix(rnorm(N * T, sd = .01), N, T)
       self$rho            = rep(.5, N)
@@ -281,6 +285,7 @@ specify_bsvar_sv = R6::R6Class(
     #' @param data a \code{(T+p)xN} matrix with time series data.
     #' @param p a positive integer providing model's autoregressive lag order.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param centred_sv a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @return A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
@@ -288,6 +293,7 @@ specify_bsvar_sv = R6::R6Class(
     data,
     p = 1L,
     B,
+    exogenous = NULL,
     centred_sv = FALSE,
     stationary = rep(FALSE, ncol(data))
     ) {
@@ -297,6 +303,10 @@ specify_bsvar_sv = R6::R6Class(
       TT            = nrow(data)
       T             = TT - self$p
       N             = ncol(data)
+      d             = 0
+      if (!is.null(exogenous)) {
+        d           = ncol(exogenous)
+      }
       
       if (missing(B)) {
         message("The identification is set to the default option of lower-triangular structural matrix.")
@@ -305,10 +315,10 @@ specify_bsvar_sv = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
       
-      self$data_matrices   = specify_data_matrices$new(data, p)
+      self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(N, B)
-      self$prior           = specify_prior_bsvar_sv$new(N, p, stationary)
-      self$starting_values = specify_starting_values_bsvar_sv$new(N, self$p, T)
+      self$prior           = specify_prior_bsvar_sv$new(N, p, d, stationary)
+      self$starting_values = specify_starting_values_bsvar_sv$new(N, self$p, T, d)
       self$centred_sv      = centred_sv
     }, # END initialize
     
