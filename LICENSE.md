@@ -1,5 +1,5 @@
     bsvars: Bayesian Estimation of Structural Vector Autoregressive Models
-    Copyright (C) 2022  Tomasz Woźniak <wozniak.tom@pm.me>
+    Copyright (C) 2023  Tomasz Woźniak <wozniak.tom@pm.me>
 
 
 GNU General Public License
