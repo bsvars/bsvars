@@ -27,14 +27,13 @@ The heteroskedastic SVAR model setup is similar as in [Woźniak &
 Droumaguet (2015)](http://doi.org/10.13140/RG.2.2.19492.55687) and
 [Lütkepohl & Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862).
 The sampler of the structural matrix follows [Waggoner & Zha
-(2003)](doi:10.1016/S0165-1889(02)00168-9), whereas that for
+(2003)](https://doi.org/10.1016/S0165-1889(02)00168-9), whereas that for
 autoregressive parameters follows [Chan, Koop, Yu
 (2022)](https://www.joshuachan.org/papers/OISV.pdf). The specification
 of Markov switching heteroskedasticity is inspired by [Song & Woźniak
-(2021)](http://doi.org/10.1016/j.jedc.2020.10386210.1093/acrefore/9780190625979.013.174),
-and that of Stochastic Volatility model by [Kastner &
-Frühwirth-Schnatter
-(2014)](http://doi.org/10.1016/j.jedc.2020.10386210.1016/j.csda.2013.01.002).
+(2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174), and
+that of Stochastic Volatility model by [Kastner & Frühwirth-Schnatter
+(2014)](http://doi.org/10.1016/j.csda.2013.01.002).
 
 ## Features
 
@@ -170,11 +169,11 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
 </a> <a href="https://gitlab.com/tomaszwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/gitlab.svg" width="40" height="40"/>
-</a> <a href="http://orcid.org/0000-0003-2212-2378">
+</a> <a href="https://orcid.org/0000-0003-2212-2378">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg" width="40" height="40"/>
 </a> <a href="http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/google.svg" width="40" height="40"/>
-</a> <a href="http://arxiv.org/a/wozniak_t_1">
+</a> <a href="https://arxiv.org/a/wozniak_t_1">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-xmark.svg" width="40" height="40"/>
 </a>
 <a href="https://www.linkedin.com/in/tomasz-wo%C5%BAniak-7b85361b1">

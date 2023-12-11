@@ -24,4 +24,4 @@ Passing on all platforms!
 
 ## Check at using `rhub::check_for_cran()`
 
-All god here!
+All good here!
