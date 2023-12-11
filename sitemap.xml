@@ -142,6 +142,24 @@
     <loc>https://bsvars.github.io/bsvars/reference/specify_starting_values_bsvar_sv.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/reference/us_fiscal_ex.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/reference/us_fiscal_lsuw.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/verify_volatility.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/verify_volatility.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/verify_volatility.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/verify_volatility.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/verify_volatility.html</loc>
   </url>
 </urlset>
