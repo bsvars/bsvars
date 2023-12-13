@@ -145,6 +145,21 @@
     <loc>https://bsvars.github.io/bsvars/dev/reference/us_fiscal_lsuw.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/verify_autoregression.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/verify_autoregression.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/verify_autoregression.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/verify_autoregression.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/verify_autoregression.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/dev/reference/verify_volatility.PosteriorBSVAR.html</loc>
   </url>
   <url>
