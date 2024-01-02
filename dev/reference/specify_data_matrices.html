@@ -156,8 +156,8 @@ This matrix should not include a constant term.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">YX</span> <span class="op">=</span> <span class="va">specify_data_matrices</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 299</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -344,10 +344,10 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.056911 -9.010728 -8.971658 -8.937872 -8.911732 -8.896843 -8.885421</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.760199 -9.798132 -9.804675 -9.767110 -9.796703 -9.820541 -9.822914</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.219770 -7.147001 -7.138701 -7.125323 -7.111366 -7.104781 -7.089516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [,293]    [,294]    [,295]    [,296]    [,297]    [,298]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.840683 -8.859386 -8.860952 -8.880481 -8.958526 -8.960204</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.848422 -9.865009 -9.863012 -9.841054 -9.833407 -9.831575</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.099449 -7.102256 -7.097561 -7.093165 -7.092966 -7.089761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,293]    [,294]    [,295]    [,296]    [,297]    [,298]    [,299]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.840683 -8.859386 -8.860952 -8.880481 -8.958526 -8.961428 -8.966983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.848422 -9.865009 -9.863012 -9.841054 -9.833407 -9.831575 -9.815022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.099449 -7.102256 -7.097561 -7.093165 -7.092966 -7.089761 -7.080117</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $X</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]       [,3]       [,4]       [,5]       [,6]</span>
@@ -980,20 +980,20 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.854537 -9.844722 -9.844289 -9.831917 -9.760199 -9.798132 -9.804675</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.136935 -7.127861 -7.123724 -7.135956 -7.219770 -7.147001 -7.138701</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [,293]    [,294]    [,295]    [,296]    [,297]    [,298]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.885421 -8.840683 -8.859386 -8.860952 -8.880481 -8.958526</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.822914 -9.848422 -9.865009 -9.863012 -9.841054 -9.833407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.089516 -7.099449 -7.102256 -7.097561 -7.093165 -7.092966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.896843 -8.885421 -8.840683 -8.859386 -8.860952 -8.880481</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.820541 -9.822914 -9.848422 -9.865009 -9.863012 -9.841054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.104781 -7.089516 -7.099449 -7.102256 -7.097561 -7.093165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.911732 -8.896843 -8.885421 -8.840683 -8.859386 -8.860952</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.796703 -9.820541 -9.822914 -9.848422 -9.865009 -9.863012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.111366 -7.104781 -7.089516 -7.099449 -7.102256 -7.097561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.937872 -8.911732 -8.896843 -8.885421 -8.840683 -8.859386</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.767110 -9.796703 -9.820541 -9.822914 -9.848422 -9.865009</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.125323 -7.111366 -7.104781 -7.089516 -7.099449 -7.102256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,293]    [,294]    [,295]    [,296]    [,297]    [,298]    [,299]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.885421 -8.840683 -8.859386 -8.860952 -8.880481 -8.958526 -8.961428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.822914 -9.848422 -9.865009 -9.863012 -9.841054 -9.833407 -9.831575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.089516 -7.099449 -7.102256 -7.097561 -7.093165 -7.092966 -7.089761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.896843 -8.885421 -8.840683 -8.859386 -8.860952 -8.880481 -8.958526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.820541 -9.822914 -9.848422 -9.865009 -9.863012 -9.841054 -9.833407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.104781 -7.089516 -7.099449 -7.102256 -7.097561 -7.093165 -7.092966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.911732 -8.896843 -8.885421 -8.840683 -8.859386 -8.860952 -8.880481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.796703 -9.820541 -9.822914 -9.848422 -9.865009 -9.863012 -9.841054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.111366 -7.104781 -7.089516 -7.099449 -7.102256 -7.097561 -7.093165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.937872 -8.911732 -8.896843 -8.885421 -8.840683 -8.859386 -8.860952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.767110 -9.796703 -9.820541 -9.822914 -9.848422 -9.865009 -9.863012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.125323 -7.111366 -7.104781 -7.089516 -7.099449 -7.102256 -7.097561</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
