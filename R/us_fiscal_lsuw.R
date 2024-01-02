@@ -1,11 +1,12 @@
 
-#' @title A 3-variable US fiscal system for the period 1948 Q1 -- 2023 Q2
+#' @title A 3-variable US fiscal system for the period 1948 Q1 -- 2023 Q3
 #'
-#' @description A system used to identify the US fiscal policy shocks.
+#' @description A system used to identify the US fiscal policy shocks. 
+#' Last data update was implemented on 2024-01-02.
 #'
 #' @usage data(us_fiscal_lsuw)
 #' 
-#' @format A matrix and a \code{ts} object with time series of 302 observations on 3 variables:
+#' @format A matrix and a \code{ts} object with time series of over three hundred observations on 3 variables:
 #' \describe{
 #'   \item{ttr}{quarterly US total tax revenue expressed in log, real, per person terms}
 #'   \item{gs}{quarterly US total government spending expressed in log, real, per person terms}
@@ -15,7 +16,7 @@
 #' The series are as described by Mertens & Ravn (2014) in footnote 3 and main body on page S3 of the paper. 
 #' Differences with respect to Mertens & Ravn's data :
 #' \itemize{
-#' \item The sample period is from quarter 1 of 1948 to quarter 2 of 2023,
+#' \item The sample period is from quarter 1 of 1948 to the last available observation,
 #' \item The population variable is not from Francis & Ramey (2009) but from the FRED (with the same definition),
 #' \item The original monthly population data is transformed to quarterly by taking monthly averages.
 #' }
