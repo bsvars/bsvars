@@ -267,7 +267,7 @@ void sample_hyperparameters (
     shape_tmp         = prior_hyper_a_B + prior_hyper_nu_B / 2;
     aux_hyper(N + n, 0) = R::rgamma(shape_tmp, scale_tmp);
     
-    scale_tmp         = aux_hyper(N + n, 0) + as_scalar(aux_B * prior_B_V_inv * aux_B.t());
+    scale_tmp         = aux_hyper(N + n, 0) + as_scalar(aux_B.row(n) * prior_B_V_inv * aux_B.row(n).t());
     shape_tmp         = prior_hyper_nu_B + rn;
     aux_hyper(n, 0)   = scale_tmp / R::rchisq(shape_tmp);
     
