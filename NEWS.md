@@ -4,6 +4,8 @@ The package is under intensive development, and more functionality will be provi
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
+1. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
+
 # bsvars 2.1.0
 
 Published on 11 December 2023
