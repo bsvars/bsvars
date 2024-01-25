@@ -109,4 +109,4 @@
 #'   estimate(S = 20) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevds
 #' 
-NULL
+"_PACKAGE"

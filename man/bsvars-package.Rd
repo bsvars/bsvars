@@ -86,6 +86,14 @@ us_fiscal_lsuw |>
 \references{
 Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://bsvars.github.io/bsvars/}
+  \item Report bugs at \url{https://github.com/bsvars/bsvars/issues}
+}
+
+}
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
 }
