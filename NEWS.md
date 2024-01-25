@@ -5,6 +5,7 @@ The package is under intensive development, and more functionality will be provi
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
 1. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
+2. Got rid of filling by reference in the samplers for the sake of granting the exported **cpp** functions usability [#56](https://github.com/bsvars/bsvars/issues/56)
 
 # bsvars 2.1.0
 

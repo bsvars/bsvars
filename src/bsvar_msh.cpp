@@ -86,23 +86,25 @@ Rcpp::List bsvar_msh_cpp (
     if (s % 200 == 0) checkUserInterrupt();
     
     // sample aux_hyper
-    sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
+    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
     
     // sample aux_B
-    sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
+    aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
     
     // sample aux_A
-    sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
+    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
       
     // sample aux_xi
     mat U = aux_B * (Y - aux_A * X);
-    sample_Markov_process_msh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM);
+    aux_xi            = sample_Markov_process_msh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM);
     
     // sample aux_PR_TR
-    sample_transition_probabilities(aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX);
+    List aux_PR_tmp   = sample_transition_probabilities(aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX);
+    aux_PR_TR         = as<mat>(aux_PR_tmp["PR_TR"]);
+    aux_pi_0          = as<vec>(aux_PR_tmp["pi_0"]);
     
     // sample aux_sigma2
-    sample_variances_msh(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior);
+    aux_sigma2        = sample_variances_msh(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior);
     for (int t=0; t<T; t++) {
       aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
     }

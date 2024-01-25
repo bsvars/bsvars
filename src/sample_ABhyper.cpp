@@ -14,7 +14,7 @@ using namespace arma;
 /*______________________function sample_A_homosk1______________________*/
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void sample_A_homosk1 (
+arma::mat sample_A_homosk1 (
     arma::mat&        aux_A,          // NxK
     const arma::mat&  aux_B,          // NxN
     const arma::mat&  aux_hyper,      // (2*N+1) x 2 :: col 0 for B, col 1 for A
@@ -45,6 +45,8 @@ void sample_A_homosk1 (
                                 solve(trans(precision_chol), trans(location)) + xx);
     aux_A.row(n)      = trans(draw);
   } // END n loop
+  
+  return aux_A;
 } // END sample_A_homosk1
 
 
@@ -52,7 +54,7 @@ void sample_A_homosk1 (
 /*______________________function sample_A_heterosk1 ______________________*/
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void sample_A_heterosk1 (
+arma::mat sample_A_heterosk1 (
     arma::mat&        aux_A,          // NxK
     const arma::mat&  aux_B,          // NxN
     const arma::mat&  aux_hyper,      // (2*N+1) x 2 :: col 0 for B, col 1 for A
@@ -88,6 +90,8 @@ void sample_A_heterosk1 (
                               solve(trans(precision_chol), trans(location)) + xx);
     aux_A.row(n)      = trans(draw);
   } // END n loop
+  
+  return aux_A;
 } // END sample_A_heterosk1
 
 
@@ -95,7 +99,7 @@ void sample_A_heterosk1 (
 /*______________________function sample_B_homosk1______________________*/
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void sample_B_homosk1 (
+arma::mat sample_B_homosk1 (
     arma::mat&        aux_B,          // NxN
     const arma::mat&  aux_A,          // NxK
     const arma::mat&  aux_hyper,      // (2*N+1) x 2 :: col 0 for B, col 1 for A
@@ -148,6 +152,8 @@ void sample_B_homosk1 (
     rowvec b0n              = alpha.t() * Wn * Un;
     aux_B.row(n)            = b0n * VB(n);
   } // END n loop
+  
+  return aux_B;
 } // END sample_B_homosk1
 
 
@@ -155,7 +161,7 @@ void sample_B_homosk1 (
 /*______________________function sample_B_heterosk1______________________*/
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void sample_B_heterosk1 (
+arma::mat sample_B_heterosk1 (
     arma::mat&        aux_B,          // NxN
     const arma::mat&  aux_A,          // NxK
     const arma::mat&  aux_hyper,      // (2*N+1) x 2 :: col 0 for B, col 1 for A
@@ -213,13 +219,15 @@ void sample_B_heterosk1 (
     rowvec b0n              = alpha.t() * Wn * Un;
     aux_B.row(n)           = b0n * VB(n);
   } // END n loop
+  
+  return aux_B;
 } // END sample_B_heterosk1
 
 
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void sample_hyperparameters (
+arma::mat sample_hyperparameters (
     arma::mat&              aux_hyper,       // (2*N+1) x 2 :: col 0 for B, col 1 for A
     const arma::mat&        aux_B,            // NxN
     const arma::mat&        aux_A,
@@ -281,4 +289,6 @@ void sample_hyperparameters (
     shape_tmp         = prior_hyper_nu_A + K;
     aux_hyper(n, 1)   = scale_tmp / R::rchisq(shape_tmp);
   } // END n loop
+  
+  return aux_hyper;
 } // END sample_hyperparameters

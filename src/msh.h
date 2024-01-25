@@ -42,7 +42,7 @@ arma::mat smoothing_msh (
 );
 
 
-void sample_Markov_process_msh (
+arma::mat sample_Markov_process_msh (
     arma::mat&        aux_xi,             // MxT
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
@@ -52,16 +52,16 @@ void sample_Markov_process_msh (
 );
 
 
-void sample_transition_probabilities (
-    arma::mat&          aux_PR_TR,    // MxM 
-    arma::vec&          aux_pi_0,     // Mx1
+Rcpp::List sample_transition_probabilities (
+    arma::mat           aux_PR_TR,    // MxM 
+    arma::vec           aux_pi_0,     // Mx1
     const arma::mat&    aux_xi,       // MxT
     const Rcpp::List&   prior,         // a list of priors - original dimensions
     const bool          MSnotMIX = true
 );
 
 
-void sample_variances_msh (
+arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    aux_B,      // NxN
     const arma::mat&    aux_A,      // NxK

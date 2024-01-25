@@ -65,9 +65,9 @@ Rcpp::List bsvar_cpp(
     // Check for user interrupts
     if (s % 200 == 0) checkUserInterrupt();
     
-    sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
-    sample_A_homosk1(aux_A, aux_B, aux_hyper, Y, X, prior);
-    sample_B_homosk1(aux_B, aux_A, aux_hyper, Y, X, prior, VB);
+    aux_hyper     = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
+    aux_A         = sample_A_homosk1(aux_A, aux_B, aux_hyper, Y, X, prior);
+    aux_B         = sample_B_homosk1(aux_B, aux_A, aux_hyper, Y, X, prior, VB);
     
     if (s % thin == 0) {
       posterior_B.slice(ss)    = aux_B;

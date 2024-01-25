@@ -103,13 +103,13 @@ Rcpp::List bsvar_sv_cpp (
     if (s % 200 == 0) checkUserInterrupt();
     
     // sample aux_hyper
-    sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, prior);
+    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, prior);
     
     // sample aux_B
-    sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
+    aux_B           = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
     
     // sample aux_A
-    sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
+    aux_A           = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
     
     // sample aux_h, aux_omega and aux_S, aux_sigma2_omega
     mat U = aux_B * (Y - aux_A * X);

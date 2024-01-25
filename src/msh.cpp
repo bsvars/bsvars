@@ -144,7 +144,7 @@ arma::mat smoothing_msh (
 
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
-void sample_Markov_process_msh (
+arma::mat sample_Markov_process_msh (
     arma::mat&        aux_xi,             // MxT
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
@@ -195,15 +195,17 @@ void sample_Markov_process_msh (
     } // END while
     if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
   }
+  
+  return aux_xi;
 } // END sample_Markov_process_msh
 
 
 
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
-void sample_transition_probabilities (
-    arma::mat&          aux_PR_TR,    // MxM 
-    arma::vec&          aux_pi_0,     // Mx1
+Rcpp::List sample_transition_probabilities (
+    arma::mat           aux_PR_TR,    // MxM 
+    arma::vec           aux_pi_0,     // Mx1
     const arma::mat&    aux_xi,       // MxT
     const Rcpp::List&   prior,         // a list of priors - original dimensions
     const bool          MSnotMIX = true
@@ -233,13 +235,18 @@ void sample_transition_probabilities (
       aux_PR_TR.row(m)    = aux_pi_0.t();
     }
   }
+  
+  return List::create(
+    _["PR_TR"]        = aux_PR_TR,
+    _["pi_0"]         = aux_pi_0
+  );
 } // END sample_transition_probabilities
 
 
 
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
-void sample_variances_msh (
+arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    aux_B,      // NxN
     const arma::mat&    aux_A,      // NxK
@@ -268,5 +275,7 @@ void sample_variances_msh (
   for (int n=0; n<N; n++) {
     aux_sigma2.row(n)     = MM*rIG2_Dirichlet1( posterior_s.row(n), posterior_nu);
   }
+  
+  return aux_sigma2;
 } // END sample_variances_msh
 

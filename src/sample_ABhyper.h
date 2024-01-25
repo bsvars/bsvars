@@ -5,7 +5,7 @@
 #include <RcppArmadillo.h>
 
 
-void sample_A_homosk1 (
+arma::mat sample_A_homosk1 (
     arma::mat&        aux_A,              // NxK
     const arma::mat&  aux_B,              // NxN
     const arma::mat&  aux_hyper,          // (2*N+1)x2
@@ -16,7 +16,7 @@ void sample_A_homosk1 (
 
 
 
-void sample_A_heterosk1 (
+arma::mat sample_A_heterosk1 (
     arma::mat&        aux_A,          // NxK
     const arma::mat&  aux_B,          // NxN
     const arma::mat&  aux_hyper,      // (2*N+1)x2
@@ -28,7 +28,7 @@ void sample_A_heterosk1 (
 
 
 
-void sample_B_homosk1 (
+arma::mat sample_B_homosk1 (
     arma::mat&        aux_B,              // NxN
     const arma::mat&  aux_A,              // NxK
     const arma::mat&  aux_hyper,          // (2*N+1)x2
@@ -40,7 +40,7 @@ void sample_B_homosk1 (
 
 
 
-void sample_B_heterosk1 (
+arma::mat sample_B_heterosk1 (
     arma::mat&        aux_B,          // NxN
     const arma::mat&  aux_A,          // NxK
     const arma::mat&  aux_hyper,      // (2*N+1)x2
@@ -53,7 +53,7 @@ void sample_B_heterosk1 (
 
 
 
-void sample_hyperparameters (
+arma::mat sample_hyperparameters (
     arma::mat&              aux_hyper,
     const arma::mat&        aux_B,
     const arma::mat&        aux_A,
