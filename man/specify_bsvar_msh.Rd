@@ -107,7 +107,7 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$new(
   data,
   p = 1L,
-  M,
+  M = 2L,
   B,
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),

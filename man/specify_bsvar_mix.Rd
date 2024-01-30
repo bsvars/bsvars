@@ -64,7 +64,7 @@ Create a new specification of the BSVAR model with a zero-mean mixture of normal
 \if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_mix$new(
   data,
   p = 1L,
-  M,
+  M = 2L,
   B,
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),

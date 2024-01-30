@@ -297,7 +297,7 @@ specify_bsvar_msh = R6::R6Class(
     initialize = function(
     data,
     p = 1L,
-    M,
+    M = 2L,
     B,
     exogenous = NULL,
     stationary = rep(FALSE, ncol(data)),
@@ -315,8 +315,10 @@ specify_bsvar_msh = R6::R6Class(
       }
       
       if (!finiteM) {
-        M = 20
-        message("In the sparse Markov switching model the value of M is overwritten and set to 20.")
+        if ( M < 20 ) {
+          M = 20L
+          message("In the sparse Markov switching model the value of M is overwritten and set to 20.")
+        }
       }
       self$finiteM  = finiteM
       
