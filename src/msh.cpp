@@ -201,6 +201,88 @@ arma::mat sample_Markov_process_msh (
 
 
 
+
+
+
+
+
+
+
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+arma::cube sample_Markov_process_hmsh (
+    arma::cube&       aux_xi,             // MxTxN
+    const arma::mat&  U,                  // NxT
+    const arma::mat&  aux_sigma2,         // NxM
+    const arma::cube& aux_PR_TR,          // MxMxN
+    const arma::mat&  aux_pi_0,           // MxN
+    const bool        finiteM = true
+) {
+  
+  int minimum_regime_occurrences = 0;
+  int max_iterations = 1;
+  if ( finiteM ) {
+    minimum_regime_occurrences = 2;
+    max_iterations = 10;
+  }
+  
+  const int   T   = U.n_cols;
+  const int   N   = U.n_rows;
+  const int   M   = aux_PR_TR.n_cols;
+  cube aux_xi_tmp = aux_xi;
+  mat xi(M, T);
+  
+  mat     aj      = eye(M, M);
+  
+  for (int n=0; n<N; n++) {
+    mat filtered    = filtering_msh(U.row(n), aux_sigma2.row(n), aux_PR_TR.slice(n), aux_pi_0.col(n));
+    mat smoothed    = smoothing_msh(U.row(n), aux_PR_TR.slice(n), filtered);
+    int draw        = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
+    aux_xi_tmp.slice(n).col(T-1)     = aj.col(draw-1);
+    
+    if ( minimum_regime_occurrences==0 ) {
+      for (int t=T-2; t>=0; --t) {
+        vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+        aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
+      }
+      aux_xi = aux_xi_tmp;
+    } else {
+      int regime_occurrences  = 1;
+      int iterations  = 1;
+      while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
+        for (int t=T-2; t>=0; --t) {
+          vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+          draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+          aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
+        } // END t loop
+        
+        mat transitions       = count_regime_transitions(aux_xi_tmp.slice(n));
+        regime_occurrences    = min(transitions.diag());
+        iterations++;
+      } // END while
+      
+      if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
+    } // END if else
+  } // END n loop
+  
+  return aux_xi;
+} // END sample_Markov_process_hmsh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 Rcpp::List sample_transition_probabilities (
