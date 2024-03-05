@@ -445,6 +445,27 @@ namespace bsvars {
         return Rcpp::as<arma::mat >(rcpp_result_gen);
     }
 
+    inline arma::cube sample_Markov_process_hmsh(arma::cube& aux_xi, const arma::mat& U, const arma::mat& aux_sigma2, const arma::cube& aux_PR_TR, const arma::mat& aux_pi_0, const bool finiteM = true) {
+        typedef SEXP(*Ptr_sample_Markov_process_hmsh)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_sample_Markov_process_hmsh p_sample_Markov_process_hmsh = NULL;
+        if (p_sample_Markov_process_hmsh == NULL) {
+            validateSignature("arma::cube(*sample_Markov_process_hmsh)(arma::cube&,const arma::mat&,const arma::mat&,const arma::cube&,const arma::mat&,const bool)");
+            p_sample_Markov_process_hmsh = (Ptr_sample_Markov_process_hmsh)R_GetCCallable("bsvars", "_bsvars_sample_Markov_process_hmsh");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_sample_Markov_process_hmsh(Shield<SEXP>(Rcpp::wrap(aux_xi)), Shield<SEXP>(Rcpp::wrap(U)), Shield<SEXP>(Rcpp::wrap(aux_sigma2)), Shield<SEXP>(Rcpp::wrap(aux_PR_TR)), Shield<SEXP>(Rcpp::wrap(aux_pi_0)), Shield<SEXP>(Rcpp::wrap(finiteM)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<arma::cube >(rcpp_result_gen);
+    }
+
     inline Rcpp::List sample_transition_probabilities(arma::mat aux_PR_TR, arma::vec aux_pi_0, const arma::mat& aux_xi, const Rcpp::List& prior, const bool MSnotMIX = true) {
         typedef SEXP(*Ptr_sample_transition_probabilities)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_transition_probabilities p_sample_transition_probabilities = NULL;

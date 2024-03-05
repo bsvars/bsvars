@@ -766,6 +766,45 @@ RcppExport SEXP _bsvars_sample_Markov_process_msh(SEXP aux_xiSEXP, SEXP USEXP, S
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// sample_Markov_process_hmsh
+arma::cube sample_Markov_process_hmsh(arma::cube& aux_xi, const arma::mat& U, const arma::mat& aux_sigma2, const arma::cube& aux_PR_TR, const arma::mat& aux_pi_0, const bool finiteM);
+static SEXP _bsvars_sample_Markov_process_hmsh_try(SEXP aux_xiSEXP, SEXP USEXP, SEXP aux_sigma2SEXP, SEXP aux_PR_TRSEXP, SEXP aux_pi_0SEXP, SEXP finiteMSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type aux_xi(aux_xiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type aux_sigma2(aux_sigma2SEXP);
+    Rcpp::traits::input_parameter< const arma::cube& >::type aux_PR_TR(aux_PR_TRSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type aux_pi_0(aux_pi_0SEXP);
+    Rcpp::traits::input_parameter< const bool >::type finiteM(finiteMSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_Markov_process_hmsh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_sample_Markov_process_hmsh(SEXP aux_xiSEXP, SEXP USEXP, SEXP aux_sigma2SEXP, SEXP aux_PR_TRSEXP, SEXP aux_pi_0SEXP, SEXP finiteMSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_sample_Markov_process_hmsh_try(aux_xiSEXP, USEXP, aux_sigma2SEXP, aux_PR_TRSEXP, aux_pi_0SEXP, finiteMSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // sample_transition_probabilities
 Rcpp::List sample_transition_probabilities(arma::mat aux_PR_TR, arma::vec aux_pi_0, const arma::mat& aux_xi, const Rcpp::List& prior, const bool MSnotMIX);
 static SEXP _bsvars_sample_transition_probabilities_try(SEXP aux_PR_TRSEXP, SEXP aux_pi_0SEXP, SEXP aux_xiSEXP, SEXP priorSEXP, SEXP MSnotMIXSEXP) {
@@ -1870,6 +1909,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::mat(*filtering_msh)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::vec&)");
         signatures.insert("arma::mat(*smoothing_msh)(const arma::mat&,const arma::mat&,const arma::mat&)");
         signatures.insert("arma::mat(*sample_Markov_process_msh)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::vec&,const bool)");
+        signatures.insert("arma::cube(*sample_Markov_process_hmsh)(arma::cube&,const arma::mat&,const arma::mat&,const arma::cube&,const arma::mat&,const bool)");
         signatures.insert("Rcpp::List(*sample_transition_probabilities)(arma::mat,arma::vec,const arma::mat&,const Rcpp::List&,const bool)");
         signatures.insert("arma::mat(*sample_variances_msh)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
         signatures.insert("arma::rowvec(*normalisation_wz2003_s)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
@@ -1925,6 +1965,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_filtering_msh", (DL_FUNC)_bsvars_filtering_msh_try);
     R_RegisterCCallable("bsvars", "_bsvars_smoothing_msh", (DL_FUNC)_bsvars_smoothing_msh_try);
     R_RegisterCCallable("bsvars", "_bsvars_sample_Markov_process_msh", (DL_FUNC)_bsvars_sample_Markov_process_msh_try);
+    R_RegisterCCallable("bsvars", "_bsvars_sample_Markov_process_hmsh", (DL_FUNC)_bsvars_sample_Markov_process_hmsh_try);
     R_RegisterCCallable("bsvars", "_bsvars_sample_transition_probabilities", (DL_FUNC)_bsvars_sample_transition_probabilities_try);
     R_RegisterCCallable("bsvars", "_bsvars_sample_variances_msh", (DL_FUNC)_bsvars_sample_variances_msh_try);
     R_RegisterCCallable("bsvars", "_bsvars_normalisation_wz2003_s", (DL_FUNC)_bsvars_normalisation_wz2003_s_try);
@@ -1979,6 +2020,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_filtering_msh", (DL_FUNC) &_bsvars_filtering_msh, 4},
     {"_bsvars_smoothing_msh", (DL_FUNC) &_bsvars_smoothing_msh, 3},
     {"_bsvars_sample_Markov_process_msh", (DL_FUNC) &_bsvars_sample_Markov_process_msh, 6},
+    {"_bsvars_sample_Markov_process_hmsh", (DL_FUNC) &_bsvars_sample_Markov_process_hmsh, 6},
     {"_bsvars_sample_transition_probabilities", (DL_FUNC) &_bsvars_sample_transition_probabilities, 5},
     {"_bsvars_sample_variances_msh", (DL_FUNC) &_bsvars_sample_variances_msh, 7},
     {"_bsvars_normalisation_wz2003_s", (DL_FUNC) &_bsvars_normalisation_wz2003_s, 4},

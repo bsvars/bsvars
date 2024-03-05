@@ -29,6 +29,10 @@ sample_Markov_process_msh <- function(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0
     .Call(`_bsvars_sample_Markov_process_msh`, aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM)
 }
 
+sample_Markov_process_hmsh <- function(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM = TRUE) {
+    .Call(`_bsvars_sample_Markov_process_hmsh`, aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM)
+}
+
 sample_transition_probabilities <- function(aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX = TRUE) {
     .Call(`_bsvars_sample_transition_probabilities`, aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX)
 }
