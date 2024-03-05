@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# bsvars 
+# bsvars <img src="man/figures/logo.svg" align="right" padding-left="3px" alt="bsvars website" />
 
 An **R** package for Bayesian Estimation of Structural Vector Autoregressive Models
 
@@ -78,6 +78,11 @@ bsvars: Bayesian Structural Vector Autoregressions|
 *************************************
 ```
 
+#### The hexagonal logo
+
+<p></p>
+<a href="https://bsvars.github.io/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
+<p></p>
 
 ## Start your Bayesian analysis of data
 

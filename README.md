@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bsvars
+# bsvars <img src="man/figures/logo.svg" align="right" padding-left="3px" alt="bsvars website" />
 
 An **R** package for Bayesian Estimation of Structural Vector
 Autoregressive Models
@@ -110,6 +110,14 @@ that of Stochastic Volatility model by [Kastner & Frühwirth-Schnatter
     0%   10   20   30   40   50   60   70   80   90   100%
     [----|----|----|----|----|----|----|----|----|----|
     *************************************
+
+#### The hexagonal logo
+
+<p>
+</p>
+<a href="https://bsvars.github.io/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
+<p>
+</p>
 
 ## Start your Bayesian analysis of data
 
