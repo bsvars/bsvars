@@ -80,6 +80,8 @@ bsvars: Bayesian Structural Vector Autoregressions|
 
 #### The hexagonal logo
 
+This beautiful logo can be reproduced in R using [this file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
+
 <p></p>
 <a href="https://bsvars.github.io/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p></p>
