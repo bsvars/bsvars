@@ -13,7 +13,7 @@
 #' @return An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 
 #' containing \code{S} draws of the forecast error variance decomposition.
 #'
-#' @seealso \code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

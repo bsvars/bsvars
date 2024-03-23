@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary.PosteriorIR}
 \alias{summary.PosteriorIR}
-\title{Provides posterior summary of impolse responses}
+\title{Provides posterior summary of impulse responses}
 \usage{
 \method{summary}{PosteriorIR}(object, ...)
 }

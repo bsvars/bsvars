@@ -240,7 +240,7 @@ summary.PosteriorHD = function(
 
 
 
-#' @title Provides posterior summary of impolse responses
+#' @title Provides posterior summary of impulse responses
 #'
 #' @description Provides posterior summary of the impulse responses of each 
 #' variable to each of the shocks at all horizons. Includes their posterior 
@@ -472,4 +472,81 @@ summary.PosteriorShocks = function(
   names(out) = paste0("shock", 1:N)
   
   return(out)
-} # END summary.PosteriorFitted
+} # END summary.PosteriorShocks
+
+
+
+
+
+
+
+#' @title Provides posterior summary of forecast error variance decompositions
+#'
+#' @description Provides posterior means of the forecast error variance 
+#' decompositions of each variable at all horizons.
+#' 
+#' @param object an object of class PosteriorFEVD obtained using the
+#' \code{compute_variance_decompositions()} function containing draws from the 
+#' posterior distribution of the forecast error variance decompositions. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A list reporting the posterior mean of the forecast error variance 
+#' decompositions of each variable at all horizons.
+#' 
+#' @method summary PosteriorFEVD
+#' 
+#' @seealso \code{\link{compute_variance_decompositions}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' 
+#' # compute forecast error variance decompositions
+#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' fevd_summary   = summary(fevd)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_variance_decompositions(horizon = 8) |>
+#'   summary() -> fevd_summary
+#' 
+#' @export
+summary.PosteriorFEVD = function(
+    object,
+    ...
+) {
+  
+  cat("Posterior means of the forecast error variance decompositions\n")
+  cat("-------------------------------------------------------------\n")
+  
+  N         = dim(object)[1]
+  H         = dim(object)[3] - 1
+  
+  fevd      = apply(object, 1:3, mean)
+  out       = list()
+  for (n in 1:N) {
+    out[[n]] = t(fevd[n,,])
+    colnames(out[[n]]) = paste0("shock", 1:N)
+    rownames(out[[n]]) = 0:H
+  } # END n loop
+  names(out) = paste0("variable", 1:N)
+  
+  return(out)
+} # END summary.PosteriorFEVD
