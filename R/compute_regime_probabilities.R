@@ -16,7 +16,7 @@
 #' @return An object of class PosteriorRegimePr, that is, an \code{MxTxS} array with attribute PosteriorRegimePr 
 #' containing \code{S} draws of the regime probabilities.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

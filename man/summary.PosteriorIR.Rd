@@ -2,14 +2,14 @@
 % Please edit documentation in R/summary.R
 \name{summary.PosteriorIR}
 \alias{summary.PosteriorIR}
-\title{Provides posterior summary of variables' fitted values}
+\title{Provides posterior summary of impolse responses}
 \usage{
 \method{summary}{PosteriorIR}(object, ...)
 }
 \arguments{
 \item{object}{an object of class PosteriorIR obtained using the
-\code{compute_impulse_responses()} function containing draws the predictive 
-density of the sample data.}
+\code{compute_impulse_responses()} function containing draws from the posterior
+distribution of the impulse responses.}
 
 \item{...}{additional arguments affecting the summary produced.}
 }
@@ -19,8 +19,9 @@ A list reporting the posterior mean, standard deviations, as well as
 shocks at all horizons.
 }
 \description{
-Provides posterior summary of the fitted values including their 
-mean, standard deviations, as well as 5 and 95 percentiles.
+Provides posterior summary of the impulse responses of each 
+variable to each of the shocks at all horizons. Includes their posterior 
+means, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
 # upload data
