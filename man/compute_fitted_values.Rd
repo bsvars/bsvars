@@ -47,7 +47,7 @@ us_fiscal_lsuw |>
 
 }
 \seealso{
-\code{\link{estimate}}
+\code{\link{estimate}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

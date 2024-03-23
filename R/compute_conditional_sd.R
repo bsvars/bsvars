@@ -12,7 +12,7 @@
 #' @return An object of class PosteriorSigma, that is, an \code{NxTxS} array with attribute PosteriorSigma 
 #' containing \code{S} draws of the structural shock conditional standard deviations.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
