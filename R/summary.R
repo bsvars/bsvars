@@ -552,7 +552,6 @@ summary.PosteriorBSVARMIX = function(
 
 
 
-
 #' @title Provides posterior summary of structural shocks' conditional standard 
 #' deviations
 #'
@@ -1118,3 +1117,83 @@ summary.PosteriorFEVD = function(
   
   return(out)
 } # END summary.PosteriorFEVD
+
+
+
+
+
+
+#' @title Provides posterior summary of Forecasts
+#'
+#' @description Provides posterior summary of the forecasts including their 
+#' mean, standard deviations, as well as 5 and 95 percentiles.
+#' 
+#' @param object an object of class Forecasts obtained using the
+#' \code{forecast()} function containing draws the predictive density. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A list reporting the posterior mean, standard deviations, as well as 
+#' 5 and 95 percentiles of the forecasts for each of the variables and forecast 
+#' horizons.
+#' 
+#' @method summary Forecasts
+#' 
+#' @seealso \code{\link{forecast}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' 
+#' # forecast
+#' fore           = forecast(posterior, horizon = 2)
+#' fore_summary   = summary(fore)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   forecast(horizon = 2) |>
+#'   summary() -> fore_summary
+#' 
+#' @export
+summary.Forecasts = function(
+    object,
+    ...
+) {
+  
+  cat("Posterior summary of forecasts\n")
+  cat("----------------------------------\n")
+  
+  N         = dim(object$forecasts)[1]
+  H         = dim(object$forecasts)[2]
+  
+  out       = list()
+  for (n in 1:N) {
+    out[[n]]    = cbind(
+      apply(object$forecasts[n,,], 1, mean),
+      apply(object$forecasts[n,,], 1, sd),
+      t(apply(object$forecasts[n,,], 1, quantile, probs = c(0.05, 0.95)))
+    )
+    colnames(out[[n]]) = c("mean", "sd", "5% quantile", "95% quantile")
+    rownames(out[[n]]) = 1:H
+  } # END n loop
+  
+  names(out) = paste0("variable", 1:N)
+  
+  return(out)
+} # END summary.Forecasts

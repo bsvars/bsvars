@@ -46,6 +46,10 @@ reference:
   - matches("estimate")
   - matches("normalise")
   - matches("specify_posterior")
+- title: "Posterior summaries"
+  desc: "Analyse the posterior summaries of the posterior estimation outcomes"
+- contents:
+  - matches("summary")
 - title: "Forecasting"
   desc: "Predict future values of your variables"
 - contents:
