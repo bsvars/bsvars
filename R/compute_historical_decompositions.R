@@ -3,6 +3,9 @@
 #'
 #' @description Each of the draws from the posterior estimation of a model is transformed into
 #' a draw from the posterior distribution of the historical decompositions. 
+#' IMPORTANT! The historical decompositions are interpreted correctly for 
+#' covariance stationary data. Application to unit-root non-stationary data might
+#' result in non-interpretable outcomes.
 #' 
 #' @param posterior posterior estimation outcome - an object of either of the classes: 
 #' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
@@ -12,7 +15,7 @@
 #' @return An object of class PosteriorHD, that is, an \code{NxNxTxS} array with attribute PosteriorHD 
 #' containing \code{S} draws of the historical decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -25,13 +28,13 @@
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 30)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -39,10 +42,10 @@
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
-#' us_fiscal_lsuw |>
+#' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
 #'   estimate(S = 50) |> 
-#'   estimate(S = 100) |> 
 #'   compute_historical_decompositions() -> hd
 #' 
 #' @export

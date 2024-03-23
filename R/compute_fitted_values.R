@@ -11,7 +11,7 @@
 #' @return An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
 #' containing \code{S} draws of the fitted values.
 #'
-#' @seealso \code{\link{estimate}}
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

@@ -3,6 +3,28 @@
 # Reproduction of the IRF from Lütkepohl, Shang, Uzeda, Woźniak (2024)
 ############################################################
 
+# estimate the model
+############################################################
+# library(bsvars)
+# data("us_fiscal_lsuw")
+# data("us_fiscal_ex")
+# 
+# set.seed(1234)
+# B         = matrix(TRUE, 3, 3)
+# spec      = specify_bsvar_sv$new(
+#   data = us_fiscal_lsuw,
+#   p    = 4,
+#   exogenous = us_fiscal_ex,
+#   B    = B
+# )
+# 
+# burn      = estimate(spec, 3e5, thin = 1e4)
+# post      = estimate(burn, 6e5, thin = 10)
+# 
+# save(post, spec, file = paste0("spartan/results/tax23nPM.rda"))
+
+# sticker properties
+############################################################
 # Define colors
 bspink = "#ff69b4"
 bsyell = "#ffd700"
@@ -122,5 +144,7 @@ final_res <- hexSticker::sticker(img,
 plot(final_res)
 
 system("cp bsvars/bsvars.png /Users/twozniak/Research/bsvars/")
+system("cp bsvars/bsvars.png /Users/twozniak/Research/bsvars/bsvars.github.io/")
+system("cp bsvars/bsvars.png /Users/twozniak/Research/donotdespair/")
 
 # contribute to the README of the hexSticker on GH: https://github.com/GuangchuangYu/hexSticker?tab=readme-ov-file

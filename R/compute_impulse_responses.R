@@ -16,7 +16,7 @@
 #' @return An object of class PosteriorIR, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorIR 
 #' containing \code{S} draws of the impulse responses.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

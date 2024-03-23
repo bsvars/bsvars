@@ -1,6 +1,6 @@
 # bsvars 2.1.0.9000
 
-The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/3) towards the next version 2.1.0.
+The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/4) towards the next version 2.2.0.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
@@ -9,6 +9,7 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 3. Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
 4. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
 5. The website features the new logo.
+6. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
 
 # bsvars 2.1.0
 

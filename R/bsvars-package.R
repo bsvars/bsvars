@@ -72,6 +72,7 @@
 #' @import RcppProgress
 #' @importFrom RcppTN rtn
 #' @importFrom stochvol svsample_fast_cpp
+#' @importFrom stats quantile sd
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -12,7 +12,7 @@
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
