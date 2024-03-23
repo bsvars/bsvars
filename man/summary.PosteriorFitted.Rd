@@ -18,8 +18,8 @@ A list reporting the posterior mean, standard deviations, as well as
 5 and 95 percentiles of the fitted values for each of the shocks and periods.
 }
 \description{
-Each of the draws from the posterior estimation of a model is 
-transformed into a draw from the predictive density of the sample data.
+Provides posterior summary of the fitted values including their 
+mean, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
 # upload data
@@ -27,7 +27,7 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
@@ -35,7 +35,7 @@ burn_in        = estimate(specification, 10)
 # estimate the model
 posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
 
-# compute structural shocks' conditional standard deviations
+# compute fitted values
 fitted         = compute_fitted_values(posterior)
 fitted_summary = summary(fitted)
 
@@ -43,7 +43,7 @@ fitted_summary = summary(fitted)
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1) |>
+  specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
   estimate(S = 20, thin = 1) |> 
   compute_fitted_values() |>

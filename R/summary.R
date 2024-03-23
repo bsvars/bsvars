@@ -2,9 +2,9 @@
 #' @title Provides posterior summary of structural shocks' conditional standard 
 #' deviations
 #'
-#' @description Each of the draws from the posterior estimation of a model is 
-#' transformed into a draw from the posterior distribution of the structural 
-#' shock conditional standard deviations. 
+#' @description Provides posterior summary of structural shocks' conditional 
+#' standard deviations including their mean, standard deviations, as well as 
+#' 5 and 95 percentiles.
 #' 
 #' @param object an object of class PosteriorSigma obtained using the
 #' \code{compute_conditional_sd()} function containing posterior draws of 
@@ -85,8 +85,8 @@ summary.PosteriorSigma = function(
 
 #' @title Provides posterior summary of variables' fitted values
 #'
-#' @description Each of the draws from the posterior estimation of a model is 
-#' transformed into a draw from the predictive density of the sample data. 
+#' @description Provides posterior summary of the fitted values including their 
+#' mean, standard deviations, as well as 5 and 95 percentiles.
 #' 
 #' @param object an object of class PosteriorFitted obtained using the
 #' \code{compute_fitted_values()} function containing draws the predictive 
@@ -108,7 +108,7 @@ summary.PosteriorSigma = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
@@ -116,7 +116,7 @@ summary.PosteriorSigma = function(
 #' # estimate the model
 #' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
 #' 
-#' # compute structural shocks' conditional standard deviations
+#' # compute fitted values
 #' fitted         = compute_fitted_values(posterior)
 #' fitted_summary = summary(fitted)
 #' 
@@ -124,7 +124,7 @@ summary.PosteriorSigma = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
+#'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_fitted_values() |>
@@ -154,3 +154,82 @@ summary.PosteriorFitted = function(
   
   return(out)
 } # END summary.PosteriorFitted
+
+
+
+
+
+
+
+
+
+
+
+#' @title Provides posterior summary of historical decompositions
+#'
+#' @description Provides posterior means of the historical decompositions variable
+#' by variable.
+#' 
+#' @param object an object of class PosteriorHD obtained using the
+#' \code{compute_historical_decompositions()} function containing posterior draws
+#'  of historical decompositions. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A list reporting the posterior means of historical decompositions for
+#' each of the variables.
+#' 
+#' @method summary PosteriorHD
+#' 
+#' @seealso \code{\link{compute_historical_decompositions}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' 
+#' # compute historical decompositions
+#' hds            = compute_historical_decompositions(posterior)
+#' hds_summary    = summary(hds)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' diff(us_fiscal_lsuw) |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_historical_decompositions() |>
+#'   summary() -> hds_summary
+#' 
+#' @export
+summary.PosteriorHD = function(
+    object,
+    ...
+) {
+  
+  N         = dim(object)[1]
+  T         = dim(object)[3]
+  
+  out       = list()
+  hds       = apply(object, 1:3, mean)
+  for (n in 1:N) {
+    out[[n]]    = t(hds[n,,])
+    colnames(out[[n]]) = paste0("shock ", 1:N)
+    rownames(out[[n]]) = 1:T
+  } # END n loop
+  
+  names(out) = paste0("variable", 1:N)
+  
+  return(out)
+} # END summary.PosteriorHD

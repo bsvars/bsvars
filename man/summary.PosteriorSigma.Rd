@@ -20,9 +20,9 @@ A list reporting the posterior mean, standard deviations, as well as
 for each of the shocks and periods.
 }
 \description{
-Each of the draws from the posterior estimation of a model is 
-transformed into a draw from the posterior distribution of the structural 
-shock conditional standard deviations.
+Provides posterior summary of structural shocks' conditional 
+standard deviations including their mean, standard deviations, as well as 
+5 and 95 percentiles.
 }
 \examples{
 # upload data
