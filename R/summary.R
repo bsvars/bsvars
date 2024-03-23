@@ -56,7 +56,10 @@ summary.PosteriorSigma = function(
 ) {
   
   stopifnot("The model is homoskedastic. Conditional sd is equal to 1 for all variables and periods." = length(dim(object)) == 3)
-
+  
+  cat("Posterior summary of structural shocks' conditional standard deviations\n")
+  cat("-----------------------------------------------------------------------\n")
+  
   posterior_sigma = object
   
   N         = dim(posterior_sigma)[1]
@@ -135,6 +138,9 @@ summary.PosteriorFitted = function(
     object,
     ...
 ) {
+  
+  cat("Posterior summary of fitted values\n")
+  cat("----------------------------------\n")
   
   N         = dim(object)[1]
   T         = dim(object)[2]
@@ -218,6 +224,9 @@ summary.PosteriorHD = function(
     ...
 ) {
   
+  cat("Posterior means of historical decompositions\n")
+  cat("--------------------------------------------\n")
+  
   N         = dim(object)[1]
   T         = dim(object)[3]
   
@@ -295,6 +304,9 @@ summary.PosteriorIR = function(
     ...
 ) {
   
+  cat("Posterior summary of impulse responses\n")
+  cat("--------------------------------------\n")
+  
   N         = dim(object)[1]
   H         = dim(object)[3] - 1
   
@@ -322,21 +334,18 @@ summary.PosteriorIR = function(
 
 
 
-#' @title Provides posterior summary of structural shocks' conditional standard 
-#' deviations
+#' @title Provides posterior summary of regime probabilities
 #'
-#' @description Provides posterior summary of structural shocks' conditional 
-#' standard deviations including their mean, standard deviations, as well as 
-#' 5 and 95 percentiles.
+#' @description Provides posterior summary of regime probabilities 
+#' including their mean, standard deviations, as well as 5 and 95 percentiles.
 #' 
 #' @param object an object of class PosteriorRegimePr obtained using the
 #' \code{compute_regime_probabilities()} function containing posterior draws of 
-#' conditional standard deviations of structural shocks.
+#' regime allocations.
 #' @param ... additional arguments affecting the summary produced.
 #' 
-#' @return A list reporting the posterior mean, standard deviations, as well as 
-#' 5 and 95 percentiles of the structural shocks' conditional standard deviations
-#' for each of the shocks and periods.
+#' @return A list reporting the posterior mean and standard deviations of the
+#' regime probabilities.
 #' 
 #' @method summary PosteriorRegimePr
 #' 
@@ -378,6 +387,9 @@ summary.PosteriorRegimePr = function(
     ...
 ) {
   
+  cat("Posterior summary of regime probabilities\n")
+  cat("-----------------------------------------\n")
+  
   M         = dim(object)[1]
   T         = dim(object)[2]
   
@@ -385,10 +397,9 @@ summary.PosteriorRegimePr = function(
   for (m in 1:M) {
     out[[m]]    = cbind(
       apply(object[m,,], 1, mean),
-      apply(object[m,,], 1, sd),
-      t(apply(object[m,,], 1, quantile, probs = c(0.05, 0.95)))
+      apply(object[m,,], 1, sd)
     )
-    colnames(out[[m]]) = c("mean", "sd", "5% quantile", "95% quantile")
+    colnames(out[[m]]) = c("mean", "sd")
     rownames(out[[m]]) = 1:T
   } # END n loop
   
@@ -454,6 +465,9 @@ summary.PosteriorShocks = function(
     object,
     ...
 ) {
+  
+  cat("Posterior summary of structural shocks\n")
+  cat("--------------------------------------\n")
   
   N         = dim(object)[1]
   T         = dim(object)[2]

@@ -2,27 +2,24 @@
 % Please edit documentation in R/summary.R
 \name{summary.PosteriorRegimePr}
 \alias{summary.PosteriorRegimePr}
-\title{Provides posterior summary of structural shocks' conditional standard 
-deviations}
+\title{Provides posterior summary of regime probabilities}
 \usage{
 \method{summary}{PosteriorRegimePr}(object, ...)
 }
 \arguments{
 \item{object}{an object of class PosteriorRegimePr obtained using the
 \code{compute_regime_probabilities()} function containing posterior draws of 
-conditional standard deviations of structural shocks.}
+regime allocations.}
 
 \item{...}{additional arguments affecting the summary produced.}
 }
 \value{
-A list reporting the posterior mean, standard deviations, as well as 
-5 and 95 percentiles of the structural shocks' conditional standard deviations
-for each of the shocks and periods.
+A list reporting the posterior mean and standard deviations of the
+regime probabilities.
 }
 \description{
-Provides posterior summary of structural shocks' conditional 
-standard deviations including their mean, standard deviations, as well as 
-5 and 95 percentiles.
+Provides posterior summary of regime probabilities 
+including their mean, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
 # upload data

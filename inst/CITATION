@@ -2,8 +2,8 @@
 bibentry(bibtype = "Manual",
   title        = "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models",
   author       = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
-  year         = 2023,
-  note     = "R package version 2.0.0",
+  year         = 2024,
+  note     = "R package version 2.1.0.9000",
   url      = "https://cran.r-project.org/package=bsvars",
-  header       = "To cite svars in publications use:"
+  header       = "To cite bsvars in publications use:"
 )
