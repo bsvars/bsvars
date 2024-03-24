@@ -39,7 +39,7 @@ of the posterior distribution.}
 \item{add}{a logical value. If \code{TRUE} the current ribbon plot is added 
 to an existing plot}
 
-\item{...}{other graphical parameters to be passed to \code{base:plot}}
+\item{...}{other graphical parameters to be passed to \code{base::plot}}
 }
 \description{
 Plots the median and an interval between two specified percentiles 

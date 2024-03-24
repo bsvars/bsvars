@@ -73,7 +73,7 @@
 #' @importFrom RcppTN rtn
 #' @importFrom stochvol svsample_fast_cpp
 #' @importFrom stats quantile sd
-#' @importFrom graphics polygon
+#' @importFrom graphics polygon abline par
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
