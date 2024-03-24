@@ -27,20 +27,20 @@
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' summary(posterior)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   summary()
@@ -164,20 +164,20 @@ summary.PosteriorBSVAR = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' summary(posterior)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
+#'   specify_bsvar_sv$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   summary()
@@ -304,20 +304,20 @@ summary.PosteriorBSVARSV = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' summary(posterior)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_msh$new(p = 1) |>
+#'   specify_bsvar_msh$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   summary()
@@ -443,20 +443,20 @@ summary.PosteriorBSVARMSH = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' summary(posterior)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_mix$new(p = 1) |>
+#'   specify_bsvar_mix$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   summary()
@@ -580,13 +580,13 @@ summary.PosteriorBSVARMIX = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
@@ -596,7 +596,7 @@ summary.PosteriorBSVARMIX = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
+#'   specify_bsvar_sv$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_conditional_sd() |>
@@ -664,13 +664,13 @@ summary.PosteriorSigma = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute fitted values
 #' fitted         = compute_fitted_values(posterior)
@@ -680,7 +680,7 @@ summary.PosteriorSigma = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_fitted_values() |>
@@ -749,13 +749,13 @@ summary.PosteriorFitted = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw))
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute historical decompositions
 #' hds            = compute_historical_decompositions(posterior)
@@ -765,7 +765,7 @@ summary.PosteriorFitted = function(
 #' ############################################################
 #' set.seed(123)
 #' diff(us_fiscal_lsuw) |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_historical_decompositions() |>
@@ -829,26 +829,26 @@ summary.PosteriorHD = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute impulse responses
-#' irf            = compute_impulse_responses(posterior, horizon = 8)
+#' irf            = compute_impulse_responses(posterior, horizon = 4)
 #' irf_summary    = summary(irf)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
-#'   compute_impulse_responses(horizon = 8) |>
+#'   compute_impulse_responses(horizon = 4) |>
 #'   summary() -> irf_summary
 #' 
 #' @export
@@ -912,13 +912,13 @@ summary.PosteriorIR = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute regime probabilities
 #' rp             = compute_regime_probabilities(posterior)
@@ -928,7 +928,7 @@ summary.PosteriorIR = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_msh$new(p = 1) |>
+#'   specify_bsvar_msh$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_regime_probabilities() |>
@@ -991,13 +991,13 @@ summary.PosteriorRegimePr = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -1007,7 +1007,7 @@ summary.PosteriorRegimePr = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_structural_shocks() |>
@@ -1072,26 +1072,26 @@ summary.PosteriorShocks = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # compute forecast error variance decompositions
-#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' fevd           = compute_variance_decompositions(posterior, horizon = 4)
 #' fevd_summary   = summary(fevd)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
-#'   compute_variance_decompositions(horizon = 8) |>
+#'   compute_variance_decompositions(horizon = 4) |>
 #'   summary() -> fevd_summary
 #' 
 #' @export
@@ -1148,13 +1148,13 @@ summary.PosteriorFEVD = function(
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+#' posterior      = estimate(burn_in, 20, thin = 1)
 #' 
 #' # forecast
 #' fore           = forecast(posterior, horizon = 2)
@@ -1164,7 +1164,7 @@ summary.PosteriorFEVD = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   forecast(horizon = 2) |>

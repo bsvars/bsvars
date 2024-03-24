@@ -30,20 +30,20 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+posterior      = estimate(burn_in, 20, thin = 1)
 summary(posterior)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_mix$new(p = 1) |>
+  specify_bsvar_mix$new() |>
   estimate(S = 10) |> 
   estimate(S = 20, thin = 1) |> 
   summary()
