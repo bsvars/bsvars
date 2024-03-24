@@ -62,3 +62,7 @@ reference:
   desc: "Verify heteroskedasticity and autoregressive parameters (in preparation: structural identification)"
 - contents:
   - matches("verify")
+- title: "Plot your results"
+  desc: "Prepare beautiful and informative plots for your analyses"
+- contents:
+  - matches("plot")
