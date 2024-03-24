@@ -19,7 +19,7 @@
 #' @param start_at an integer to denote the beginning of the \code{x} axis range
 #' @param add a logical value. If \code{TRUE} the current ribbon plot is added 
 #' to an existing plot
-#' @param ... other graphical parameters to be passed to \code{base:plot}
+#' @param ... other graphical parameters to be passed to \code{base::plot}
 #' 
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -79,7 +79,7 @@ plot_ribbon = function(
   if ( missing(xlab) ) xlab = ""
   
   if ( !add ) {
-    plot(
+    base::plot(
       x      = start_at:(K - 1 + start_at), 
       y      = draws_median[,1],
       type   = "n",
@@ -105,3 +105,87 @@ plot_ribbon = function(
     )
   }
 }
+
+
+
+
+
+
+
+#' @title Plots structural shocks' conditional standard deviations
+#'
+#' @description Plots of structural shocks' conditional standard deviations 
+#' including their median and percentiles.
+#' 
+#' @param x an object of class PosteriorSigma obtained using the
+#' \code{compute_conditional_sd()} function containing posterior draws of 
+#' conditional standard deviations of structural shocks.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorSigma
+#' 
+#' @seealso \code{\link{compute_conditional_sd}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' sigma          = compute_conditional_sd(posterior)
+#' plot(sigma)                                            # plot conditional sds
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_conditional_sd() |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorSigma = function(
+    x,
+    probability = 0.9,
+    col = 1,
+    main,
+    ...
+) {
+
+  if ( missing(main) ) main = "Strictural shocks' conditional standard deviations"
+  
+  N = dim(x)[1]
+  
+  oldpar <- graphics::par( mfrow = c(N,1) )
+  
+  for (n in 1:N) {
+    
+    if (n > 1) main = ""
+    
+    plot_ribbon(
+      x[n,,],
+      probability = probability,
+      col         = col,
+      main = main,
+      ylab = "sd",
+      xlab = "time",
+      start_at    = 1,
+      ...
+    )
+    graphics::abline(h = 1)
+  } # END n loop
+  
+  par(oldpar)
+  invisible(x)
+} # END plot.PosteriorSigma
