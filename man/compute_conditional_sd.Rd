@@ -32,7 +32,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in, 50)
 
 # compute structural shocks' conditional standard deviations
 sigma          = compute_conditional_sd(posterior)
