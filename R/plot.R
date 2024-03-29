@@ -37,7 +37,7 @@
 plot_ribbon = function(
     draws,              # K x S x N
     probability = 0.9,
-    col         = 1,
+    col         = "#ff69b4",
     ylim,
     ylab,
     xlab,
@@ -158,7 +158,7 @@ plot_ribbon = function(
 plot.PosteriorSigma = function(
     x,
     probability = 0.9,
-    col = 1,
+    col = "#ff69b4",
     main,
     ...
 ) {
@@ -186,6 +186,6 @@ plot.PosteriorSigma = function(
     graphics::abline(h = 1)
   } # END n loop
   
-  par(oldpar)
+  graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorSigma
