@@ -167,7 +167,7 @@ plot.PosteriorSigma = function(
   
   N = dim(x)[1]
   
-  oldpar <- graphics::par( mfrow = c(N,1) )
+  oldpar <- graphics::par( mfrow = c(N, 1) )
   
   for (n in 1:N) {
     
@@ -178,7 +178,7 @@ plot.PosteriorSigma = function(
       probability = probability,
       col         = col,
       main = main,
-      ylab = "sd",
+      ylab = paste("shock", n),
       xlab = "time",
       start_at    = 1,
       ...
@@ -217,7 +217,7 @@ plot.PosteriorSigma = function(
 #' @examples
 #' data(us_fiscal_lsuw)                                  # upload data
 #' set.seed(123)                                         # set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
 #' burn_in        = estimate(specification, 10)          # run the burn-in
 #' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
 #' 
@@ -229,7 +229,7 @@ plot.PosteriorSigma = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_fitted_values() |>
@@ -259,7 +259,7 @@ plot.PosteriorFitted = function(
       probability = probability,
       col         = col,
       main = main,
-      ylab = paste0("variable ", n),
+      ylab = paste("variable ", n),
       xlab = "time",
       start_at    = 1,
       ...
@@ -306,7 +306,7 @@ plot.PosteriorFitted = function(
 #' @examples
 #' data(us_fiscal_lsuw)                                  # upload data
 #' set.seed(123)                                         # set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
 #' burn_in        = estimate(specification, 10)          # run the burn-in
 #' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
 #' 
@@ -318,7 +318,7 @@ plot.PosteriorFitted = function(
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
+#'   specify_bsvar$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20, thin = 1) |> 
 #'   compute_impulse_responses(horizon = 4) |>
@@ -343,13 +343,13 @@ plot.PosteriorIR = function(
     for (i in 1:N) {
       
       if (n == 1) {
-        main_s = paste0("shock ", i)
+        main_s = paste("shock ", i)
       } else {
         main_s = ""
       }
       
       if (i == 1) {
-        ylab_v = paste0("variable ", n)
+        ylab_v = paste("variable ", n)
       } else {
         ylab_v = ""
       }
@@ -378,3 +378,168 @@ plot.PosteriorIR = function(
   graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorIR
+
+
+
+
+#' @title Plots estimated regime probabilities
+#'
+#' @description Plots of estimated regime probabilities of Markov-switching 
+#' heteroskedasticity or allocations of normal-mixture components including their 
+#' median and percentiles.
+#' 
+#' @param x an object of class PosteriorRegimePr obtained using the
+#' \code{compute_regime_probabilities()} function containing posterior draws of 
+#' regime probabilities.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorRegimePr
+#' 
+#' @seealso \code{\link{compute_regime_probabilities}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw)# specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute regime probabilities
+#' rp             = compute_regime_probabilities(posterior)
+#' plot(rp)                                              # plot
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_regime_probabilities() |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorRegimePr = function(
+    x,
+    probability = 0.9,
+    col = "#ff69b4",
+    main,
+    ...
+) {
+  
+  if ( missing(main) ) main = "Regime probabilities"
+  
+  M = dim(x)[1]
+  
+  oldpar <- graphics::par( mfrow = c(M, 1) )
+  
+  for (m in 1:M) {
+    
+    if (m > 1) main = ""
+    
+    plot_ribbon(
+      x[m,,],
+      probability = probability,
+      col         = col,
+      main = main,
+      ylim = c(0, 1),
+      ylab = paste("regime ", m),
+      xlab = "time",
+      start_at    = 1,
+      ...
+    )
+  } # END n loop
+  
+  graphics::par(oldpar)
+  invisible(x)
+} # END plot.PosteriorRegimePr
+
+
+
+
+
+
+
+#' @title Plots structural shocks
+#'
+#' @description Plots of structural shocks including their median and percentiles.
+#' 
+#' @param x an object of class PosteriorShocks obtained using the
+#' \code{compute_structural_shocks()} function containing posterior draws of 
+#' structural shocks.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorShocks
+#' 
+#' @seealso \code{\link{compute_structural_shocks}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute structural shocks
+#' shocks         = compute_structural_shocks(posterior)
+#' plot(shocks)                                          # plot
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_structural_shocks() |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorShocks = function(
+    x,
+    probability = 0.9,
+    col = "#ff69b4",
+    main,
+    ...
+) {
+  
+  if ( missing(main) ) main = "Strictural shocks"
+  
+  N = dim(x)[1]
+  
+  oldpar <- graphics::par( mfrow = c(N, 1) )
+  
+  for (n in 1:N) {
+    
+    if (n > 1) main = ""
+    
+    plot_ribbon(
+      x[n,,],
+      probability = probability,
+      col         = col,
+      main = main,
+      ylab = paste("shock", n),
+      xlab = "time",
+      start_at    = 1,
+      ...
+    )
+    graphics::abline(h = 0)
+  } # END n loop
+  
+  graphics::par(oldpar)
+  invisible(x)
+} # END plot.PosteriorShocks

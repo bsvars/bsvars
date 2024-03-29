@@ -28,7 +28,7 @@ median and percentiles.
 \examples{
 data(us_fiscal_lsuw)                                  # upload data
 set.seed(123)                                         # set seed
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
 burn_in        = estimate(specification, 10)          # run the burn-in
 posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
 
@@ -40,7 +40,7 @@ plot(fitted)                                          # plot
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1) |>
+  specify_bsvar$new() |>
   estimate(S = 10) |> 
   estimate(S = 20, thin = 1) |> 
   compute_impulse_responses(horizon = 4) |>
