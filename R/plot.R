@@ -189,3 +189,84 @@ plot.PosteriorSigma = function(
   graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorSigma
+
+
+
+
+#' @title Plots fitted values of dependent variables
+#'
+#' @description Plots of fitted values of dependent variables including their 
+#' median and percentiles.
+#' 
+#' @param x an object of class PosteriorFitted obtained using the
+#' \code{compute_fitted_values()} function containing posterior draws of 
+#' fitted values of dependent variables.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorFitted
+#' 
+#' @seealso \code{\link{compute_fitted_values}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute fitted values
+#' fitted         = compute_fitted_values(posterior)
+#' plot(fitted)                                          # plot fitted values
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_fitted_values() |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorFitted = function(
+    x,
+    probability = 0.9,
+    col = "#ff69b4",
+    main,
+    ...
+) {
+  
+  if ( missing(main) ) main = "Fitted values of dependent variables"
+  
+  N = dim(x)[1]
+  
+  oldpar <- graphics::par( mfrow = c(N,1) )
+  
+  for (n in 1:N) {
+    
+    if (n > 1) main = ""
+    
+    plot_ribbon(
+      x[n,,],
+      probability = probability,
+      col         = col,
+      main = main,
+      ylab = paste0("variable ", n),
+      xlab = "time",
+      start_at    = 1,
+      ...
+    )
+    graphics::abline(h = 1)
+  } # END n loop
+  
+  graphics::par(oldpar)
+  invisible(x)
+} # END plot.PosteriorFitted
