@@ -264,9 +264,117 @@ plot.PosteriorFitted = function(
       start_at    = 1,
       ...
     )
-    graphics::abline(h = 1)
   } # END n loop
   
   graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorFitted
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title Plots impulse responses
+#'
+#' @description Plots of of all variables to all shocks including their 
+#' median and percentiles.
+#' 
+#' @param x an object of class PosteriorIR obtained using the
+#' \code{compute_impulse_responses()} function containing posterior draws of 
+#' impulse responses.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorIR
+#' 
+#' @seealso \code{\link{compute_impulse_responses}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute impulse responses
+#' fitted         = compute_impulse_responses(posterior, horizon = 4)
+#' plot(fitted)                                          # plot
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_impulse_responses(horizon = 4) |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorIR = function(
+    x,
+    probability = 0.9,
+    col = "#ff69b4",
+    main,
+    ...
+) {
+  
+  if ( missing(main) ) main = "Impulse responses"
+  
+  N = dim(x)[1]
+  
+  oldpar <- graphics::par( mfrow = c(N, N) )
+  
+  for (n in 1:N) {
+    for (i in 1:N) {
+      
+      if (n == 1) {
+        main_s = paste0("shock ", i)
+      } else {
+        main_s = ""
+      }
+      
+      if (i == 1) {
+        ylab_v = paste0("variable ", n)
+      } else {
+        ylab_v = ""
+      }
+      
+      plot_ribbon(
+        x[n,i,,],
+        probability = probability,
+        col         = col,
+        main = main_s,
+        ylab = ylab_v,
+        xlab = "horizon",
+        start_at    = 0,
+        ...
+      )
+      graphics::abline(h = 0)
+    } # END i loop
+  } # END n loop
+  
+  graphics::mtext( # main title
+    main,
+    side = 3,
+    line = -1.5,
+    outer = TRUE
+  )
+  
+  graphics::par(oldpar)
+  invisible(x)
+} # END plot.PosteriorIR

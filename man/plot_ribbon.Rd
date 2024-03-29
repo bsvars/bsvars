@@ -8,7 +8,7 @@ for a sequence of \code{K} random variables}
 plot_ribbon(
   draws,
   probability = 0.9,
-  col = 1,
+  col = "#ff69b4",
   ylim,
   ylab,
   xlab,
