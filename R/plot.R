@@ -356,6 +356,9 @@ plot.PosteriorFitted = function(
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
 #' @param col a colour of the plot line and the ribbon
 #' @param main an alternative main title for the plot
+#' @param xlab an alternative x-axis label for the plot
+#' @param mar.multi the default \code{mar} argument setting in \code{graphics::par}. Modify with care!
+#' @param oma.multi the default \code{oma} argument setting in \code{graphics::par}. Modify with care!
 #' @param ... additional arguments affecting the summary produced.
 #' 
 #' @method plot PosteriorIR
@@ -391,14 +394,22 @@ plot.PosteriorIR = function(
     probability = 0.9,
     col = "#ff69b4",
     main,
+    xlab,
+    mar.multi = c(1, 4.1, 0, 1.1),
+    oma.multi = c(6, 0, 5, 0),
     ...
 ) {
   
   if ( missing(main) ) main = "Impulse responses"
+  if ( missing(xlab) ) xlab = "horizon"
   
   N = dim(x)[1]
   
-  oldpar <- graphics::par( mfrow = c(N, N) )
+  oldpar <- graphics::par( 
+    mfrow = c(N, N),
+    mar = mar.multi,
+    oma = oma.multi
+  )
   on.exit(graphics::par(oldpar))
   
   for (n in 1:N) {
@@ -420,20 +431,44 @@ plot.PosteriorIR = function(
         x[n,i,,],
         probability = probability,
         col         = col,
-        main = main_s,
+        main = "",
         ylab = ylab_v,
-        xlab = "horizon",
+        xlab = "",
         start_at    = 0,
+        bty = "n",
+        axes = FALSE,
         ...
       )
+      
+      graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+      graphics::axis(2)
+      
       graphics::abline(h = 0)
+      
+      if (n == 1) {
+        graphics::mtext(
+          paste("shock", i),
+          side = 3,
+          line = 0,
+          outer = FALSE,
+          cex = 0.8
+        )
+      }
+      
     } # END i loop
   } # END n loop
   
   graphics::mtext( # main title
     main,
     side = 3,
-    line = -1.5,
+    line = 2,
+    outer = TRUE
+  )
+  
+  graphics::mtext( # x-axis label
+    xlab,
+    side = 1,
+    line = 3,
     outer = TRUE
   )
   
