@@ -854,3 +854,145 @@ plot.Forecasts = function(
   invisible(x)
 } # END plot.Forecasts
 
+
+
+
+
+
+
+
+#' @title Plots forecast error variance decompositions
+#'
+#' @description Plots of the posterior means of the forecast error variance 
+#' decompositions.
+#' 
+#' @param x an object of class PosteriorFEVD obtained using the
+#' \code{compute_variance_decompositions()} function containing posterior draws of 
+#' forecast error variance decompositions.
+#' @param cols an \code{N}-vector with colours of the plot
+#' @param main an alternative main title for the plot
+#' @param xlab an alternative x-axis label for the plot
+#' @param mar.multi the default \code{mar} argument setting in \code{graphics::par}. Modify with care!
+#' @param oma.multi the default \code{oma} argument setting in \code{graphics::par}. Modify with care!
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorFEVD
+#' 
+#' @seealso \code{\link{compute_variance_decompositions}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute forecast error variance decompositions
+#' fevd           = compute_variance_decompositions(posterior, horizon = 4)
+#' plot(fevd)                                            # plot fitted values
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_variance_decompositions(horizon = 4) |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorFEVD = function(
+    x,
+    cols,
+    main,
+    xlab,
+    mar.multi = c(1, 4.6, 0, 4.6),
+    oma.multi = c(6, 0, 5, 0),
+    ...
+) {
+  
+  if ( missing(main) ) main = "Forecast Error Variance Decompositions"
+  if ( missing(xlab) ) xlab = "horizon"
+  
+  N         = dim(x)[1]
+  H         = dim(x)[3] - 1
+  
+  if ( missing(cols) ) {
+    fc          = grDevices::colorRampPalette(c("#ff69b4", "#ffd700"))
+    cols        = fc(N)
+  }
+  
+  fevd      = apply(x, 1:3, mean)
+  FEVD      = list()
+  FEVD_mid  = list()
+  for (n in 1:N) {
+    FEVD[[n]] = rbind(rep(0, H + 1), apply(fevd[n,,], 2, cumsum))
+    FEVD_mid[[n]] = (FEVD[[n]][1:N, H + 1] + FEVD[[n]][2:(N + 1), H + 1]) / 2
+  }
+  
+  oldpar <- graphics::par( 
+    mfrow = c(N, 1),
+    mar = mar.multi,
+    oma = oma.multi
+  )
+  on.exit(graphics::par(oldpar))
+  
+  for (n in 1:N) {
+    
+    graphics::plot(
+      x = 0:H,
+      y = FEVD[[n]][1,],
+      type = "n",
+      ylim = c(0, 100),
+      ylab = paste("variable", n),
+      main = "",
+      xlab = "",
+      bty = "n",
+      axes = FALSE,
+      ...
+    )
+    
+    for (i in 1:N) {
+      graphics::polygon(
+        c(0:H, H:0), 
+        c(FEVD[[n]][i,], rev(FEVD[[n]][i + 1,])), 
+        col = cols[i],
+        border = cols[i]
+      )
+    }
+    
+    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(2, c(0, 50, 100), c(0, 50, 100))
+    graphics::axis(4, FEVD_mid[[n]], 1:N)
+    
+    graphics::mtext( # RHS "shocks"
+      "shocks",
+      side = 4,
+      line = 3,
+      outer = FALSE,
+      cex = 0.6
+    )
+    
+  } # END n loop
+  
+  graphics::mtext( # main title
+    main,
+    side = 3,
+    line = 2,
+    outer = TRUE
+  )
+  
+  graphics::mtext( # x-axis label
+    xlab,
+    side = 1,
+    line = 3,
+    outer = TRUE
+  )
+  
+  invisible(x)
+} # END plot.PosteriorFEVD
+
+
