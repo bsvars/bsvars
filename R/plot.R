@@ -698,3 +698,159 @@ plot.PosteriorShocks = function(
   
   invisible(x)
 } # END plot.PosteriorShocks
+
+
+
+
+
+
+
+#' @title Plots fitted values of dependent variables
+#'
+#' @description Plots of fitted values of dependent variables including their 
+#' median and percentiles.
+#' 
+#' @param x an object of class Forecasts obtained using the
+#' \code{forecast()} function containing posterior draws of 
+#' fitted values of dependent variables.
+#' @param probability a parameter determining the interval to be plotted. The 
+#' interval stretches from the \code{0.5 * (1 - probability)} to 
+#' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param data_in_plot a fraction value in the range (0, 1) determining how many
+#' of the last observations in the data should be plotted with the forecasts.
+#' @param col a colour of the plot line and the ribbon
+#' @param main an alternative main title for the plot
+#' @param xlab an alternative x-axis label for the plot
+#' @param mar.multi the default \code{mar} argument setting in \code{graphics::par}. Modify with care!
+#' @param oma.multi the default \code{oma} argument setting in \code{graphics::par}. Modify with care!
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot Forecasts
+#' 
+#' @seealso \code{\link{forecast}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute forecasts
+#' fore            = forecast(posterior, horizon = 4)
+#' plot(fore)                                            # plot forecasts
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   forecast(horizon = 4) |>
+#'   plot()
+#' 
+#' @export
+plot.Forecasts = function(
+    x,
+    probability = 0.9,
+    data_in_plot = 1,
+    col = "#ff69b4",
+    main,
+    xlab,
+    mar.multi = c(1, 4.6, 0, 2.1),
+    oma.multi = c(6, 0, 5, 0),
+    ...
+) {
+  
+  stopifnot("Argument data_in_plot must be a value within range (0,1]" = is.numeric(data_in_plot) & data_in_plot > 0 & data_in_plot <= 1)
+  
+  if ( missing(main) ) main = "Forecasting"
+  if ( missing(xlab) ) xlab = "time"
+  
+  # create col_ribbon
+  col_ribbon_rgb  = grDevices::col2rgb(col)
+  col_ribbon      = grDevices::rgb(col_ribbon_rgb[1], col_ribbon_rgb[2], col_ribbon_rgb[3], 100, maxColorValue = 255)
+  
+  fore          = x$forecasts
+  Y             = x$Y
+  
+  N             = dim(fore)[1]
+  H             = dim(fore)[2]
+  T             = dim(Y)[2]
+  
+  T_in_plot     = floor(data_in_plot * T)
+  if (T_in_plot < 1) T_in_plot = 1
+  obs_in_plot   = (T - T_in_plot + 1):T
+  seq_in_plot   = 1:T_in_plot
+  for_in_plot   = (T_in_plot + 1):(T_in_plot + H)
+  
+  oldpar <- graphics::par( 
+    mfrow = c(N, 1),
+    mar = mar.multi,
+    oma = oma.multi
+  )
+  on.exit(graphics::par(oldpar))
+  
+  for (n in 1:N) {
+    
+    # compute forecasts characteristics
+    fore_median   = apply(fore[n,,], 1, stats::median)
+    fore_lb       = apply(fore[n,,], 1, stats::quantile, probs = 0.5 * (1 - probability)) # K x N  
+    fore_ub       = apply(fore[n,,], 1, stats::quantile, probs = 1 - 0.5 * (1 - probability)) # K x N
+    fore_range    = range(fore_lb, fore_ub, Y[n, obs_in_plot])
+    
+    base::plot(
+      x      = c(seq_in_plot, for_in_plot),
+      y      = c(Y[n, seq_in_plot], fore_median),
+      type   = "n",
+      ylim   = fore_range,
+      main   = "",
+      ylab   = paste("variable", n),
+      xlab   = "",
+      bty = "n",
+      axes = FALSE,
+      ...
+    )
+
+    graphics::polygon(
+      x      = c(c(T_in_plot, for_in_plot), rev(c(T_in_plot, for_in_plot))),
+      y      = c(c(Y[n, T], fore_lb), rev(c(Y[n, T], fore_ub))),
+      col    = col_ribbon,
+      border = col_ribbon
+    )
+    
+    graphics::lines(
+      x      = c(seq_in_plot, for_in_plot),
+      y      = c(Y[n, obs_in_plot], fore_median),
+      type   = "l",
+      lwd    = 2,
+      col    = col
+    )
+    
+    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(2)
+    
+    graphics::abline(h = 0)
+    
+  } # END n loop
+  
+  graphics::mtext( # main title
+    main,
+    side = 3,
+    line = 2,
+    outer = TRUE
+  )
+  
+  graphics::mtext( # x-axis label
+    xlab,
+    side = 1,
+    line = 3,
+    outer = TRUE
+  )
+  
+  invisible(x)
+} # END plot.Forecasts
+
