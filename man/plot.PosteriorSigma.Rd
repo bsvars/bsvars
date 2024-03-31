@@ -10,7 +10,7 @@
   col = "#ff69b4",
   main,
   xlab,
-  mar.multi = c(0, 5.1, 0, 5.1),
+  mar.multi = c(1, 4.6, 0, 2.1),
   oma.multi = c(6, 0, 5, 0),
   ...
 )
