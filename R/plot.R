@@ -169,7 +169,7 @@ plot.PosteriorSigma = function(
     ...
 ) {
 
-  if ( missing(main) ) main = "Strictural shocks' conditional standard deviations"
+  if ( missing(main) ) main = "Strictural Shocks' Conditional Standard Deviations"
   if ( missing(xlab) ) xlab = "time"
   
   N = dim(x)[1]
@@ -280,7 +280,7 @@ plot.PosteriorFitted = function(
     ...
 ) {
   
-  if ( missing(main) ) main = "Fitted values of dependent variables"
+  if ( missing(main) ) main = "Fitted Values of Dependent Variables"
   if ( missing(xlab) ) xlab = "time"
   
   N = dim(x)[1]
@@ -400,7 +400,7 @@ plot.PosteriorIR = function(
     ...
 ) {
   
-  if ( missing(main) ) main = "Impulse responses"
+  if ( missing(main) ) main = "Impulse Responses"
   if ( missing(xlab) ) xlab = "horizon"
   
   N = dim(x)[1]
@@ -536,7 +536,7 @@ plot.PosteriorRegimePr = function(
     ...
 ) {
   
-  if ( missing(main) ) main = "Regime probabilities"
+  if ( missing(main) ) main = "Regime Probabilities"
   if ( missing(xlab) ) xlab = "time"
   
   M = dim(x)[1]
@@ -648,7 +648,7 @@ plot.PosteriorShocks = function(
     ...
 ) {
   
-  if ( missing(main) ) main = "Strictural shocks"
+  if ( missing(main) ) main = "Structural Shocks"
   if ( missing(xlab) ) xlab = "time"
   
   N = dim(x)[1]
