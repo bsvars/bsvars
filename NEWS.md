@@ -10,6 +10,7 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 4. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
 5. The website features the new logo.
 6. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
+7. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
 
 # bsvars 2.1.0
 
