@@ -4,7 +4,16 @@
 \alias{plot.PosteriorSigma}
 \title{Plots structural shocks' conditional standard deviations}
 \usage{
-\method{plot}{PosteriorSigma}(x, probability = 0.9, col = "#ff69b4", main, ...)
+\method{plot}{PosteriorSigma}(
+  x,
+  probability = 0.9,
+  col = "#ff69b4",
+  main,
+  xlab,
+  mar.multi = c(0, 5.1, 0, 5.1),
+  oma.multi = c(6, 0, 5, 0),
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class PosteriorSigma obtained using the
@@ -18,6 +27,12 @@ interval stretches from the \code{0.5 * (1 - probability)} to
 \item{col}{a colour of the plot line and the ribbon}
 
 \item{main}{an alternative main title for the plot}
+
+\item{xlab}{an alternative x-axis label for the plot}
+
+\item{mar.multi}{the default \code{mar} argument setting in \code{graphics::par}. Modify with care!}
+
+\item{oma.multi}{the default \code{oma} argument setting in \code{graphics::par}. Modify with care!}
 
 \item{...}{additional arguments affecting the summary produced.}
 }

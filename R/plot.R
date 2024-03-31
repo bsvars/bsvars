@@ -125,12 +125,15 @@ plot_ribbon = function(
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
 #' @param col a colour of the plot line and the ribbon
 #' @param main an alternative main title for the plot
+#' @param xlab an alternative x-axis label for the plot
+#' @param mar.multi the default \code{mar} argument setting in \code{graphics::par}. Modify with care!
+#' @param oma.multi the default \code{oma} argument setting in \code{graphics::par}. Modify with care!
 #' @param ... additional arguments affecting the summary produced.
 #' 
 #' @method plot PosteriorSigma
 #' 
 #' @seealso \code{\link{compute_conditional_sd}}
-#'
+#' 
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
@@ -160,33 +163,60 @@ plot.PosteriorSigma = function(
     probability = 0.9,
     col = "#ff69b4",
     main,
+    xlab,
+    mar.multi = c(0, 5.1, 0, 5.1),
+    oma.multi = c(6, 0, 5, 0),
     ...
 ) {
 
   if ( missing(main) ) main = "Strictural shocks' conditional standard deviations"
+  if ( missing(xlab) ) xlab = "time"
   
   N = dim(x)[1]
   
-  oldpar <- graphics::par( mfrow = c(N, 1) )
+  oldpar <- graphics::par( 
+    mfrow = c(N, 1),
+    mar = mar.multi,
+    oma = oma.multi
+  )
+  on.exit(graphics::par(oldpar))
   
   for (n in 1:N) {
-    
-    if (n > 1) main = ""
     
     plot_ribbon(
       x[n,,],
       probability = probability,
       col         = col,
-      main = main,
+      main = "",
       ylab = paste("shock", n),
-      xlab = "time",
+      xlab = "",
       start_at    = 1,
+      bty = "n",
+      axes = FALSE,
       ...
     )
+    
+    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(2)
+    
     graphics::abline(h = 1)
+    
   } # END n loop
   
-  graphics::par(oldpar)
+  graphics::mtext( # main title
+    main,
+    side = 3,
+    line = 2,
+    outer = TRUE
+  )
+  
+  graphics::mtext( # x-axis label
+    xlab,
+    side = 1,
+    line = 3,
+    outer = TRUE
+  )
+  
   invisible(x)
 } # END plot.PosteriorSigma
 
@@ -249,6 +279,7 @@ plot.PosteriorFitted = function(
   N = dim(x)[1]
   
   oldpar <- graphics::par( mfrow = c(N,1) )
+  on.exit(graphics::par(oldpar))
   
   for (n in 1:N) {
     
@@ -266,7 +297,6 @@ plot.PosteriorFitted = function(
     )
   } # END n loop
   
-  graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorFitted
 
@@ -338,6 +368,7 @@ plot.PosteriorIR = function(
   N = dim(x)[1]
   
   oldpar <- graphics::par( mfrow = c(N, N) )
+  on.exit(graphics::par(oldpar))
   
   for (n in 1:N) {
     for (i in 1:N) {
@@ -375,7 +406,6 @@ plot.PosteriorIR = function(
     outer = TRUE
   )
   
-  graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorIR
 
@@ -439,6 +469,7 @@ plot.PosteriorRegimePr = function(
   M = dim(x)[1]
   
   oldpar <- graphics::par( mfrow = c(M, 1) )
+  on.exit(graphics::par(oldpar))
   
   for (m in 1:M) {
     
@@ -457,7 +488,6 @@ plot.PosteriorRegimePr = function(
     )
   } # END n loop
   
-  graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorRegimePr
 
@@ -522,6 +552,7 @@ plot.PosteriorShocks = function(
   N = dim(x)[1]
   
   oldpar <- graphics::par( mfrow = c(N, 1) )
+  on.exit(graphics::par(oldpar))
   
   for (n in 1:N) {
     
@@ -540,6 +571,5 @@ plot.PosteriorShocks = function(
     graphics::abline(h = 0)
   } # END n loop
   
-  graphics::par(oldpar)
   invisible(x)
 } # END plot.PosteriorShocks
