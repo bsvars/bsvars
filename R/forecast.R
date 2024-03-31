@@ -12,13 +12,15 @@
 #' forecasted values of the exogenous variables.
 #' 
 #' @return A list of class \code{Forecasts} containing the
-#' draws from the predictive density and for heteroskedastic models the draws from the predictive density of 
-#' structural shocks conditional standard deviations. The output elements include:
+#' draws from the predictive density and for heteroskedastic models the draws 
+#' from the predictive density of structural shocks conditional standard 
+#' deviations and data. The output elements include:
 #' 
 #' \describe{
 #'  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
 #'  \item{forecasts_sigma}{provided only for heteroskedastic models, an \code{NxTxS} array with the draws 
 #'  from the predictive density of structural shocks conditional standard deviations}
+#'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 #' }
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
@@ -50,7 +52,7 @@
 #'   forecast(horizon = 4) -> predictive
 #' 
 #' @export
-forecast <- function(posterior, horizon, exogenous_forecast) {
+forecast <- function(posterior, horizon = 1, exogenous_forecast) {
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
   UseMethod("forecast", posterior)
 }
@@ -62,20 +64,22 @@ forecast <- function(posterior, horizon, exogenous_forecast) {
 #' PosteriorBSVAR obtained by running the \code{estimate} function.
 #' 
 #' @return A list of class \code{Forecasts} containing the
-#' draws from the predictive density. The output list includes element:
+#' draws from the predictive density and data. The output list includes element:
 #' 
 #' \describe{
 #'  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
+#'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 #' }
 #' 
 #' @export
-forecast.PosteriorBSVAR = function(posterior, horizon, exogenous_forecast = NULL) {
+forecast.PosteriorBSVAR = function(posterior, horizon = 1, exogenous_forecast = NULL) {
   
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   T               = ncol(posterior$last_draw$data_matrices$X)
   X_T             = posterior$last_draw$data_matrices$X[,T]
+  Y               = posterior$last_draw$data_matrices$Y
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -91,6 +95,7 @@ forecast.PosteriorBSVAR = function(posterior, horizon, exogenous_forecast = NULL
   }
   
   fore            = .Call(`_bsvars_forecast_bsvar`, posterior_B, posterior_A, X_T, exogenous_forecast, horizon)
+  fore$Y          = Y
   class(fore)     = "Forecasts"
   
   return(fore)
@@ -131,7 +136,7 @@ forecast.PosteriorBSVAR = function(posterior, horizon, exogenous_forecast = NULL
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARMSH = function(posterior, horizon, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARMSH = function(posterior, horizon = 1, exogenous_forecast = NULL) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
@@ -139,6 +144,7 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon, exogenous_forecast = N
   posterior_PR_TR   = posterior$posterior$PR_TR
   T                 = ncol(posterior$last_draw$data_matrices$X)
   X_T               = posterior$last_draw$data_matrices$X[,T]
+  Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
   
   N               = nrow(posterior_B)
@@ -155,6 +161,7 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon, exogenous_forecast = N
   }
   
   fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+  fore$Y          = Y
   class(fore)     = "Forecasts"
   
   return(fore)
@@ -195,7 +202,7 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon, exogenous_forecast = N
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARMIX = function(posterior, horizon, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARMIX = function(posterior, horizon = 1, exogenous_forecast = NULL) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
@@ -203,6 +210,7 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon, exogenous_forecast = N
   posterior_PR_TR   = posterior$posterior$PR_TR
   T                 = ncol(posterior$last_draw$data_matrices$X)
   X_T               = posterior$last_draw$data_matrices$X[,T]
+  Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
   
   N               = nrow(posterior_B)
@@ -219,6 +227,7 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon, exogenous_forecast = N
   }
   
   fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+  fore$Y          = Y
   class(fore)     = "Forecasts"
   
   return(fore)
@@ -259,7 +268,7 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon, exogenous_forecast = N
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARSV = function(posterior, horizon, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARSV = function(posterior, horizon = 1, exogenous_forecast = NULL) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
@@ -268,6 +277,7 @@ forecast.PosteriorBSVARSV = function(posterior, horizon, exogenous_forecast = NU
   
   T                 = ncol(posterior$last_draw$data_matrices$X)
   X_T               = posterior$last_draw$data_matrices$X[,T]
+  Y                 = posterior$last_draw$data_matrices$Y
   posterior_h_T     = posterior$posterior$h[,T,]
   centred_sv        = posterior$last_draw$centred_sv
   
@@ -285,6 +295,7 @@ forecast.PosteriorBSVARSV = function(posterior, horizon, exogenous_forecast = NU
   }
 
   fore            = .Call(`_bsvars_forecast_bsvar_sv`, posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, exogenous_forecast, horizon, centred_sv)
+  fore$Y          = Y
   class(fore)     = "Forecasts"
   
   return(fore)

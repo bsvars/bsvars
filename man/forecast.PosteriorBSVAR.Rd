@@ -4,7 +4,7 @@
 \alias{forecast.PosteriorBSVAR}
 \title{Forecasting using Structural Vector Autoregression}
 \usage{
-\method{forecast}{PosteriorBSVAR}(posterior, horizon, exogenous_forecast = NULL)
+\method{forecast}{PosteriorBSVAR}(posterior, horizon = 1, exogenous_forecast = NULL)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
@@ -17,10 +17,11 @@ forecasted values of the exogenous variables.}
 }
 \value{
 A list of class \code{Forecasts} containing the
-draws from the predictive density. The output list includes element:
+draws from the predictive density and data. The output list includes element:
 
 \describe{
  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
+ \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 }
 }
 \description{

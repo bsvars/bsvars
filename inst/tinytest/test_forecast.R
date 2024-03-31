@@ -35,8 +35,8 @@ expect_error(
 )
 
 expect_error(
-  forecast(run_no1),
-  info = "forecast: specify horizon."
+  forecast(run_no1, horizon = 1.5),
+  info = "forecast: specify horizon as integer."
 )
 
 
@@ -86,8 +86,8 @@ expect_error(
 )
 
 expect_error(
-  forecast(run_no1),
-  info = "forecast: msh: specify horizon."
+  forecast(run_no1, horizon = 1.5),
+  info = "forecast: msh: specify horizon as integer."
 )
 
 
@@ -135,8 +135,8 @@ expect_error(
 )
 
 expect_error(
-  forecast(run_no1),
-  info = "forecast: mix: specify horizon."
+  forecast(run_no1, horizon = 1.5),
+  info = "forecast: mix: specify horizon as integer."
 )
 
 
@@ -184,8 +184,8 @@ expect_error(
 )
 
 expect_error(
-  forecast(run_no1),
-  info = "forecast: sv: specify horizon."
+  forecast(run_no1, horizon = 1.5),
+  info = "forecast: sv: specify horizon as integer."
 )
 
 
