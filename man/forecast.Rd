@@ -4,7 +4,7 @@
 \alias{forecast}
 \title{Forecasting using Structural Vector Autoregression}
 \usage{
-forecast(posterior, horizon, exogenous_forecast)
+forecast(posterior, horizon = 1, exogenous_forecast)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of either of the classes: 
@@ -18,13 +18,15 @@ forecasted values of the exogenous variables.}
 }
 \value{
 A list of class \code{Forecasts} containing the
-draws from the predictive density and for heteroskedastic models the draws from the predictive density of 
-structural shocks conditional standard deviations. The output elements include:
+draws from the predictive density and for heteroskedastic models the draws 
+from the predictive density of structural shocks conditional standard 
+deviations and data. The output elements include:
 
 \describe{
  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
  \item{forecasts_sigma}{provided only for heteroskedastic models, an \code{NxTxS} array with the draws 
  from the predictive density of structural shocks conditional standard deviations}
+ \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 }
 }
 \description{

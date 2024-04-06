@@ -27,26 +27,26 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+specification  = specify_bsvar$new(us_fiscal_lsuw)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in$get_last_draw(), 20, , thin = 1)
+posterior      = estimate(burn_in, 20, thin = 1)
 
 # compute forecast error variance decompositions
-fevd           = compute_variance_decompositions(posterior, horizon = 8)
+fevd           = compute_variance_decompositions(posterior, horizon = 4)
 fevd_summary   = summary(fevd)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar$new(p = 1) |>
+  specify_bsvar$new() |>
   estimate(S = 10) |> 
   estimate(S = 20, thin = 1) |> 
-  compute_variance_decompositions(horizon = 8) |>
+  compute_variance_decompositions(horizon = 4) |>
   summary() -> fevd_summary
 
 }

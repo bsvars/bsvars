@@ -28,7 +28,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)

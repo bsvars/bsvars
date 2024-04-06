@@ -32,7 +32,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in$get_last_draw(), 50)
+#' posterior      = estimate(burn_in, 50)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
