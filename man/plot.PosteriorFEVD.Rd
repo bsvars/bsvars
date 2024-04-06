@@ -44,7 +44,7 @@ posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
 
 # compute forecast error variance decompositions
 fevd           = compute_variance_decompositions(posterior, horizon = 4)
-plot(fevd)                                            # plot fitted values
+plot(fevd)
 
 # workflow with the pipe |>
 ############################################################
