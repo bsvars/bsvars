@@ -44,7 +44,7 @@
 #' @export
 compute_fitted_values <- function(posterior) {
   
-  stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   
   posterior_A     = posterior$posterior$A
   X               = posterior$last_draw$data_matrices$X

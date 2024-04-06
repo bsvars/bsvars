@@ -49,7 +49,7 @@
 #' @export
 compute_variance_decompositions <- function(posterior, horizon) {
   
-  stopifnot("Argument x must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   stopifnot("The posterior output must be normalised for the forecast error variance decomposition to be interpretable." = posterior$is_normalised())
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
 

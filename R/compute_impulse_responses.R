@@ -52,7 +52,7 @@
 #' @export
 compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
   
-  stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   stopifnot("The posterior output must be normalised for the impulse responses to be interpretable." = posterior$is_normalised())
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
   
