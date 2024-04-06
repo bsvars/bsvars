@@ -45,7 +45,7 @@
 #' @export
 compute_conditional_sd <- function(posterior) {
   
-  stopifnot("Argument posterior must contain estimation output from the estimate function for heteroskedastic model." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   
   Y     = posterior$last_draw$data_matrices$Y
   N     = nrow(Y)

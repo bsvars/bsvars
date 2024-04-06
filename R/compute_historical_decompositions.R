@@ -51,7 +51,7 @@
 #' @export
 compute_historical_decompositions <- function(posterior) {
   
-  stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   stopifnot("The posterior output must be normalised for the historical decompositions to be interpretable." = posterior$is_normalised())
   
   posterior_B     = posterior$posterior$B
