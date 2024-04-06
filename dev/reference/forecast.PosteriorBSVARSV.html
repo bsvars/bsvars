@@ -67,7 +67,7 @@ from 1 to <code>horizon</code> specified as an argument of the function.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for PosteriorBSVARSV</span></span>
-<span><span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="va">horizon</span>, exogenous_forecast <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span><span class="va">posterior</span>, horizon <span class="op">=</span> <span class="fl">1</span>, exogenous_forecast <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,8 +91,9 @@ forecasted values of the exogenous variables.</p></dd>
     
 
 <p>A list of class <code>Forecasts</code> containing the
-draws from the predictive density and for heteroskedastic models the draws from the predictive density of 
-structural shocks conditional standard deviations. The output elements include:</p>
+draws from the predictive density and for heteroskedastic models the draws 
+from the predictive density of structural shocks conditional standard 
+deviations and data. The output elements include:</p>
 
 
 <dl><dt>forecasts</dt>
@@ -101,6 +102,9 @@ structural shocks conditional standard deviations. The output elements include:<
  <dt>forecasts_sigma</dt>
 <dd><p>provided only for heteroskedastic models, an <code>NxTxS</code> array with the draws 
  from the predictive density of structural shocks conditional standard deviations</p></dd>
+
+ <dt>Y</dt>
+<dd><p>an \(NxT\) matrix with the data on dependent variables</p></dd>
 
 
 </dl></div>

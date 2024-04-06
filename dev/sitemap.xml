@@ -85,6 +85,33 @@
     <loc>https://bsvars.github.io/bsvars/dev/reference/normalise_posterior.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.Forecasts.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorFEVD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorFitted.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorHD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorIR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorRegimePr.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorShocks.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot.PosteriorSigma.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/dev/reference/plot_ribbon.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/dev/reference/specify_bsvar.html</loc>
   </url>
   <url>
