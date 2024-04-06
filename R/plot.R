@@ -891,7 +891,7 @@ plot.Forecasts = function(
 #' 
 #' # compute forecast error variance decompositions
 #' fevd           = compute_variance_decompositions(posterior, horizon = 4)
-#' plot(fevd)                                            # plot fitted values
+#' plot(fevd)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -994,5 +994,143 @@ plot.PosteriorFEVD = function(
   
   invisible(x)
 } # END plot.PosteriorFEVD
+
+
+
+
+
+
+#' @title Plots historical decompositions
+#'
+#' @description Plots of the posterior means of the historical decompositions.
+#' 
+#' @param x an object of class PosteriorHD obtained using the
+#' \code{compute_historical_decompositions()} function containing posterior draws of 
+#' historical decompositions.
+#' @param cols an \code{N}-vector with colours of the plot
+#' @param main an alternative main title for the plot
+#' @param xlab an alternative x-axis label for the plot
+#' @param mar.multi the default \code{mar} argument setting in \code{graphics::par}. Modify with care!
+#' @param oma.multi the default \code{oma} argument setting in \code{graphics::par}. Modify with care!
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @method plot PosteriorHD
+#' 
+#' @seealso \code{\link{compute_historical_decompositions}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' data(us_fiscal_lsuw)                                  # upload data
+#' set.seed(123)                                         # set seed
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
+#' burn_in        = estimate(specification, 10)          # run the burn-in
+#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' 
+#' # compute historical decompositions
+#' fevd           = compute_historical_decompositions(posterior)
+#' plot(fevd)                                            
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20, thin = 1) |> 
+#'   compute_historical_decompositions() |>
+#'   plot()
+#' 
+#' @export
+plot.PosteriorHD = function(
+    x,
+    cols,
+    main,
+    xlab,
+    mar.multi = c(1, 4.6, 0, 4.6),
+    oma.multi = c(6, 0, 5, 0),
+    ...
+) {
+  
+  if ( missing(main) ) main = "Historical Decompositions"
+  if ( missing(xlab) ) xlab = "time"
+  
+  hd_mean   = apply(x, 1:3, mean)
+  N         = dim(hd_mean)[1]
+  T         = dim(hd_mean)[3]
+  
+  if ( missing(cols) ) {
+    fc          = grDevices::colorRampPalette(c("#ff69b4", "#ffd700"))
+    cols        = fc(N)
+  }
+  
+  y_hat     = apply(hd_mean, c(1, 3), sum)
+  ul        = list()
+  for (n in 1:N) {
+    ul[[n]]           = list()
+    for (i in 1:N) {
+      cum_mean        = apply(matrix(hd_mean[n,i:N,], ncol = T), 2, sum)
+      ul[[n]][[i]]    = matrix(0, 2, T)
+      which_negative  = cum_mean < 0
+      ul[[n]][[i]][1, which_negative]   = cum_mean[which_negative]
+      ul[[n]][[i]][2, !which_negative]  = cum_mean[!which_negative]
+    }
+  }
+  
+  oldpar <- graphics::par( 
+    mfrow = c(N, 1),
+    mar = mar.multi,
+    oma = oma.multi
+  )
+  on.exit(graphics::par(oldpar))
+  
+  for (n in 1:N) {
+    
+    range_n   = range(ul[[n]])
+    
+    graphics::plot(
+      x = 1:T,
+      y = y_hat[n,1:T],
+      type = "n",
+      ylim = range_n,
+      ylab = paste("variable", n),
+      main = "",
+      xlab = "",
+      bty = "n",
+      axes = FALSE,
+      ...
+    )
+    for (i in 1:N) {
+      graphics::polygon(
+        x = c(1:T, rev(1:T)),
+        y = c(ul[[n]][[i]][1,1:T], rev(ul[[n]][[i]][2,1:T])),
+        col = cols[i],
+        border = cols[i]
+      )
+    }
+    
+    graphics::abline(h = 0)
+    
+    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(2, c(range_n[1], 0, range_n[2]), c(NA, 0, NA))
+    
+  } # END n loop
+  
+  graphics::mtext( # main title
+    main,
+    side = 3,
+    line = 2,
+    outer = TRUE
+  )
+  
+  graphics::mtext( # x-axis label
+    xlab,
+    side = 1,
+    line = 3,
+    outer = TRUE
+  )
+  
+  invisible(x)
+} # END plot.PosteriorHD
 
 
