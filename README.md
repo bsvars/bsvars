@@ -71,7 +71,7 @@ Shang, Uzeda, & Woźniak (2024), [Song & Woźniak
 - Specify the models using `specify_bsvar_*()` functions, for instance,
   `specify_bsvar()`
 - Estimate the models using the `estimate()` method
-- Predict the future using the `predict()` method
+- Predict the future using the `forecast()` method
 - Provide structural analyses using **impulse responses**, forecast
   error variance decompositions, historical decompositions, and
   structural shocks using functions `compute_impulse_responses()`,
@@ -82,6 +82,8 @@ Shang, Uzeda, & Woźniak (2024), [Song & Woźniak
   regimes using functions `compute_fitted_values()`,
   `compute_conditional_sd()`, and `compute_regime_probabilities()`
   respectively
+- Use `plot()` and `summary()` methods to gain the insights into the
+  core of the empirical problem.
 
 #### Fast and efficient computations
 
@@ -179,7 +181,7 @@ installed by typing:
 
 The package is under intensive development. Your help is welcome!
 Please, have a look at the
-[roadmap](https://github.com/bsvars/bsvars/milestone/3),
+[roadmap](https://github.com/bsvars/bsvars/milestone/5),
 [discuss](https://github.com/bsvars/bsvars/discussions) package features
 and applications, or [report a
 bug](https://github.com/bsvars/bsvars/issues). Thank you!
