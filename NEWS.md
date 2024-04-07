@@ -1,18 +1,19 @@
-# bsvars 2.1.0.9000
+# bsvars 3.0.0.
 
-The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/4) towards the next version 2.2.0.
+The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/5) towards the next version 3.1.0.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
-1. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
-2. Got rid of filling by reference in the samplers for the sake of granting the exported **cpp** functions usability [#56](https://github.com/bsvars/bsvars/issues/56)
-3. Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
-4. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
-5. The website features the new logo.
-6. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
-7. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+1. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
+2. The package includes a superb vignette [#5](https://github.com/bsvars/bsvars/issues/5)
+3. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
+4. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+5. Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
+6. A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
+7. The website features the new logo. And includes some new information [#38](https://github.com/bsvars/bsvars/issues/38)
 8. Updates on documentation to accommodate the fact that some generics and functions from package **bsvars** will be used in a broader family of packages, first of which is [**bsvarSIGNs**](https://github.com/bsvars/bsvarSIGNs). Includes updates on references. [#63](https://github.com/bsvars/bsvars/issues/63)
-9. A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
+9. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
+10. Got rid of filling by reference in the samplers for the sake of granting the exported **cpp** functions usability [#56](https://github.com/bsvars/bsvars/issues/56)
 
 # bsvars 2.1.0
 
