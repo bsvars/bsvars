@@ -36,10 +36,10 @@ An object of class PosteriorBSVARSV containing the Bayesian estimation output an
 }
 \description{
 Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity 
-proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2022).
+proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2024).
 Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 for the structural matrix \eqn{B} and the equation-by-equation sampler 
-by Chan, Koop, & Yu (2021)
+by Chan, Koop, & Yu (2024)
 for the autoregressive slope parameters \eqn{A}. Additionally, 
 the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions 
@@ -111,24 +111,15 @@ us_fiscal_lsuw |>
 
 }
 \references{
-The model, prior distributions, and estimation algorithms were proposed by
-
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
-
-Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
-
-Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
-
-Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-
-Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
-
-Many of the techniques employed for the estimation of the Stochastic Volatility model 
-are summarised by:
+Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{https://doi.org/10.1080/07350015.2023.2252039}.
 
 Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
 Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 \doi{10.1016/j.csda.2013.01.002}.
+
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+
+Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
 }
 \seealso{
 \code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise_posterior}}

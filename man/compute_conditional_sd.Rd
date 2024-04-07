@@ -7,9 +7,8 @@
 compute_conditional_sd(posterior)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+\item{posterior}{posterior estimation outcome obtained by running the \code{estimate} function. 
+The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 }
 \value{
@@ -17,7 +16,7 @@ An object of class PosteriorSigma, that is, an \code{NxTxS} array with attribute
 containing \code{S} draws of the structural shock conditional standard deviations.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
+Each of the draws from the posterior estimation of models is transformed into
 a draw from the posterior distribution of the structural shock conditional standard deviations.
 }
 \examples{

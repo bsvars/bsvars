@@ -2,11 +2,11 @@
 #' @title Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler
 #'
 #' @description Estimates the homoskedastic SVAR using the Gibbs sampler proposed by Waggoner & Zha (2003)
-#' for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
+#' for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2024)
 #' for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 #' follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-#' overall shrinkage parameters estimated using a hierarchical prior distribution. 
-#' See section \bold{Details} for the model equations.
+#' overall shrinkage parameters estimated using a hierarchical prior distribution
+#' as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). See section \bold{Details} for the model equations.
 #' 
 #' @details 
 #' The homoskedastic SVAR model is given by the reduced form equation:
@@ -41,13 +41,14 @@
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
-#' @references Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
+#' @references 
+#' 
+#' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{https://doi.org/10.1080/07350015.2023.2252039}.
+#' 
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 #' 
 #' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
 #'
-#' Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-#' 
-#' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
 #' 
 #' @method estimate BSVAR
 #' 

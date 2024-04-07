@@ -7,9 +7,8 @@
 compute_impulse_responses(posterior, horizon, standardise = FALSE)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+\item{posterior}{posterior estimation outcome obtained by running the \code{estimate} function. 
+The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 
 \item{horizon}{a positive integer number denoting the forecast horizon for the impulse responses computations.}
@@ -23,7 +22,8 @@ An object of class PosteriorIR, that is, an \code{NxNx(horizon+1)xS} array with 
 containing \code{S} draws of the impulse responses.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
+Each of the draws from the posterior estimation of models from 
+packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the impulse responses.
 }
 \examples{

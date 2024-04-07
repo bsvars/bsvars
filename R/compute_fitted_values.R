@@ -1,11 +1,11 @@
 
 #' @title Computes posterior draws of dependent variables' fitted values
 #'
-#' @description Each of the draws from the posterior estimation of a model is transformed into
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 #' a draw from the posterior distribution of the fitted values. 
 #' 
-#' @param posterior posterior estimation outcome - an object of either of the classes: 
-#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
+#' @param posterior posterior estimation outcome
 #' obtained by running the \code{estimate} function.
 #' 
 #' @return An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 

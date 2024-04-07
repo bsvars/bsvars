@@ -1,11 +1,11 @@
 
 #' @title Forecasting using Structural Vector Autoregression
 #'
-#' @description Samples from the joint predictive density of all of the dependent variables at forecast horizons 
+#' @description Samples from the joint predictive density of all of the dependent 
+#' variables for models from packages \pkg{bsvars} or \pkg{bsvarSIGNs} at forecast horizons 
 #' from 1 to \code{horizon} specified as an argument of the function.
 #' 
-#' @param posterior posterior estimation outcome - an object of either of the classes: 
-#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
+#' @param posterior posterior estimation outcome
 #' obtained by running the \code{estimate} function.
 #' @param horizon a positive integer, specifying the forecasting horizon.
 #' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 

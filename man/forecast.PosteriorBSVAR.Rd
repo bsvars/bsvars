@@ -25,7 +25,8 @@ draws from the predictive density and data. The output list includes element:
 }
 }
 \description{
-Samples from the joint predictive density of all of the dependent variables at forecast horizons 
+Samples from the joint predictive density of all of the dependent 
+variables for models from packages \pkg{bsvars} or \pkg{bsvarSIGNs} at forecast horizons 
 from 1 to \code{horizon} specified as an argument of the function.
 }
 \examples{

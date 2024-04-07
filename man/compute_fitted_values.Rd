@@ -7,8 +7,7 @@
 compute_fitted_values(posterior)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
+\item{posterior}{posterior estimation outcome
 obtained by running the \code{estimate} function.}
 }
 \value{
@@ -16,7 +15,8 @@ An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribut
 containing \code{S} draws of the fitted values.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
+Each of the draws from the posterior estimation of models from 
+packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the fitted values.
 }
 \examples{

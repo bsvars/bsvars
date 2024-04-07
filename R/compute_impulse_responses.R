@@ -1,12 +1,12 @@
 
 #' @title Computes posterior draws of impulse responses 
 #'
-#' @description Each of the draws from the posterior estimation of a model is transformed into
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 #' a draw from the posterior distribution of the impulse responses. 
 #' 
-#' @param posterior posterior estimation outcome - an object of either of the classes: 
-#' PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-#' obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+#' @param posterior posterior estimation outcome obtained by running the \code{estimate} function. 
+#' The interpretation depends on the normalisation of the shocks
 #' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
 #' @param horizon a positive integer number denoting the forecast horizon for the impulse responses computations.
 #' @param standardise a logical value. If \code{TRUE}, the impulse responses are standardised 

@@ -7,8 +7,7 @@
 forecast(posterior, horizon = 1, exogenous_forecast)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
+\item{posterior}{posterior estimation outcome
 obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
@@ -30,7 +29,8 @@ deviations and data. The output elements include:
 }
 }
 \description{
-Samples from the joint predictive density of all of the dependent variables at forecast horizons 
+Samples from the joint predictive density of all of the dependent 
+variables for models from packages \pkg{bsvars} or \pkg{bsvarSIGNs} at forecast horizons 
 from 1 to \code{horizon} specified as an argument of the function.
 }
 \examples{

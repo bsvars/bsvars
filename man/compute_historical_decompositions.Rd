@@ -7,9 +7,8 @@
 compute_historical_decompositions(posterior)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+\item{posterior}{posterior estimation outcome obtained by running the \code{estimate} 
+function. The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 }
 \value{
@@ -17,7 +16,8 @@ An object of class PosteriorHD, that is, an \code{NxNxTxS} array with attribute 
 containing \code{S} draws of the historical decompositions.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
+Each of the draws from the posterior estimation of models from
+packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the historical decompositions. 
 IMPORTANT! The historical decompositions are interpreted correctly for 
 covariance stationary data. Application to unit-root non-stationary data might

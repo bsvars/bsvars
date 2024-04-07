@@ -32,7 +32,8 @@
 #' and that of Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014) <doi:10.1016/j.csda.2013.01.002>.
 #' 
 #' @details 
-#' All the SVAR models in this package are specified by two equations, including 
+#' 
+#' \strong{Models.} All the SVAR models in this package are specified by two equations, including 
 #' the reduced form equation:
 #' \deqn{Y = AX + E}
 #' where \eqn{Y} is an \code{NxT} matrix of dependent variables, 
@@ -62,6 +63,25 @@
 #'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
 #'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
 #' }
+#' 
+#' \strong{Prior distributions.} All the models feature a Minnesota prior for autoregressive 
+#' parameters in matrix \eqn{A} and a generalised-normal distribution for the structural 
+#' matrix \eqn{B}. Both of these distributions feature a 3-level equation-specific
+#' local-global hierarchical prior that make the shrinkage estimation flexible improving
+#' the model fit and its forecasting performance.
+#' 
+#' \strong{Estimation algorithm.} The models are estimated using frontier numerical methods
+#' making the Gibbs sampler fast and efficient. The sampler of the structural matrix 
+#' follows Waggoner & Zha (2003), whereas that 
+#' for autoregressive parameters follows Chan, Koop, Yu (2022). 
+#' The specification of Markov switching heteroskedasticity is inspired by 
+#' Song & Woźniak (2021), and that of 
+#' Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014).
+#' The estimation algorithms for particular models are scrutinised in 
+#' Lütkepohl, Shang, Uzeda, & Woźniak (2024) and Woźniak & Droumaguet (2024)
+#' and some other inferential and identification problems are considered in 
+#' Lütkepohl & Woźniak (2020).
+#' 
 #' @name bsvars-package
 #' @aliases bsvars-package bsvars
 #' @docType package
@@ -78,7 +98,23 @@
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' @references
-#' Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
+#' 
+#' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{https://doi.org/10.1080/07350015.2023.2252039}.
+#' 
+#' Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
+#' Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
+#' \doi{10.1016/j.csda.2013.01.002}.
+#' 
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+#' 
+#' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
+#' 
+#' Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. In: \emph{Oxford Research Encyclopedia of Economics and Finance}. Oxford University Press, \doi{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
+#' 
+#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
+#' 
+#' Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
+#' 
 #' @keywords package models ts
 #' 
 #' @examples
