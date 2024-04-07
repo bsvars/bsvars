@@ -11,6 +11,8 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 5. The website features the new logo.
 6. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
 7. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+8. Updates on documentation to accommodate the fact that some generics and functions from package **bsvars** will be used in a broader family of packages, first of which is [**bsvarSIGNs**](https://github.com/bsvars/bsvarSIGNs). Includes updates on references. [#63](https://github.com/bsvars/bsvars/issues/63)
+9. A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
 
 # bsvars 2.1.0
 

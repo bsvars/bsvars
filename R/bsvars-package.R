@@ -21,15 +21,24 @@
 #
 #' @title Bayesian Estimation of Structural Vector Autoregressive Models
 #'
-#' @description Efficient and fast algorithms for Bayesian estimation of 
-#' Structural Vector Autoregressive (SVAR) models via Markov chain Monte Carlo methods. 
-#' A wide range of SVAR models is considered, including homo- and heteroskedastic specifications 
-#' and those with non-normal structural shocks. The heteroskedastic SVAR model setup is similar as in 
-#' Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687> and Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>.
-#' The sampler of the structural matrix follows Waggoner & Zha (2003) ,doi:10.1016/S0165-1889(02)00168-9>, 
-#' whereas that for autoregressive parameters follows Chan, Koop, Yu (2022) <https://www.joshuachan.org/papers/OISV.pdf>. 
-#' The specification of Markov switching heteroskedasticity is inspired by Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>,
-#' and that of Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014) <doi:10.1016/j.csda.2013.01.002>.
+#' @description Provides fast and efficient procedures for Bayesian analysis of 
+#' Structural Vector Autoregressions. With a wide range of models to choose from, 
+#' including homo-, heteroskedastic and non-normal specifications, one will find 
+#' the right fit for their specific needs. The structural models are identified 
+#' by adjustable exclusion restrictions, time-varying volatility, or non-normality. 
+#' They all include a flexible three-level equation-specific local-global 
+#' hierarchical prior distribution for the estimated level of shrinkage for 
+#' autoregressive and structural parameters. Additionally, the package facilitates 
+#' predictive and structural analyses such as impulse responses, forecast error 
+#' variance and historical decompositions, forecasting, verification of 
+#' heteroskedasticity and hypotheses on autoregressive parameters, and analyses 
+#' of structural shocks, volatilities, and fitted values. Beautiful plots, 
+#' informative summary functions, and extensive documentation complement all this. 
+#' The implemented techniques align closely with those presented in 
+#' Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
+#' Lütkepohl, Shang, Uzeda, & Woźniak (2024), 
+#' Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>, and 
+#' Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>.
 #' 
 #' @details 
 #' 
