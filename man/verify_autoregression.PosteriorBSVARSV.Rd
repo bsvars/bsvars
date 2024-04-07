@@ -73,7 +73,7 @@ us_fiscal_lsuw |>
 
 }
 \references{
-Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
+Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

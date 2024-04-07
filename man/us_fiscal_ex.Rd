@@ -14,7 +14,7 @@ A matrix and a \code{ts} object with time series of over three hundred observati
 }
 
 The series are as described by Mertens & Ravn (2014). The data was used by 
-Lütkepohl, Shang, Uzeda, Woźniak (2023).
+Lütkepohl, Shang, Uzeda, Woźniak (2024).
 }
 \usage{
 data(us_fiscal_ex)
@@ -28,8 +28,8 @@ data(us_fiscal_ex)   # upload the data
 plot(us_fiscal_ex)   # plot the data
 }
 \references{
-Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2023) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \url{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
 }
 \keyword{datasets}
