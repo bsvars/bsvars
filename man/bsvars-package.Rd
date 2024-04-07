@@ -7,10 +7,10 @@
 \title{Bayesian Estimation of Structural Vector Autoregressive Models}
 \description{
 Provides fast and efficient procedures for Bayesian analysis of 
-Structural Vector Autoregressions. With a wide range of models to choose from, 
-including homo-, heteroskedastic and non-normal specifications, one will find 
-the right fit for their specific needs. The structural models are identified 
-by adjustable exclusion restrictions, time-varying volatility, or non-normality. 
+Structural Vector Autoregressions. This package estimates a wide range of 
+models, including homo-, heteroskedastic and non-normal specifications. 
+Structural models can be identified by adjustable exclusion restrictions, 
+time-varying volatility, or non-normality.
 They all include a flexible three-level equation-specific local-global 
 hierarchical prior distribution for the estimated level of shrinkage for 
 autoregressive and structural parameters. Additionally, the package facilitates 
