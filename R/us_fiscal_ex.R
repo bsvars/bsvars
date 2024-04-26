@@ -1,9 +1,9 @@
 
 #' @title A 3-variable system of exogenous variables for the US fiscal model for 
-#' the period 1948 Q1 -- 2023 Q3
+#' the period 1948 Q1 -- 2023 Q4
 #'
 #' @description Exogenous variables used to identify the US fiscal policy shocks.
-#' Last data update was implemented on 2024-01-02.
+#' Last data update was implemented on 2024-04-26.
 #'
 #' @usage data(us_fiscal_ex)
 #' 
@@ -18,7 +18,7 @@
 #' Lütkepohl, Shang, Uzeda, Woźniak (2024).
 #' 
 #' @references 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \url{https://doi.org/10.48550/arXiv.2404.11057}.
 #' 
 #' Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \url{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
 #' 
