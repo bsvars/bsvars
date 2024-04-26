@@ -117,7 +117,7 @@ Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interwea
 Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 \url{10.1016/j.csda.2013.01.002}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \url{https://doi.org/10.48550/arXiv.2404.11057}.
 
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \url{https://doi.org/10.1016/S0165-1889(02)00168-9}.
 }

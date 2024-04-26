@@ -20,8 +20,8 @@ heteroskedasticity and hypotheses on autoregressive parameters, and analyses
 of structural shocks, volatilities, and fitted values. Beautiful plots, 
 informative summary functions, and extensive documentation complement all this. 
 The implemented techniques align closely with those presented in 
+Lütkepohl, Shang, Uzeda, & Woźniak (2024) <doi:10.48550/arXiv.2404.11057>, 
 Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
-Lütkepohl, Shang, Uzeda, & Woźniak (2024), 
 Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>, and 
 Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>.
 }
@@ -117,7 +117,7 @@ Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interwea
 Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 \url{https://doi.org/10.1016/j.csda.2013.01.002}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \url{https://doi.org/10.48550/arXiv.2404.11057}.
 
 Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \url{https://doi.org/10.1016/j.jedc.2020.103862}.
 

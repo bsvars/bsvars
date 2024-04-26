@@ -3,7 +3,7 @@
 \docType{data}
 \name{us_fiscal_lsuw}
 \alias{us_fiscal_lsuw}
-\title{A 3-variable US fiscal system for the period 1948 Q1 -- 2023 Q3}
+\title{A 3-variable US fiscal system for the period 1948 Q1 -- 2023 Q4}
 \format{
 A matrix and a \code{ts} object with time series of over three hundred observations on 3 variables:
 \describe{
@@ -30,7 +30,7 @@ data(us_fiscal_lsuw)
 }
 \description{
 A system used to identify the US fiscal policy shocks. 
-Last data update was implemented on 2024-01-02.
+Last data update was implemented on 2024-04-26.
 }
 \examples{
 data(us_fiscal_lsuw)   # upload the data
@@ -41,6 +41,6 @@ Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Impli
 
 Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \url{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \url{https://doi.org/10.48550/arXiv.2404.11057}.
 }
 \keyword{datasets}
