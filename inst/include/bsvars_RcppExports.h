@@ -151,17 +151,17 @@ namespace bsvars {
         return Rcpp::as<arma::field<arma::cube> >(rcpp_result_gen);
     }
 
-    inline arma::cube bsvars_fitted_values(arma::cube& posterior_A, arma::mat& X) {
-        typedef SEXP(*Ptr_bsvars_fitted_values)(SEXP,SEXP);
+    inline arma::cube bsvars_fitted_values(arma::cube& posterior_A, arma::cube& posterior_B, arma::cube& posterior_sigma, arma::mat& X) {
+        typedef SEXP(*Ptr_bsvars_fitted_values)(SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvars_fitted_values p_bsvars_fitted_values = NULL;
         if (p_bsvars_fitted_values == NULL) {
-            validateSignature("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::mat&)");
+            validateSignature("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
             p_bsvars_fitted_values = (Ptr_bsvars_fitted_values)R_GetCCallable("bsvars", "_bsvars_bsvars_fitted_values");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_bsvars_fitted_values(Shield<SEXP>(Rcpp::wrap(posterior_A)), Shield<SEXP>(Rcpp::wrap(X)));
+            rcpp_result_gen = p_bsvars_fitted_values(Shield<SEXP>(Rcpp::wrap(posterior_A)), Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(posterior_sigma)), Shield<SEXP>(Rcpp::wrap(X)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute_fitted_values.R
 \name{compute_fitted_values}
 \alias{compute_fitted_values}
-\title{Computes posterior draws of dependent variables' fitted values}
+\title{Computes posterior draws from data predictive density}
 \usage{
 compute_fitted_values(posterior)
 }
@@ -12,12 +12,12 @@ obtained by running the \code{estimate} function.}
 }
 \value{
 An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
-containing \code{S} draws of the fitted values.
+containing \code{S} draws from the data predictive density.
 }
 \description{
 Each of the draws from the posterior estimation of models from 
 packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
-a draw from the posterior distribution of the fitted values.
+a draw from the data predictive density.
 }
 \examples{
 # upload data

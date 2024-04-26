@@ -44,6 +44,8 @@ arma::field<arma::cube> bsvars_hd (
 
 arma::cube bsvars_fitted_values (
     arma::cube&     posterior_A,        // NxKxS
+    arma::cube&     posterior_B,        // NxNxS
+    arma::cube&     posterior_sigma,    // NxTxS
     arma::mat&      X                   // KxT
 );
 

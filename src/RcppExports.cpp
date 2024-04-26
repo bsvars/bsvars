@@ -238,21 +238,23 @@ RcppExport SEXP _bsvars_bsvars_hd(SEXP posterior_irf_TSEXP, SEXP structural_shoc
     return rcpp_result_gen;
 }
 // bsvars_fitted_values
-arma::cube bsvars_fitted_values(arma::cube& posterior_A, arma::mat& X);
-static SEXP _bsvars_bsvars_fitted_values_try(SEXP posterior_ASEXP, SEXP XSEXP) {
+arma::cube bsvars_fitted_values(arma::cube& posterior_A, arma::cube& posterior_B, arma::cube& posterior_sigma, arma::mat& X);
+static SEXP _bsvars_bsvars_fitted_values_try(SEXP posterior_ASEXP, SEXP posterior_BSEXP, SEXP posterior_sigmaSEXP, SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_sigma(posterior_sigmaSEXP);
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvars_fitted_values(posterior_A, X));
+    rcpp_result_gen = Rcpp::wrap(bsvars_fitted_values(posterior_A, posterior_B, posterior_sigma, X));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_bsvars_fitted_values(SEXP posterior_ASEXP, SEXP XSEXP) {
+RcppExport SEXP _bsvars_bsvars_fitted_values(SEXP posterior_ASEXP, SEXP posterior_BSEXP, SEXP posterior_sigmaSEXP, SEXP XSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_bsvars_fitted_values_try(posterior_ASEXP, XSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_bsvars_fitted_values_try(posterior_ASEXP, posterior_BSEXP, posterior_sigmaSEXP, XSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -1856,7 +1858,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd)(arma::field<arma::cube>&)");
         signatures.insert("arma::cube(*bsvars_structural_shocks)(const arma::cube&,const arma::cube&,const arma::mat&,const arma::mat&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&)");
-        signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::mat&)");
+        signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_filter_forecast_smooth)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
         signatures.insert("Rcpp::List(*bsvar_msh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_sv_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool,const bool)");
@@ -1965,7 +1967,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_fevd", (DL_FUNC) &_bsvars_bsvars_fevd, 1},
     {"_bsvars_bsvars_structural_shocks", (DL_FUNC) &_bsvars_bsvars_structural_shocks, 4},
     {"_bsvars_bsvars_hd", (DL_FUNC) &_bsvars_bsvars_hd, 2},
-    {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 2},
+    {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
     {"_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth, 5},
     {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 11},
     {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 9},

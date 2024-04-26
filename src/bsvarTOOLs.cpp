@@ -158,6 +158,8 @@ arma::field<arma::cube> bsvars_hd (
 // [[Rcpp::export]]
 arma::cube bsvars_fitted_values (
   arma::cube&     posterior_A,        // NxKxS
+  arma::cube&     posterior_B,        // NxNxS
+  arma::cube&     posterior_sigma,    // NxTxS
   arma::mat&      X                   // KxT
 ) {
   
@@ -165,10 +167,11 @@ arma::cube bsvars_fitted_values (
   const int   S = posterior_A.n_slices;
   const int   T = X.n_cols;
   
-  cube    fitted_values(N, T, S);
+  cube    fitted_values(N, T, S, fill::randn);
   
   for (int s=0; s<S; s++) {
-    fitted_values.slice(s) = posterior_A.slice(s) * X;
+    mat Binv_sigma_norm    = solve(posterior_B.slice(s), posterior_sigma.slice(s) % fitted_values.slice(s));
+    fitted_values.slice(s) = posterior_A.slice(s) * X + Binv_sigma_norm; 
   } // END s loop
   
   return fitted_values;

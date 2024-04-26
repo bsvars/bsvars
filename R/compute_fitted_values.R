@@ -1,15 +1,15 @@
 
-#' @title Computes posterior draws of dependent variables' fitted values
+#' @title Computes posterior draws from data predictive density
 #'
 #' @description Each of the draws from the posterior estimation of models from 
 #' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
-#' a draw from the posterior distribution of the fitted values. 
+#' a draw from the data predictive density. 
 #' 
 #' @param posterior posterior estimation outcome
 #' obtained by running the \code{estimate} function.
 #' 
 #' @return An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
-#' containing \code{S} draws of the fitted values.
+#' containing \code{S} draws from the data predictive density.
 #'
 #' @seealso \code{\link{estimate}}, \code{\link{summary}}
 #'
@@ -47,9 +47,19 @@ compute_fitted_values <- function(posterior) {
   stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   
   posterior_A     = posterior$posterior$A
+  posterior_B     = posterior$posterior$B
+  
+  N               = dim(posterior_A)[1]
+  T               = dim(posterior$last_draw$data_matrices$X)[2]
+  S               = dim(posterior_A)[3]
+  if (class(posterior)[1] == "PosteriorBSVAR") {
+    posterior_sigma       = array(1, c(N, T, S))
+  } else {
+    posterior_sigma       = posterior$posterior$sigma
+  }
   X               = posterior$last_draw$data_matrices$X
   
-  fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, X)
+  fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
   
   return(fv)
