@@ -1,9 +1,36 @@
 
 bibentry(bibtype = "Manual",
+  header       = "To cite bsvars package in publications please use:",
   title        = "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models",
   author       = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
   year         = 2024,
   note     = "R package version 3.0.0.",
   url      = "https://cran.r-project.org/package=bsvars",
-  header       = "To cite bsvars in publications use:"
+  textVersion = "Woźniak, Tomasz (2024). bsvars: Bayesian Estimation of Structural Vector Autoregressive Models. R package version 3.0.0., URL: https://cran.r-project.org/package=bsvars."
+)
+
+bibentry(bibtype = "article",
+  header = "To cite bsvars package in publications please use:",
+  title = "Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R package bsvars",
+  author = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
+  journal = "University of Melbourne Working Papers",
+  year = "2024", 
+  pages = "1--20",
+  doi = "",
+  textVersion = "Woźniak, Tomasz (2024). Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R package bsvars. University of Melbourne Working Papers, 1-20."
+)
+
+bibentry(bibtype = "article",
+  header = "To cite methods for SVAR-SV models used in bsvars package in publications please use:",
+  title = "Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference",
+  author = personList(
+                   person(given = "Helmut", family = "L\\¨utkepohl"),
+                   person(given = "Fei", family = "Shang"),
+                   person(given = "Luis", family = "Uzeda"),
+                   person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me")),
+  journal = "University of Melbourne Working Papers",
+  year = "2024", 
+  pages = "1--57",
+  doi = "10.48550/arXiv.2404.11057",
+  textVersion = "Lütkepohl, H., Shang, F., Uzeda, L., Woźniak, T. (2024). Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. University of Melbourne Working Papers, 1-57. DOI: 10.48550/arXiv.2404.11057."
 )
