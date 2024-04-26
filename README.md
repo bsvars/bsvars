@@ -27,9 +27,10 @@ forecasting, verification of heteroskedasticity and hypotheses on
 autoregressive parameters, and analyses of structural shocks,
 volatilities, and fitted values. Beautiful plots, informative summary
 functions, and extensive documentation complement all this. The
-implemented techniques align closely with those presented in [Lütkepohl
-& Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), Lütkepohl,
-Shang, Uzeda, & Woźniak (2024), [Song & Woźniak
+implemented techniques align closely with those presented in [Lütkepohl,
+Shang, Uzeda, & Woźniak
+(2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak
+(2020)](http://doi.org/10.1016/j.jedc.2020.103862), [Song & Woźniak
 (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174), and
 [Woźniak & Droumaguet
 (2015)](http://doi.org/10.13140/RG.2.2.19492.55687).
