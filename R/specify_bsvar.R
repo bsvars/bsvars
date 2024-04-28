@@ -360,7 +360,7 @@ specify_data_matrices = R6::R6Class(
         X           = cbind(X, data[(p + 1):TT - i,])
       }
       X             = cbind(X, rep(1, T))
-      if (!is.null(data)) {
+      if (!is.null(exogenous)) {
         X           = cbind(X, exogenous[(p + 1):TT,])
       }
       self$X        = t(X)
