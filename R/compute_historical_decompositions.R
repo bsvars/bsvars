@@ -62,7 +62,7 @@ compute_historical_decompositions <- function(posterior) {
   
   N               = nrow(Y)
   T               = ncol(Y)
-  p               = (dim(posterior_A)[2] - 1) / N
+  p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)

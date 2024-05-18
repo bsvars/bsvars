@@ -59,7 +59,7 @@ compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
-  p               = (dim(posterior_A)[2] - 1) / N
+  p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
   
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)

@@ -56,7 +56,7 @@ compute_variance_decompositions <- function(posterior, horizon) {
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
-  p               = (dim(posterior_A)[2] - 1) / N
+  p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
