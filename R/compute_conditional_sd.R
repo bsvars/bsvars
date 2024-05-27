@@ -1,15 +1,18 @@
 
 #' @title Computes posterior draws of structural shock conditional standard deviations
 #'
-#' @description Each of the draws from the posterior estimation of models is transformed into
-#' a draw from the posterior distribution of the structural shock conditional standard deviations. 
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
 #' 
-#' @param posterior posterior estimation outcome obtained by running the \code{estimate} function. 
-#' The interpretation depends on the normalisation of the shocks
-#' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
+#' @param posterior posterior estimation outcome obtained by running the 
+#' \code{estimate} function. The interpretation depends on the normalisation of 
+#' the shocks using function \code{normalise_posterior()}. Verify if the default 
+#' settings are appropriate.
 #' 
-#' @return An object of class PosteriorSigma, that is, an \code{NxTxS} array with attribute PosteriorSigma 
-#' containing \code{S} draws of the structural shock conditional standard deviations.
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
 #'
 #' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
@@ -43,21 +46,160 @@
 #' 
 #' @export
 compute_conditional_sd <- function(posterior) {
-  
-  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
-  
+  UseMethod("compute_conditional_sd", posterior)
+}
+
+
+
+
+
+
+#' @inherit compute_conditional_sd
+#' @method compute_conditional_sd PosteriorBSVAR
+#' @param posterior posterior estimation outcome - an object of class 
+#' PosteriorBSVAR obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
+
   Y     = posterior$last_draw$data_matrices$Y
   N     = nrow(Y)
   T     = ncol(Y)
+  S     = dim(posterior$posterior$A)[3]
+
+  posterior_sigma       = array(1, c(N, T, S))
+  message("The model is homoskedastic. Returning an NxTxS matrix of conditional sd all equal to 1.")
+  class(posterior_sigma)  = "PosteriorSigma"
+
+  return(posterior_sigma)
+}
+
+
+
+
+
+#' @inherit compute_conditional_sd
+#' @method compute_conditional_sd PosteriorBSVARMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' csd     = compute_conditional_sd(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_conditional_sd() -> csd
+#'   
+#' @export
+compute_conditional_sd.PosteriorBSVARMSH <- function(posterior) {
+
+  posterior_sigma       = posterior$posterior$sigma
+  class(posterior_sigma)  = "PosteriorSigma"
+
+  return(posterior_sigma)
+}
+
+
+
+
+
+#' @inherit compute_conditional_sd
+#' @method compute_conditional_sd PosteriorBSVARMIX
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' csd     = compute_conditional_sd(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_conditional_sd() -> csd
+#'   
+#' @export
+compute_conditional_sd.PosteriorBSVARMIX <- function(posterior) {
   
-  if (class(posterior)[1] == "PosteriorBSVAR") {
-    posterior_sigma       = matrix(1, N, T)
-    message("The model is homoskedastic. Returning an NxT matrix of conditional sd all equal to 1.")
-  } else {
-    posterior_sigma       = posterior$posterior$sigma
-  }
+  posterior_sigma       = posterior$posterior$sigma
   class(posterior_sigma)  = "PosteriorSigma"
   
   return(posterior_sigma)
 }
 
+
+
+#' @inherit compute_conditional_sd
+#' @method compute_conditional_sd PosteriorBSVARSV
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' csd     = compute_conditional_sd(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_conditional_sd() -> csd
+#'   
+#' @export
+compute_conditional_sd.PosteriorBSVARSV <- function(posterior) {
+  
+  posterior_sigma       = posterior$posterior$sigma
+  class(posterior_sigma)  = "PosteriorSigma"
+  
+  return(posterior_sigma)
+}
