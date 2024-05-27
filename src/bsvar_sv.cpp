@@ -44,7 +44,7 @@ Rcpp::List bsvar_sv_cpp (
     Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
-    Rcout << "   " << name_model << " SV model is estimated             |" << endl;
+    Rcout << "   " << name_model << " SV model is estimated              |" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
     Rcout << "    Every " << oo << "draw is saved via MCMC thinning" << endl;
