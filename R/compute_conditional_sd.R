@@ -57,7 +57,7 @@ compute_conditional_sd <- function(posterior) {
 #' @inherit compute_conditional_sd
 #' @method compute_conditional_sd PosteriorBSVAR
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVAR obtained by running the \code{estimate} function.
+#' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
 #' 
 #' @export
 compute_conditional_sd.PosteriorBSVAR <- function(posterior) {

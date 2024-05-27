@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
-PosteriorBSVAR obtained by running the \code{estimate} function.}
+\code{PosteriorBSVAR} obtained by running the \code{estimate} function.}
 }
 \value{
 An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
