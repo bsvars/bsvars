@@ -83,8 +83,11 @@ obtained by running the <code>estimate</code> function.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of class PosteriorFitted, that is, an <code>NxTxS</code> array with attribute PosteriorFitted 
-containing <code>S</code> draws from the data predictive density.</p>
+<p>An object of class <code>PosteriorFitted</code>, that is, an <code>NxTxS</code></p>
+ 
+
+<p>array with attribute <code>PosteriorFitted</code> containing <code>S</code> draws from 
+the data predictive density.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -129,7 +132,7 @@ containing <code>S</code> draws from the data predictive density.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># compute dependent variables' fitted values</span></span></span>
+<span class="r-in"><span><span class="co"># compute draws from in-sample predictive density</span></span></span>
 <span class="r-in"><span><span class="va">fitted</span>         <span class="op">=</span> <span class="fu">compute_fitted_values</span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
