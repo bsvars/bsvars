@@ -51,10 +51,133 @@
 #' 
 #' @export
 compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
-  
-  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
-  stopifnot("The posterior output must be normalised for the impulse responses to be interpretable." = posterior$is_normalised())
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
+  stopifnot("Argument standardise must be a logical value." = is.logical(standardise) & !is.na(standardise))
+  UseMethod("compute_impulse_responses", posterior)
+}
+
+
+
+
+
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVAR
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standardise = FALSE) {
+
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
+
+  irfs            = array(NA, c(N, N, horizon + 1, S))
+  for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
+  class(irfs)     = "PosteriorIR"
+
+  return(irfs)
+}
+
+
+
+
+
+
+
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVARMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute impulse responses
+#' irfs            = compute_impulse_responses(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_impulse_responses(horizon = 4) -> irfs
+#'   
+#' @export
+compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, standardise = FALSE) {
+
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
+
+  irfs            = array(NA, c(N, N, horizon + 1, S))
+  for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
+  class(irfs)     = "PosteriorIR"
+
+  return(irfs)
+}
+
+
+
+
+
+
+
+
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVARMIX
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute impulse responses
+#' irfs            = compute_impulse_responses(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_impulse_responses(horizon = 4) -> irfs
+#'   
+#' @export
+compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, standardise = FALSE) {
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -71,3 +194,58 @@ compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
   return(irfs)
 }
 
+
+
+
+
+
+
+
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVARSV
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute impulse responses
+#' irfs            = compute_impulse_responses(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_impulse_responses(horizon = 4) -> irfs
+#'   
+#' @export
+compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, standardise = FALSE) {
+  
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+  
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
+  
+  irfs            = array(NA, c(N, N, horizon + 1, S))
+  for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
+  class(irfs)     = "PosteriorIR"
+  
+  return(irfs)
+}
