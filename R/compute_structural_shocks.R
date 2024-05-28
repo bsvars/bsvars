@@ -44,10 +44,65 @@
 #' 
 #' @export
 compute_structural_shocks <- function(posterior) {
-  
-  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
-  stopifnot("The posterior output must be normalised for the structural shocks to be interpretable." = posterior$is_normalised())
+  UseMethod("compute_structural_shocks", posterior)
+}
 
+
+
+
+
+#' @inherit compute_structural_shocks
+#' @method compute_structural_shocks PosteriorBSVAR
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_structural_shocks.PosteriorBSVAR <- function(posterior) {
+
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+
+  ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
+  class(ss)       = "PosteriorShocks"
+
+  return(ss)
+}
+
+
+
+
+#' @inherit compute_structural_shocks
+#' @method compute_structural_shocks PosteriorBSVARMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_structural_shocks.PosteriorBSVARMSH <- function(posterior) {
+
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+
+  ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
+  class(ss)       = "PosteriorShocks"
+
+  return(ss)
+}
+
+
+
+
+#' @inherit compute_structural_shocks
+#' @method compute_structural_shocks PosteriorBSVARMIX
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_structural_shocks.PosteriorBSVARMIX <- function(posterior) {
+  
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   Y               = posterior$last_draw$data_matrices$Y
@@ -58,4 +113,29 @@ compute_structural_shocks <- function(posterior) {
   
   return(ss)
 }
+
+
+
+
+
+#' @inherit compute_structural_shocks
+#' @method compute_structural_shocks PosteriorBSVARSV
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_structural_shocks.PosteriorBSVARSV <- function(posterior) {
+  
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
+  class(ss)       = "PosteriorShocks"
+  
+  return(ss)
+}
+
+
 

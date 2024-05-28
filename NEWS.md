@@ -15,6 +15,7 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 9. Fixed `compute_fitted_values()`. Now it's correctly sampling from the predictive data density. [#67](https://github.com/bsvars/bsvars/issues/67)
 10. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
 11. Got rid of filling by reference in the samplers for the sake of granting the exported **cpp** functions usability [#56](https://github.com/bsvars/bsvars/issues/56)
+12. Coded `compute_*()` functions as generics and methods [#70](https://github.com/bsvars/bsvars/issues/70)
 
 # bsvars 2.1.0
 
