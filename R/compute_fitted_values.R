@@ -223,34 +223,3 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
   return(fv)
 }
 
-
-
-
-
-
-
-
-
-
-# compute_fitted_values <- function(posterior) {
-#   
-#   stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
-#   
-#   posterior_A     = posterior$posterior$A
-#   posterior_B     = posterior$posterior$B
-#   
-#   N               = dim(posterior_A)[1]
-#   T               = dim(posterior$last_draw$data_matrices$X)[2]
-#   S               = dim(posterior_A)[3]
-#   if (class(posterior)[1] == "PosteriorBSVAR") {
-#     posterior_sigma       = array(1, c(N, T, S))
-#   } else {
-#     posterior_sigma       = posterior$posterior$sigma
-#   }
-#   X               = posterior$last_draw$data_matrices$X
-#   
-#   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
-#   class(fv)       = "PosteriorFitted"
-#   
-#   return(fv)
-# }
