@@ -59,9 +59,8 @@ forecast <- function(posterior, horizon = 1, exogenous_forecast) {
 
 #' @inherit forecast
 #' @method forecast PosteriorBSVAR
-#' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVAR obtained by running the \code{estimate} function.
+#' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
 #' 
 #' @return A list of class \code{Forecasts} containing the
 #' draws from the predictive density and data. The output list includes element:
