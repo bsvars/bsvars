@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
-PosteriorBSVARMIX obtained by running the \code{estimate} function.}
+\code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
 

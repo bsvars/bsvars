@@ -105,9 +105,8 @@ forecast.PosteriorBSVAR = function(posterior, horizon = 1, exogenous_forecast = 
 
 #' @inherit forecast
 #' @method forecast PosteriorBSVARMSH
-#' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARMSH obtained by running the \code{estimate} function.
+#' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
@@ -171,9 +170,8 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon = 1, exogenous_forecast
 
 #' @inherit forecast
 #' @method forecast PosteriorBSVARMIX
-#' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARMIX obtained by running the \code{estimate} function.
+#' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
@@ -237,9 +235,8 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon = 1, exogenous_forecast
 
 #' @inherit forecast
 #' @method forecast PosteriorBSVARSV
-#' @inheritParams forecast
 #' @param posterior posterior estimation outcome - an object of class 
-#' PosteriorBSVARSV obtained by running the \code{estimate} function.
+#' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' 
 #' @examples
 #' # upload data
