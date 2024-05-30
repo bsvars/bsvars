@@ -15,7 +15,7 @@
 #' 
 #' @param posterior the \code{posterior} element of the list from the estimation outcome
 #' 
-#' @return An object of class SDDR that is a list of three components:
+#' @return An object of class \code{SDDRvolatility} that is a list of three components:
 #' 
 #' \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
 #' the homoskedasticity hypothesis for each of the shocks
@@ -174,7 +174,7 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
     # estimate the SDDR
     sddr            = .Call(`_bsvars_verify_volatility_sv_cpp`, just_posterior, prior, Y, X, TRUE)
     
-    class(sddr)     = "SDDR"
+    class(sddr)     = "SDDRvolatility"
     return(sddr)
   }
 }
@@ -236,7 +236,7 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRvolatility"
   return(sddr)
 }
 
@@ -298,7 +298,7 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRvolatility"
   return(sddr)
 }
 
@@ -328,7 +328,7 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
 #' in which case the values represent the joint hypothesis, and missing value \code{NA} 
 #' for these parameters that are not tested
 #' 
-#' @return An object of class SDDR that is a list of three components:
+#' @return An object of class \code{SDDRautoregression} that is a list of three components:
 #' 
 #' \code{logSDDR} a scalar with values of the logarithm of the Bayes factors for 
 #' the autoregressive hypothesis for each of the shocks
@@ -408,7 +408,7 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_autoregressive_homosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRautoregression"
   return(sddr)
 }
 
@@ -458,7 +458,7 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRautoregression"
   return(sddr)
 }
 
@@ -508,7 +508,7 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRautoregression"
   return(sddr)
 }
 
@@ -558,6 +558,6 @@ verify_autoregression.PosteriorBSVARMSH <- function(posterior, hypothesis) {
   # estimate the SDDR
   sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
   
-  class(sddr)     = "SDDR"
+  class(sddr)     = "SDDRautoregression"
   return(sddr)
 }

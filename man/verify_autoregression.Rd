@@ -15,7 +15,7 @@ in which case the values represent the joint hypothesis, and missing value \code
 for these parameters that are not tested}
 }
 \value{
-An object of class SDDR that is a list of three components:
+An object of class \code{SDDRautoregression} that is a list of three components:
 
 \code{logSDDR} a scalar with values of the logarithm of the Bayes factors for 
 the autoregressive hypothesis for each of the shocks

@@ -10,7 +10,7 @@ verify_volatility(posterior)
 \item{posterior}{the \code{posterior} element of the list from the estimation outcome}
 }
 \value{
-An object of class SDDR that is a list of three components:
+An object of class \code{SDDRvolatility} that is a list of three components:
 
 \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
 the homoskedasticity hypothesis for each of the shocks
