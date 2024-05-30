@@ -1197,3 +1197,151 @@ summary.Forecasts = function(
   
   return(out)
 } # END summary.Forecasts
+
+
+
+
+
+#' @title Provides summary of verifying homoskedasticity
+#'
+#' @description Provides summary of the Savage-Dickey density ratios
+#' for verification of structural shocks homoskedasticity.
+#' 
+#' @param object an object of class \code{SDDRvolatility} obtained using the
+#' \code{verify_volatility()} function. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A table reporting the logarithm of Bayes factors of homoskedastic to
+#' heteroskedastic posterior odds \code{"log(SDDR)"} for each structural shock, 
+#' their numerical standard errors \code{"NSE"}, and the implied posterior 
+#' probability of the homoskedasticity and heteroskedasticity hypothesis, 
+#' \code{"Pr[homoskedasticity|data]"} and \code{"Pr[heteroskedasticity|data]"} 
+#' respectively.
+#' 
+#' @method summary SDDRvolatility
+#' 
+#' @seealso \code{\link{verify_volatility}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10, thin = 1)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_volatility(posterior)
+#' summary(sddr)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 10, thin = 1) |> 
+#'   verify_volatility() |> 
+#'   summary() -> sddr_summary
+#' 
+#' @export
+summary.SDDRvolatility = function(
+    object,
+    ...
+) {
+  
+  cat("Summary of structural shocks\n homoskedasticity verification\n")
+  cat("----------------------------------\n")
+
+  N         = nrow(object$logSDDR)
+  exp_sddr  = exp(object$logSDDR)
+  
+  out = cbind(
+    object$logSDDR,
+    object$log_SDDR_se,
+    exp_sddr / (1 + exp_sddr),
+    1 / (1 + exp_sddr)
+  )
+  colnames(out) = c("log(SDDR)", "NSE", "Pr[homoskedasticity|data]", "Pr[heteroskedasticity|data]")
+  rownames(out) = paste0("shock ", 1:N)
+  
+  return(out)
+} # END summary.SDDRvolatility
+
+
+
+
+#' @title Provides summary of verifying hypotheses about autoregressive parameters
+#'
+#' @description Provides summary of the Savage-Dickey density ratios
+#' for verification of hypotheses about autoregressive parameters.
+#' 
+#' @param object an object of class \code{SDDRautoregression} obtained using the
+#' \code{verify_autoregression()} function. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A table reporting the logarithm of Bayes factors of the restriction
+#' against no restriction posterior odds in \code{"log(SDDR)"}, 
+#' its numerical standard error \code{"NSE"}, and the implied posterior 
+#' probability of the restriction holding or not hypothesis, 
+#' \code{"Pr[H0|data]"} and \code{"Pr[H1|data]"} 
+#' respectively.
+#' 
+#' @method summary SDDRautoregression
+#' 
+#' @seealso \code{\link{verify_autoregression}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
+#' set.seed(123)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10, thin = 1)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' summary(sddr)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10, thin = 1) |> 
+#'   verify_autoregression(hypothesis = H0) |> 
+#'   summary() -> sddr_summary
+#' 
+#' @export
+summary.SDDRautoregression = function(
+    object,
+    ...
+) {
+  
+  cat("Summary of hypothesis verification\n for autoregressive parameters\n")
+  cat("----------------------------------\n")
+  
+  exp_sddr  = exp(object$logSDDR)
+  
+  out = cbind(
+    object$logSDDR,
+    object$log_SDDR_se,
+    exp_sddr / (1 + exp_sddr),
+    1 / (1 + exp_sddr)
+  )
+  colnames(out) = c("log(SDDR)", "NSE", "Pr[H0|data]", "Pr[H1|data]")
+  rownames(out) = ""
+  
+  return(out)
+} # END summary.SDDRautoregression
