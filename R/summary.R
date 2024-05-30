@@ -51,9 +51,14 @@ summary.PosteriorBSVAR = function(
     ...
 ) {
   
-  cat("Posterior summary of the parameters\n")
-  cat("-----------------------------------\n")
-  
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of the parameters             |\n",
+    "**************************************************|\n"
+  )
+
   N         = dim(object$posterior$A)[1]
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
@@ -188,8 +193,13 @@ summary.PosteriorBSVARSV = function(
     ...
 ) {
   
-  cat("Posterior summary of the parameters\n")
-  cat("-----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of the parameters             |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object$posterior$A)[1]
   p         = object$last_draw$p
@@ -328,8 +338,13 @@ summary.PosteriorBSVARMSH = function(
     ...
 ) {
   
-  cat("Posterior summary of the parameters\n")
-  cat("-----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of the parameters             |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object$posterior$A)[1]
   p         = object$last_draw$p
@@ -467,8 +482,13 @@ summary.PosteriorBSVARMIX = function(
     ...
 ) {
   
-  cat("Posterior summary of the parameters\n")
-  cat("-----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of the parameters             |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object$posterior$A)[1]
   p         = object$last_draw$p
@@ -608,10 +628,16 @@ summary.PosteriorSigma = function(
     ...
 ) {
   
-  stopifnot("The model is homoskedastic. Conditional sd is equal to 1 for all variables and periods." = length(dim(object)) == 3)
+  stopifnot("The model is homoskedastic. Conditional sd is equal to 1 for all variables and periods." = any(object != 1))
   
-  cat("Posterior summary of structural shocks' conditional standard deviations\n")
-  cat("-----------------------------------------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of structural shocks'         |\n",
+    "    conditional standard deviations               |\n",
+    "**************************************************|\n"
+  )
   
   posterior_sigma = object
   
@@ -692,8 +718,13 @@ summary.PosteriorFitted = function(
     ...
 ) {
   
-  cat("Posterior summary of fitted values\n")
-  cat("----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of fitted values              |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object)[1]
   T         = dim(object)[2]
@@ -777,8 +808,13 @@ summary.PosteriorHD = function(
     ...
 ) {
   
-  cat("Posterior means of historical decompositions\n")
-  cat("--------------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior means of historical decompositions    |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object)[1]
   T         = dim(object)[3]
@@ -857,8 +893,13 @@ summary.PosteriorIR = function(
     ...
 ) {
   
-  cat("Posterior summary of impulse responses\n")
-  cat("--------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of impulse responses          |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object)[1]
   H         = dim(object)[3] - 1
@@ -940,8 +981,13 @@ summary.PosteriorRegimePr = function(
     ...
 ) {
   
-  cat("Posterior summary of regime probabilities\n")
-  cat("-----------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of regime probabilities       |\n",
+    "**************************************************|\n"
+  )
   
   M         = dim(object)[1]
   T         = dim(object)[2]
@@ -1019,8 +1065,13 @@ summary.PosteriorShocks = function(
     ...
 ) {
   
-  cat("Posterior summary of structural shocks\n")
-  cat("--------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of structural shocks          |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object)[1]
   T         = dim(object)[2]
@@ -1100,8 +1151,14 @@ summary.PosteriorFEVD = function(
     ...
 ) {
   
-  cat("Posterior means of the forecast error variance decompositions\n")
-  cat("-------------------------------------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior means of forecast error               |\n",
+    "    variance decompositions                       |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object)[1]
   H         = dim(object)[3] - 1
@@ -1176,8 +1233,13 @@ summary.Forecasts = function(
     ...
 ) {
   
-  cat("Posterior summary of forecasts\n")
-  cat("----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of forecasts                  |\n",
+    "**************************************************|\n"
+  )
   
   N         = dim(object$forecasts)[1]
   H         = dim(object$forecasts)[2]
@@ -1254,9 +1316,15 @@ summary.SDDRvolatility = function(
     ...
 ) {
   
-  cat("Summary of structural shocks\n homoskedasticity verification\n")
-  cat("----------------------------------\n")
-
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Summary of structural shocks                    |\n",
+    "     homoskedasticity verification                |\n",
+    "**************************************************|\n"
+  )
+  
   N         = nrow(object$logSDDR)
   exp_sddr  = exp(object$logSDDR)
   
@@ -1329,8 +1397,14 @@ summary.SDDRautoregression = function(
     ...
 ) {
   
-  cat("Summary of hypothesis verification\n for autoregressive parameters\n")
-  cat("----------------------------------\n")
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Summary of hypothesis verification              |\n",
+    "     for autoregressive parameters                |\n",
+    "**************************************************|\n"
+  )
   
   exp_sddr  = exp(object$logSDDR)
   
