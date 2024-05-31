@@ -13,6 +13,14 @@ Rcpp::List forecast_bsvar (
 );
 
 
+arma::cube forecast_sigma2_msh (
+    arma::cube&   posterior_sigma2,   // (N, M, S)
+    arma::cube&   posterior_PR_TR,    // (M, M, S)
+    arma::vec&    S_T,                // (M)
+    const int     horizon
+);
+
+
 Rcpp::List forecast_bsvar_msh (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
@@ -22,6 +30,15 @@ Rcpp::List forecast_bsvar_msh (
     arma::vec&    S_T,                // (M)
     arma::mat&    exogenous_forecast, // (horizon, d)
     const int     horizon
+);
+
+
+arma::cube forecast_sigma2_sv (
+    arma::vec&    posterior_h_T,      // Nx1
+    arma::mat&    posterior_rho,      // NxS
+    arma::mat&    posterior_omega,    // NxS
+    const int     horizon,
+    const bool    centred_sv = FALSE
 );
 
 

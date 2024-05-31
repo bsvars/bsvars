@@ -47,6 +47,45 @@ Rcpp::List forecast_bsvar (
 
 
 
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::cube forecast_sigma2_msh (
+    arma::cube&   posterior_sigma2,   // (N, M, S)
+    arma::cube&   posterior_PR_TR,    // (M, M, S)
+    arma::vec&    S_T,                // (M)
+    const int     horizon
+) {
+  
+  const int       N = posterior_sigma2.n_rows;
+  const int       M = posterior_PR_TR.n_rows;
+  const int       S = posterior_PR_TR.n_slices;
+  
+  cube            forecasts_sigma2(N, horizon, S);
+  
+  for (int s=0; s<S; s++) {
+    
+    int St(M);
+    vec PR_ST     = S_T;
+    NumericVector zeroM   = wrap(seq_len(M) - 1);
+    
+    for (int h=0; h<horizon; h++) {
+      
+      PR_ST       = trans(posterior_PR_TR.slice(s)) * PR_ST;
+      St          = csample_num1(zeroM, wrap(PR_ST));
+      forecasts_sigma2.slice(s).col(h) = posterior_sigma2.slice(s).col(St);
+      
+    } // END h loop
+  } // END s loop
+  
+  return forecasts_sigma2;
+} // END forecast_sigma2_msh
+
+
+
+
+
+
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 Rcpp::List forecast_bsvar_msh (
@@ -61,33 +100,23 @@ Rcpp::List forecast_bsvar_msh (
 ) {
   
   const int       N = posterior_B.n_rows;
-  const int       M = posterior_PR_TR.n_rows;
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
   
-  cube            forecasts(N, horizon, S);
-  cube            forecasts_sigma2(N, horizon, S);
   vec             one(1, fill::value(1));
+  cube            forecasts(N, horizon, S);
+  cube            forecasts_sigma2 = forecast_sigma2_msh ( posterior_sigma2, posterior_PR_TR, S_T, horizon );
   
   for (int s=0; s<S; s++) {
     
     vec x_t       = X_T.rows(0, K - 2 - d);
     vec ex        = X_T.rows(K - d , K - 1);
     vec Xt        = join_cols(x_t, one, ex);
-    
     mat B_inv     = inv(posterior_B.slice(s));
-    vec PR_ST     = S_T;
-    NumericVector zeroM   = wrap(seq_len(M) - 1);
-    
-    int St(M);
     mat Sigma(N, N);
     
     for (int h=0; h<horizon; h++) {
-      
-      PR_ST       = trans(posterior_PR_TR.slice(s)) * PR_ST;
-      St          = csample_num1(zeroM, wrap(PR_ST));
-      forecasts_sigma2.slice(s).col(h) = posterior_sigma2.slice(s).col(St);
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
@@ -101,6 +130,46 @@ Rcpp::List forecast_bsvar_msh (
     _["forecasts_sigma"]  = sqrt(forecasts_sigma2)
   );
 } // END forecast_bsvar_msh
+
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::cube forecast_sigma2_sv (
+    arma::vec&    posterior_h_T,      // Nx1
+    arma::mat&    posterior_rho,      // NxS
+    arma::mat&    posterior_omega,    // NxS
+    const int     horizon,
+    const bool    centred_sv = FALSE
+) {
+  
+  const int       N = posterior_rho.n_rows;
+  const int       S = posterior_rho.n_cols;
+  
+  cube            forecasts_sigma2(N, horizon, S);
+  vec             one(1, fill::value(1));
+  
+  for (int s=0; s<S; s++) {
+    
+    vec     ht    = posterior_h_T;
+    double  xx    = 0;
+    
+    for (int h=0; h<horizon; h++) {
+      for (int n=0; n<N; n++) {
+        xx        = randn();
+        if ( centred_sv ) {
+          ht(n)     = posterior_rho(n, s) * ht(n) + posterior_omega(n, s) * xx;
+        } else {
+          ht(n)     = posterior_omega(n, s) * (posterior_rho(n, s) * ht(n) + xx);
+        }
+        forecasts_sigma2(n, h, s) = exp(ht(n));
+      } // END n loop
+    } // END h loop
+  } // END s loop
+  
+  return forecasts_sigma2;
+} // END forecast_sigma2_sv
 
 
 
@@ -123,33 +192,20 @@ Rcpp::List forecast_bsvar_sv (
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
+  vec             one(1, fill::value(1));
   
   cube            forecasts(N, horizon, S);
-  cube            forecasts_sigma2(N, horizon, S);
-  vec             one(1, fill::value(1));
+  cube            forecasts_sigma2 = forecast_sigma2_sv( posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv );
   
   for (int s=0; s<S; s++) {
     
     vec x_t       = X_T.rows(0, K - 2 - d);
     vec ex        = X_T.rows(K - d , K - 1);
     vec Xt        = join_cols(x_t, one, ex);
-    vec ht        = posterior_h_T;
-    
     mat B_inv     = inv(posterior_B.slice(s));
     mat Sigma(N, N);
-    double xx = 0;
     
     for (int h=0; h<horizon; h++) {
-      
-      for (int n=0; n<N; n++) {
-        xx        = randn();
-        if ( centred_sv ) {
-          ht(n)     = posterior_rho(n, s) * ht(n) + posterior_omega(n, s) * xx;
-        } else {
-          ht(n)     = posterior_omega(n, s) * (posterior_rho(n, s) * ht(n) + xx);
-        }
-        forecasts_sigma2(n, h, s) = exp(ht(n));
-      }
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
