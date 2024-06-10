@@ -4,7 +4,12 @@
 \alias{forecast.PosteriorBSVARSV}
 \title{Forecasting using Structural Vector Autoregression}
 \usage{
-\method{forecast}{PosteriorBSVARSV}(posterior, horizon = 1, exogenous_forecast = NULL)
+\method{forecast}{PosteriorBSVARSV}(
+  posterior,
+  horizon = 1,
+  exogenous_forecast = NULL,
+  conditional_forecast = NULL
+)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
@@ -14,6 +19,8 @@
 
 \item{exogenous_forecast}{a matrix of dimension \code{horizon x d} containing 
 forecasted values of the exogenous variables.}
+
+\item{conditional_forecast}{forecasted values for selected variables.}
 }
 \value{
 A list of class \code{Forecasts} containing the
@@ -30,8 +37,9 @@ deviations and data. The output elements include:
 }
 \description{
 Samples from the joint predictive density of all of the dependent 
-variables for models from packages \pkg{bsvars} or \pkg{bsvarSIGNs} at forecast horizons 
-from 1 to \code{horizon} specified as an argument of the function.
+variables for models from packages \pkg{bsvars}, \pkg{bsvarSIGNs} or 
+\pkg{bvarPANELs} at forecast horizons from 1 to \code{horizon} specified as 
+an argument of the function.
 }
 \examples{
 # upload data
