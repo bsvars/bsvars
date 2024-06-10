@@ -2,14 +2,15 @@
 #' @title Forecasting using Structural Vector Autoregression
 #'
 #' @description Samples from the joint predictive density of all of the dependent 
-#' variables for models from packages \pkg{bsvars} or \pkg{bsvarSIGNs} at forecast horizons 
-#' from 1 to \code{horizon} specified as an argument of the function.
+#' variables for models from packages \pkg{bsvars}, \pkg{bsvarSIGNs} or 
+#' \pkg{bvarPANELs} at forecast horizons from 1 to \code{horizon} specified as 
+#' an argument of the function.
 #' 
 #' @param posterior posterior estimation outcome
 #' obtained by running the \code{estimate} function.
 #' @param horizon a positive integer, specifying the forecasting horizon.
-#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
-#' forecasted values of the exogenous variables.
+#' @param exogenous_forecast forecasted values of the exogenous variables.
+#' @param conditional_forecast forecasted values for selected variables.
 #' 
 #' @return A list of class \code{Forecasts} containing the
 #' draws from the predictive density and for heteroskedastic models the draws 
@@ -52,7 +53,12 @@
 #'   forecast(horizon = 4) -> predictive
 #' 
 #' @export
-forecast <- function(posterior, horizon = 1, exogenous_forecast) {
+forecast <- function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast,
+    conditional_forecast
+) {
   stopifnot("Argument horizon must be a positive integer number." = horizon > 0 & horizon %% 1 == 0)
   UseMethod("forecast", posterior)
 }
@@ -61,6 +67,8 @@ forecast <- function(posterior, horizon = 1, exogenous_forecast) {
 #' @method forecast PosteriorBSVAR
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
 #' 
 #' @return A list of class \code{Forecasts} containing the
 #' draws from the predictive density and data. The output list includes element:
@@ -71,8 +79,12 @@ forecast <- function(posterior, horizon = 1, exogenous_forecast) {
 #' }
 #' 
 #' @export
-forecast.PosteriorBSVAR = function(posterior, horizon = 1, exogenous_forecast = NULL) {
-  
+forecast.PosteriorBSVAR = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -106,6 +118,8 @@ forecast.PosteriorBSVAR = function(posterior, horizon = 1, exogenous_forecast = 
 #' @method forecast PosteriorBSVARMSH
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
 #' 
 #' @examples
 #' # upload data
@@ -134,7 +148,12 @@ forecast.PosteriorBSVAR = function(posterior, horizon = 1, exogenous_forecast = 
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARMSH = function(posterior, horizon = 1, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARMSH = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
@@ -171,6 +190,8 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon = 1, exogenous_forecast
 #' @method forecast PosteriorBSVARMIX
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
 #' 
 #' @examples
 #' # upload data
@@ -199,7 +220,12 @@ forecast.PosteriorBSVARMSH = function(posterior, horizon = 1, exogenous_forecast
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARMIX = function(posterior, horizon = 1, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARMIX = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
@@ -236,6 +262,8 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon = 1, exogenous_forecast
 #' @method forecast PosteriorBSVARSV
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
 #' 
 #' @examples
 #' # upload data
@@ -264,7 +292,12 @@ forecast.PosteriorBSVARMIX = function(posterior, horizon = 1, exogenous_forecast
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export
-forecast.PosteriorBSVARSV = function(posterior, horizon = 1, exogenous_forecast = NULL) {
+forecast.PosteriorBSVARSV = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
   
   posterior_B       = posterior$posterior$B
   posterior_A       = posterior$posterior$A
