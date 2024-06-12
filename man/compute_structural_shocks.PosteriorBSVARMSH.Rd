@@ -25,7 +25,7 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 2)
+specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 2, M = 2)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
@@ -40,11 +40,11 @@ shocks         = compute_structural_shocks(posterior)
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar$new(p = 1) |>
+  specify_bsvar_msh$new(p = 1, M = 2) |>
   estimate(S = 10) |> 
   estimate(S = 50) |> 
   compute_structural_shocks() -> ss
-
+  
 }
 \seealso{
 \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}

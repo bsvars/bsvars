@@ -29,25 +29,25 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 30)
 
 # compute historical decompositions
-hd             = compute_historical_decompositions(posterior)
+hd            = compute_historical_decompositions(posterior)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
-us_fiscal_lsuw |>
-  specify_bsvar_msh$new(p = 1, M = 2) |>
+diff(us_fiscal_lsuw) |>
+  specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 20) |> 
-  compute_historical_decompositions() -> hds
+  estimate(S = 50) |> 
+  compute_historical_decompositions() -> hd
   
 }
 \references{
