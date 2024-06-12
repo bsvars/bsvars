@@ -13,7 +13,7 @@ Rcpp::List forecast_bsvar (
     arma::cube&   posterior_A,        // (N, K, S)
     arma::vec&    X_T,                // (K)
     arma::mat&    exogenous_forecast, // (horizon, d)
-    const int     horizon
+    const int&    horizon
 ) {
   
   const int       N = posterior_B.n_rows;
@@ -48,13 +48,13 @@ Rcpp::List forecast_bsvar (
 
 
 
-// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 arma::cube forecast_sigma2_msh (
     arma::cube&   posterior_sigma2,   // (N, M, S)
     arma::cube&   posterior_PR_TR,    // (M, M, S)
-    arma::vec&    S_T,                // (M)
-    const int     horizon
+    arma::mat&    S_T,                // (M,S)
+    const int&    horizon
 ) {
   
   const int       N = posterior_sigma2.n_rows;
@@ -66,7 +66,7 @@ arma::cube forecast_sigma2_msh (
   for (int s=0; s<S; s++) {
     
     int St(M);
-    vec PR_ST     = S_T;
+    vec PR_ST     = S_T.col(s);
     NumericVector zeroM   = wrap(seq_len(M) - 1);
     
     for (int h=0; h<horizon; h++) {
@@ -94,9 +94,9 @@ Rcpp::List forecast_bsvar_msh (
     arma::cube&   posterior_sigma2,   // (N, M, S)
     arma::cube&   posterior_PR_TR,    // (M, M, S)
     arma::vec&    X_T,                // (K)
-    arma::vec&    S_T,                // (M)
+    arma::mat&    S_T,                // (M,S)
     arma::mat&    exogenous_forecast, // (horizon, d)
-    const int     horizon
+    const int&    horizon
 ) {
   
   const int       N = posterior_B.n_rows;
@@ -110,11 +110,11 @@ Rcpp::List forecast_bsvar_msh (
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2 - d);
-    vec ex        = X_T.rows(K - d , K - 1);
-    vec Xt        = join_cols(x_t, one, ex);
-    mat B_inv     = inv(posterior_B.slice(s));
-    mat Sigma(N, N);
+    vec   x_t       = X_T.rows(0, K - 2 - d);
+    vec   ex        = X_T.rows(K - d , K - 1);
+    vec   Xt        = join_cols(x_t, one, ex);
+    mat   B_inv     = inv(posterior_B.slice(s));
+    mat   Sigma(N, N);
     
     for (int h=0; h<horizon; h++) {
       
@@ -137,11 +137,11 @@ Rcpp::List forecast_bsvar_msh (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 arma::cube forecast_sigma2_sv (
-    arma::vec&    posterior_h_T,      // Nx1
+    arma::mat&    posterior_h_T,      // NxS
     arma::mat&    posterior_rho,      // NxS
     arma::mat&    posterior_omega,    // NxS
-    const int     horizon,
-    const bool    centred_sv = FALSE
+    const int&    horizon,
+    const bool&   centred_sv = FALSE
 ) {
   
   const int       N = posterior_rho.n_rows;
@@ -152,7 +152,7 @@ arma::cube forecast_sigma2_sv (
   
   for (int s=0; s<S; s++) {
     
-    vec     ht    = posterior_h_T;
+    vec     ht    = posterior_h_T.col(s);
     double  xx    = 0;
     
     for (int h=0; h<horizon; h++) {
@@ -179,13 +179,13 @@ arma::cube forecast_sigma2_sv (
 Rcpp::List forecast_bsvar_sv (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
-    arma::vec&    posterior_h_T,      // Nx1
+    arma::mat&    posterior_h_T,      // NxS
     arma::mat&    posterior_rho,      // NxS
     arma::mat&    posterior_omega,    // NxS
     arma::vec&    X_T,                // (K)
     arma::mat&    exogenous_forecast, // (horizon, d)
-    const int     horizon,
-    const bool    centred_sv = FALSE
+    const int&    horizon,
+    const bool&   centred_sv = FALSE
 ) {
   
   const int       N = posterior_B.n_rows;
