@@ -70,7 +70,7 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
   S               = dim(posterior_A)[3]
 
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_fevd`, posterior_irf)
+  qqq             = .Call(`_bsvars_bsvars_fevd_homosk`, posterior_irf)
 
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -122,9 +122,14 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
   N               = dim(posterior_A)[1]
   p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
+  T               = dim(posterior$posterior$xi)[2]
+  posterior_PR_TR = posterior$posterior$PR_TR
+  posterior_sigma2 = posterior$posterior$sigma2
+  S_T             = posterior$posterior$xi[,T,]
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_fevd`, posterior_irf)
+  sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -180,9 +185,14 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
   N               = dim(posterior_A)[1]
   p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
+  T               = dim(posterior$posterior$xi)[2]
+  posterior_PR_TR = posterior$posterior$PR_TR
+  posterior_sigma2 = posterior$posterior$sigma2
+  S_T             = posterior$posterior$xi[,T,]
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_fevd`, posterior_irf)
+  sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -232,9 +242,15 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
   N               = dim(posterior_A)[1]
   p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
+  T               = dim(posterior$posterior$h)[2]
+  posterior_h_T   = posterior$posterior$h[,T,]
+  posterior_rho   = posterior$posterior$rho
+  posterior_omega = posterior$posterior$omega
+  centred_sv      = posterior$last_draw$centred_sv
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_fevd`, posterior_irf)
+  sigma2          = .Call(`_bsvars_forecast_sigma2_sv`, posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
