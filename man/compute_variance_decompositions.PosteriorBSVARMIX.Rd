@@ -17,9 +17,11 @@ An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array wit
 containing \code{S} draws of the forecast error variance decomposition.
 }
 \description{
-Each of the draws from the posterior estimation of models from
-packages \pkg{bsvars} or \pkg{bsvarSIGNs}
-is transformed into a draw from the posterior distribution of the forecast error variance decomposition.
+Each of the draws from the posterior estimation of the model
+is transformed into a draw from the posterior distribution of the forecast 
+error variance decomposition. In this mixture model the forecast error 
+variance decompositions are computed for the forecasts with the origin at the
+last observation in sample data and using the conditional variance forecasts.
 }
 \examples{
 # upload data

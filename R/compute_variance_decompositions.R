@@ -57,6 +57,9 @@ compute_variance_decompositions <- function(posterior, horizon) {
 
 #' @inherit compute_variance_decompositions
 #' @method compute_variance_decompositions PosteriorBSVAR
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
 #' 
@@ -85,6 +88,11 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
 
 #' @inherit compute_variance_decompositions
 #' @method compute_variance_decompositions PosteriorBSVARMSH
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. In this heteroskedastic model the forecast error 
+#' variance decompositions are computed for the forecasts with the origin at the
+#' last observation in sample data and using the conditional variance forecasts.
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' 
@@ -148,6 +156,11 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
 
 #' @inherit compute_variance_decompositions
 #' @method compute_variance_decompositions PosteriorBSVARMIX
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. In this mixture model the forecast error 
+#' variance decompositions are computed for the forecasts with the origin at the
+#' last observation in sample data and using the conditional variance forecasts.
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
@@ -205,6 +218,11 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
 
 #' @inherit compute_variance_decompositions
 #' @method compute_variance_decompositions PosteriorBSVARSV
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. In this heteroskedastic model the forecast error 
+#' variance decompositions are computed for the forecasts with the origin at the
+#' last observation in sample data and using the conditional variance forecasts.
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' 
