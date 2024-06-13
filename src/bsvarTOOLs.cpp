@@ -76,13 +76,17 @@ arma::field<arma::cube> bsvars_fevd_homosk (
   const int       horizon = posterior_irf(0).n_slices;
   
   field<cube>     fevds(S);
-  cube            aux_fevds(N, N, horizon);  // + 0 and inf horizons
+  cube            aux_fevds(N, N, horizon);
+  cube            tmp_fevds(N, N, horizon);
   
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
+      
+      tmp_fevds.slice(h) = square(posterior_irf(s).slice(h));
+      
       for (int n=0; n<N; n++) {
         for (int nn=0; nn<N; nn++) {
-          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(square(posterior_irf(s).subcube(n, nn, 0, n, nn, h)));
+          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(tmp_fevds.subcube(n, nn, 0, n, nn, h));
         }
       }
       aux_fevds.slice(h)  = diagmat(1/sum(aux_fevds.slice(h), 1)) * aux_fevds.slice(h);
@@ -93,6 +97,7 @@ arma::field<arma::cube> bsvars_fevd_homosk (
   
   return fevds;
 } // END bsvars_fevd_homosk
+
 
 
 
@@ -109,13 +114,18 @@ arma::field<arma::cube> bsvars_fevd_heterosk (
   const int       horizon = posterior_irf(0).n_slices;
   
   field<cube>     fevds(S);
-  cube            aux_fevds(N, N, horizon);  // + 0 and inf horizons
+  cube            aux_fevds(N, N, horizon);
+  cube            tmp_fevds(N, N, horizon);
   
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
+      
+      mat diag_sigma2     = diagmat(forecast_sigma2.slice(s).col(h));
+      tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      
       for (int n=0; n<N; n++) {
         for (int nn=0; nn<N; nn++) {
-          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(square(posterior_irf(s).subcube(n, nn, 0, n, nn, h)));
+          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(tmp_fevds.subcube(n, nn, 0, n, nn, h));
         }
       }
       aux_fevds.slice(h)  = diagmat(1/sum(aux_fevds.slice(h), 1)) * aux_fevds.slice(h);
