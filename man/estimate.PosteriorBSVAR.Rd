@@ -4,7 +4,7 @@
 \alias{estimate.PosteriorBSVAR}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-\method{estimate}{PosteriorBSVAR}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{PosteriorBSVAR}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class PosteriorBSVAR generated using the \code{estimate.BSVAR()} function.

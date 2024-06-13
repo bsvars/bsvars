@@ -177,7 +177,7 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate.PosteriorBSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate.PosteriorBSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()

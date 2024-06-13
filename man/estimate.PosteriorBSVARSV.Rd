@@ -5,7 +5,7 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with 
 Stochastic Volatility heteroskedasticity via Gibbs sampler}
 \usage{
-\method{estimate}{PosteriorBSVARSV}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{PosteriorBSVARSV}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class PosteriorBSVARSV generated using the \code{estimate.BSVAR()} function.

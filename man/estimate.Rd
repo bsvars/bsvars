@@ -4,7 +4,7 @@
 \alias{estimate}
 \title{Bayesian estimation of Structural Vector Autoregressions via Gibbs sampler}
 \usage{
-estimate(specification, S, thin = 10, show_progress = TRUE)
+estimate(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object generated using one of the \code{specify_bsvar*} functions

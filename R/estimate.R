@@ -97,7 +97,7 @@
 #'   estimate(S = 100) -> posterior
 #' 
 #' @export
-estimate <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate <- function(specification, S, thin = 1, show_progress = TRUE) {
   
   # check the inputs
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)

@@ -5,7 +5,7 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with shocks following 
 a finite mixture of normal components via Gibbs sampler}
 \usage{
-\method{estimate}{PosteriorBSVARMIX}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{PosteriorBSVARMIX}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class PosteriorBSVARMIX generated using the \code{estimate.BSVAR()} function.
