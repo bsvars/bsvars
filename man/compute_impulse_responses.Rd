@@ -38,7 +38,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 20)
 
 # compute impulse responses 2 years ahead
 irf           = compute_impulse_responses(posterior, horizon = 8)
@@ -49,7 +49,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 50) |> 
+  estimate(S = 20) |> 
   compute_impulse_responses(horizon = 8) -> ir
 
 }

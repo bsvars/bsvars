@@ -30,7 +30,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
@@ -40,8 +40,8 @@
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 50) |> 
-#'   estimate(S = 100) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   compute_conditional_sd() -> csd
 #' 
 #' @export
@@ -83,7 +83,7 @@ compute_conditional_sd <- function(posterior) {
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
@@ -93,8 +93,8 @@ compute_conditional_sd <- function(posterior) {
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 50) |> 
-#'   estimate(S = 100) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   compute_conditional_sd() -> csd
 #' 
 #' @export

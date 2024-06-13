@@ -82,18 +82,18 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
-  estimate(S = 10) |> 
-  estimate(S = 50) |> 
+  estimate(S = 5) |> 
+  estimate(S = 10, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }

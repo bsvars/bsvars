@@ -36,7 +36,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 30)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -47,7 +47,7 @@
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 50) |> 
+#'   estimate(S = 20) |> 
 #'   compute_historical_decompositions() -> hd
 #' 
 #' @export
@@ -98,7 +98,7 @@ compute_historical_decompositions <- function(posterior) {
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 30)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -109,7 +109,7 @@ compute_historical_decompositions <- function(posterior) {
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 50) |> 
+#'   estimate(S = 20) |> 
 #'   compute_historical_decompositions() -> hd
 #'   
 #' @export

@@ -40,7 +40,7 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 2, M = 2)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 20)
 
 # compute the posterior draws of realized regime indicators
 regimes        = compute_regime_probabilities(posterior)
@@ -54,7 +54,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
   estimate(S = 10) |> 
-  estimate(S = 50) -> posterior
+  estimate(S = 20) -> posterior
 regimes        = compute_regime_probabilities(posterior)
 filtered       = compute_regime_probabilities(posterior, "filtered")
 

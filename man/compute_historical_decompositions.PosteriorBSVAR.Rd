@@ -35,7 +35,7 @@ specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 30)
+posterior      = estimate(burn_in, 20)
 
 # compute historical decompositions
 hd            = compute_historical_decompositions(posterior)
@@ -46,7 +46,7 @@ set.seed(123)
 diff(us_fiscal_lsuw) |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 50) |> 
+  estimate(S = 20) |> 
   compute_historical_decompositions() -> hd
   
 }
