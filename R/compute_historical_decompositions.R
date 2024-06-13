@@ -36,7 +36,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 30)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -47,7 +47,7 @@
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 50) |> 
+#'   estimate(S = 20) |> 
 #'   compute_historical_decompositions() -> hd
 #' 
 #' @export
@@ -60,10 +60,31 @@ compute_historical_decompositions <- function(posterior) {
 
 
 
-#' @inherit compute_historical_decompositions
+
 #' @method compute_historical_decompositions PosteriorBSVAR
+#' 
+#' @title Computes posterior draws of historical decompositions
+#'
+#' @description Each of the draws from the posterior estimation of models from
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the posterior distribution of the historical decompositions. 
+#' IMPORTANT! The historical decompositions are interpreted correctly for 
+#' covariance stationary data. Application to unit-root non-stationary data might
+#' result in non-interpretable outcomes.
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
+#' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
+#' decompositions.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
 #' # upload data
@@ -71,7 +92,7 @@ compute_historical_decompositions <- function(posterior) {
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
@@ -80,16 +101,16 @@ compute_historical_decompositions <- function(posterior) {
 #' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute historical decompositions
-#' hd             = compute_historical_decompositions(posterior)
+#' hd            = compute_historical_decompositions(posterior)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
-#' us_fiscal_lsuw |>
-#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#' diff(us_fiscal_lsuw) |>
+#'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20) |> 
-#'   compute_historical_decompositions() -> hds
+#'   compute_historical_decompositions() -> hd
 #'   
 #' @export
 compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
@@ -121,10 +142,31 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
 
 
 
-#' @inherit compute_historical_decompositions
+
 #' @method compute_historical_decompositions PosteriorBSVARMSH
+#' 
+#' @title Computes posterior draws of historical decompositions
+#'
+#' @description Each of the draws from the posterior estimation of models from
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the posterior distribution of the historical decompositions. 
+#' IMPORTANT! The historical decompositions are interpreted correctly for 
+#' covariance stationary data. Application to unit-root non-stationary data might
+#' result in non-interpretable outcomes.
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
+#' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
+#' decompositions.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
 #' # upload data
@@ -180,10 +222,30 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior) {
 
 
 
-#' @inherit compute_historical_decompositions
 #' @method compute_historical_decompositions PosteriorBSVARMIX
+#' 
+#' @title Computes posterior draws of historical decompositions
+#'
+#' @description Each of the draws from the posterior estimation of models from
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the posterior distribution of the historical decompositions. 
+#' IMPORTANT! The historical decompositions are interpreted correctly for 
+#' covariance stationary data. Application to unit-root non-stationary data might
+#' result in non-interpretable outcomes.
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
+#' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
+#' decompositions.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
 #' # upload data
@@ -239,10 +301,31 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior) {
 
 
 
-#' @inherit compute_historical_decompositions
+
 #' @method compute_historical_decompositions PosteriorBSVARSV
+#' 
+#' @title Computes posterior draws of historical decompositions
+#'
+#' @description Each of the draws from the posterior estimation of models from
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the posterior distribution of the historical decompositions. 
+#' IMPORTANT! The historical decompositions are interpreted correctly for 
+#' covariance stationary data. Application to unit-root non-stationary data might
+#' result in non-interpretable outcomes.
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
+#' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
+#' decompositions.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
 #' # upload data

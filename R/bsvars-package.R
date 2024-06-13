@@ -132,14 +132,14 @@
 #' data(us_fiscal_ex)      # upload exogenous variables
 #' 
 #' # specify the model and set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4, exogenous = us_fiscal_ex)
 #' set.seed(123)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4, exogenous = us_fiscal_ex)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute impulse responses 2 years ahead
 #' irf           = compute_impulse_responses(posterior, horizon = 8)

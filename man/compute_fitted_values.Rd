@@ -32,7 +32,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 20)
 
 # compute draws from in-sample predictive density
 fitted         = compute_fitted_values(posterior)
@@ -42,8 +42,8 @@ fitted         = compute_fitted_values(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 50) |> 
-  estimate(S = 100) |> 
+  estimate(S = 10) |> 
+  estimate(S = 20) |> 
   compute_fitted_values() -> fitted
 
 }

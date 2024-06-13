@@ -28,7 +28,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute draws from in-sample predictive density
 #' fitted         = compute_fitted_values(posterior)
@@ -38,8 +38,8 @@
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 50) |> 
-#'   estimate(S = 100) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   compute_fitted_values() -> fitted
 #' 
 #' @export
@@ -49,10 +49,51 @@ compute_fitted_values <- function(posterior) {
 
 
 
-#' @inherit compute_fitted_values
+
 #' @method compute_fitted_values PosteriorBSVAR
+#' 
+#' @title Computes posterior draws from data predictive density
+#'
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the data predictive density. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+#' the data predictive density.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute draws from in-sample predictive density
+#' fitted         = compute_fitted_values(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_fitted_values() -> fitted
 #' 
 #' @export
 compute_fitted_values.PosteriorBSVAR <- function(posterior) {
@@ -74,10 +115,25 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 
 
 
-#' @inherit compute_fitted_values
+
 #' @method compute_fitted_values PosteriorBSVARMSH
+#' 
+#' @title Computes posterior draws from data predictive density
+#'
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the data predictive density. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+#' the data predictive density.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data
@@ -127,10 +183,25 @@ compute_fitted_values.PosteriorBSVARMSH <- function(posterior) {
 
 
 
-#' @inherit compute_fitted_values
+
 #' @method compute_fitted_values PosteriorBSVARMIX
+#' 
+#' @title Computes posterior draws from data predictive density
+#'
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the data predictive density. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+#' the data predictive density.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data
@@ -178,10 +249,25 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
 
 
 
-#' @inherit compute_fitted_values
+
 #' @method compute_fitted_values PosteriorBSVARSV
+#' 
+#' @title Computes posterior draws from data predictive density
+#'
+#' @description Each of the draws from the posterior estimation of models from 
+#' packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+#' a draw from the data predictive density. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+#' the data predictive density.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data

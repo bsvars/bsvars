@@ -4,7 +4,7 @@
 \alias{estimate.BSVAR}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-\method{estimate}{BSVAR}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{BSVAR}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
@@ -59,17 +59,18 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 50)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 100)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 50) |> 
+  estimate(S = 5) |> 
+  estimate(S = 10, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }

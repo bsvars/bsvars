@@ -277,7 +277,7 @@ forecast.PosteriorBSVARMIX = function(
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 20, thin = 2)
 #' 
 #' # sample from predictive density 1 year ahead
 #' predictive     = forecast(posterior, 4)
@@ -288,7 +288,7 @@ forecast.PosteriorBSVARMIX = function(
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |>
-#'   estimate(S = 10, thin = 2) |>  
+#'   estimate(S = 20, thin = 2) |>  
 #'   forecast(horizon = 4) -> predictive
 #'   
 #' @export

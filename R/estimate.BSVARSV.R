@@ -105,7 +105,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 20, 2)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -113,11 +113,11 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 10, thin = 2) |> 
+#'   estimate(S = 20, thin = 2) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
   
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
@@ -165,7 +165,7 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' posterior      = estimate(burn_in, 20, 2)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -173,11 +173,11 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 10, thin = 2) |> 
+#'   estimate(S = 20, thin = 2) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate.PosteriorBSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate.PosteriorBSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()

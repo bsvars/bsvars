@@ -83,21 +83,21 @@
 #' set.seed(123)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate(specification, 50)
+#' burn_in        = estimate(specification, 5)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 100)
+#' posterior      = estimate(burn_in, 10, thin = 2)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 50) |> 
-#'   estimate(S = 100) -> posterior
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10, thin = 2) -> posterior
 #' 
 #' @export
-estimate <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate <- function(specification, S, thin = 1, show_progress = TRUE) {
   
   # check the inputs
   stopifnot("Argument S must be a positive integer number." = S > 1 & S %% 1 == 0)

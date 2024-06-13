@@ -5,7 +5,7 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with 
 Stochastic Volatility heteroskedasticity via Gibbs sampler}
 \usage{
-\method{estimate}{BSVARSV}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{BSVARSV}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class BSVARSV generated using the \code{specify_bsvar_sv$new()} function.}
@@ -98,7 +98,7 @@ set.seed(123)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 10, thin = 2)
+posterior      = estimate(burn_in, 20, 2)
 
 # workflow with the pipe |>
 ############################################################
@@ -106,7 +106,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 10, thin = 2) |> 
+  estimate(S = 20, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }

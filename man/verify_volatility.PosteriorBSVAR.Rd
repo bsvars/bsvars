@@ -26,7 +26,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate(specification, 5, thin = 1)
+posterior      = estimate(specification, 10, thin = 1)
 
 # verify heteroskedasticity
 sddr           = verify_volatility(posterior)
@@ -36,7 +36,7 @@ sddr           = verify_volatility(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 5, thin = 1) |> 
+  estimate(S = 10, thin = 1) |> 
   verify_volatility() -> sddr
   
 }

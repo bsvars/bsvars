@@ -30,7 +30,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 50)
+#' posterior      = estimate(burn_in, 20)
 #' 
 #' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
@@ -40,8 +40,8 @@
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 50) |> 
-#'   estimate(S = 100) |> 
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
 #'   compute_conditional_sd() -> csd
 #' 
 #' @export
@@ -52,12 +52,50 @@ compute_conditional_sd <- function(posterior) {
 
 
 
-
-
-#' @inherit compute_conditional_sd
 #' @method compute_conditional_sd PosteriorBSVAR
+#' 
+#' @title Computes posterior draws of structural shock conditional standard deviations
+#'
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' sigma          = compute_conditional_sd(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_conditional_sd() -> csd
 #' 
 #' @export
 compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
@@ -78,10 +116,24 @@ compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
 
 
 
-#' @inherit compute_conditional_sd
 #' @method compute_conditional_sd PosteriorBSVARMSH
+#' 
+#' @title Computes posterior draws of structural shock conditional standard deviations
+#'
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data
@@ -122,10 +174,25 @@ compute_conditional_sd.PosteriorBSVARMSH <- function(posterior) {
 
 
 
-#' @inherit compute_conditional_sd
+
 #' @method compute_conditional_sd PosteriorBSVARMIX
+#' 
+#' @title Computes posterior draws of structural shock conditional standard deviations
+#'
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data
@@ -164,10 +231,25 @@ compute_conditional_sd.PosteriorBSVARMIX <- function(posterior) {
 
 
 
-#' @inherit compute_conditional_sd
+
 #' @method compute_conditional_sd PosteriorBSVARSV
+#' 
+#' @title Computes posterior draws of structural shock conditional standard deviations
+#'
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
+#' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
 #' # upload data

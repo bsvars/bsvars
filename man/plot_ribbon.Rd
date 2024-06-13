@@ -52,7 +52,7 @@ set.seed(123)                                                      # set seed
 specification  = specify_bsvar$new(us_fiscal_lsuw)                 # specify model
 
 burn_in        = estimate(specification, 10)                       # run the burn-in
-posterior      = estimate(burn_in, 30, thin = 1)                   # estimate the model
+posterior      = estimate(burn_in, 20, thin = 1)                   # estimate the model
 irf            = compute_impulse_responses(posterior, horizon = 4) # impulse responses
 plot_ribbon(irf[1,1,,])
 

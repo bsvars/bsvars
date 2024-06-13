@@ -23,8 +23,14 @@ arma::field<arma::cube> bsvars_ir (
 );
 
 
-arma::field<arma::cube> bsvars_fevd (
-    arma::field<arma::cube>   posterior_irf   // output of bsvars_irf
+arma::field<arma::cube> bsvars_fevd_homosk (
+    arma::field<arma::cube>&    posterior_irf   // output of bsvars_irf
+);
+
+
+arma::field<arma::cube> bsvars_fevd_heterosk (
+    arma::field<arma::cube>&    posterior_irf,   // output of bsvars_irf
+    arma::cube&                 forecast_sigma2  // (N, H, S) output from forecast_sigma2 or forecast_sigma2_msh
 );
 
 
