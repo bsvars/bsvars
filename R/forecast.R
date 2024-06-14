@@ -82,6 +82,33 @@ forecast <- function(
 #'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 #' }
 #' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # sample from predictive density 1 year ahead
+#' predictive     = forecast(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   forecast(horizon = 4) -> predictive
+#' 
+#' 
 #' @export
 forecast.PosteriorBSVAR = function(
     posterior, 
@@ -109,7 +136,32 @@ forecast.PosteriorBSVAR = function(
     stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
   }
   
-  fore            = .Call(`_bsvars_forecast_bsvar`, posterior_B, posterior_A, X_T, exogenous_forecast, horizon)
+  do_conditional_forecasting = !is.null(conditional_forecast)
+  
+  if (!do_conditional_forecasting) {
+    
+    fore          = .Call(`_bsvars_forecast_bsvar`, posterior_B, posterior_A, 
+                          X_T, exogenous_forecast, horizon)
+  
+    } else {
+    
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+    
+    # perform conditional forecasting
+    fore          = .Call(`_bsvars_forecast_conditional_bsvar`, posterior_B, posterior_A, 
+                          X_T, exogenous_forecast, conditional_forecast, horizon)
+    
+  }
   fore$Y          = Y
   class(fore)     = "Forecasts"
   
@@ -185,7 +237,33 @@ forecast.PosteriorBSVARMSH = function(
     stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
   }
   
-  fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+  do_conditional_forecasting = !is.null(conditional_forecast)
+  
+  if (!do_conditional_forecasting) {
+    
+    fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, 
+                            posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+    
+  } else {
+    
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+    
+    fore            = .Call(`_bsvars_forecast_conditional_bsvar_msh`, posterior_B, 
+                            posterior_A, posterior_sigma2, posterior_PR_TR, X_T, 
+                            S_T, exogenous_forecast, conditional_forecast, horizon)
+    
+  }
+  
   fore$Y          = Y
   class(fore)     = "Forecasts"
   
@@ -261,7 +339,33 @@ forecast.PosteriorBSVARMIX = function(
     stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
   }
   
-  fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+  do_conditional_forecasting = !is.null(conditional_forecast)
+  
+  if (!do_conditional_forecasting) {
+    
+    fore            = .Call(`_bsvars_forecast_bsvar_msh`, posterior_B, posterior_A, 
+                            posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon)
+    
+  } else {
+    
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+    
+    fore            = .Call(`_bsvars_forecast_conditional_bsvar_msh`, posterior_B, 
+                            posterior_A, posterior_sigma2, posterior_PR_TR, X_T, 
+                            S_T, exogenous_forecast, conditional_forecast, horizon)
+    
+  }
+  
   fore$Y          = Y
   class(fore)     = "Forecasts"
   
@@ -338,8 +442,35 @@ forecast.PosteriorBSVARSV = function(
     stopifnot("Argument exogenous has to be a matrix." = is.matrix(exogenous_forecast) & is.numeric(exogenous_forecast))
     stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
   }
+  
+  do_conditional_forecasting = !is.null(conditional_forecast)
+  
+  if (!do_conditional_forecasting) {
+    
+    fore            = .Call(`_bsvars_forecast_bsvar_sv`, posterior_B, posterior_A, 
+                            posterior_h_T, posterior_rho, posterior_omega, X_T, 
+                            exogenous_forecast, horizon, centred_sv)
+    
+  } else {
+    
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+    
+    fore            = .Call(`_bsvars_forecast_conditional_bsvar_sv`, posterior_B, posterior_A, 
+                            posterior_h_T, posterior_rho, posterior_omega, X_T, 
+                            exogenous_forecast, conditional_forecast, horizon, centred_sv)
+    
+  }
 
-  fore            = .Call(`_bsvars_forecast_bsvar_sv`, posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, exogenous_forecast, horizon, centred_sv)
   fore$Y          = Y
   class(fore)     = "Forecasts"
   
