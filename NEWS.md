@@ -1,13 +1,13 @@
-# bsvars 3.0.0.
+# bsvars 3.0
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestone/5) towards the next version 3.1.0.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
 1. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
-2. The package includes a superb vignette [#5](https://github.com/bsvars/bsvars/issues/5)
-3. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
-4. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+2. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
+3. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+4. Method `forecast` allow for conditional forecasting given provided future trajectories of selected variables [#76](https://github.com/bsvars/bsvars/issues/76)
 5. Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
 6. A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
 7. The website features the new logo. And includes some new information [#38](https://github.com/bsvars/bsvars/issues/38)
