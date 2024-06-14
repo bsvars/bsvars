@@ -98,7 +98,10 @@ forecasted values of the exogenous variables.</p></dd>
 
 
 <dt>conditional_forecast</dt>
-<dd><p>forecasted values for selected variables.</p></dd>
+<dd><p>a <code>horizon x N</code> matrix with forecasted values 
+for selected variables. It should only contain <code>numeric</code> or <code>NA</code> 
+values. The entries with <code>NA</code> values correspond to the values that are 
+forecasted conditionally on the realisations provided as <code>numeric</code> values.</p></dd>
 
 </dl></div>
     <div class="section level2">
