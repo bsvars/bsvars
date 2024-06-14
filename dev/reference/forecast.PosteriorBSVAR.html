@@ -190,6 +190,41 @@ draws from the predictive density and data. The output list includes element:</p
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># conditional forecasting 2 quarters ahead conditioning on </span></span></span>
+<span class="r-in"><span><span class="co">#  provided future values for the Gross Domestic Product </span></span></span>
+<span class="r-in"><span><span class="co">############################################################</span></span></span>
+<span class="r-in"><span><span class="va">cf</span>        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span> , <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cf</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>   <span class="co"># conditional forecasts equal to the last gdp observation</span></span></span>
+<span class="r-in"><span><span class="va">predictive</span>    <span class="op">=</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="fl">2</span>, conditional_forecast <span class="op">=</span> <span class="va">cf</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
+<span class="r-in"><span><span class="co">############################################################</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="va"><a href="specify_bsvar.html">specify_bsvar</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">2</span>, conditional_forecast <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">predictive</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR model                 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 10 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR model                 |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 20 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
