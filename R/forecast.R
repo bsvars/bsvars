@@ -108,6 +108,21 @@ forecast <- function(
 #'   estimate(S = 20) |> 
 #'   forecast(horizon = 4) -> predictive
 #' 
+#' # conditional forecasting 2 quarters ahead conditioning on 
+#' #  provided future values for the Gross Domestic Product 
+#' ############################################################
+#' cf        = matrix(NA , 2, 3)
+#' cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
+#' predictive    = forecast(posterior, 2, conditional_forecast = cf)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   forecast(horizon = 2, conditional_forecast = cf) -> predictive
 #' 
 #' @export
 forecast.PosteriorBSVAR = function(
@@ -206,6 +221,22 @@ forecast.PosteriorBSVAR = function(
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20) |> 
 #'   forecast(horizon = 4) -> predictive
+#'   
+#' # conditional forecasting 2 quarters ahead conditioning on 
+#' #  provided future values for the Gross Domestic Product 
+#' ############################################################
+#' cf        = matrix(NA , 2, 3)
+#' cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
+#' predictive    = forecast(posterior, 2, conditional_forecast = cf)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   forecast(horizon = 2, conditional_forecast = cf) -> predictive
 #'   
 #' @export
 forecast.PosteriorBSVARMSH = function(
@@ -309,6 +340,22 @@ forecast.PosteriorBSVARMSH = function(
 #'   estimate(S = 20) |>  
 #'   forecast(horizon = 4) -> predictive
 #'   
+#' # conditional forecasting 2 quarters ahead conditioning on 
+#' #  provided future values for the Gross Domestic Product 
+#' ############################################################
+#' cf        = matrix(NA , 2, 3)
+#' cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
+#' predictive    = forecast(posterior, 2, conditional_forecast = cf)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   forecast(horizon = 2, conditional_forecast = cf) -> predictive
+#'   
 #' @export
 forecast.PosteriorBSVARMIX = function(
     posterior, 
@@ -410,6 +457,22 @@ forecast.PosteriorBSVARMIX = function(
 #'   estimate(S = 10) |>
 #'   estimate(S = 20, thin = 2) |>  
 #'   forecast(horizon = 4) -> predictive
+#'   
+#' # conditional forecasting 2 quarters ahead conditioning on 
+#' #  provided future values for the Gross Domestic Product 
+#' ############################################################
+#' cf        = matrix(NA , 2, 3)
+#' cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
+#' predictive    = forecast(posterior, 2, conditional_forecast = cf)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   forecast(horizon = 2, conditional_forecast = cf) -> predictive
 #'   
 #' @export
 forecast.PosteriorBSVARSV = function(

@@ -66,6 +66,22 @@ us_fiscal_lsuw |>
   estimate(S = 20) |> 
   forecast(horizon = 4) -> predictive
 
+# conditional forecasting 2 quarters ahead conditioning on 
+#  provided future values for the Gross Domestic Product 
+############################################################
+cf        = matrix(NA , 2, 3)
+cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
+predictive    = forecast(posterior, 2, conditional_forecast = cf)
+
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1) |>
+  estimate(S = 10) |> 
+  estimate(S = 20) |> 
+  forecast(horizon = 2, conditional_forecast = cf) -> predictive
+
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
