@@ -20,7 +20,10 @@
 \item{exogenous_forecast}{a matrix of dimension \code{horizon x d} containing 
 forecasted values of the exogenous variables.}
 
-\item{conditional_forecast}{forecasted values for selected variables.}
+\item{conditional_forecast}{a \code{horizon x N} matrix with forecasted values 
+for selected variables. It should only contain \code{numeric} or \code{NA} 
+values. The entries with \code{NA} values correspond to the values that are 
+forecasted conditionally on the realisations provided as \code{numeric} values.}
 }
 \value{
 A list of class \code{Forecasts} containing the

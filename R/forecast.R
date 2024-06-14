@@ -68,7 +68,11 @@ forecast <- function(
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
 #' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
-#' forecasted values of the exogenous variables.
+#' forecasted values of the exogenous variables. 
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
 #' 
 #' @return A list of class \code{Forecasts} containing the
 #' draws from the predictive density and data. The output list includes element:
@@ -120,6 +124,10 @@ forecast.PosteriorBSVAR = function(
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
 #' forecasted values of the exogenous variables.
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
 #' 
 #' @examples
 #' # upload data
@@ -192,6 +200,10 @@ forecast.PosteriorBSVARMSH = function(
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
 #' forecasted values of the exogenous variables.
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
 #' 
 #' @examples
 #' # upload data
@@ -264,6 +276,10 @@ forecast.PosteriorBSVARMIX = function(
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
 #' forecasted values of the exogenous variables.
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
 #' 
 #' @examples
 #' # upload data
