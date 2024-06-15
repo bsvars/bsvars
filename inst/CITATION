@@ -5,16 +5,16 @@ bibentry(bibtype = "Manual",
   author       = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
   year         = 2024,
   note     = "R package version 3.0",
-  url      = "https://cran.r-project.org/package=bsvars",
-  doi      = "https://doi.org/10.32614/CRAN.package.bsvars",
-  textVersion = "Woźniak, Tomasz (2024). bsvars: Bayesian Estimation of Structural Vector Autoregressive Models. R package version 3.0, URL: https://cran.r-project.org/package=bsvars, DOI: https://doi.org/10.32614/CRAN.package.bsvars."
+  url      = "https://CRAN.R-project.org/package=bsvars",
+  doi      = "10.32614/CRAN.package.bsvars",
+  textVersion = "Woźniak, Tomasz (2024). bsvars: Bayesian Estimation of Structural Vector Autoregressive Models. R package version 3.0, URL: https://cran.r-project.org/package=bsvars, DOI: 10.32614/CRAN.package.bsvars."
 )
 
 bibentry(bibtype = "article",
   header = "To cite methods for SVAR-SV models used in bsvars package in publications please use:",
   title = "Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference",
-  author = personList(
-                   person(given = "Helmut", family = "L\\¨utkepohl"),
+  author = c(
+                   person(given = "Helmut", family = "Lütkepohl"),
                    person(given = "Fei", family = "Shang"),
                    person(given = "Luis", family = "Uzeda"),
                    person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me")),

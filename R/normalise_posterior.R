@@ -27,7 +27,7 @@
 #' 
 #' @references 
 #' Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multiple Equation Models. 
-#' \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \url{https://doi.org/10.1016/S0304-4076(03)00087-3}.
+#' \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{10.1016/S0304-4076(03)00087-3}.
 #'
 #' @examples
 #' # upload data

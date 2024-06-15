@@ -60,7 +60,7 @@ filtered       = compute_regime_probabilities(posterior, "filtered")
 
 }
 \references{
-Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \url{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
+Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 }
 \seealso{
 \code{\link{estimate}}, \code{\link{summary}}

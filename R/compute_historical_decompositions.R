@@ -342,10 +342,10 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate(specification, 10)
+#' burn_in        = estimate(specification, 5)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd             = compute_historical_decompositions(posterior)
@@ -355,8 +355,8 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export

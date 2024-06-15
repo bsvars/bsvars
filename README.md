@@ -9,7 +9,7 @@ Autoregressive Models
 <!-- badges: start -->
 
 [![CRAN
-version](http://www.r-pkg.org/badges/version/bsvars)](https://cran.r-project.org/package=bsvars)
+version](http://www.r-pkg.org/badges/version/bsvars)](https://CRAN.R-project.org/package=bsvars)
 [![R-CMD-check](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bsvars/bsvars/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -168,9 +168,9 @@ Now, you’re ready to analyse your model!
 
 You must have a **cpp** compiler. Follow the instructions from [Section
 1.3. by Eddelbuettel & François
-(2023)](https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
+(2023)](https://CRAN.R-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
 In short, for **Windows:** install
-[RTools](https://cran.r-project.org/bin/windows/Rtools/), for **macOS:**
+[RTools](https://CRAN.R-project.org/bin/windows/Rtools/), for **macOS:**
 install [Xcode Command Line
 Tools](https://www.freecodecamp.org/news/install-xcode-command-line-tools/),
 and for **Linux:** install the standard developement packages.
