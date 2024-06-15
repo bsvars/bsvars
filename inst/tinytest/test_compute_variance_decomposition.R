@@ -21,7 +21,7 @@ expect_error(
   info = "compute_variance_decompositions: specify horizon."
 )
 
-expect_identical(
+expect_equal(
   sum(fevd[1,,1,1]), 100,
   info = "compute_variance_decompositions: sum to 100%."
 )
@@ -52,7 +52,7 @@ expect_error(
   info = "compute_variance_decompositions in a heteroskedastic model: specify horizon."
 )
 
-expect_identical(
+expect_equal(
   sum(fevd[1,,1,1]), 100,
   info = "compute_variance_decompositions in a heteroskedastic model: sum to 100%."
 )
