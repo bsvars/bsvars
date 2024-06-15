@@ -1,9 +1,9 @@
 
 #' @title A 3-variable system of exogenous variables for the US fiscal model for 
-#' the period 1948 Q1 -- 2023 Q4
+#' the period 1948 Q1 -- 2024 Q1
 #'
 #' @description Exogenous variables used to identify the US fiscal policy shocks.
-#' Last data update was implemented on 2024-04-26.
+#' Last data update was implemented on 2024-06-15.
 #'
 #' @usage data(us_fiscal_ex)
 #' 
