@@ -10,12 +10,12 @@ navbar:
     right: [mastodon, bluesky, github]
   components:
     mastodon:
-      icon: bi-mastodon
+      icon: mastodon
       href: https://fosstodon.org/@bsvars
       aria-label: mastodon
     bluesky:
       icon: fa-cloud
-      href: https://bsky.app/profile/bsvars.bsky.social
+      href: https://bsky.app/profile/did:plc:lv7kan7iizgudi6oof3ykyoo
       aria-label: bluesky
 
 reference:
