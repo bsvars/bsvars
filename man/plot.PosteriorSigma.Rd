@@ -44,8 +44,8 @@ including their median and percentiles.
 data(us_fiscal_lsuw)                                  # upload data
 set.seed(123)                                         # set seed
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
-burn_in        = estimate(specification, 10)          # run the burn-in
-posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+burn_in        = estimate(specification, 5)           # run the burn-in
+posterior      = estimate(burn_in, 5)                 # estimate the model
 
 # compute structural shocks' conditional standard deviations
 sigma          = compute_conditional_sd(posterior)
@@ -56,8 +56,8 @@ plot(sigma)                                            # plot conditional sds
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
-  estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_conditional_sd() |>
   plot()
 

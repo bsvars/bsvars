@@ -2,7 +2,19 @@
 
 ## Comments responding to cran-submissions@r-project.org
 
-TBA
+Thank you for your feedback! I have now accommodated all of it!
+- the spelling is as desired
+- corrected the links to a desired format
+- chenged the `\url{}` to `\doi{}` where it showed problems
+- improved the running time of examples
+- Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
+```
+checking installed package size ... NOTE
+  installed size is 12.2Mb
+  sub-directories of 1Mb or more:
+    libs  11.1Mb
+```
+This does not show in any of my tests, e.g., running `devtools::check()`
 
 ## R CMD check results
 

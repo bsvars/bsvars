@@ -168,7 +168,7 @@ Now, you’re ready to analyse your model!
 
 You must have a **cpp** compiler. Follow the instructions from [Section
 1.3. by Eddelbuettel & François
-(2023)](https://CRAN.R-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
+(2023)](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
 In short, for **Windows:** install
 [RTools](https://CRAN.R-project.org/bin/windows/Rtools/), for **macOS:**
 install [Xcode Command Line
@@ -213,8 +213,7 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/google.svg" width="40" height="40"/>
 </a> <a href="https://arxiv.org/a/wozniak_t_1">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-xmark.svg" width="40" height="40"/>
-</a>
-<a href="https://www.linkedin.com/in/tomasz-wo%C5%BAniak-7b85361b1">
+</a> <a href="www.linkedin.com/in/tomaszwwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@tomaszwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>

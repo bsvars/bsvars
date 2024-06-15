@@ -21,7 +21,7 @@ Differences with respect to Mertens & Ravn's data :
 }
 }
 \source{
-U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/products/national-income-and-product-accounts}
+U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/}
 
 FRED Economic Database, Federal Reserve Bank of St. Louis, \url{https://fred.stlouisfed.org/}
 }

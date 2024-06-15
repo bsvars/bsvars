@@ -116,7 +116,7 @@ Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs wit
 
 Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
 Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
-\url{10.1016/j.csda.2013.01.002}.
+\doi{10.1016/j.csda.2013.01.002}.
 
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 

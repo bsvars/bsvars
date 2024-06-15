@@ -603,10 +603,10 @@ summary.PosteriorBSVARMIX = function(
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate(specification, 10)
+#' burn_in        = estimate(specification, 5)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20, thin = 1)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks' conditional standard deviations
 #' sigma          = compute_conditional_sd(posterior)
@@ -617,8 +617,8 @@ summary.PosteriorBSVARMIX = function(
 #' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_conditional_sd() |>
 #'   summary() -> sigma_summary
 #' 

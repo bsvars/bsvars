@@ -29,7 +29,7 @@
 #' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 #' 
 #' @source 
-#' U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/products/national-income-and-product-accounts}
+#' U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/}
 #' 
 #' FRED Economic Database, Federal Reserve Bank of St. Louis, \url{https://fred.stlouisfed.org/}
 #' 
