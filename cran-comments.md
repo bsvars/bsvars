@@ -1,8 +1,8 @@
-## Submission notes bsvars v2.1.0
+## Submission notes bsvars v3.0
 
 ## Comments responding to cran-submissions@r-project.org
 
-All NOTEs corrected!
+
 
 ## R CMD check results
 
