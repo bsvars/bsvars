@@ -4,11 +4,13 @@
 \alias{compute_historical_decompositions.PosteriorBSVAR}
 \title{Computes posterior draws of historical decompositions}
 \usage{
-\method{compute_historical_decompositions}{PosteriorBSVAR}(posterior)
+\method{compute_historical_decompositions}{PosteriorBSVAR}(posterior, show_progress = TRUE)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
 \code{PosteriorBSVAR} obtained by running the \code{estimate} function.}
+
+\item{show_progress}{a logical value, if \code{TRUE} the estimation progress bar is visible}
 }
 \value{
 An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 

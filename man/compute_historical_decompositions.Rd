@@ -4,13 +4,15 @@
 \alias{compute_historical_decompositions}
 \title{Computes posterior draws of historical decompositions}
 \usage{
-compute_historical_decompositions(posterior)
+compute_historical_decompositions(posterior, show_progress = TRUE)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome obtained by running the \code{estimate} 
 function. The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings 
 are appropriate.}
+
+\item{show_progress}{a logical value, if \code{TRUE} the estimation progress bar is visible}
 }
 \value{
 An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 

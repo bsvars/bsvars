@@ -12,6 +12,7 @@
 #' function. The interpretation depends on the normalisation of the shocks
 #' using function \code{normalise_posterior()}. Verify if the default settings 
 #' are appropriate.
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
@@ -51,7 +52,8 @@
 #'   compute_historical_decompositions() -> hd
 #' 
 #' @export
-compute_historical_decompositions <- function(posterior) {
+compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
+  stopifnot("Argument show_progress must be a logical value." = is.logical(show_progress))
   UseMethod("compute_historical_decompositions", posterior)
 }
 
@@ -74,6 +76,7 @@ compute_historical_decompositions <- function(posterior) {
 #' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVAR} obtained by running the \code{estimate} function.
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
@@ -113,7 +116,7 @@ compute_historical_decompositions <- function(posterior) {
 #'   compute_historical_decompositions() -> hd
 #'   
 #' @export
-compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
+compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_progress = TRUE) {
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -128,7 +131,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss)
+  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
   hd              = array(NA, c(N, N, T, S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
@@ -156,6 +159,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
 #' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
@@ -195,7 +199,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior) {
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
-compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior) {
+compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior, show_progress = TRUE) {
 
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -210,7 +214,7 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior) {
 
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss)
+  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
 
   hd              = array(NA, c(N, N, T, S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
@@ -235,6 +239,7 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior) {
 #' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
@@ -274,7 +279,7 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior) {
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
-compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior) {
+compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_progress = TRUE) {
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -289,7 +294,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss)
+  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
   hd              = array(NA, c(N, N, T, S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
@@ -315,6 +320,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior) {
 #' 
 #' @param posterior posterior estimation outcome - an object of class 
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
+#' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
 #' @return An object of class \code{PosteriorHD}, that is, an \code{NxNxTxS} array 
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
@@ -354,7 +360,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior) {
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
-compute_historical_decompositions.PosteriorBSVARSV <- function(posterior) {
+compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_progress = TRUE) {
   
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
@@ -369,7 +375,7 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss)
+  qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
   hd              = array(NA, c(N, N, T, S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
