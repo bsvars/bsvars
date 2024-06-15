@@ -151,17 +151,17 @@ namespace bsvars {
         return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
-    inline arma::field<arma::cube> bsvars_hd(arma::field<arma::cube>& posterior_irf_T, arma::cube& structural_shocks) {
-        typedef SEXP(*Ptr_bsvars_hd)(SEXP,SEXP);
+    inline arma::field<arma::cube> bsvars_hd(arma::field<arma::cube>& posterior_irf_T, arma::cube& structural_shocks, const bool show_progress = true) {
+        typedef SEXP(*Ptr_bsvars_hd)(SEXP,SEXP,SEXP);
         static Ptr_bsvars_hd p_bsvars_hd = NULL;
         if (p_bsvars_hd == NULL) {
-            validateSignature("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&)");
+            validateSignature("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&,const bool)");
             p_bsvars_hd = (Ptr_bsvars_hd)R_GetCCallable("bsvars", "_bsvars_bsvars_hd");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_bsvars_hd(Shield<SEXP>(Rcpp::wrap(posterior_irf_T)), Shield<SEXP>(Rcpp::wrap(structural_shocks)));
+            rcpp_result_gen = p_bsvars_hd(Shield<SEXP>(Rcpp::wrap(posterior_irf_T)), Shield<SEXP>(Rcpp::wrap(structural_shocks)), Shield<SEXP>(Rcpp::wrap(show_progress)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

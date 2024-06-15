@@ -1,5 +1,6 @@
 
 #include <RcppArmadillo.h>
+#include "progress.hpp"
 #include "msh.h"
 #include "forecast.h"
 
@@ -168,18 +169,39 @@ arma::cube bsvars_structural_shocks (
 // [[Rcpp::export]]
 arma::field<arma::cube> bsvars_hd (
     arma::field<arma::cube>&    posterior_irf_T,    // output of bsvars_irf with irfs at T horizons
-    arma::cube&                 structural_shocks   // NxTxS output bsvars_structural_shocks
+    arma::cube&                 structural_shocks,  // NxTxS output bsvars_structural_shocks
+    const bool                  show_progress = true
 ) {
   
   const int       N = structural_shocks.n_rows;
   const int       T = structural_shocks.n_cols;
   const int       S = structural_shocks.n_slices;
   
+  // Progress bar setup
+  vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
+  if (show_progress) {
+    Rcout << "**************************************************|" << endl;
+    Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Computing historical decomposition               |" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " This might take a little while :)                " << endl;
+    Rcout << "**************************************************|" << endl;
+  }
+  Progress p(50, show_progress);
+  
+  
   field<cube>     hds(S);
   cube            aux_hds(N, N, T);
   mat             posterior_irf_t(N, N);
   
   for (int s=0; s<S; s++) {
+    
+    // Increment progress bar
+    if (any(prog_rep_points == s)) p.increment();
+    // Check for user interrupts
+    if (s % 200 == 0) checkUserInterrupt();
+    
     for (int t=0; t<T; t++) {
       
       cube        hds_at_t(N, N, t + 1);
