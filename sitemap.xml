@@ -19,22 +19,100 @@
     <loc>https://bsvars.github.io/bsvars/reference/bsvars-package.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_conditional_sd.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_conditional_sd.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_conditional_sd.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_conditional_sd.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_conditional_sd.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_fitted_values.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_fitted_values.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_fitted_values.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_fitted_values.PosteriorBSVARSV.html</loc>
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_fitted_values.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_historical_decompositions.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_historical_decompositions.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_historical_decompositions.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_historical_decompositions.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_historical_decompositions.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_impulse_responses.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_impulse_responses.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_impulse_responses.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_impulse_responses.PosteriorBSVARSV.html</loc>
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_impulse_responses.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_regime_probabilities.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_regime_probabilities.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_regime_probabilities.html</loc>
   </url>
   <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_structural_shocks.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_structural_shocks.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_structural_shocks.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_structural_shocks.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_structural_shocks.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_variance_decompositions.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_variance_decompositions.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_variance_decompositions.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/compute_variance_decompositions.PosteriorBSVARSV.html</loc>
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/compute_variance_decompositions.html</loc>
@@ -86,6 +164,33 @@
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/normalise_posterior.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.Forecasts.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorFEVD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorFitted.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorHD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorIR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorRegimePr.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorShocks.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot.PosteriorSigma.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/plot_ribbon.html</loc>
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/specify_bsvar.html</loc>
@@ -140,6 +245,48 @@
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/specify_starting_values_bsvar_sv.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.Forecasts.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorBSVAR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorBSVARMIX.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorBSVARMSH.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorBSVARSV.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorFEVD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorFitted.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorHD.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorIR.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorRegimePr.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorShocks.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.PosteriorSigma.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.SDDRautoregression.html</loc>
+  </url>
+  <url>
+    <loc>https://bsvars.github.io/bsvars/reference/summary.SDDRvolatility.html</loc>
   </url>
   <url>
     <loc>https://bsvars.github.io/bsvars/reference/us_fiscal_ex.html</loc>
