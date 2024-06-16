@@ -1,5 +1,16 @@
 ## Submission notes bsvars v3.0
 
+## Responding to Uwe Ligges' email:
+
+>Thanks, we see:
+>
+>
+>   Found the following (possibly) invalid file URI:
+>     URI: www.linkedin.com/in/tomaszwwozniak
+>       From: README.md
+
+The link has been corrected! Thank you!
+
 ## Comments responding to cran-submissions@r-project.org
 
 Thank you for your feedback! I have now accommodated all of it!
