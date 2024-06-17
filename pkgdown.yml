@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-06-16T23:27Z
+last_built: 2024-06-17T05:02Z
 urls:
   reference: https://bsvars.github.io/bsvars/reference
   article: https://bsvars.github.io/bsvars/articles
