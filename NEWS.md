@@ -1,8 +1,11 @@
-# bsvars 3.0
+# bsvars 3.0.0.9000
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
+
+
+# bsvars 3.0
 
 1. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
 2. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
