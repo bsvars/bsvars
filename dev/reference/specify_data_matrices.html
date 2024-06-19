@@ -12,7 +12,7 @@ and regressors, \(X\), for the homoskedastic bsvar model."><meta property="og:im
     
     <a class="navbar-brand me-2" href="../index.html">bsvars</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,12 +31,12 @@ and regressors, \(X\), for the homoskedastic bsvar model."><meta property="og:im
 
       <ul class="navbar-nav"><li class="nav-item">
   <a class="external-link nav-link" href="https://fosstodon.org/@bsvars" aria-label="mastodon">
-    <span class="bi bi-mastodon"></span>
+    <span class=" mastodon"></span>
      
   </a>
 </li>
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://bsky.app/profile/bsvars.bsky.social" aria-label="bluesky">
+  <a class="external-link nav-link" href="https://bsky.app/profile/did:plc:lv7kan7iizgudi6oof3ykyoo" aria-label="bluesky">
     <span class="fa fa-cloud"></span>
      
   </a>
@@ -156,8 +156,8 @@ This matrix should not include a constant term.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">YX</span> <span class="op">=</span> <span class="va">specify_data_matrices</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 301</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -348,10 +348,10 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.840683 -8.859386 -8.860952 -8.880481 -8.958526 -8.961428 -8.964143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.848422 -9.865009 -9.863012 -9.841054 -9.833407 -9.831575 -9.815022</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.099449 -7.102256 -7.097561 -7.093165 -7.092966 -7.089761 -7.080117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.961122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.805858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.074026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]    [,301]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.966377 -8.926073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.805858 -9.803585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.074026 -7.070526</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $X</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]       [,3]       [,4]       [,5]       [,6]</span>
@@ -998,20 +998,20 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.767110 -9.796703 -9.820541 -9.822914 -9.848422 -9.865009 -9.863012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.125323 -7.111366 -7.104781 -7.089516 -7.099449 -7.102256 -7.097561</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.964143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.815022</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.080117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.961428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.831575</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.089761</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.958526</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.833407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.092966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.880481</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.841054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.093165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]    [,301]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.964143 -8.966377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.815022 -9.805858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.080117 -7.074026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.961428 -8.964143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.831575 -9.815022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.089761 -7.080117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.958526 -8.961428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.833407 -9.831575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.092966 -7.089761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.880481 -8.958526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.841054 -9.833407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.093165 -7.092966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
