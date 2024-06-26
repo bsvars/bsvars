@@ -332,7 +332,7 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
   for (int n=0; n<N; n++) {
 
     // investigate hypothesis
-    uvec  indi                = find( hypothesis.row(n) == 999 );
+    uvec  indi                = find( hypothesis.row(n) != 999 );
     if ( indi.n_elem == 0 ) {
       continue;
     }
@@ -367,8 +367,10 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
       mat     precision       = precision_tmp.submat(indi, indi);
       rowvec  location        = location_tmp.cols(indi);
       mat     precision_chol  = trimatu(chol(precision));
+      rowvec  hypothesisn     = hypothesis.row(n);
       
-      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
+      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesisn.cols(indi), location, precision_chol, true );
+      // log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
     } // END s loop
     
     // wrap up the SDDR computation
@@ -465,7 +467,7 @@ Rcpp::List verify_autoregressive_homosk_cpp (
   for (int n=0; n<N; n++) {
     
     // investigate hypothesis
-    uvec  indi                = find( hypothesis.row(n) == 999 );
+    uvec  indi                = find( hypothesis.row(n) != 999 );
     if ( indi.n_elem == 0 ) {
       continue;
     }
@@ -494,8 +496,9 @@ Rcpp::List verify_autoregressive_homosk_cpp (
       mat     precision       = precision_tmp.submat(indi, indi);
       rowvec  location        = location_tmp.cols(indi);
       mat     precision_chol  = trimatu(chol(precision));
-      
-      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
+      rowvec  hypothesisn     = hypothesis.row(n);
+        
+      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesisn.cols(indi), location, precision_chol, true );
     } // END s loop
     
     // wrap up the SDDR computation
