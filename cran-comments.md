@@ -1,24 +1,10 @@
-## Submission notes bsvars v3.0
+## Submission notes bsvars v3.0.1
 
-## Responding to Uwe Ligges' email:
+## This version corrects for `Last released version's CRAN status` under: Additional issues clang-ASAN gcc-ASAN valgrind 
 
->Thanks, we see:
->
->
->   Found the following (possibly) invalid file URI:
->     URI: www.linkedin.com/in/tomaszwwozniak
->       From: README.md
+All the problems have been resolved in [#82](https://github.com/bsvars/bsvars/issues/82) following the discussion at [RcppCore/RcppArmadillo#443](https://github.com/RcppCore/RcppArmadillo/issues/443)
 
-The link has been corrected! Thank you!
-
-## Comments responding to cran-submissions@r-project.org
-
-Thank you for your feedback! I have now accommodated all of it!
-- the spelling is as desired
-- corrected the links to a desired format
-- changed the `\url{}` to `\doi{}` where it showed problems
-- improved the running time of examples
-- Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
+## Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
 ```
 checking installed package size ... NOTE
   installed size is 12.2Mb
@@ -35,9 +21,14 @@ There were no ERRORs, WARNINGs, or NOTEs.
 
 Passing on all platforms!
 
-## Check at using `rhub::check_for_cran()`
+## Check at using `devtools::check(manual = TRUE, remote = TRUE, incoming = TRUE)`
 
-All good here!
+This shows:
+>   Found the following (possibly) invalid file URI:
+>     URI: www.linkedin.com/in/tomaszwwozniak
+>       From: README.md
+>       Status: 999
+This is not a problem with the link, but how LinkedIn responds to automatic checks as documented e.g. [HERE](https://stackoverflow.com/questions/27231113/999-error-code-on-head-request-to-linkedin) and [HERE](https://http.dev/999)
 
 ## Done some more tests from `usethis::use_release_issue()`
 
