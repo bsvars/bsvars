@@ -1158,6 +1158,27 @@ namespace bsvars {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
+    inline double dmvnorm_mean_var(const arma::vec& x, const arma::vec& mean, const arma::mat& var, const bool logarithm = true) {
+        typedef SEXP(*Ptr_dmvnorm_mean_var)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_dmvnorm_mean_var p_dmvnorm_mean_var = NULL;
+        if (p_dmvnorm_mean_var == NULL) {
+            validateSignature("double(*dmvnorm_mean_var)(const arma::vec&,const arma::vec&,const arma::mat&,const bool)");
+            p_dmvnorm_mean_var = (Ptr_dmvnorm_mean_var)R_GetCCallable("bsvars", "_bsvars_dmvnorm_mean_var");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dmvnorm_mean_var(Shield<SEXP>(Rcpp::wrap(x)), Shield<SEXP>(Rcpp::wrap(mean)), Shield<SEXP>(Rcpp::wrap(var)), Shield<SEXP>(Rcpp::wrap(logarithm)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
     inline Rcpp::List verify_autoregressive_heterosk_cpp(const arma::mat& hypothesis, const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X) {
         typedef SEXP(*Ptr_verify_autoregressive_heterosk_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_verify_autoregressive_heterosk_cpp p_verify_autoregressive_heterosk_cpp = NULL;
