@@ -109,17 +109,17 @@ namespace bsvars {
         return Rcpp::as<arma::field<arma::cube> >(rcpp_result_gen);
     }
 
-    inline arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2) {
-        typedef SEXP(*Ptr_bsvars_fevd_heterosk)(SEXP,SEXP);
+    inline arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2, arma::mat& sigma2_T) {
+        typedef SEXP(*Ptr_bsvars_fevd_heterosk)(SEXP,SEXP,SEXP);
         static Ptr_bsvars_fevd_heterosk p_bsvars_fevd_heterosk = NULL;
         if (p_bsvars_fevd_heterosk == NULL) {
-            validateSignature("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&)");
+            validateSignature("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&,arma::mat&)");
             p_bsvars_fevd_heterosk = (Ptr_bsvars_fevd_heterosk)R_GetCCallable("bsvars", "_bsvars_bsvars_fevd_heterosk");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_bsvars_fevd_heterosk(Shield<SEXP>(Rcpp::wrap(posterior_irf)), Shield<SEXP>(Rcpp::wrap(forecast_sigma2)));
+            rcpp_result_gen = p_bsvars_fevd_heterosk(Shield<SEXP>(Rcpp::wrap(posterior_irf)), Shield<SEXP>(Rcpp::wrap(forecast_sigma2)), Shield<SEXP>(Rcpp::wrap(sigma2_T)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

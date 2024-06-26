@@ -134,10 +134,11 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
   posterior_PR_TR = posterior$posterior$PR_TR
   posterior_sigma2 = posterior$posterior$sigma2
   S_T             = posterior$posterior$xi[,T,]
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
-  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -202,10 +203,11 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
   posterior_PR_TR = posterior$posterior$PR_TR
   posterior_sigma2 = posterior$posterior$sigma2
   S_T             = posterior$posterior$xi[,T,]
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
-  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -265,10 +267,11 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
   posterior_rho   = posterior$posterior$rho
   posterior_omega = posterior$posterior$omega
   centred_sv      = posterior$last_draw$centred_sv
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_sv`, posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv)
-  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]

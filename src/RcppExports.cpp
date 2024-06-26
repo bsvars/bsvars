@@ -166,21 +166,22 @@ RcppExport SEXP _bsvars_bsvars_fevd_homosk(SEXP posterior_irfSEXP) {
     return rcpp_result_gen;
 }
 // bsvars_fevd_heterosk
-arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2);
-static SEXP _bsvars_bsvars_fevd_heterosk_try(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP) {
+arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2, arma::mat& sigma2_T);
+static SEXP _bsvars_bsvars_fevd_heterosk_try(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP, SEXP sigma2_TSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::field<arma::cube>& >::type posterior_irf(posterior_irfSEXP);
     Rcpp::traits::input_parameter< arma::cube& >::type forecast_sigma2(forecast_sigma2SEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvars_fevd_heterosk(posterior_irf, forecast_sigma2));
+    Rcpp::traits::input_parameter< arma::mat& >::type sigma2_T(sigma2_TSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvars_fevd_heterosk(posterior_irf, forecast_sigma2, sigma2_T));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP) {
+RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP, SEXP sigma2_TSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_bsvars_fevd_heterosk_try(posterior_irfSEXP, forecast_sigma2SEXP));
+        rcpp_result_gen = PROTECT(_bsvars_bsvars_fevd_heterosk_try(posterior_irfSEXP, forecast_sigma2SEXP, sigma2_TSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2127,7 +2128,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*bsvars_ir1)(arma::mat&,arma::mat&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd_homosk)(arma::field<arma::cube>&)");
-        signatures.insert("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&)");
+        signatures.insert("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_structural_shocks)(const arma::cube&,const arma::cube&,const arma::mat&,const arma::mat&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&,const bool)");
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
@@ -2250,7 +2251,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_ir1", (DL_FUNC) &_bsvars_bsvars_ir1, 5},
     {"_bsvars_bsvars_ir", (DL_FUNC) &_bsvars_bsvars_ir, 5},
     {"_bsvars_bsvars_fevd_homosk", (DL_FUNC) &_bsvars_bsvars_fevd_homosk, 1},
-    {"_bsvars_bsvars_fevd_heterosk", (DL_FUNC) &_bsvars_bsvars_fevd_heterosk, 2},
+    {"_bsvars_bsvars_fevd_heterosk", (DL_FUNC) &_bsvars_bsvars_fevd_heterosk, 3},
     {"_bsvars_bsvars_structural_shocks", (DL_FUNC) &_bsvars_bsvars_structural_shocks, 4},
     {"_bsvars_bsvars_hd", (DL_FUNC) &_bsvars_bsvars_hd, 3},
     {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
