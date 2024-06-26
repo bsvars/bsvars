@@ -106,8 +106,9 @@ arma::field<arma::cube> bsvars_fevd_homosk (
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 arma::field<arma::cube> bsvars_fevd_heterosk (
-    arma::field<arma::cube>&    posterior_irf,   // output of bsvars_irf
-    arma::cube&                 forecast_sigma2  // (N, H, S) output from forecast_sigma2 or forecast_sigma2_msh
+    arma::field<arma::cube>&    posterior_irf,    // output of bsvars_irf
+    arma::cube&                 forecast_sigma2,  // (N, H, S) output from forecast_sigma2 or forecast_sigma2_msh
+    arma::mat&                  sigma2_T          // (N, S) the last in the sample
 ) {
   
   const int       N = posterior_irf(0).n_rows;
@@ -120,9 +121,13 @@ arma::field<arma::cube> bsvars_fevd_heterosk (
   
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
-      
-      mat diag_sigma2     = diagmat(forecast_sigma2.slice(s).col(h));
-      tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      if ( h == 0) {
+        mat diag_sigma2     = diagmat(sigma2_T.col(s));
+        tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      } else {
+        mat diag_sigma2     = diagmat(forecast_sigma2.slice(s).col(h - 1));
+        tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      }
       
       for (int n=0; n<N; n++) {
         for (int nn=0; nn<N; nn++) {

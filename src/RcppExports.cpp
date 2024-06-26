@@ -166,21 +166,22 @@ RcppExport SEXP _bsvars_bsvars_fevd_homosk(SEXP posterior_irfSEXP) {
     return rcpp_result_gen;
 }
 // bsvars_fevd_heterosk
-arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2);
-static SEXP _bsvars_bsvars_fevd_heterosk_try(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP) {
+arma::field<arma::cube> bsvars_fevd_heterosk(arma::field<arma::cube>& posterior_irf, arma::cube& forecast_sigma2, arma::mat& sigma2_T);
+static SEXP _bsvars_bsvars_fevd_heterosk_try(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP, SEXP sigma2_TSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::field<arma::cube>& >::type posterior_irf(posterior_irfSEXP);
     Rcpp::traits::input_parameter< arma::cube& >::type forecast_sigma2(forecast_sigma2SEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvars_fevd_heterosk(posterior_irf, forecast_sigma2));
+    Rcpp::traits::input_parameter< arma::mat& >::type sigma2_T(sigma2_TSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvars_fevd_heterosk(posterior_irf, forecast_sigma2, sigma2_T));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP) {
+RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP forecast_sigma2SEXP, SEXP sigma2_TSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_bsvars_fevd_heterosk_try(posterior_irfSEXP, forecast_sigma2SEXP));
+        rcpp_result_gen = PROTECT(_bsvars_bsvars_fevd_heterosk_try(posterior_irfSEXP, forecast_sigma2SEXP, sigma2_TSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2042,6 +2043,43 @@ RcppExport SEXP _bsvars_dmvnorm_chol_precision(SEXP xSEXP, SEXP locationSEXP, SE
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// dmvnorm_mean_var
+double dmvnorm_mean_var(const arma::vec& x, const arma::vec& mean, const arma::mat& var, const bool logarithm);
+static SEXP _bsvars_dmvnorm_mean_var_try(SEXP xSEXP, SEXP meanSEXP, SEXP varSEXP, SEXP logarithmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type var(varSEXP);
+    Rcpp::traits::input_parameter< const bool >::type logarithm(logarithmSEXP);
+    rcpp_result_gen = Rcpp::wrap(dmvnorm_mean_var(x, mean, var, logarithm));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_dmvnorm_mean_var(SEXP xSEXP, SEXP meanSEXP, SEXP varSEXP, SEXP logarithmSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_dmvnorm_mean_var_try(xSEXP, meanSEXP, varSEXP, logarithmSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // verify_autoregressive_heterosk_cpp
 Rcpp::List verify_autoregressive_heterosk_cpp(const arma::mat& hypothesis, const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X);
 static SEXP _bsvars_verify_autoregressive_heterosk_cpp_try(SEXP hypothesisSEXP, SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP) {
@@ -2127,7 +2165,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*bsvars_ir1)(arma::mat&,arma::mat&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd_homosk)(arma::field<arma::cube>&)");
-        signatures.insert("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&)");
+        signatures.insert("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_structural_shocks)(const arma::cube&,const arma::cube&,const arma::mat&,const arma::mat&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&,const bool)");
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
@@ -2177,6 +2215,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("double(*ddirichlet)(const arma::rowvec&,const arma::rowvec&,const bool)");
         signatures.insert("Rcpp::List(*verify_volatility_msh_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
         signatures.insert("double(*dmvnorm_chol_precision)(const arma::rowvec&,const arma::rowvec&,const arma::mat&,const bool)");
+        signatures.insert("double(*dmvnorm_mean_var)(const arma::vec&,const arma::vec&,const arma::mat&,const bool)");
         signatures.insert("Rcpp::List(*verify_autoregressive_heterosk_cpp)(const arma::mat&,const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
         signatures.insert("Rcpp::List(*verify_autoregressive_homosk_cpp)(const arma::mat&,const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
     }
@@ -2239,6 +2278,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_ddirichlet", (DL_FUNC)_bsvars_ddirichlet_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_msh_cpp", (DL_FUNC)_bsvars_verify_volatility_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_dmvnorm_chol_precision", (DL_FUNC)_bsvars_dmvnorm_chol_precision_try);
+    R_RegisterCCallable("bsvars", "_bsvars_dmvnorm_mean_var", (DL_FUNC)_bsvars_dmvnorm_mean_var_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_autoregressive_heterosk_cpp", (DL_FUNC)_bsvars_verify_autoregressive_heterosk_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_autoregressive_homosk_cpp", (DL_FUNC)_bsvars_verify_autoregressive_homosk_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_RcppExport_validate", (DL_FUNC)_bsvars_RcppExport_validate);
@@ -2250,7 +2290,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_ir1", (DL_FUNC) &_bsvars_bsvars_ir1, 5},
     {"_bsvars_bsvars_ir", (DL_FUNC) &_bsvars_bsvars_ir, 5},
     {"_bsvars_bsvars_fevd_homosk", (DL_FUNC) &_bsvars_bsvars_fevd_homosk, 1},
-    {"_bsvars_bsvars_fevd_heterosk", (DL_FUNC) &_bsvars_bsvars_fevd_heterosk, 2},
+    {"_bsvars_bsvars_fevd_heterosk", (DL_FUNC) &_bsvars_bsvars_fevd_heterosk, 3},
     {"_bsvars_bsvars_structural_shocks", (DL_FUNC) &_bsvars_bsvars_structural_shocks, 4},
     {"_bsvars_bsvars_hd", (DL_FUNC) &_bsvars_bsvars_hd, 3},
     {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
@@ -2300,6 +2340,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_ddirichlet", (DL_FUNC) &_bsvars_ddirichlet, 3},
     {"_bsvars_verify_volatility_msh_cpp", (DL_FUNC) &_bsvars_verify_volatility_msh_cpp, 4},
     {"_bsvars_dmvnorm_chol_precision", (DL_FUNC) &_bsvars_dmvnorm_chol_precision, 4},
+    {"_bsvars_dmvnorm_mean_var", (DL_FUNC) &_bsvars_dmvnorm_mean_var, 4},
     {"_bsvars_verify_autoregressive_heterosk_cpp", (DL_FUNC) &_bsvars_verify_autoregressive_heterosk_cpp, 5},
     {"_bsvars_verify_autoregressive_homosk_cpp", (DL_FUNC) &_bsvars_verify_autoregressive_homosk_cpp, 5},
     {"_bsvars_RcppExport_registerCCallable", (DL_FUNC) &_bsvars_RcppExport_registerCCallable, 0},

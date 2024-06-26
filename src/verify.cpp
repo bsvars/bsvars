@@ -275,6 +275,39 @@ double dmvnorm_chol_precision (
 } // END dmvnorm_precision
 
 
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+double dmvnorm_mean_var (
+    const arma::vec&      x,  
+    const arma::vec&      mean,  
+    const arma::mat&      var, 
+    const bool            logarithm = true
+) { 
+  // computes the density of a multivariate normal distribution with location
+  // the Cholesky decomposition of precision matrix
+  
+  const int     N       = x.n_elem; 
+  const double  log2pi  = std::log(2.0 * M_PI);
+  
+  double val;
+  double sign;
+  log_det(val, sign, var);
+  
+  double    const_norm  = -0.5 * N * log2pi - 0.5 * val;
+  mat       prec        = inv_sympd(var);
+  vec       loc         = x - mean;
+  double    kernel_norm = -0.5 * as_scalar(trans(loc) * prec * loc);
+  double    out         = const_norm + kernel_norm;
+  
+  if ( !logarithm ) {
+    out =  exp(out);
+  }
+  return out;
+} // END dmvnorm_mean_var
+
+
+
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 Rcpp::List verify_autoregressive_heterosk_cpp (
@@ -332,7 +365,7 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
   for (int n=0; n<N; n++) {
 
     // investigate hypothesis
-    uvec  indi                = find( hypothesis.row(n) == 999 );
+    uvec  indi                = find( hypothesis.row(n) != 999 );
     if ( indi.n_elem == 0 ) {
       continue;
     }
@@ -364,11 +397,13 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
       mat     precision_tmp   = (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(Wn_sigma) * Wn_sigma;
       precision_tmp           = 0.5 * (precision_tmp + precision_tmp.t());
       rowvec  location_tmp    = prior_A_mean.row(n) * (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(zn_sigma) * Wn_sigma;
-      mat     precision       = precision_tmp.submat(indi, indi);
-      rowvec  location        = location_tmp.cols(indi);
-      mat     precision_chol  = trimatu(chol(precision));
+      mat     variance_tmp    = inv_sympd(precision_tmp);
+      vec     mean_tmp        = variance_tmp * location_tmp.t();
+      mat     variance_marg   = variance_tmp.submat(indi, indi);
+      vec     mean_marg       = mean_tmp.rows(indi);
+      vec     hypothesisn     = trans(hypothesis.row(n));
       
-      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
+      log_numerator_s(n,s)    = dmvnorm_mean_var( hypothesisn.rows(indi), mean_marg, variance_marg, true );
     } // END s loop
     
     // wrap up the SDDR computation
@@ -465,7 +500,7 @@ Rcpp::List verify_autoregressive_homosk_cpp (
   for (int n=0; n<N; n++) {
     
     // investigate hypothesis
-    uvec  indi                = find( hypothesis.row(n) == 999 );
+    uvec  indi                = find( hypothesis.row(n) != 999 );
     if ( indi.n_elem == 0 ) {
       continue;
     }
@@ -491,11 +526,13 @@ Rcpp::List verify_autoregressive_homosk_cpp (
       
       mat     precision_tmp   = (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(Wn) * Wn;
       rowvec  location_tmp    = prior_A_mean.row(n) * (pow(posterior_hyper(n,1,s), -1) * prior_A_Vinv) + trans(zn) * Wn;
-      mat     precision       = precision_tmp.submat(indi, indi);
-      rowvec  location        = location_tmp.cols(indi);
-      mat     precision_chol  = trimatu(chol(precision));
-      
-      log_numerator_s(n,s)    = dmvnorm_chol_precision( hypothesis.row(n), location, precision_chol, true );
+      mat     variance_tmp    = inv_sympd(precision_tmp);
+      vec     mean_tmp        = variance_tmp * location_tmp.t();
+      mat     variance_marg   = variance_tmp.submat(indi, indi);
+      vec     mean_marg       = mean_tmp.rows(indi);
+      vec     hypothesisn     = trans(hypothesis.row(n));
+        
+      log_numerator_s(n,s)    = dmvnorm_mean_var( hypothesisn.rows(indi), mean_marg, variance_marg, true );
     } // END s loop
     
     // wrap up the SDDR computation

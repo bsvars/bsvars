@@ -155,26 +155,26 @@ forecast.PosteriorBSVAR = function(
   
   if (!do_conditional_forecasting) {
     
-    fore          = .Call(`_bsvars_forecast_bsvar`, posterior_B, posterior_A, 
+      fore          = .Call(`_bsvars_forecast_bsvar`, posterior_B, posterior_A, 
                           X_T, exogenous_forecast, horizon)
   
     } else {
     
-    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+      stopifnot("Argument conditional_forecast must be a matrix with numeric values."
               = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
-    )
-    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+      )
+      stopifnot("Argument conditional_forecast must have the number of rows equal to 
               the value of argument horizon."
               = nrow(conditional_forecast) == horizon
-    )
-    stopifnot("Argument conditional_forecast must have the number of columns 
+      )
+      stopifnot("Argument conditional_forecast must have the number of columns 
               equal to the number of columns in the used data."
-              = ncol(conditional_forecast) == N
-    )
-    
-    # perform conditional forecasting
-    fore          = .Call(`_bsvars_forecast_conditional_bsvar`, posterior_B, posterior_A, 
-                          X_T, exogenous_forecast, conditional_forecast, horizon)
+                = ncol(conditional_forecast) == N
+      )
+      
+      # perform conditional forecasting
+      fore          = .Call(`_bsvars_forecast_conditional_bsvar`, posterior_B, posterior_A, 
+                            X_T, exogenous_forecast, conditional_forecast, horizon)
     
   }
   fore$Y          = Y

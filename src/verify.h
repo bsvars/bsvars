@@ -37,10 +37,18 @@ Rcpp::List verify_volatility_msh_cpp (
 );
 
 
-double dmvnorm_precision (
+double dmvnorm_chol_precision (
     const arma::rowvec&   x,  
-    const arma::rowvec&   mean,  
-    const arma::mat&      precision, 
+    const arma::rowvec&   location,  
+    const arma::mat&      chol_precision, 
+    const bool            logarithm = true
+);
+
+
+double dmvnorm_mean_var (
+    const arma::vec&      x,  
+    const arma::vec&      mean,  
+    const arma::mat&      var, 
     const bool            logarithm = true
 );
 

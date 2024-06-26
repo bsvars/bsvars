@@ -4,6 +4,9 @@ The package is under intensive development, and more functionality will be provi
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
+1. Fixed the bugs that started coming up in the new tested version of **Armadillo** and **RcppArmadillo** [#82](https://github.com/bsvars/bsvars/issues/82) and [RcppCore/RcppArmadillo#443](https://github.com/RcppCore/RcppArmadillo/issues/443)
+2. Corrected the computations of `verify_autoregression` [#82](https://github.com/bsvars/bsvars/issues/82)
+
 
 # bsvars 3.0
 
