@@ -22,19 +22,16 @@ Rcpp::List forecast_bsvar (
   const int       d = exogenous_forecast.n_cols;
   
   cube            forecasts(N, horizon, S);
-  vec             one(1, fill::value(1));
+  // vec             one(1, fill::value(1));
+  vec             Xt = X_T;
   
   for (int s=0; s<S; s++) {
-    
-    vec x_t       = X_T.rows(0, K - 2 - d);
-    vec ex        = X_T.rows(K - d , K - 1);
-    vec Xt        = join_cols(x_t, one, ex);
     
     mat Sigma     = inv_sympd(trans(posterior_B.slice(s)) * posterior_B.slice(s));
     
     for (int h=0; h<horizon; h++) {
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop
@@ -104,15 +101,12 @@ Rcpp::List forecast_bsvar_msh (
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
   
-  vec             one(1, fill::value(1));
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2 = forecast_sigma2_msh ( posterior_sigma2, posterior_PR_TR, S_T, horizon );
+  vec             Xt = X_T;
   
   for (int s=0; s<S; s++) {
     
-    vec   x_t       = X_T.rows(0, K - 2 - d);
-    vec   ex        = X_T.rows(K - d , K - 1);
-    vec   Xt        = join_cols(x_t, one, ex);
     mat   B_inv     = inv(posterior_B.slice(s));
     mat   Sigma(N, N);
     
@@ -120,7 +114,7 @@ Rcpp::List forecast_bsvar_msh (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop
@@ -192,16 +186,14 @@ Rcpp::List forecast_bsvar_sv (
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
-  vec             one(1, fill::value(1));
+  // vec             one(1, fill::value(1));
+  vec             Xt = X_T;
   
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2 = forecast_sigma2_sv( posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv );
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2 - d);
-    vec ex        = X_T.rows(K - d , K - 1);
-    vec Xt        = join_cols(x_t, one, ex);
     mat B_inv     = inv(posterior_B.slice(s));
     mat Sigma(N, N);
     
@@ -209,7 +201,7 @@ Rcpp::List forecast_bsvar_sv (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
       
     } // END h loop
   } // END s loop
@@ -270,22 +262,17 @@ Rcpp::List forecast_conditional_bsvar (
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
+  vec             Xt = X_T;
   
   cube            forecasts(N, horizon, S);
-  vec             one(1, fill::value(1));
   
   for (int s=0; s<S; s++) {
-    
-    vec x_t       = X_T.rows(0, K - 2 - d);
-    vec ex        = X_T.rows(K - d , K - 1);
-    vec Xt        = join_cols(x_t, one, ex);
-    
+  
     mat Sigma     = inv_sympd(trans(posterior_B.slice(s)) * posterior_B.slice(s));
     
     for (int h=0; h<horizon; h++) {
       forecasts.slice(s).col(h) = mvnrnd_cond ( cond_forecasts.row(h).t(), posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
-      
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
     } // END h loop
   } // END s loop
   
@@ -314,16 +301,13 @@ Rcpp::List forecast_conditional_bsvar_msh (
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
+  vec             Xt = X_T;
   
-  vec             one(1, fill::value(1));
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2 = forecast_sigma2_msh ( posterior_sigma2, posterior_PR_TR, S_T, horizon );
   
   for (int s=0; s<S; s++) {
     
-    vec   x_t       = X_T.rows(0, K - 2 - d);
-    vec   ex        = X_T.rows(K - d , K - 1);
-    vec   Xt        = join_cols(x_t, one, ex);
     mat   B_inv     = inv(posterior_B.slice(s));
     mat   Sigma(N, N);
     
@@ -331,8 +315,7 @@ Rcpp::List forecast_conditional_bsvar_msh (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd_cond ( cond_forecasts.row(h).t(), posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
-      
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
     } // END h loop
   } // END s loop
   
@@ -363,16 +346,13 @@ Rcpp::List forecast_conditional_bsvar_sv (
   const int       S = posterior_B.n_slices;
   const int       K = posterior_A.n_cols;
   const int       d = exogenous_forecast.n_cols;
-  vec             one(1, fill::value(1));
+  vec             Xt = X_T;
   
   cube            forecasts(N, horizon, S);
   cube            forecasts_sigma2 = forecast_sigma2_sv( posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv );
   
   for (int s=0; s<S; s++) {
     
-    vec x_t       = X_T.rows(0, K - 2 - d);
-    vec ex        = X_T.rows(K - d , K - 1);
-    vec Xt        = join_cols(x_t, one, ex);
     mat B_inv     = inv(posterior_B.slice(s));
     mat Sigma(N, N);
     
@@ -380,8 +360,7 @@ Rcpp::List forecast_conditional_bsvar_sv (
       
       Sigma       = B_inv * diagmat(forecasts_sigma2.slice(s).col(h)) * B_inv.t();
       forecasts.slice(s).col(h) = mvnrnd_cond ( cond_forecasts.row(h).t(), posterior_A.slice(s) * Xt, Sigma );
-      Xt          = join_cols(forecasts.slice(s).col(h), Xt.rows(N, K-2), one, exogenous_forecast.row(h).t());
-      
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
     } // END h loop
   } // END s loop
   
