@@ -15,7 +15,7 @@ Imports:
     R6,
     stochvol
 Suggests: 
-    R.rsp,
+    knitr,
     tinytest
 LinkingTo: 
     Rcpp, 
@@ -27,4 +27,4 @@ URL: https://bsvars.github.io/bsvars/
 BugReports: https://github.com/bsvars/bsvars/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.1
-VignetteBuilder: R.rsp
+VignetteBuilder: knitr
