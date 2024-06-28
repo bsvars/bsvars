@@ -5,7 +5,6 @@
 %\VignettePackage{bsvars}
 %\VignetteEncoding{UTF-8}
 %\VignetteEngine{knitr::knitr}
-
 \begin{document}
 \includepdf[pages=-, fitpaper=true]{pdf/bsvars_vignette.pdf}
 \end{document}
