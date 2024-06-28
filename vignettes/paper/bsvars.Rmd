@@ -39,9 +39,6 @@ vignette: >
   %\VignetteKeywords{Bayesian inference, Structural VARs, Gibbs sampler, exclusion restrictions, heteroskedasticity, non-normal shocks, forecasting, structural analysis, R}
   %\VignettePackage{bsvars}
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{Rcpp-attributes}
-  %\VignetteKeywords{Rcpp, attributes, R, Cpp}
-  %\VignettePackage{Rcpp}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output: rticles::jss_article
