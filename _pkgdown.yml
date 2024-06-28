@@ -10,7 +10,7 @@ navbar:
     right: [mastodon, bluesky, github]
   components:
     mastodon:
-      icon: mastodon
+      icon: bi-mastodon
       href: https://fosstodon.org/@bsvars
       aria-label: mastodon
     bluesky:
