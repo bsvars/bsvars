@@ -8,7 +8,8 @@
 #' @param posterior posterior estimation outcome obtained by running the \code{estimate} function. 
 #' The interpretation depends on the normalisation of the shocks
 #' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
-#' @param horizon a positive integer number denoting the forecast horizon for the impulse responses computations.
+#' @param horizon a positive integer number denoting the forecast horizon for 
+#' the forecast error variance decomposition computations.
 #' 
 #' @return An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 
 #' containing \code{S} draws of the forecast error variance decomposition.

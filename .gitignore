@@ -11,3 +11,11 @@
 src/bsvar.o
 src/bsvar_msh.o
 docs
+vignettes/paper/bsvars.zip
+vignettes/paper/bsvars.out
+vignettes/paper/bsvars.knit.md
+vignettes/paper/bsvars.blg
+vignettes/paper/bsvars.bbl
+vignettes/paper/bsvars.aux
+/doc/
+/Meta/
