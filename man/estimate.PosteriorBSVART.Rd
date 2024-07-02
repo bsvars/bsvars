@@ -88,8 +88,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_t$new(p = 1) |>
   estimate(S = 5) |> 
-  estimate(S = 10, thin = 2) |> 
-  compute_impulse_responses(horizon = 4) -> irf
+  estimate(S = 10, thin = 2) -> posterior
 
 }
 \references{
