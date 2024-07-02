@@ -32,6 +32,9 @@ spec = specify_bsvar_t$new(
 \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
 \item{\code{starting_values}}{an object StartingValuesBSVART with the starting values.}
+
+\item{\code{adaptiveMH}}{a vector of two values setting the Robust Adaptive 
+Metropolis sampler for df: target acceptance rate and adaptive rate.}
 }
 \if{html}{\out{</div>}}
 }

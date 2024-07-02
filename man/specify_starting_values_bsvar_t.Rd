@@ -11,6 +11,28 @@ with t-distributed structural shocks.
 # starting values for a bsvar model for a 3-variable system
 sv = specify_starting_values_bsvar_t$new(N = 3, p = 1, T = 100)
 
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar_t$get_starting_values`
+## ------------------------------------------------
+
+# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+sv$get_starting_values()   # show starting values as list
+
+
+## ------------------------------------------------
+## Method `specify_starting_values_bsvar_t$set_starting_values`
+## ------------------------------------------------
+
+# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
 }
 \section{Super class}{
 \code{bsvars::StartingValuesBSVAR} -> \code{StartingValuesBSVART}
@@ -37,17 +59,11 @@ shock.}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-StartingValuesBSVART-new}{\code{specify_starting_values_bsvar_t$new()}}
+\item \href{#method-StartingValuesBSVART-get_starting_values}{\code{specify_starting_values_bsvar_t$get_starting_values()}}
+\item \href{#method-StartingValuesBSVART-set_starting_values}{\code{specify_starting_values_bsvar_t$set_starting_values()}}
 \item \href{#method-StartingValuesBSVART-clone}{\code{specify_starting_values_bsvar_t$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVAR" data-id="get_starting_values"><a href='../../bsvars/html/StartingValuesBSVAR.html#method-StartingValuesBSVAR-get_starting_values'><code>bsvars::StartingValuesBSVAR$get_starting_values()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVAR" data-id="set_starting_values"><a href='../../bsvars/html/StartingValuesBSVAR.html#method-StartingValuesBSVAR-set_starting_values'><code>bsvars::StartingValuesBSVAR$set_starting_values()</code></a></span></li>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVART-new"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVART-new}{}}}
@@ -73,6 +89,64 @@ Create new starting values StartingValuesBSVART
 \subsection{Returns}{
 Starting values StartingValuesBSVART
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StartingValuesBSVART-get_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVART-get_starting_values}{}}}
+\subsection{Method \code{get_starting_values()}}{
+Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_t$get_starting_values()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+sv$get_starting_values()   # show starting values as list
+
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StartingValuesBSVART-set_starting_values"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVART-set_starting_values}{}}}
+\subsection{Method \code{set_starting_values()}}{
+Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_t$set_starting_values(last_draw)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
+\code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class StartingValuesBSVAR including the last draw of the current MCMC 
+as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+
+# Modify the starting values by:
+sv_list = sv$get_starting_values()   # getting them as list
+sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+sv$set_starting_values(sv_list)      # providing to the class object
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVART-clone"></a>}}

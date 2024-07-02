@@ -125,9 +125,50 @@ specify_starting_values_bsvar_t = R6::R6Class(
       
       super$initialize(N, p, d)
       self$lambda = rep(1, T)
-      self$df     = 30
-    } # END initialize
+      self$df     = 6
+    }, # END initialize
     
+    #' @description
+    #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+    #' 
+    #' @examples 
+    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' sv$get_starting_values()   # show starting values as list
+    #' 
+    get_starting_values   = function(){
+      list(
+        B                 = self$B,
+        A                 = self$A,
+        hyper             = self$hyper,
+        lambda            = self$lambda,
+        df                = self$df
+      )
+    }, # END get_starting_values
+    
+    #' @description
+    #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+    #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
+    #' \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
+    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC 
+    #' as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
+    #' 
+    #' @examples 
+    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' 
+    #' # Modify the starting values by:
+    #' sv_list = sv$get_starting_values()   # getting them as list
+    #' sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
+    #' sv$set_starting_values(sv_list)      # providing to the class object
+    #' 
+    set_starting_values   = function(last_draw) {
+      self$B            = last_draw$B
+      self$A            = last_draw$A
+      self$hyper        = last_draw$hyper
+      self$lambda       = last_draw$lambda
+      self$df           = last_draw$df
+    } # END set_starting_values
   ) # END public
 ) # END specify_starting_values_bsvar_t
 
@@ -171,6 +212,10 @@ specify_bsvar_t = R6::R6Class(
     #' @field starting_values an object StartingValuesBSVART with the starting values.
     starting_values        = list(),
     
+    #' @field adaptiveMH a vector of two values setting the Robust Adaptive 
+    #' Metropolis sampler for df: target acceptance rate and adaptive rate.
+    adaptiveMH             = numeric(),
+    
     #' @description
     #' Create a new specification of the BSVAR model with t-distributed structural shocks, BSVART.
     #' @param data a \code{(T+p)xN} matrix with time series data.
@@ -213,6 +258,7 @@ specify_bsvar_t = R6::R6Class(
       self$identification  = specify_identification_bsvars$new(N, B)
       self$prior           = specify_prior_bsvar_t$new(N, p, d, stationary)
       self$starting_values = specify_starting_values_bsvar_t$new(N, self$p, T, d)
+      self$adaptiveMH      = c(0.44, 0.6)
     } # END initialize
   ) # END public
 ) # END specify_bsvar_t
