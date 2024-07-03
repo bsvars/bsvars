@@ -31,7 +31,7 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
+specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
@@ -39,18 +39,18 @@ burn_in        = estimate(specification, 10)
 # estimate the model
 posterior      = estimate(burn_in, 20)
 
-# compute impulse responses 2 years ahead
-irf           = compute_impulse_responses(posterior, horizon = 8)
+# compute impulse responses
+irfs            = compute_impulse_responses(posterior, 4)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar$new(p = 1) |>
+  specify_bsvar_t$new(p = 1) |>
   estimate(S = 10) |> 
   estimate(S = 20) |> 
-  compute_impulse_responses(horizon = 8) -> ir
-
+  compute_impulse_responses(horizon = 4) -> irfs
+  
 }
 \references{
 Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
