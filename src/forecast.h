@@ -55,6 +55,22 @@ Rcpp::List forecast_bsvar_sv (
 );
 
 
+arma::mat forecast_lambda_t (
+    arma::mat&    posterior_df,      // NxS
+    const int&    horizon
+);
+
+
+Rcpp::List forecast_bsvar_t (
+    arma::cube&   posterior_B,        // (N, N, S)
+    arma::cube&   posterior_A,        // (N, K, S)
+    arma::mat&    posterior_df,       // (S, 1)
+    arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
+    const int&    horizon
+);
+
+
 arma::vec mvnrnd_cond (
     arma::vec x,        // Nx1 with NAs or without
     arma::vec mu,       // Nx1 mean vector
@@ -96,6 +112,17 @@ Rcpp::List forecast_conditional_bsvar_sv (
     arma::mat&    cond_forecasts,     // (horizon, N)
     const int&    horizon,
     const bool&   centred_sv = FALSE
+);
+
+
+Rcpp::List forecast_conditional_bsvar_t (
+    arma::cube&   posterior_B,        // (N, N, S)
+    arma::cube&   posterior_A,        // (N, K, S)
+    arma::mat&    posterior_df,       // (S, 1)
+    arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
+    arma::mat&    cond_forecasts,     // (horizon, N)
+    const int&    horizon
 );
 
 
