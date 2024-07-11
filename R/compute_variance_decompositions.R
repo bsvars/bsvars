@@ -279,3 +279,68 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
   
   return(fevd)
 }
+
+
+
+
+#' @inherit compute_variance_decompositions
+#' @method compute_variance_decompositions PosteriorBSVART
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition.
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVART} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_t$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute forecast error variance decomposition 2 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_t$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_variance_decompositions(horizon = 8) -> fevd
+#' 
+#' @export
+compute_variance_decompositions.PosteriorBSVART <- function(posterior, horizon) {
+  
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  posterior_df    = posterior$posterior$df
+  p               = posterior$last_draw$p
+  N               = dim(posterior_A)[1]
+  S               = dim(posterior_A)[3]
+  T               = dim(posterior$posterior$lambda)[1]
+  sigma2          = array(NA, c(N, horizon, S))
+  sigma2_T        = matrix(NA, N, S)
+  
+  posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
+  lambda          = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # (horizon, S)
+  for (n in 1:N) {
+    sigma2[n,,]   = lambda
+    sigma2_T[n,]  = posterior$posterior$lambda[T,]
+  }
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
+  
+  fevd            = array(NA, c(N, N, horizon + 1, S))
+  for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
+  class(fevd)     = "PosteriorFEVD"
+  
+  return(fevd)
+}
