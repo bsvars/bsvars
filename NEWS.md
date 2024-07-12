@@ -5,6 +5,7 @@ The package is under intensive development, and more functionality will be provi
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
 1. A NEW MODEL! An SVAR with t-distributed structural shocks facilitating identification through non-normality is now included in the package with all the necessary functionality [#84](https://github.com/bsvars/bsvars/issues/84)
+2. New ways of verifying identification through heteroskedasticity or non-normality using method `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
 
 
 # bsvars 3.0.1
