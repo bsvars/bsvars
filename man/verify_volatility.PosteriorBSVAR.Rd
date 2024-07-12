@@ -13,6 +13,9 @@
 Nothing. Just displays a message: The model is homoskedastic.
 }
 \description{
+This function will be deprecated starting from version 4.0. 
+It is replaced by \code{\link{verify_identification}} function.
+
 Displays information that the model is homoskedastic.
 }
 \examples{

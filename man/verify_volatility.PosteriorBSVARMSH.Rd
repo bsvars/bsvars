@@ -28,6 +28,9 @@ sub-samples of the log-ordinates of the marginal posterior and prior distributio
 }
 }
 \description{
+This function will be deprecated starting from version 4.0. 
+It is replaced by \code{\link{verify_identification}} function.
+
 Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
 for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
 The hypothesis of homoskedasticity is represented by restriction:
