@@ -46,6 +46,11 @@ Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vecto
 
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 }
+\seealso{
+\code{\link{verify_identification.PosteriorBSVAR}}, \code{\link{verify_identification.PosteriorBSVARSV}},
+\code{\link{verify_identification.PosteriorBSVARMIX}}, \code{\link{verify_identification.PosteriorBSVARMSH}},
+\code{\link{verify_identification.PosteriorBSVART}}
+}
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
 }

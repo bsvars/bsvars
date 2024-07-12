@@ -11,7 +11,7 @@ of structural shocks}
 \item{posterior}{the estimation outcome obtained using \code{\link{estimate}} function}
 }
 \value{
-An object of class \code{SDDRid} that is a list with components:
+An object of class \code{SDDRidT} that is a list with components:
 
 \code{logSDDR} the value of the logarithm of the Bayes factor
 

@@ -607,7 +607,7 @@ verify_autoregression.PosteriorBSVARMSH <- function(posterior, hypothesis) {
 #' 
 #' @param posterior the estimation outcome obtained using \code{\link{estimate}} function
 #' 
-#' @return An object of class \code{SDDRid} that is a list with components:
+#' @return An object of class \code{SDDRid*} that is a list with components:
 #' 
 #' \code{logSDDR} a vector with values of the logarithm of the Bayes factors
 #' 
@@ -617,6 +617,10 @@ verify_autoregression.PosteriorBSVARMSH <- function(posterior, hypothesis) {
 #' and prior distributions.
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @seealso \code{\link{verify_identification.PosteriorBSVAR}}, \code{\link{verify_identification.PosteriorBSVARSV}},
+#' \code{\link{verify_identification.PosteriorBSVARMIX}}, \code{\link{verify_identification.PosteriorBSVARMSH}},
+#' \code{\link{verify_identification.PosteriorBSVART}}
 #' 
 #' @references 
 #' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
@@ -762,7 +766,7 @@ verify_identification.PosteriorBSVARSV <- function(posterior) {
     out             = list()
     out$logSDDR     = sddr$logSDDR
     out$logSDDR_se  = sddr$logSDDR_se
-    class(out)     = "SDDRid"
+    class(out)     = "SDDRidSV"
     return(out)
   }
 }
@@ -828,7 +832,7 @@ verify_identification.PosteriorBSVARMIX <- function(posterior) {
   out             = list()
   out$logSDDR     = sddr$logSDDR
   out$logSDDR_se  = sddr$logSDDR_se
-  class(out)     = "SDDRid"
+  class(out)     = "SDDRidMIX"
   return(out)
 }
 
@@ -893,7 +897,7 @@ verify_identification.PosteriorBSVARMSH <- function(posterior) {
   out             = list()
   out$logSDDR     = sddr$logSDDR
   out$logSDDR_se  = sddr$logSDDR_se
-  class(out)     = "SDDRid"
+  class(out)     = "SDDRidMSH"
   return(out)
 }
 
@@ -920,7 +924,7 @@ verify_identification.PosteriorBSVARMSH <- function(posterior) {
 #' homoskedasticity of the structural shock. The estimation of the marginal posterior
 #' ordinate is done using truncated Gaussian kernel smoothing.
 #' 
-#' @return An object of class \code{SDDRid} that is a list with components:
+#' @return An object of class \code{SDDRidT} that is a list with components:
 #' 
 #' \code{logSDDR} the value of the logarithm of the Bayes factor
 #' 
@@ -965,7 +969,7 @@ verify_identification.PosteriorBSVART <- function(posterior) {
   out             = list()
   out$logSDDR     = log(sddr_numerator)
   out$SDDR        = sddr_numerator
-  class(out)      = "SDDRid"
+  class(out)      = "SDDRidT"
   return(out)
 }
 

@@ -11,7 +11,7 @@ verify_identification(posterior)
 \item{posterior}{the estimation outcome obtained using \code{\link{estimate}} function}
 }
 \value{
-An object of class \code{SDDRid} that is a list with components:
+An object of class \code{SDDRid*} that is a list with components:
 
 \code{logSDDR} a vector with values of the logarithm of the Bayes factors
 
@@ -65,6 +65,11 @@ us_fiscal_lsuw |>
 Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
 
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+}
+\seealso{
+\code{\link{verify_identification.PosteriorBSVAR}}, \code{\link{verify_identification.PosteriorBSVARSV}},
+\code{\link{verify_identification.PosteriorBSVARMIX}}, \code{\link{verify_identification.PosteriorBSVARMSH}},
+\code{\link{verify_identification.PosteriorBSVART}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
