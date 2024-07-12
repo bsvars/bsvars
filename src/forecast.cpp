@@ -217,6 +217,78 @@ Rcpp::List forecast_bsvar_sv (
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
+arma::mat forecast_lambda_t (
+    arma::mat&    posterior_df,      // Sx1
+    const int&    horizon
+) {
+  
+  const int       S = posterior_df.n_rows;
+  mat             forecasts_lambda(horizon, S, fill::ones);
+  
+  for (int s=0; s<S; s++) {
+    for (int h=0; h<horizon; h++) {
+      double df_s               = as_scalar(posterior_df.row(s));
+      forecasts_lambda.col(s)   *= df_s + 2;
+      forecasts_lambda.col(s)  /= chi2rnd( df_s, horizon );
+    } // END h loop
+  } // END s loop
+  
+  return forecasts_lambda;
+} // END forecast_lambda_t
+
+
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List forecast_bsvar_t (
+    arma::cube&   posterior_B,        // (N, N, S)
+    arma::cube&   posterior_A,        // (N, K, S)
+    arma::mat&    posterior_df,       // (S, 1)
+    arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
+    const int&    horizon
+) {
+  
+  const int       N = posterior_B.n_rows;
+  const int       S = posterior_B.n_slices;
+  const int       K = posterior_A.n_cols;
+  const int       d = exogenous_forecast.n_cols;
+  
+  cube            forecasts(N, horizon, S);
+  vec             Xt = X_T;
+  mat             lambda_forecasts = forecast_lambda_t ( posterior_df, horizon );
+  
+  for (int s=0; s<S; s++) {
+    
+    mat Sigma     = inv_sympd(trans(posterior_B.slice(s)) * posterior_B.slice(s));
+    
+    for (int h=0; h<horizon; h++) {
+      forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, lambda_forecasts(h, s) * Sigma );
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
+      
+    } // END h loop
+  } // END s loop
+  
+  return List::create(
+    _["forecasts"]        = forecasts
+  );
+} // END forecast_bsvar_t
+
+
+
+
+
+
+
+
+
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
 arma::vec mvnrnd_cond (
     arma::vec x,        // Nx1 with NAs or without
     arma::vec mu,       // Nx1 mean vector
@@ -369,3 +441,41 @@ Rcpp::List forecast_conditional_bsvar_sv (
     _["forecasts_sigma"]  = sqrt(forecasts_sigma2)
   );
 } // END forecast_conditional_bsvar_sv
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List forecast_conditional_bsvar_t (
+    arma::cube&   posterior_B,        // (N, N, S)
+    arma::cube&   posterior_A,        // (N, K, S)
+    arma::mat&    posterior_df,       // (S, 1)
+    arma::vec&    X_T,                // (K)
+    arma::mat&    exogenous_forecast, // (horizon, d)
+    arma::mat&    cond_forecasts,     // (horizon, N)
+    const int&    horizon
+) {
+  
+  const int       N = posterior_B.n_rows;
+  const int       S = posterior_B.n_slices;
+  const int       K = posterior_A.n_cols;
+  const int       d = exogenous_forecast.n_cols;
+  vec             Xt = X_T;
+  
+  cube            forecasts(N, horizon, S);
+  mat             lambda_forecasts = forecast_lambda_t ( posterior_df, horizon );
+  
+  for (int s=0; s<S; s++) {
+    
+    mat Sigma     = inv_sympd(trans(posterior_B.slice(s)) * posterior_B.slice(s));
+    
+    for (int h=0; h<horizon; h++) {
+      forecasts.slice(s).col(h) = mvnrnd_cond ( cond_forecasts.row(h).t(), posterior_A.slice(s) * Xt, lambda_forecasts(h, s) * Sigma );
+      Xt          = join_cols(forecasts.slice(s).col(h), Xt.subvec(N, K-1-d), exogenous_forecast.row(h).t());
+    } // END h loop
+  } // END s loop
+  
+  return List::create(
+    _["forecasts"]        = forecasts
+  );
+} // END forecast_conditional_bsvar_t

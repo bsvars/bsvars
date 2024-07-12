@@ -33,7 +33,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 20, thin = 1)
+posterior      = estimate(burn_in, 20)
 
 # forecast
 fore           = forecast(posterior, horizon = 2)
@@ -45,7 +45,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
   estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 20) |> 
   forecast(horizon = 2) |>
   summary() -> fore_summary
 

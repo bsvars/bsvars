@@ -33,7 +33,7 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 20, thin = 1)
+posterior      = estimate(burn_in, 20)
 
 # compute regime probabilities
 rp             = compute_regime_probabilities(posterior)
@@ -45,7 +45,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
   estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 20) |> 
   compute_regime_probabilities() |>
   summary() -> rp_summary
 
