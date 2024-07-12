@@ -56,7 +56,7 @@ specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 10)
 
 # verify autoregression
 H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -68,7 +68,7 @@ sddr           = verify_autoregression(posterior, H0)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_mix$new(p = 1, M = 2) |>
-  estimate(S = 10, thin = 1) |> 
+  estimate(S = 10) |> 
   verify_autoregression(hypothesis = H0) -> sddr
 
 }
