@@ -25,4 +25,4 @@ License: GPL (>= 3)
 URL: https://bsvars.github.io/bsvars/
 BugReports: https://github.com/bsvars/bsvars/issues
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
