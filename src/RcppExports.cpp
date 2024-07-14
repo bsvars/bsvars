@@ -477,25 +477,23 @@ RcppExport SEXP _bsvars_bsvar_t_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBS
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// forecast_bsvar
-Rcpp::List forecast_bsvar(arma::cube& posterior_B, arma::cube& posterior_A, arma::vec& X_T, arma::mat& exogenous_forecast, const int& horizon);
-static SEXP _bsvars_forecast_bsvar_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
+// mvnrnd_cond
+arma::vec mvnrnd_cond(arma::vec x, arma::vec mu, arma::mat Sigma);
+static SEXP _bsvars_mvnrnd_cond_try(SEXP xSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_bsvar(posterior_B, posterior_A, X_T, exogenous_forecast, horizon));
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Sigma(SigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(mvnrnd_cond(x, mu, Sigma));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_forecast_bsvar(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
+RcppExport SEXP _bsvars_mvnrnd_cond(SEXP xSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_bsvar_try(posterior_BSEXP, posterior_ASEXP, X_TSEXP, exogenous_forecastSEXP, horizonSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_mvnrnd_cond_try(xSEXP, muSEXP, SigmaSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -533,47 +531,6 @@ RcppExport SEXP _bsvars_forecast_sigma2_msh(SEXP posterior_sigma2SEXP, SEXP post
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
         rcpp_result_gen = PROTECT(_bsvars_forecast_sigma2_msh_try(posterior_sigma2SEXP, posterior_PR_TRSEXP, S_TSEXP, horizonSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// forecast_bsvar_msh
-Rcpp::List forecast_bsvar_msh(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& posterior_sigma2, arma::cube& posterior_PR_TR, arma::vec& X_T, arma::mat& S_T, arma::mat& exogenous_forecast, const int& horizon);
-static SEXP _bsvars_forecast_bsvar_msh_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP X_TSEXP, SEXP S_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_sigma2(posterior_sigma2SEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_PR_TR(posterior_PR_TRSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type S_T(S_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_bsvar_msh(posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, horizon));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_bsvar_msh(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP X_TSEXP, SEXP S_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_bsvar_msh_try(posterior_BSEXP, posterior_ASEXP, posterior_sigma2SEXP, posterior_PR_TRSEXP, X_TSEXP, S_TSEXP, exogenous_forecastSEXP, horizonSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -631,48 +588,6 @@ RcppExport SEXP _bsvars_forecast_sigma2_sv(SEXP posterior_h_TSEXP, SEXP posterio
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// forecast_bsvar_sv
-Rcpp::List forecast_bsvar_sv(arma::cube& posterior_B, arma::cube& posterior_A, arma::mat& posterior_h_T, arma::mat& posterior_rho, arma::mat& posterior_omega, arma::vec& X_T, arma::mat& exogenous_forecast, const int& horizon, const bool& centred_sv);
-static SEXP _bsvars_forecast_bsvar_sv_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_h_TSEXP, SEXP posterior_rhoSEXP, SEXP posterior_omegaSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP, SEXP centred_svSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_h_T(posterior_h_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_rho(posterior_rhoSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_omega(posterior_omegaSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type centred_sv(centred_svSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_bsvar_sv(posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, exogenous_forecast, horizon, centred_sv));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_bsvar_sv(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_h_TSEXP, SEXP posterior_rhoSEXP, SEXP posterior_omegaSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP, SEXP centred_svSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_bsvar_sv_try(posterior_BSEXP, posterior_ASEXP, posterior_h_TSEXP, posterior_rhoSEXP, posterior_omegaSEXP, X_TSEXP, exogenous_forecastSEXP, horizonSEXP, centred_svSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
 // forecast_lambda_t
 arma::mat forecast_lambda_t(arma::mat& posterior_df, const int& horizon);
 static SEXP _bsvars_forecast_lambda_t_try(SEXP posterior_dfSEXP, SEXP horizonSEXP) {
@@ -708,226 +623,27 @@ RcppExport SEXP _bsvars_forecast_lambda_t(SEXP posterior_dfSEXP, SEXP horizonSEX
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// forecast_bsvar_t
-Rcpp::List forecast_bsvar_t(arma::cube& posterior_B, arma::cube& posterior_A, arma::mat& posterior_df, arma::vec& X_T, arma::mat& exogenous_forecast, const int& horizon);
-static SEXP _bsvars_forecast_bsvar_t_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_dfSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
+// forecast_bsvars
+arma::cube forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon);
+static SEXP _bsvars_forecast_bsvars_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP forecast_sigma2SEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastSEXP, SEXP horizonSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
     Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_df(posterior_dfSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type forecast_sigma2(forecast_sigma2SEXP);
     Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
     Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type cond_forecast(cond_forecastSEXP);
     Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_bsvar_t(posterior_B, posterior_A, posterior_df, X_T, exogenous_forecast, horizon));
+    rcpp_result_gen = Rcpp::wrap(forecast_bsvars(posterior_B, posterior_A, forecast_sigma2, X_T, exogenous_forecast, cond_forecast, horizon));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_forecast_bsvar_t(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_dfSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP horizonSEXP) {
+RcppExport SEXP _bsvars_forecast_bsvars(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP forecast_sigma2SEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastSEXP, SEXP horizonSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_bsvar_t_try(posterior_BSEXP, posterior_ASEXP, posterior_dfSEXP, X_TSEXP, exogenous_forecastSEXP, horizonSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// mvnrnd_cond
-arma::vec mvnrnd_cond(arma::vec x, arma::vec mu, arma::mat Sigma);
-static SEXP _bsvars_mvnrnd_cond_try(SEXP xSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type Sigma(SigmaSEXP);
-    rcpp_result_gen = Rcpp::wrap(mvnrnd_cond(x, mu, Sigma));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_mvnrnd_cond(SEXP xSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_mvnrnd_cond_try(xSEXP, muSEXP, SigmaSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// forecast_conditional_bsvar
-Rcpp::List forecast_conditional_bsvar(arma::cube& posterior_B, arma::cube& posterior_A, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecasts, const int& horizon);
-static SEXP _bsvars_forecast_conditional_bsvar_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type cond_forecasts(cond_forecastsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_conditional_bsvar(posterior_B, posterior_A, X_T, exogenous_forecast, cond_forecasts, horizon));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_conditional_bsvar(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_conditional_bsvar_try(posterior_BSEXP, posterior_ASEXP, X_TSEXP, exogenous_forecastSEXP, cond_forecastsSEXP, horizonSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// forecast_conditional_bsvar_msh
-Rcpp::List forecast_conditional_bsvar_msh(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& posterior_sigma2, arma::cube& posterior_PR_TR, arma::vec& X_T, arma::mat& S_T, arma::mat& exogenous_forecast, arma::mat& cond_forecasts, const int& horizon);
-static SEXP _bsvars_forecast_conditional_bsvar_msh_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP X_TSEXP, SEXP S_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_sigma2(posterior_sigma2SEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_PR_TR(posterior_PR_TRSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type S_T(S_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type cond_forecasts(cond_forecastsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_conditional_bsvar_msh(posterior_B, posterior_A, posterior_sigma2, posterior_PR_TR, X_T, S_T, exogenous_forecast, cond_forecasts, horizon));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_conditional_bsvar_msh(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP X_TSEXP, SEXP S_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_conditional_bsvar_msh_try(posterior_BSEXP, posterior_ASEXP, posterior_sigma2SEXP, posterior_PR_TRSEXP, X_TSEXP, S_TSEXP, exogenous_forecastSEXP, cond_forecastsSEXP, horizonSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// forecast_conditional_bsvar_sv
-Rcpp::List forecast_conditional_bsvar_sv(arma::cube& posterior_B, arma::cube& posterior_A, arma::mat& posterior_h_T, arma::mat& posterior_rho, arma::mat& posterior_omega, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecasts, const int& horizon, const bool& centred_sv);
-static SEXP _bsvars_forecast_conditional_bsvar_sv_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_h_TSEXP, SEXP posterior_rhoSEXP, SEXP posterior_omegaSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP, SEXP centred_svSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_h_T(posterior_h_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_rho(posterior_rhoSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_omega(posterior_omegaSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type cond_forecasts(cond_forecastsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type centred_sv(centred_svSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_conditional_bsvar_sv(posterior_B, posterior_A, posterior_h_T, posterior_rho, posterior_omega, X_T, exogenous_forecast, cond_forecasts, horizon, centred_sv));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_conditional_bsvar_sv(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_h_TSEXP, SEXP posterior_rhoSEXP, SEXP posterior_omegaSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP, SEXP centred_svSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_conditional_bsvar_sv_try(posterior_BSEXP, posterior_ASEXP, posterior_h_TSEXP, posterior_rhoSEXP, posterior_omegaSEXP, X_TSEXP, exogenous_forecastSEXP, cond_forecastsSEXP, horizonSEXP, centred_svSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
-}
-// forecast_conditional_bsvar_t
-Rcpp::List forecast_conditional_bsvar_t(arma::cube& posterior_B, arma::cube& posterior_A, arma::mat& posterior_df, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecasts, const int& horizon);
-static SEXP _bsvars_forecast_conditional_bsvar_t_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_dfSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type posterior_df(posterior_dfSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type X_T(X_TSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type exogenous_forecast(exogenous_forecastSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type cond_forecasts(cond_forecastsSEXP);
-    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
-    rcpp_result_gen = Rcpp::wrap(forecast_conditional_bsvar_t(posterior_B, posterior_A, posterior_df, X_T, exogenous_forecast, cond_forecasts, horizon));
-    return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _bsvars_forecast_conditional_bsvar_t(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP posterior_dfSEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastsSEXP, SEXP horizonSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_forecast_conditional_bsvar_t_try(posterior_BSEXP, posterior_ASEXP, posterior_dfSEXP, X_TSEXP, exogenous_forecastSEXP, cond_forecastsSEXP, horizonSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_forecast_bsvars_try(posterior_BSEXP, posterior_ASEXP, forecast_sigma2SEXP, X_TSEXP, exogenous_forecastSEXP, cond_forecastSEXP, horizonSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2440,18 +2156,11 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::List(*bsvar_msh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_sv_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const Rcpp::List&,const int,const bool,const bool)");
         signatures.insert("Rcpp::List(*bsvar_t_cpp)(const int&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const Rcpp::List&,const Rcpp::List&,const arma::vec&,const int,const bool)");
-        signatures.insert("Rcpp::List(*forecast_bsvar)(arma::cube&,arma::cube&,arma::vec&,arma::mat&,const int&)");
-        signatures.insert("arma::cube(*forecast_sigma2_msh)(arma::cube&,arma::cube&,arma::mat&,const int&)");
-        signatures.insert("Rcpp::List(*forecast_bsvar_msh)(arma::cube&,arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
-        signatures.insert("arma::cube(*forecast_sigma2_sv)(arma::mat&,arma::mat&,arma::mat&,const int&,const bool&)");
-        signatures.insert("Rcpp::List(*forecast_bsvar_sv)(arma::cube&,arma::cube&,arma::mat&,arma::mat&,arma::mat&,arma::vec&,arma::mat&,const int&,const bool&)");
-        signatures.insert("arma::mat(*forecast_lambda_t)(arma::mat&,const int&)");
-        signatures.insert("Rcpp::List(*forecast_bsvar_t)(arma::cube&,arma::cube&,arma::mat&,arma::vec&,arma::mat&,const int&)");
         signatures.insert("arma::vec(*mvnrnd_cond)(arma::vec,arma::vec,arma::mat)");
-        signatures.insert("Rcpp::List(*forecast_conditional_bsvar)(arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
-        signatures.insert("Rcpp::List(*forecast_conditional_bsvar_msh)(arma::cube&,arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,arma::mat&,const int&)");
-        signatures.insert("Rcpp::List(*forecast_conditional_bsvar_sv)(arma::cube&,arma::cube&,arma::mat&,arma::mat&,arma::mat&,arma::vec&,arma::mat&,arma::mat&,const int&,const bool&)");
-        signatures.insert("Rcpp::List(*forecast_conditional_bsvar_t)(arma::cube&,arma::cube&,arma::mat&,arma::vec&,arma::mat&,arma::mat&,const int&)");
+        signatures.insert("arma::cube(*forecast_sigma2_msh)(arma::cube&,arma::cube&,arma::mat&,const int&)");
+        signatures.insert("arma::cube(*forecast_sigma2_sv)(arma::mat&,arma::mat&,arma::mat&,const int&,const bool&)");
+        signatures.insert("arma::mat(*forecast_lambda_t)(arma::mat&,const int&)");
+        signatures.insert("arma::cube(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
         signatures.insert("arma::vec(*Ergodic_PR_TR)(const arma::mat&)");
         signatures.insert("arma::mat(*count_regime_transitions)(const arma::mat&)");
         signatures.insert("arma::rowvec(*rDirichlet1)(const arma::rowvec&)");
@@ -2510,18 +2219,11 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_msh_cpp", (DL_FUNC)_bsvars_bsvar_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_sv_cpp", (DL_FUNC)_bsvars_bsvar_sv_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_t_cpp", (DL_FUNC)_bsvars_bsvar_t_cpp_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvar", (DL_FUNC)_bsvars_forecast_bsvar_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_msh", (DL_FUNC)_bsvars_forecast_sigma2_msh_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvar_msh", (DL_FUNC)_bsvars_forecast_bsvar_msh_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_sv", (DL_FUNC)_bsvars_forecast_sigma2_sv_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvar_sv", (DL_FUNC)_bsvars_forecast_bsvar_sv_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_lambda_t", (DL_FUNC)_bsvars_forecast_lambda_t_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvar_t", (DL_FUNC)_bsvars_forecast_bsvar_t_try);
     R_RegisterCCallable("bsvars", "_bsvars_mvnrnd_cond", (DL_FUNC)_bsvars_mvnrnd_cond_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_conditional_bsvar", (DL_FUNC)_bsvars_forecast_conditional_bsvar_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_conditional_bsvar_msh", (DL_FUNC)_bsvars_forecast_conditional_bsvar_msh_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_conditional_bsvar_sv", (DL_FUNC)_bsvars_forecast_conditional_bsvar_sv_try);
-    R_RegisterCCallable("bsvars", "_bsvars_forecast_conditional_bsvar_t", (DL_FUNC)_bsvars_forecast_conditional_bsvar_t_try);
+    R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_msh", (DL_FUNC)_bsvars_forecast_sigma2_msh_try);
+    R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_sv", (DL_FUNC)_bsvars_forecast_sigma2_sv_try);
+    R_RegisterCCallable("bsvars", "_bsvars_forecast_lambda_t", (DL_FUNC)_bsvars_forecast_lambda_t_try);
+    R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvars", (DL_FUNC)_bsvars_forecast_bsvars_try);
     R_RegisterCCallable("bsvars", "_bsvars_Ergodic_PR_TR", (DL_FUNC)_bsvars_Ergodic_PR_TR_try);
     R_RegisterCCallable("bsvars", "_bsvars_count_regime_transitions", (DL_FUNC)_bsvars_count_regime_transitions_try);
     R_RegisterCCallable("bsvars", "_bsvars_rDirichlet1", (DL_FUNC)_bsvars_rDirichlet1_try);
@@ -2579,18 +2281,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 11},
     {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 9},
     {"_bsvars_bsvar_t_cpp", (DL_FUNC) &_bsvars_bsvar_t_cpp, 9},
-    {"_bsvars_forecast_bsvar", (DL_FUNC) &_bsvars_forecast_bsvar, 5},
-    {"_bsvars_forecast_sigma2_msh", (DL_FUNC) &_bsvars_forecast_sigma2_msh, 4},
-    {"_bsvars_forecast_bsvar_msh", (DL_FUNC) &_bsvars_forecast_bsvar_msh, 8},
-    {"_bsvars_forecast_sigma2_sv", (DL_FUNC) &_bsvars_forecast_sigma2_sv, 5},
-    {"_bsvars_forecast_bsvar_sv", (DL_FUNC) &_bsvars_forecast_bsvar_sv, 9},
-    {"_bsvars_forecast_lambda_t", (DL_FUNC) &_bsvars_forecast_lambda_t, 2},
-    {"_bsvars_forecast_bsvar_t", (DL_FUNC) &_bsvars_forecast_bsvar_t, 6},
     {"_bsvars_mvnrnd_cond", (DL_FUNC) &_bsvars_mvnrnd_cond, 3},
-    {"_bsvars_forecast_conditional_bsvar", (DL_FUNC) &_bsvars_forecast_conditional_bsvar, 6},
-    {"_bsvars_forecast_conditional_bsvar_msh", (DL_FUNC) &_bsvars_forecast_conditional_bsvar_msh, 9},
-    {"_bsvars_forecast_conditional_bsvar_sv", (DL_FUNC) &_bsvars_forecast_conditional_bsvar_sv, 10},
-    {"_bsvars_forecast_conditional_bsvar_t", (DL_FUNC) &_bsvars_forecast_conditional_bsvar_t, 7},
+    {"_bsvars_forecast_sigma2_msh", (DL_FUNC) &_bsvars_forecast_sigma2_msh, 4},
+    {"_bsvars_forecast_sigma2_sv", (DL_FUNC) &_bsvars_forecast_sigma2_sv, 5},
+    {"_bsvars_forecast_lambda_t", (DL_FUNC) &_bsvars_forecast_lambda_t, 2},
+    {"_bsvars_forecast_bsvars", (DL_FUNC) &_bsvars_forecast_bsvars, 7},
     {"_bsvars_Ergodic_PR_TR", (DL_FUNC) &_bsvars_Ergodic_PR_TR, 1},
     {"_bsvars_count_regime_transitions", (DL_FUNC) &_bsvars_count_regime_transitions, 1},
     {"_bsvars_rDirichlet1", (DL_FUNC) &_bsvars_rDirichlet1, 1},
