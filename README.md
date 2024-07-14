@@ -60,7 +60,9 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
   - time-varying with stationary **Markov Switching**
   - time-varying with **sparse Markov Switching** where the number of
     volatility regimes is estimated
-- In **two more models** non-normal structural shocks follow
+- In **three more models** non-normal structural shocks follow
+  - a joint **Student-t** distribution with estimated degrees-of-freedom
+    parameter
   - a finite **mixture of normal** components and component-specific
     variances
   - a **sparse mixture of normal** components and component-specific
