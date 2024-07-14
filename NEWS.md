@@ -1,4 +1,4 @@
-# bsvars 3.0.1.9000 (development version)
+# bsvars 3.1
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
