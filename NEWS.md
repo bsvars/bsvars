@@ -7,6 +7,7 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 1. A NEW MODEL! An SVAR with t-distributed structural shocks facilitating identification through non-normality is now included in the package with all the necessary functionality [#84](https://github.com/bsvars/bsvars/issues/84)
 2. New ways of verifying identification through heteroskedasticity or non-normality using method `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
 3. Improve coding of `forecast` **cpp** function and **R** methods [#89](https://github.com/bsvars/bsvars/issues/89)
+4. Included or updated legend in FEVD and HD plots as requested by [@ccoleman9](https://github.com/ccoleman9) [#85](https://github.com/bsvars/bsvars/issues/85)
 
 # bsvars 3.0.1
 
