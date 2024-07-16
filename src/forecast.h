@@ -46,4 +46,4 @@ arma::cube forecast_bsvars (
 );
 
 
-#endif  // _BSVARTOOLS_H_
+#endif  // _FORECAST_H_
