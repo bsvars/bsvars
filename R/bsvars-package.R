@@ -1,5 +1,5 @@
 #  #####################################################################################
-#  R package bsvars by Tomasz Woźniak Copyright (C) 2022
+#  R package bsvars by Tomasz Woźniak Copyright (C) 2024
 #
 #  This file is part of the R package bsvars: Bayesian Estimation
 #  of Structural Vector Autoregressive Models
