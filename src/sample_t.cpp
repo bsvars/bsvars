@@ -58,7 +58,7 @@ arma::vec sample_df (
   
   // by sampling from truncated normal it is assumed that the asymmetry from truncation 
   // is negligible for alpha computation
-  double aux_df_star  = RcppTN::rtn1( aux_df, pow(adaptive_scale, 0.5), 0, R_PosInf );
+  double aux_df_star  = RcppTN::rtn1( aux_df, adaptive_scale, 0, R_PosInf );
   
   double alpha        = 1;
   double kernel_ratio = exp( log_kernel_df(aux_df_star, aux_lambda) - log_kernel_df(aux_df, aux_lambda) );
