@@ -41,7 +41,9 @@ estimation using \code{estimate()}.
 Estimates the homoskedastic SVAR using the Gibbs sampler proposed 
 by Waggoner & Zha (2003) for the structural matrix \eqn{B} and the 
 equation-by-equation sampler by Chan, Koop, & Yu (2024) for the autoregressive 
-slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
+slope parameters \eqn{A}. The Robust Adaptive Metropolis algorithm by 
+Vihola (2012) is used to the \code{df} parameter of the Student-t distribution.
+Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively 
 with the matrix-specific overall shrinkage parameters estimated using a 
 hierarchical prior distribution as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). 
@@ -96,6 +98,8 @@ Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs wit
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
+
+Vihola, M. (2012) Robust adaptive Metropolis algorithm with coerced acceptance rate. \emph{Statistics & Computing}, 22, 997--1008, \doi{10.1007/s11222-011-9269-5}.
 }
 \seealso{
 \code{\link{specify_bsvar_t}}, \code{\link{specify_posterior_bsvar_t}}, \code{\link{normalise_posterior}}
