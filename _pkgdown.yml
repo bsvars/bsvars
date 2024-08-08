@@ -7,16 +7,7 @@ development:
 
 navbar:
   structure:
-    right: [mastodon, bluesky, github]
-  components:
-    mastodon:
-      icon: bi-mastodon
-      href: https://fosstodon.org/@bsvars
-      aria-label: mastodon
-    bluesky:
-      icon: fa-cloud
-      href: https://bsky.app/profile/did:plc:lv7kan7iizgudi6oof3ykyoo
-      aria-label: bluesky
+    right: [github]
 
 reference:
 - title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"

@@ -966,7 +966,19 @@ plot.PosteriorFEVD = function(
     
     graphics::axis(1, labels = if (n == N) TRUE else FALSE)
     graphics::axis(2, c(0, 50, 100), c(0, 50, 100))
-    graphics::axis(4, FEVD_mid[[n]], 1:N)
+    
+    pos_right = seq(from = 20, to = 80, length.out = N)
+    for (i in 1:N) {
+      graphics::axis(
+        4, 
+        # FEVD_mid[[n]][i], 
+        pos_right[i],
+        i,
+        col.ticks = cols[i],
+        lwd.ticks = 4,
+        col = "white"
+      )
+    }
     
     graphics::mtext( # RHS "shocks"
       "shocks",
@@ -1114,6 +1126,28 @@ plot.PosteriorHD = function(
     graphics::axis(1, labels = if (n == N) TRUE else FALSE)
     graphics::axis(2, c(range_n[1], 0, range_n[2]), c(NA, 0, NA))
     
+    range_m     = mean(range_n)
+    range_l     = abs(range_n[2] - range_n[1]) / 2
+    pos_right = seq(from = range_m - 0.6 * range_l, to = range_m + 0.6 * range_l, length.out = N)
+    
+    for (i in 1:N) {
+      graphics::axis(
+        4, 
+        pos_right[i], 
+        i,
+        col.ticks = cols[i],
+        lwd.ticks = 4,
+        col = "white"
+      )
+    }
+    
+    graphics::mtext( # RHS "shocks"
+      "shocks",
+      side = 4,
+      line = 3,
+      outer = FALSE,
+      cex = 0.6
+    )
   } # END n loop
   
   graphics::mtext( # main title

@@ -28,6 +28,9 @@ sub-samples of the log-ordinates of the marginal posterior and prior distributio
 }
 }
 \description{
+This function will be deprecated starting from version 4.0. 
+It is replaced by \code{\link{verify_identification}} function.
+
 Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
 for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
 The hypothesis of homoskedasticity, \eqn{H_0}, is represented by model-specific restrictions.
@@ -51,7 +54,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 10)
 
 # verify heteroskedasticity
 sddr           = verify_volatility(posterior)
@@ -61,7 +64,7 @@ sddr           = verify_volatility(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
-  estimate(S = 10, thin = 1) |> 
+  estimate(S = 10) |> 
   verify_volatility() -> sddr
 
 }

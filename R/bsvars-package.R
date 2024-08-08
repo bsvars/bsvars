@@ -1,5 +1,5 @@
 #  #####################################################################################
-#  R package bsvars by Tomasz Woźniak Copyright (C) 2022
+#  R package bsvars by Tomasz Woźniak Copyright (C) 2024
 #
 #  This file is part of the R package bsvars: Bayesian Estimation
 #  of Structural Vector Autoregressive Models
@@ -68,6 +68,7 @@
 #'   \item heteroskedastic model with stationary Markov switching in the variances
 #'   \item heteroskedastic model with non-centred Stochastic Volatility process for variances
 #'   \item heteroskedastic model with centred Stochastic Volatility process for variances
+#'   \item a model with Student-t distributed structural shocks
 #'   \item non-normal model with a finite mixture of normal components and component-specific variances
 #'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
 #'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
@@ -101,8 +102,9 @@
 #' @import RcppProgress
 #' @importFrom RcppTN rtn
 #' @importFrom stochvol svsample_fast_cpp
-#' @importFrom stats quantile sd
+#' @importFrom stats quantile sd density
 #' @importFrom graphics polygon abline par mtext axis
+#' @importFrom utils tail
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}

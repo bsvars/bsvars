@@ -33,6 +33,20 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
 (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
 
+<a href="mailto:bsvars@pm.me">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
+</a> <a href="https://github.com/bsvars/bsvarSIGNs">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
+</a> <a href="https://fosstodon.org/@bsvars">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
+</a> <a href="https://bsky.app/profile/bsvars.bsky.social">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
+</a> <a href="https://x.com/bsvars">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/twitter.svg" width="50" height="50"/>
+</a> <a href="https://www.instagram.com/bsvarsoninsta/">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/instagram.svg" width="50" height="50"/>
+</a>
+
 ## Features
 
 #### Structural Vector Autoregressions
@@ -60,7 +74,9 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
   - time-varying with stationary **Markov Switching**
   - time-varying with **sparse Markov Switching** where the number of
     volatility regimes is estimated
-- In **two more models** non-normal structural shocks follow
+- In **three more models** non-normal structural shocks follow
+  - a joint **Student-t** distribution with estimated degrees-of-freedom
+    parameter
   - a finite **mixture of normal** components and component-specific
     variances
   - a **sparse mixture of normal** components and component-specific
@@ -173,7 +189,7 @@ In short, for **Windows:** install
 [RTools](https://CRAN.R-project.org/bin/windows/Rtools/), for **macOS:**
 install [Xcode Command Line
 Tools](https://www.freecodecamp.org/news/install-xcode-command-line-tools/),
-and for **Linux:** install the standard developement packages.
+and for **Linux:** install the standard development packages.
 
 #### Once that’s done:
 
@@ -197,7 +213,7 @@ bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 ## About the author
 
-Tomasz is a Bayesian econometrician and a Senior Lecturer at the
+**Tomasz** is a Bayesian econometrician and a Senior Lecturer at the
 University of Melbourne. He develops methodology for empirical
 macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 
@@ -205,16 +221,14 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
 </a> <a href="https://github.com/donotdespair">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
-</a> <a href="https://gitlab.com/tomaszwozniak">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/gitlab.svg" width="40" height="40"/>
 </a> <a href="https://orcid.org/0000-0003-2212-2378">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg" width="40" height="40"/>
+</a> <a href="https://www.linkedin.com/in/tomaszwwozniak">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
 </a> <a href="http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/google.svg" width="40" height="40"/>
 </a> <a href="https://arxiv.org/a/wozniak_t_1">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-xmark.svg" width="40" height="40"/>
-</a> <a href="https://www.linkedin.com/in/tomaszwwozniak">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@tomaszwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
 </a> <a href="https://bsky.app/profile/tomaszwozniak.bsky.social">

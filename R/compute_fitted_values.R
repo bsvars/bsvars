@@ -309,3 +309,64 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
   return(fv)
 }
 
+
+
+
+
+#' @method compute_fitted_values PosteriorBSVART
+#' 
+#' @title Computes posterior draws from data predictive density
+#'
+#' @description Each of the draws from the posterior estimation of the model is 
+#' transformed into a draw from the data predictive density. 
+#' 
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVART} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+#' the data predictive density.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # upload data
+#' data(us_fiscal_lsuw)
+#' 
+#' # specify the model and set seed
+#' set.seed(123)
+#' specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute draws from in-sample predictive density
+#' fitted         = compute_fitted_values(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_t$new(p = 1) |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_fitted_values() -> fitted
+#' 
+#' @export
+compute_fitted_values.PosteriorBSVART <- function(posterior) {
+  
+  posterior_A     = posterior$posterior$A
+  posterior_B     = posterior$posterior$B
+  posterior_sigma = compute_conditional_sd(posterior)
+  X               = posterior$last_draw$data_matrices$X
+  
+  fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
+  class(fv)       = "PosteriorFitted"
+  
+  return(fv)
+}

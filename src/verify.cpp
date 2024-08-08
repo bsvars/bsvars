@@ -106,7 +106,7 @@ Rcpp::List verify_volatility_sv_cpp (
   // compute the standard error 
   return List::create(
     _["logSDDR"]     = log_numerator - log_denominator,
-    _["log_SDDR_se"] = logSDDR_se,
+    _["logSDDR_se"]  = logSDDR_se,
     _["components"]  = List::create(
       _["log_denominator"]    = log_denominator,
       _["log_numerator"]      = log_numerator,
@@ -233,7 +233,7 @@ Rcpp::List verify_volatility_msh_cpp (
   // compute the standard error 
   return List::create(
     _["logSDDR"]     = log_numerator - log_denominator,
-    _["log_SDDR_se"] = logSDDR_se,
+    _["logSDDR_se"]  = logSDDR_se,
     _["components"]  = List::create(
       _["log_denominator"]    = log_denominator,
       _["log_numerator"]      = log_numerator,

@@ -1,15 +1,11 @@
-## Submission notes bsvars v3.0.1
-
-## This version corrects for `Last released version's CRAN status` under: Additional issues clang-ASAN gcc-ASAN valgrind 
-
-All the problems have been resolved in [#82](https://github.com/bsvars/bsvars/issues/82) following the discussion at [RcppCore/RcppArmadillo#443](https://github.com/RcppCore/RcppArmadillo/issues/443)
+## Submission notes bsvars v3.1
 
 ## Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
 ```
-checking installed package size ... NOTE
-  installed size is 12.2Mb
-  sub-directories of 1Mb or more:
-    libs  11.1Mb
+Result: NOTE 
+    installed size is 13.3Mb
+    sub-directories of 1Mb or more:
+      libs  11.9Mb
 ```
 This seems to be normal in packages with **Rcpp** dependency and does not show in any of my tests, e.g., running `devtools::check()`.
 

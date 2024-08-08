@@ -35,7 +35,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 20, thin = 1)
+posterior      = estimate(burn_in, 20)
 
 # compute impulse responses
 irf            = compute_impulse_responses(posterior, horizon = 4)
@@ -47,7 +47,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
   estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 20) |> 
   compute_impulse_responses(horizon = 4) |>
   summary() -> irf_summary
 
