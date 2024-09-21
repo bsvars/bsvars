@@ -1,8 +1,12 @@
-# bsvars 3.1
+# bsvars 3.1.0.9000
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
+
+1. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+
+# bsvars 3.1
 
 1. A NEW MODEL! An SVAR with t-distributed structural shocks facilitating identification through non-normality is now included in the package with all the necessary functionality [#84](https://github.com/bsvars/bsvars/issues/84)
 2. New ways of verifying identification through heteroskedasticity or non-normality using method `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
