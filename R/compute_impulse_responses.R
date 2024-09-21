@@ -68,6 +68,7 @@ compute_impulse_responses <- function(posterior, horizon, standardise = FALSE) {
 #' @export
 compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standardise = FALSE) {
 
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
@@ -76,7 +77,7 @@ compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standar
 
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
 
-  irfs            = array(NA, c(N, N, horizon + 1, S))
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
   class(irfs)     = "PosteriorIR"
 
@@ -123,6 +124,7 @@ compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standar
 #' @export
 compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, standardise = FALSE) {
 
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
@@ -131,7 +133,7 @@ compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, stan
 
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
 
-  irfs            = array(NA, c(N, N, horizon + 1, S))
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
   class(irfs)     = "PosteriorIR"
 
@@ -179,6 +181,7 @@ compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, stan
 #' @export
 compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, standardise = FALSE) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
@@ -187,7 +190,7 @@ compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, stan
   
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
   
-  irfs            = array(NA, c(N, N, horizon + 1, S))
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
   class(irfs)     = "PosteriorIR"
   
@@ -235,6 +238,7 @@ compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, stan
 #' @export
 compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, standardise = FALSE) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
@@ -243,7 +247,7 @@ compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, stand
   
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
   
-  irfs            = array(NA, c(N, N, horizon + 1, S))
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
   class(irfs)     = "PosteriorIR"
   
@@ -288,6 +292,7 @@ compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, stand
 #' @export
 compute_impulse_responses.PosteriorBSVART <- function(posterior, horizon, standardise = FALSE) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_B     = posterior$posterior$B
   posterior_A     = posterior$posterior$A
   N               = dim(posterior_A)[1]
@@ -296,7 +301,7 @@ compute_impulse_responses.PosteriorBSVART <- function(posterior, horizon, standa
   
   qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
   
-  irfs            = array(NA, c(N, N, horizon + 1, S))
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
   class(irfs)     = "PosteriorIR"
   

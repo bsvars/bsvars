@@ -133,7 +133,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
   qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
-  hd              = array(NA, c(N, N, T, S))
+  hd              = array(NA, c(N, N, T, S), dimnames = list(rownames(Y), rownames(Y), colnames(Y), 1:S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
   class(hd)       = "PosteriorHD"
   
@@ -216,7 +216,7 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior, show_
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
   qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
 
-  hd              = array(NA, c(N, N, T, S))
+  hd              = array(NA, c(N, N, T, S), dimnames = list(rownames(Y), rownames(Y), colnames(Y), 1:S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
   class(hd)       = "PosteriorHD"
 
@@ -296,7 +296,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
   qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
-  hd              = array(NA, c(N, N, T, S))
+  hd              = array(NA, c(N, N, T, S), dimnames = list(rownames(Y), rownames(Y), colnames(Y), 1:S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
   class(hd)       = "PosteriorHD"
   
@@ -377,7 +377,7 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
   qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
-  hd              = array(NA, c(N, N, T, S))
+  hd              = array(NA, c(N, N, T, S), dimnames = list(rownames(Y), rownames(Y), colnames(Y), 1:S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
   class(hd)       = "PosteriorHD"
   
@@ -460,7 +460,7 @@ compute_historical_decompositions.PosteriorBSVART <- function(posterior, show_pr
   ir              = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, T, p, TRUE)
   qqq             = .Call(`_bsvars_bsvars_hd`, ir, ss, show_progress)
   
-  hd              = array(NA, c(N, N, T, S))
+  hd              = array(NA, c(N, N, T, S), dimnames = list(rownames(Y), rownames(Y), colnames(Y), 1:S))
   for (s in 1:S) hd[,,,s] = qqq[s][[1]]
   class(hd)       = "PosteriorHD"
   
