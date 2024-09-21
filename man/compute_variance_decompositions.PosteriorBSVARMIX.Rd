@@ -10,8 +10,7 @@
 \item{posterior}{posterior estimation outcome - an object of class 
 \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.}
 
-\item{horizon}{a positive integer number denoting the forecast horizon for 
-the forecast error variance decomposition computations.}
+\item{horizon}{a positive integer number denoting the forecast horizon for the impulse responses computations.}
 }
 \value{
 An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 
