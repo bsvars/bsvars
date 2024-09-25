@@ -43,6 +43,7 @@ including their median and percentiles.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  probability <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>  <span class="va">shock_names</span>,</span>
 <span>  col <span class="op">=</span> <span class="st">"#ff69b4"</span>,</span>
 <span>  <span class="va">main</span>,</span>
 <span>  <span class="va">xlab</span>,</span>
@@ -66,6 +67,10 @@ conditional standard deviations of structural shocks.</p></dd>
 <dd><p>a parameter determining the interval to be plotted. The
 interval stretches from the <code>0.5 * (1 - probability)</code> to
 <code>1 - 0.5 * (1 - probability)</code> percentile of the posterior distribution.</p></dd>
+
+
+<dt id="arg-shock-names">shock_names<a class="anchor" aria-label="anchor" href="#arg-shock-names"></a></dt>
+<dd><p>a vector of length <code>N</code> containing names of the structural shocks.</p></dd>
 
 
 <dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
@@ -133,6 +138,7 @@ interval stretches from the <code>0.5 * (1 - probability)</code> to
 <span class="r-in"><span><span class="co"># compute structural shocks' conditional standard deviations</span></span></span>
 <span class="r-in"><span><span class="va">sigma</span>          <span class="op">=</span> <span class="fu"><a href="compute_conditional_sd.html">compute_conditional_sd</a></span><span class="op">(</span><span class="va">posterior</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sigma</span><span class="op">)</span>                                            <span class="co"># plot conditional sds</span></span></span>
+<span class="r-plt img"><img src="plot.PosteriorSigma-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
@@ -164,7 +170,6 @@ interval stretches from the <code>0.5 * (1 - probability)</code> to
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-plt img"><img src="plot.PosteriorSigma-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -177,7 +182,7 @@ interval stretches from the <code>0.5 * (1 - probability)</code> to
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>

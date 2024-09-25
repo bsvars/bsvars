@@ -42,6 +42,7 @@ decompositions.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'PosteriorFEVD'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
+<span>  <span class="va">shock_names</span>,</span>
 <span>  <span class="va">cols</span>,</span>
 <span>  <span class="va">main</span>,</span>
 <span>  <span class="va">xlab</span>,</span>
@@ -59,6 +60,10 @@ decompositions.</p>
 <dd><p>an object of class PosteriorFEVD obtained using the
 <code><a href="compute_variance_decompositions.html">compute_variance_decompositions()</a></code> function containing posterior draws of
 forecast error variance decompositions.</p></dd>
+
+
+<dt id="arg-shock-names">shock_names<a class="anchor" aria-label="anchor" href="#arg-shock-names"></a></dt>
+<dd><p>a vector of length <code>N</code> containing names of the structural shocks.</p></dd>
 
 
 <dt id="arg-cols">cols<a class="anchor" aria-label="anchor" href="#arg-cols"></a></dt>
@@ -124,6 +129,7 @@ forecast error variance decompositions.</p></dd>
 <span class="r-in"><span><span class="co"># compute forecast error variance decompositions</span></span></span>
 <span class="r-in"><span><span class="va">fevd</span>           <span class="op">=</span> <span class="fu"><a href="compute_variance_decompositions.html">compute_variance_decompositions</a></span><span class="op">(</span><span class="va">posterior</span>, horizon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fevd</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.PosteriorFEVD-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
@@ -153,7 +159,6 @@ forecast error variance decompositions.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-plt img"><img src="plot.PosteriorFEVD-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -166,7 +171,7 @@ forecast error variance decompositions.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
