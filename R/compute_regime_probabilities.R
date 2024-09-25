@@ -93,6 +93,9 @@ compute_regime_probabilities.PosteriorBSVARMSH <- function(posterior, type = c("
   }
   
   class(probs)  = "PosteriorRegimePr"
+  M                 = dim(posterior$posterior$xi)[1]
+  S                 = dim(posterior$posterior$xi)[3]
+  dimnames(probs)   = list(1:M, colnames(Y), 1:S)
   
   return(probs)
 }
@@ -167,6 +170,9 @@ compute_regime_probabilities.PosteriorBSVARMIX <- function(posterior, type = c("
   }
   
   class(probs)  = "PosteriorRegimePr"
+  M                 = dim(posterior$posterior$xi)[1]
+  S                 = dim(posterior$posterior$xi)[3]
+  dimnames(probs)   = list(1:M, colnames(Y), 1:S)
   
   return(probs)
 }

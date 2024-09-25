@@ -354,7 +354,18 @@ specify_data_matrices = R6::R6Class(
       TT            = nrow(data)
       T             = TT - p
       
-      self$Y        = t(data[(p + 1):TT,])
+      Y             = t(data[(p + 1):TT,])
+      colnames(Y)   = 1:T
+      rownames(Y)   = paste0("v", 1:ncol(data))
+      
+      if ( any(class(data) == "ts") ) {
+        colnames(Y) = as.numeric(time(data))[(p + 1):TT]
+      }  
+      if ( !is.null(colnames(data)) ) {
+        rownames(Y) = colnames(data)
+      }
+      
+      self$Y        = Y
       X             = matrix(0, T, 0)
       for (i in 1:p) {
         X           = cbind(X, data[(p + 1):TT - i,])

@@ -6,6 +6,7 @@
 \usage{
 \method{plot}{PosteriorFEVD}(
   x,
+  shock_names,
   cols,
   main,
   xlab,
@@ -18,6 +19,8 @@
 \item{x}{an object of class PosteriorFEVD obtained using the
 \code{compute_variance_decompositions()} function containing posterior draws of 
 forecast error variance decompositions.}
+
+\item{shock_names}{a vector of length \code{N} containing names of the structural shocks.}
 
 \item{cols}{an \code{N}-vector with colours of the plot}
 

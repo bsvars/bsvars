@@ -98,6 +98,7 @@ compute_fitted_values <- function(posterior) {
 #' @export
 compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
 
@@ -109,6 +110,8 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
+  S               = dim(posterior_A)[3]      
+  dimnames(fv)    = list(rownames(Y), colnames(Y), 1:S)
 
   return(fv)
 }
@@ -163,7 +166,8 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 #'   
 #' @export
 compute_fitted_values.PosteriorBSVARMSH <- function(posterior) {
-
+  
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
   posterior_sigma = posterior$posterior$sigma
@@ -171,6 +175,8 @@ compute_fitted_values.PosteriorBSVARMSH <- function(posterior) {
 
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
+  S               = dim(posterior_A)[3]      
+  dimnames(fv)    = list(rownames(Y), colnames(Y), 1:S)
 
   return(fv)
 }
@@ -232,6 +238,7 @@ compute_fitted_values.PosteriorBSVARMSH <- function(posterior) {
 #' @export
 compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
   posterior_sigma = posterior$posterior$sigma
@@ -239,6 +246,8 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
+  S               = dim(posterior_A)[3]      
+  dimnames(fv)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(fv)
 }
@@ -298,6 +307,7 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
 #' @export
 compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
   posterior_sigma = posterior$posterior$sigma
@@ -305,6 +315,8 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
+  S               = dim(posterior_A)[3]      
+  dimnames(fv)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(fv)
 }
@@ -360,6 +372,7 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
 #' @export
 compute_fitted_values.PosteriorBSVART <- function(posterior) {
   
+  Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
   posterior_sigma = compute_conditional_sd(posterior)
@@ -367,6 +380,8 @@ compute_fitted_values.PosteriorBSVART <- function(posterior) {
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
   class(fv)       = "PosteriorFitted"
+  S               = dim(posterior_A)[3]      
+  dimnames(fv)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(fv)
 }

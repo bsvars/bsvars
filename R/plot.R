@@ -123,6 +123,7 @@ plot_ribbon = function(
 #' @param probability a parameter determining the interval to be plotted. The 
 #' interval stretches from the \code{0.5 * (1 - probability)} to 
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param shock_names a vector of length \code{N} containing names of the structural shocks.
 #' @param col a colour of the plot line and the ribbon
 #' @param main an alternative main title for the plot
 #' @param xlab an alternative x-axis label for the plot
@@ -161,6 +162,7 @@ plot_ribbon = function(
 plot.PosteriorSigma = function(
     x,
     probability = 0.9,
+    shock_names,
     col = "#ff69b4",
     main,
     xlab,
@@ -173,6 +175,7 @@ plot.PosteriorSigma = function(
   if ( missing(xlab) ) xlab = "time"
   
   N = dim(x)[1]
+  if ( missing(shock_names) ) shock_names = paste("shock", 1:N)
   
   oldpar <- graphics::par( 
     mfrow = c(N, 1),
@@ -181,6 +184,9 @@ plot.PosteriorSigma = function(
   )
   on.exit(graphics::par(oldpar))
   
+  lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
+  ll = as.numeric(dimnames(x)[[2]])[lw]
+  
   for (n in 1:N) {
     
     plot_ribbon(
@@ -188,7 +194,7 @@ plot.PosteriorSigma = function(
       probability = probability,
       col         = col,
       main = "",
-      ylab = paste("shock", n),
+      ylab = shock_names[n],
       xlab = "",
       start_at    = 1,
       bty = "n",
@@ -196,7 +202,7 @@ plot.PosteriorSigma = function(
       ...
     )
     
-    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(1, at = lw, labels = if (n == N) ll else FALSE)
     graphics::axis(2)
     
     graphics::abline(h = 1)
@@ -292,6 +298,10 @@ plot.PosteriorFitted = function(
   )
   on.exit(graphics::par(oldpar))
   
+  lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
+  ll = as.numeric(dimnames(x)[[2]])[lw]
+  var_names = dimnames(x)[[1]]
+  
   for (n in 1:N) {
     
     plot_ribbon(
@@ -299,7 +309,7 @@ plot.PosteriorFitted = function(
       probability = probability,
       col         = col,
       main = "",
-      ylab = paste("variable", n),
+      ylab = var_names[n],
       xlab = "",
       start_at    = 1,
       bty = "n",
@@ -307,7 +317,7 @@ plot.PosteriorFitted = function(
       ...
     )
     
-    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    graphics::axis(1, at = lw, labels = if (n == N) ll else FALSE)
     graphics::axis(2)
     
     graphics::abline(h = 0)
@@ -354,6 +364,7 @@ plot.PosteriorFitted = function(
 #' @param probability a parameter determining the interval to be plotted. The 
 #' interval stretches from the \code{0.5 * (1 - probability)} to 
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param shock_names a vector of length \code{N} containing names of the structural shocks.
 #' @param col a colour of the plot line and the ribbon
 #' @param main an alternative main title for the plot
 #' @param xlab an alternative x-axis label for the plot
@@ -392,6 +403,7 @@ plot.PosteriorFitted = function(
 plot.PosteriorIR = function(
     x,
     probability = 0.9,
+    shock_names,
     col = "#ff69b4",
     main,
     xlab,
@@ -404,6 +416,7 @@ plot.PosteriorIR = function(
   if ( missing(xlab) ) xlab = "horizon"
   
   N = dim(x)[1]
+  if ( missing(shock_names) ) shock_names = paste("shock", 1:N)
   
   oldpar <- graphics::par( 
     mfrow = c(N, N),
@@ -412,17 +425,19 @@ plot.PosteriorIR = function(
   )
   on.exit(graphics::par(oldpar))
   
+  var_names = dimnames(x)[[1]]
+  
   for (n in 1:N) {
     for (i in 1:N) {
       
       if (n == 1) {
-        main_s = paste("shock ", i)
+        main_s = shock_names[n]
       } else {
         main_s = ""
       }
       
       if (i == 1) {
-        ylab_v = paste("variable ", n)
+        ylab_v = var_names[n]
       } else {
         ylab_v = ""
       }
@@ -564,7 +579,9 @@ plot.PosteriorRegimePr = function(
       ...
     )
     
-    graphics::axis(1, labels = if (m == M) TRUE else FALSE)
+    lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
+    ll = as.numeric(dimnames(x)[[2]])[lw]
+    graphics::axis(1, at = lw, labels = if (m == M) ll else FALSE)
     graphics::axis(2, c(0, 1), c(0, 1))
     
   } # END n loop
@@ -869,6 +886,7 @@ plot.Forecasts = function(
 #' @param x an object of class PosteriorFEVD obtained using the
 #' \code{compute_variance_decompositions()} function containing posterior draws of 
 #' forecast error variance decompositions.
+#' @param shock_names a vector of length \code{N} containing names of the structural shocks.
 #' @param cols an \code{N}-vector with colours of the plot
 #' @param main an alternative main title for the plot
 #' @param xlab an alternative x-axis label for the plot
@@ -906,6 +924,7 @@ plot.Forecasts = function(
 #' @export
 plot.PosteriorFEVD = function(
     x,
+    shock_names,
     cols,
     main,
     xlab,
@@ -918,6 +937,8 @@ plot.PosteriorFEVD = function(
   if ( missing(xlab) ) xlab = "horizon"
   
   N         = dim(x)[1]
+  if ( missing(shock_names) ) shock_names = 1:N
+  
   H         = dim(x)[3] - 1
   
   if ( missing(cols) ) {
@@ -940,6 +961,8 @@ plot.PosteriorFEVD = function(
   )
   on.exit(graphics::par(oldpar))
   
+  var_names = dimnames(x)[[1]]
+  
   for (n in 1:N) {
     
     graphics::plot(
@@ -947,7 +970,7 @@ plot.PosteriorFEVD = function(
       y = FEVD[[n]][1,],
       type = "n",
       ylim = c(0, 100),
-      ylab = paste("variable", n),
+      ylab = var_names[n],
       main = "",
       xlab = "",
       bty = "n",
@@ -973,7 +996,7 @@ plot.PosteriorFEVD = function(
         4, 
         # FEVD_mid[[n]][i], 
         pos_right[i],
-        i,
+        shock_names[i],
         col.ticks = cols[i],
         lwd.ticks = 4,
         col = "white"
@@ -1019,6 +1042,7 @@ plot.PosteriorFEVD = function(
 #' @param x an object of class PosteriorHD obtained using the
 #' \code{compute_historical_decompositions()} function containing posterior draws of 
 #' historical decompositions.
+#' @param shock_names a vector of length \code{N} containing names of the structural shocks.
 #' @param cols an \code{N}-vector with colours of the plot
 #' @param main an alternative main title for the plot
 #' @param xlab an alternative x-axis label for the plot
@@ -1056,6 +1080,7 @@ plot.PosteriorFEVD = function(
 #' @export
 plot.PosteriorHD = function(
     x,
+    shock_names,
     cols,
     main,
     xlab,
@@ -1070,6 +1095,8 @@ plot.PosteriorHD = function(
   hd_mean   = apply(x, 1:3, mean)
   N         = dim(hd_mean)[1]
   T         = dim(hd_mean)[3]
+  
+  if ( missing(shock_names) ) shock_names = 1:N
   
   if ( missing(cols) ) {
     fc          = grDevices::colorRampPalette(c("#ff69b4", "#ffd700"))
@@ -1096,6 +1123,8 @@ plot.PosteriorHD = function(
   )
   on.exit(graphics::par(oldpar))
   
+  var_names = dimnames(x)[[1]]
+  
   for (n in 1:N) {
     
     range_n   = range(ul[[n]])
@@ -1105,7 +1134,7 @@ plot.PosteriorHD = function(
       y = y_hat[n,1:T],
       type = "n",
       ylim = range_n,
-      ylab = paste("variable", n),
+      ylab = var_names[n],
       main = "",
       xlab = "",
       bty = "n",
@@ -1123,7 +1152,9 @@ plot.PosteriorHD = function(
     
     graphics::abline(h = 0)
     
-    graphics::axis(1, labels = if (n == N) TRUE else FALSE)
+    lw = which(as.numeric(dimnames(x)[[3]]) %% 1 == 0)
+    ll = as.numeric(dimnames(x)[[3]])[lw]
+    graphics::axis(1, at = lw, labels = if (n == N) ll else FALSE)
     graphics::axis(2, c(range_n[1], 0, range_n[2]), c(NA, 0, NA))
     
     range_m     = mean(range_n)
@@ -1134,7 +1165,7 @@ plot.PosteriorHD = function(
       graphics::axis(
         4, 
         pos_right[i], 
-        i,
+        shock_names[i],
         col.ticks = cols[i],
         lwd.ticks = 4,
         col = "white"

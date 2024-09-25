@@ -105,6 +105,8 @@ compute_structural_shocks.PosteriorBSVAR <- function(posterior) {
 
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   class(ss)       = "PosteriorShocks"
+  S               = dim(ss)[3]     
+  dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
 
   return(ss)
 }
@@ -167,6 +169,8 @@ compute_structural_shocks.PosteriorBSVARMSH <- function(posterior) {
 
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   class(ss)       = "PosteriorShocks"
+  S               = dim(ss)[3]     
+  dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
 
   return(ss)
 }
@@ -229,6 +233,8 @@ compute_structural_shocks.PosteriorBSVARMIX <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   class(ss)       = "PosteriorShocks"
+  S               = dim(ss)[3]     
+  dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(ss)
 }
@@ -291,6 +297,8 @@ compute_structural_shocks.PosteriorBSVARSV <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   class(ss)       = "PosteriorShocks"
+  S               = dim(ss)[3]     
+  dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(ss)
 }
@@ -352,6 +360,8 @@ compute_structural_shocks.PosteriorBSVART <- function(posterior) {
   
   ss              = .Call(`_bsvars_bsvars_structural_shocks`, posterior_B, posterior_A, Y, X)
   class(ss)       = "PosteriorShocks"
+  S               = dim(ss)[3]     
+  dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(ss)
 }

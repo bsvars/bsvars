@@ -7,6 +7,7 @@
 \method{plot}{PosteriorIR}(
   x,
   probability = 0.9,
+  shock_names,
   col = "#ff69b4",
   main,
   xlab,
@@ -23,6 +24,8 @@ impulse responses.}
 \item{probability}{a parameter determining the interval to be plotted. The 
 interval stretches from the \code{0.5 * (1 - probability)} to 
 \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.}
+
+\item{shock_names}{a vector of length \code{N} containing names of the structural shocks.}
 
 \item{col}{a colour of the plot line and the ribbon}
 

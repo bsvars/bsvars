@@ -105,7 +105,7 @@ compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
   T     = ncol(Y)
   S     = dim(posterior$posterior$A)[3]
 
-  posterior_sigma       = array(1, c(N, T, S))
+  posterior_sigma       = array(1, c(N, T, S), dimnames = list(rownames(Y), colnames(Y), 1:S))
   message("The model is homoskedastic. Returning an NxTxS matrix of conditional sd all equal to 1.")
   class(posterior_sigma)  = "PosteriorSigma"
 
@@ -164,8 +164,11 @@ compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
 #' @export
 compute_conditional_sd.PosteriorBSVARMSH <- function(posterior) {
 
-  posterior_sigma       = posterior$posterior$sigma
-  class(posterior_sigma)  = "PosteriorSigma"
+  Y                         = posterior$last_draw$data_matrices$Y
+  posterior_sigma           = posterior$posterior$sigma
+  S                         = dim(posterior_sigma)[3]
+  class(posterior_sigma)    = "PosteriorSigma"
+  dimnames(posterior_sigma) = list(rownames(Y), colnames(Y), 1:S)
 
   return(posterior_sigma)
 }
@@ -223,8 +226,11 @@ compute_conditional_sd.PosteriorBSVARMSH <- function(posterior) {
 #' @export
 compute_conditional_sd.PosteriorBSVARMIX <- function(posterior) {
   
-  posterior_sigma       = posterior$posterior$sigma
-  class(posterior_sigma)  = "PosteriorSigma"
+  Y                         = posterior$last_draw$data_matrices$Y
+  posterior_sigma           = posterior$posterior$sigma
+  S                         = dim(posterior_sigma)[3]
+  class(posterior_sigma)    = "PosteriorSigma"
+  dimnames(posterior_sigma) = list(rownames(Y), colnames(Y), 1:S)
   
   return(posterior_sigma)
 }
@@ -280,8 +286,11 @@ compute_conditional_sd.PosteriorBSVARMIX <- function(posterior) {
 #' @export
 compute_conditional_sd.PosteriorBSVARSV <- function(posterior) {
   
-  posterior_sigma       = posterior$posterior$sigma
-  class(posterior_sigma)  = "PosteriorSigma"
+  Y                         = posterior$last_draw$data_matrices$Y
+  posterior_sigma           = posterior$posterior$sigma
+  S                         = dim(posterior_sigma)[3]
+  class(posterior_sigma)    = "PosteriorSigma"
+  dimnames(posterior_sigma) = list(rownames(Y), colnames(Y), 1:S)
   
   return(posterior_sigma)
 }
@@ -336,12 +345,13 @@ compute_conditional_sd.PosteriorBSVARSV <- function(posterior) {
 #' @export
 compute_conditional_sd.PosteriorBSVART <- function(posterior) {
   
-  N = dim(posterior$posterior$B)[1]
-  T = dim(posterior$posterior$lambda)[1]
-  S = dim(posterior$posterior$lambda)[2]
-  posterior_sigma         = array(NA, c(N,T,S))
+  Y                       = posterior$last_draw$data_matrices$Y
+  N                       = dim(posterior$posterior$B)[1]
+  T                       = dim(posterior$posterior$lambda)[1]
+  S                       = dim(posterior$posterior$lambda)[2]
+  posterior_sigma         = array(NA, c(N,T,S), dimnames = list(rownames(Y), colnames(Y), 1:S))
   for (n in 1:N) {
-    posterior_sigma[n,,] = sqrt(posterior$posterior$lambda)
+    posterior_sigma[n,,]  = sqrt(posterior$posterior$lambda)
   }
   class(posterior_sigma)  = "PosteriorSigma"
   
