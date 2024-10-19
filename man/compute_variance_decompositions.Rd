@@ -11,7 +11,8 @@ compute_variance_decompositions(posterior, horizon)
 The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 
-\item{horizon}{a positive integer number denoting the forecast horizon for the impulse responses computations.}
+\item{horizon}{a positive integer number denoting the forecast horizon for 
+the forecast error variance decomposition computations.}
 }
 \value{
 An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 

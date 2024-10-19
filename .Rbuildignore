@@ -10,3 +10,8 @@ cran-comments.md
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^vignettes/paper$
+^doc$
+^Meta$
+^vignettes/paper/bsvars\.Rmd$
+^vignettes/paper/bsvars\.knit\.md$

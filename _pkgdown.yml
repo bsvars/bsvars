@@ -8,7 +8,7 @@ development:
 navbar:
   structure:
     right: [github]
-  
+
 reference:
 - title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"
   desc: "Browse package information"
