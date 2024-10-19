@@ -31,7 +31,11 @@ all this. The implemented techniques align closely with those presented
 in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak
 (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
-(2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
+(2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174). The
+**bsvars** package is aligned regarding objects, workflows, and code
+structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
+(2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
+constitute an integrated toolset.
 
 <a href="https://bsvars.org">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg" width="40" height="40"/>
@@ -44,6 +48,10 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
 </a> <a href="https://bsky.app/profile/bsvars.bsky.social">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
 </a>
+
+<a href="https://bsvars.org/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org/bsvars.org.png" width="120" alt="bsvars.org website" /></a>
+<a href="https://bsvars.org/bsvars/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars/bsvars.png" width="120" alt="bsvars website" /></a>
+<a href="https://bsvars.org/bsvarSIGNs/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvarSIGNs/bsvarSIGNs.png" width="120" alt="bsvarSIGNs website" /></a>
 
 ## Features
 
@@ -137,7 +145,7 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 <p>
 </p>
-<a href="https://bsvars.github.io/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
+<a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p>
 </p>
 
@@ -224,11 +232,11 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 </a> <a href="https://www.linkedin.com/in/tomaszwwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
 </a> <a href="http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/google.svg" width="40" height="40"/>
+<img src="https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg" width="40" height="40"/>
 </a> <a href="https://arxiv.org/a/wozniak_t_1">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-xmark.svg" width="40" height="40"/>
+<img src="https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/arxiv-square.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@tomaszwozniak">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="40" height="40"/>
 </a> <a href="https://bsky.app/profile/tomaszwozniak.bsky.social">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg" width="40" height="40"/>
 </a>
