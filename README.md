@@ -45,6 +45,10 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
 </a>
 
+<a href="https://bsvars.org/"><img src="inst/varia/bsvars.org.png" height="150" alt="bsvars.org website" /></a>
+<a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="150" alt="bsvars website" /></a>
+<a href="https://bsvars.org/bsvarSIGNs"><img src="inst/varia/bsvarSIGNs.png" height="150" alt="bsvarSIGNs website" /></a>
+
 ## Features
 
 #### Structural Vector Autoregressions
@@ -137,7 +141,7 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 <p>
 </p>
-<a href="https://bsvars.github.io/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
+<a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p>
 </p>
 
