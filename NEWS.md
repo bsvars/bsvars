@@ -4,7 +4,9 @@ The package is under intensive development, and more functionality will be provi
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
-1. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+1. The package includes the first version of the vignette [5](https://github.com/bsvars/bsvars/issues/5)
+2. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+
 
 # bsvars 3.1
 
