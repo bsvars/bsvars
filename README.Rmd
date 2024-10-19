@@ -24,12 +24,11 @@ An **R** package for Bayesian Estimation of Structural Vector Autoregressive Mod
 
 Provides fast and efficient procedures for Bayesian analysis of Structural Vector Autoregressions. This package estimates a wide range of models, including homo-, heteroskedastic, and non-normal specifications. Structural models can be identified by adjustable exclusion restrictions, time-varying volatility, or non-normality. They all include a flexible three-level equation-specific local-global hierarchical prior distribution for the estimated level of shrinkage for autoregressive and structural parameters. Additionally, the package facilitates predictive and structural analyses such as impulse responses, forecast error variance and historical decompositions, forecasting, verification of heteroskedasticity, non-normality, and hypotheses on autoregressive parameters, as well as analyses of structural shocks, volatilities, and fitted values. Beautiful plots, informative summary functions, and extensive documentation complement all this. The implemented techniques align closely with those presented in [Lütkepohl, Shang, Uzeda, & Woźniak (2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
 
+<a href="https://bsvars.org"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg" width="40" height="40"/> </a> 
 <a href="mailto:bsvars@pm.me"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/> </a> 
-<a href="https://github.com/bsvars/bsvarSIGNs"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/> </a> 
+<a href="https://github.com/bsvars/bsvars"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/> </a> 
 <a href="https://fosstodon.org/@bsvars"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/> </a>
 <a href="https://bsky.app/profile/bsvars.bsky.social"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/> </a>
-<a href="https://x.com/bsvars"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/twitter.svg" width="50" height="50"/> </a>
-<a href="https://www.instagram.com/bsvarsoninsta/"> <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/instagram.svg" width="50" height="50"/> </a>
 
 ## Features
 

@@ -23,7 +23,7 @@ LinkingTo:
     RcppArmadillo, 
     RcppTN
 License: GPL (>= 3)
-URL: https://bsvars.github.io/bsvars/
+URL: https://bsvars.org/bsvars/
 BugReports: https://github.com/bsvars/bsvars/issues
 Encoding: UTF-8
 LazyData: true

@@ -33,18 +33,16 @@ in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
 (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
 
-<a href="mailto:bsvars@pm.me">
+<a href="https://bsvars.org">
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg" width="40" height="40"/>
+</a> <a href="mailto:bsvars@pm.me">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
-</a> <a href="https://github.com/bsvars/bsvarSIGNs">
+</a> <a href="https://github.com/bsvars/bsvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@bsvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
 </a> <a href="https://bsky.app/profile/bsvars.bsky.social">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
-</a> <a href="https://x.com/bsvars">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/twitter.svg" width="50" height="50"/>
-</a> <a href="https://www.instagram.com/bsvarsoninsta/">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/instagram.svg" width="50" height="50"/>
 </a>
 
 ## Features

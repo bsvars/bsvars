@@ -131,7 +131,7 @@ Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Rest
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://bsvars.github.io/bsvars/}
+  \item \url{https://bsvars.org/bsvars/}
   \item Report bugs at \url{https://github.com/bsvars/bsvars/issues}
 }
 
