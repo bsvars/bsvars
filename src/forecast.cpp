@@ -195,7 +195,7 @@ arma::cube forecast_bsvars (
       
       if ( h != horizon - 1 ) {
         if ( do_exog ) {
-          Xt          = join_cols( forecasts.slice(s).col(h), Xt.subvec(N, K - 1 - d), trans(cond_forecast.row(h + 1)) );
+          Xt          = join_cols( forecasts.slice(s).col(h), Xt.subvec(N, K - 1 - d), trans(exogenous_forecast.row(h + 1)) );
         } else {
           Xt          = join_cols( forecasts.slice(s).col(h), Xt.subvec(N, K - 1) );
         }
