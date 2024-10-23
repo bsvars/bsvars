@@ -1,8 +1,8 @@
 
-#' @title A 3-variable US fiscal system for the period 1948 Q1 -- 2024 Q1
+#' @title A 3-variable US fiscal system for the period 1948 Q1 -- 2024 Q2
 #'
 #' @description A system used to identify the US fiscal policy shocks. 
-#' Last data update was implemented on 2024-06-15.
+#' Last data update was implemented on 2024-10-20.
 #'
 #' @usage data(us_fiscal_lsuw)
 #' 
