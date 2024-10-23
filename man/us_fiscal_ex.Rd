@@ -4,7 +4,7 @@
 \name{us_fiscal_ex}
 \alias{us_fiscal_ex}
 \title{A 3-variable system of exogenous variables for the US fiscal model for 
-the period 1948 Q1 -- 2024 Q1}
+the period 1948 Q1 -- 2024 Q2}
 \format{
 A matrix and a \code{ts} object with time series of over three hundred observations on 3 variables:
 \describe{
@@ -21,7 +21,7 @@ data(us_fiscal_ex)
 }
 \description{
 Exogenous variables used to identify the US fiscal policy shocks.
-Last data update was implemented on 2024-06-15.
+Last data update was implemented on 2024-10-20.
 }
 \examples{
 data(us_fiscal_ex)   # upload the data
