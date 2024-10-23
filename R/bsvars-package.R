@@ -33,7 +33,8 @@
 #' variance and historical decompositions, forecasting, verification of 
 #' heteroskedasticity and hypotheses on autoregressive parameters, and analyses 
 #' of structural shocks, volatilities, and fitted values. Beautiful plots, 
-#' informative summary functions, and extensive documentation complement all this. 
+#' informative summary functions, and extensive documentation including the 
+#' vignette by Woźniak (2024) <doi:10.48550/arXiv.2410.15090> complement all this. 
 #' The implemented techniques align closely with those presented in 
 #' Lütkepohl, Shang, Uzeda, & Woźniak (2024) <doi:10.48550/arXiv.2404.11057>, 
 #' Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
