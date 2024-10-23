@@ -38,7 +38,11 @@
 #' Lütkepohl, Shang, Uzeda, & Woźniak (2024) <doi:10.48550/arXiv.2404.11057>, 
 #' Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
 #' Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>, and 
-#' Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>.
+#' Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>. The 'bsvars' 
+#' package is aligned regarding objects, workflows, and code structure with the 
+#' R package 'bsvarSIGNs' by Wang & Woźniak (2024) 
+#' <doi:10.32614/CRAN.package.bsvarSIGNs>, and they constitute an integrated 
+#' toolset.
 #' 
 #' @details 
 #' 
@@ -135,13 +139,13 @@
 #' 
 #' # specify the model and set seed
 #' set.seed(123)
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4, exogenous = us_fiscal_ex)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
 #' 
 #' # run the burn-in
-#' burn_in        = estimate(specification, 10)
+#' burn_in        = estimate(specification, 5)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' posterior      = estimate(burn_in, 10)
 #' 
 #' # compute impulse responses 2 years ahead
 #' irf           = compute_impulse_responses(posterior, horizon = 8)
@@ -153,9 +157,41 @@
 #' ############################################################
 #' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 4, exogenous = us_fiscal_ex) |>
+#'   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
+#'   estimate(S = 5) |> 
 #'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevds
 #' 
+#' # conditional forecasting using a model with exogenous variables
+#' ############################################################
+#' data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
+#' data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
+#' 
+#' #' set.seed(123)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # forecast 2 years ahead
+#' predictive     = forecast(
+#'                     posterior, 
+#'                     horizon = 8,
+#'                     exogenous_forecast = us_fiscal_ex_forecasts,
+#'                     conditional_forecast = us_fiscal_cond_forecasts
+#'                   )
+#' summary(predictive)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' set.seed(123)
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) |> 
+#'   forecast(
+#'     horizon = 8,
+#'     exogenous_forecast = us_fiscal_ex_forecasts,
+#'     conditional_forecast = us_fiscal_cond_forecasts
+#'   ) |> plot()
+#'   
 "_PACKAGE"

@@ -56,7 +56,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 10, thin = 2)
+posterior      = estimate(burn_in, 5)
 
 # sample from predictive density 1 year ahead
 predictive     = forecast(posterior, 2)
@@ -67,25 +67,41 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
   estimate(S = 5) |>
-  estimate(S = 10, thin = 2) |>  
+  estimate(S = 5) |>  
   forecast(horizon = 2) -> predictive
   
-# conditional forecasting 2 quarters ahead conditioning on 
-#  provided future values for the Gross Domestic Product 
+# conditional forecasting using a model with exogenous variables
 ############################################################
-cf        = matrix(NA , 2, 3)
-cf[,3]    = tail(us_fiscal_lsuw, 1)[3]   # conditional forecasts equal to the last gdp observation
-predictive    = forecast(posterior, 2, conditional_forecast = cf)
+data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
+data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
+
+#' set.seed(123)
+specification  = specify_bsvar_sv$new(us_fiscal_lsuw, exogenous = us_fiscal_ex)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 10)
+
+# forecast 2 years ahead
+predictive     = forecast(
+                    posterior, 
+                    horizon = 8,
+                    exogenous_forecast = us_fiscal_ex_forecasts,
+                    conditional_forecast = us_fiscal_cond_forecasts
+                  )
+summary(predictive)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1) |>
+  specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
   estimate(S = 10) |> 
-  forecast(horizon = 2, conditional_forecast = cf) -> predictive
-  
+  forecast(
+    horizon = 8,
+    exogenous_forecast = us_fiscal_ex_forecasts,
+    conditional_forecast = us_fiscal_cond_forecasts
+  ) |> plot()
+
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
