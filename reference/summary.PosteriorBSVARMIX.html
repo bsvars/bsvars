@@ -3,7 +3,7 @@
 percentiles of the parameters: the structural matrix \(B\), autoregressive
 parameters \(A\), and hyper parameters."><meta property="og:description" content="Provides posterior mean, standard deviations, as well as 5 and 95
 percentiles of the parameters: the structural matrix \(B\), autoregressive
-parameters \(A\), and hyper parameters."><meta property="og:image" content="https://bsvars.github.io/bsvars/logo.png"></head><body>
+parameters \(A\), and hyper parameters."><meta property="og:image" content="https://bsvars.org/bsvars/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -11,7 +11,7 @@ parameters \(A\), and hyper parameters."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">bsvars</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,9 +21,7 @@ parameters \(A\), and hyper parameters."><meta property="og:image" content="http
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://fosstodon.org/@bsvars" aria-label="mastodon"><span class="mastodon"></span></a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://bsky.app/profile/did:plc:lv7kan7iizgudi6oof3ykyoo" aria-label="bluesky"><span class="fa fa-cloud"></span></a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bsvars/bsvars/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/bsvars/bsvars/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -32,7 +30,7 @@ parameters \(A\), and hyper parameters."><meta property="og:image" content="http
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Provides posterior summary of non-normal Structural VAR estimation</h1>
-      <small class="dont-index">Source: <a href="https://github.com/bsvars/bsvars/blob/v3.1/R/summary.R" class="external-link"><code>R/summary.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/bsvars/bsvars/blob/master/R/summary.R" class="external-link"><code>R/summary.R</code></a></small>
       <div class="d-none name"><code>summary.PosteriorBSVARMIX.Rd</code></div>
     </div>
 
@@ -120,63 +118,63 @@ parameters \(A\), and hyper-parameters.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.1457447 0.009314145   0.1293442    0.1579257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.1449162 0.007267542   0.1332178    0.1570438</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -8.526607 0.7646093    -9.54723     -7.44683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2] 27.593535 2.4748858    24.09579     30.86426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             mean       sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -8.811002 0.667645    -9.86811    -7.760265</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2] 28.537240 2.153693    25.09124    32.001655</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              mean       sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -24.371301 1.927371   -26.69286    -21.93406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2]  -7.144051 1.125330    -8.81883     -5.68333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3]  40.138549 3.181920    36.56111     43.58322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -24.690383 1.8342985  -26.610586   -21.458429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2]  -7.327384 0.9657082   -9.080312    -5.999524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3]  40.788738 2.9525925   35.306957    44.475450</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.0688039 0.020651971  1.04008892   1.10076201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.0289662 0.007017126 -0.03805791  -0.02054552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.9631348 0.027250477 -1.00779944  -0.92577840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.1699146 0.068046314 -0.26210118  -0.08297315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.24723723 0.02141285   1.2095415   1.27167157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.08246796 0.01946051  -0.1183488  -0.06319558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -1.13138785 0.02980704  -1.1605588  -1.08368406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.26567963 0.17096640  -0.6224231  -0.12523768</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.00259267 0.010770886 -0.01111269   0.02101303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.95201365 0.007731751  0.94134191   0.96163491</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.26718560 0.013782516 -0.28720807  -0.25391881</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.38892076 0.056124667 -0.46014828  -0.31626036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.06527148 0.01336794  0.04742533   0.08510973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.94069406 0.01154040  0.91688973   0.95407024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.33045704 0.01847202 -0.36086491  -0.31071541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.38216543 0.10583374 -0.62261447  -0.28211094</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.06632431 0.014533592  0.04484724  0.085360340</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.01537847 0.004268758 -0.02217867 -0.009766971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3  0.33609339 0.018788824  0.31218481  0.364500572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.07519547 0.051930331 -0.16318020  0.025019092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile  95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.18450003 0.01186940  0.16856667  0.2015697401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.04881106 0.01253461 -0.07107985 -0.0348609222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3  0.22501189 0.01695013  0.20250675  0.2469733430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.12510036 0.11223426 -0.33737876  0.0006134041</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage        214.1591  315.46169    30.75986     509.8715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage        210.1952  151.70044    80.91627     525.3034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage        360.1923  150.22035   207.42146     636.5635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale 1439.1323 1216.66180   353.80046    2923.7151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale 1372.5247  749.63231   427.12363    2508.2925</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale 1727.6229 1049.75707   600.78956    3407.1613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale         133.6762   84.63039    41.09738     269.5907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage        306.7015  351.2104    50.54474     839.8371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage        410.9587  346.0439   101.99288     997.1704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage        449.0158  238.1776   206.51944     755.1564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale 2423.2192 2126.3985   596.89629    6679.3929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale 2878.5042 2747.6859   606.11469    8372.1182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale 2561.5384 1824.8129   959.14927    6818.2078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale         242.7689  201.3279    68.82274     661.8064</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                            mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.4579148 0.4319430   0.1432773    0.8497848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.4358701 0.2043693   0.2061438    0.8446141</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.4611586 0.2957567   0.1636154    1.0013833</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 4.0808902 1.3225609   2.1484565    5.9644275</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 5.1880456 2.3993311   2.2539966    8.8684154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 4.8676175 2.3082269   1.9203296    9.5986153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        0.5545031 0.1630473   0.3707168    0.7558593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.9376393 0.5131084   0.3834680     1.756917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.5714414 0.2891398   0.2821778     1.147262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.8381269 0.5843654   0.4141772     1.779891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 9.3859226 3.9571496   4.6932003    16.244926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 6.7373966 1.5709598   4.3621147     9.249969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 9.6816221 3.6609981   6.1683380    17.267315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        1.0246142 0.3259178   0.6207570     1.517074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -215,63 +213,63 @@ parameters \(A\), and hyper-parameters.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.1457447 0.009314145   0.1293442    0.1579257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.1449162 0.007267542   0.1332178    0.1570438</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -8.526607 0.7646093    -9.54723     -7.44683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2] 27.593535 2.4748858    24.09579     30.86426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             mean       sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -8.811002 0.667645    -9.86811    -7.760265</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2] 28.537240 2.153693    25.09124    32.001655</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              mean       sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -24.371301 1.927371   -26.69286    -21.93406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2]  -7.144051 1.125330    -8.81883     -5.68333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3]  40.138549 3.181920    36.56111     43.58322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -24.690383 1.8342985  -26.610586   -21.458429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2]  -7.327384 0.9657082   -9.080312    -5.999524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3]  40.788738 2.9525925   35.306957    44.475450</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.0688039 0.020651971  1.04008892   1.10076201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.0289662 0.007017126 -0.03805791  -0.02054552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.9631348 0.027250477 -1.00779944  -0.92577840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.1699146 0.068046314 -0.26210118  -0.08297315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.24723723 0.02141285   1.2095415   1.27167157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.08246796 0.01946051  -0.1183488  -0.06319558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -1.13138785 0.02980704  -1.1605588  -1.08368406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.26567963 0.17096640  -0.6224231  -0.12523768</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.00259267 0.010770886 -0.01111269   0.02101303</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.95201365 0.007731751  0.94134191   0.96163491</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.26718560 0.013782516 -0.28720807  -0.25391881</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.38892076 0.056124667 -0.46014828  -0.31626036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.06527148 0.01336794  0.04742533   0.08510973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.94069406 0.01154040  0.91688973   0.95407024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3 -0.33045704 0.01847202 -0.36086491  -0.31071541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.38216543 0.10583374 -0.62261447  -0.28211094</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean          sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.06632431 0.014533592  0.04484724  0.085360340</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.01537847 0.004268758 -0.02217867 -0.009766971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3  0.33609339 0.018788824  0.31218481  0.364500572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.07519547 0.051930331 -0.16318020  0.025019092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile  95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.18450003 0.01186940  0.16856667  0.2015697401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.04881106 0.01253461 -0.07107985 -0.0348609222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var3  0.22501189 0.01695013  0.20250675  0.2469733430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.12510036 0.11223426 -0.33737876  0.0006134041</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage        214.1591  315.46169    30.75986     509.8715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage        210.1952  151.70044    80.91627     525.3034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage        360.1923  150.22035   207.42146     636.5635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale 1439.1323 1216.66180   353.80046    2923.7151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale 1372.5247  749.63231   427.12363    2508.2925</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale 1727.6229 1049.75707   600.78956    3407.1613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale         133.6762   84.63039    41.09738     269.5907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage        306.7015  351.2104    50.54474     839.8371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage        410.9587  346.0439   101.99288     997.1704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage        449.0158  238.1776   206.51944     755.1564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale 2423.2192 2126.3985   596.89629    6679.3929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale 2878.5042 2747.6859   606.11469    8372.1182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale 2561.5384 1824.8129   959.14927    6818.2078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale         242.7689  201.3279    68.82274     661.8064</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                            mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.4579148 0.4319430   0.1432773    0.8497848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.4358701 0.2043693   0.2061438    0.8446141</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.4611586 0.2957567   0.1636154    1.0013833</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 4.0808902 1.3225609   2.1484565    5.9644275</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 5.1880456 2.3993311   2.2539966    8.8684154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 4.8676175 2.3082269   1.9203296    9.5986153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        0.5545031 0.1630473   0.3707168    0.7558593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.9376393 0.5131084   0.3834680     1.756917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.5714414 0.2891398   0.2821778     1.147262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.8381269 0.5843654   0.4141772     1.779891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 9.3859226 3.9571496   4.6932003    16.244926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 6.7373966 1.5709598   4.3621147     9.249969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 9.6816221 3.6609981   6.1683380    17.267315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        1.0246142 0.3259178   0.6207570     1.517074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -286,7 +284,7 @@ parameters \(A\), and hyper-parameters.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
