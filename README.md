@@ -26,9 +26,10 @@ responses, forecast error variance and historical decompositions,
 forecasting, verification of heteroskedasticity, non-normality, and
 hypotheses on autoregressive parameters, as well as analyses of
 structural shocks, volatilities, and fitted values. Beautiful plots,
-informative summary functions, and extensive documentation complement
-all this. The implemented techniques align closely with those presented
-in [Lütkepohl, Shang, Uzeda, & Woźniak
+informative summary functions, and extensive documentation including the
+vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+complement all this. The implemented techniques align closely with those
+presented in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak
 (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
 (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174). The
@@ -44,9 +45,9 @@ constitute an integrated toolset.
 </a> <a href="https://github.com/bsvars/bsvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@bsvars">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="50" height="50"/>
+<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="40" height="40"/>
 </a> <a href="https://bsky.app/profile/bsvars.bsky.social">
-<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/cloud.svg" width="50" height="50"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg" width="40" height="40"/>
 </a>
 
 <a href="https://bsvars.org/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org/bsvars.org.png" width="120" alt="bsvars.org website" /></a>
@@ -148,6 +149,30 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 <a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p>
 </p>
+
+## Resources
+
+- a vignette by by [Woźniak
+  (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+- a website of the family of packages [bsvars.org](https://bsvars.org/)
+- **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
+- presentations:
+  - for Bayesian Econometrics students at the University of Melbourne
+    given in October 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-10-be24-bsvars/)
+  - for the [QuantEcon](https://quantecon.org/) lab at the Australian
+    National University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-08-bsvars-QuantEcon/)
+  - at Monash University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs** 1.0](https://bsvars.org/2024-08-bsvars-monash/)
+  - for [Workshops for
+    Ukraine](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine)
+    given in August 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-08-bsvars-w4UKR/)
+  - for Macroeconometrics students at the University of Melbourne given
+    in May 2024 [featuring **bsvars**
+    2.1.0](https://bsvars.org/2024-05-bsvars-mcxs/)
 
 ## Start your Bayesian analysis of data
 
