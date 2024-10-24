@@ -1,11 +1,13 @@
-## Submission notes bsvars v3.1
+## Submission notes bsvars v3.2
 
 ## Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
 ```
-Result: NOTE 
-    installed size is 13.3Mb
+Version: 3.1
+Check: installed package size
+Result: NOTE
+    installed size is 14.7Mb
     sub-directories of 1Mb or more:
-      libs  11.9Mb
+      libs  13.1Mb
 ```
 This seems to be normal in packages with **Rcpp** dependency and does not show in any of my tests, e.g., running `devtools::check()`.
 
