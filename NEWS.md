@@ -1,10 +1,14 @@
-# bsvars 3.1.0.9000
+# bsvars 3.2
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
 
-1. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+1. The package includes the first version of the vignette [5](https://github.com/bsvars/bsvars/issues/5)
+2. Updates on the website [https://bsvars.org/bsvars/](https://bsvars.org/bsvars/)
+3. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+4. Improved examples for forecasting with exogenous variables. Sample matrices included in the package. Fixed the bug in **cpp** code for forecasting. Thanks to [@DawievLill](https://github.com/DawievLill) for asking for clarity! [96](https://github.com/bsvars/bsvars/issues/96)
+
 
 # bsvars 3.1
 
@@ -39,12 +43,12 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 
 Published on 11 December 2023
 
-1. Included Bayesian procedure for verifying structural shocks' heteroskedastiicty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
+1. Included Bayesian procedure for verifying structural shocks' heteroskedasticty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
 2. Included Bayesian procedure for verifying joint hypotheses on autoregressive parameters using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
 3. Included the possibility of specifying exogenous variables or deterministic terms and included the deterministic terms used by Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
 4. Updated the data as in Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
 5. Fixing the compilation problems reported [HERE](https://cran.r-project.org/web/checks/check_results_bsvars.html) [#48](https://github.com/bsvars/bsvars/issues/48)
-6. The package has its pkgdown website at [bsvars.github.io/bsvars/](https://bsvars.github.io/bsvars/) [#38](https://github.com/bsvars/bsvars/issues/38)
+6. The package has its pkgdown website at [bsvars.org/bsvars/](https://bsvars.org/bsvars/) [#38](https://github.com/bsvars/bsvars/issues/38)
 
 # bsvars 2.0.0
 

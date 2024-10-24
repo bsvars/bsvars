@@ -1,13 +1,15 @@
 
-#' @title A 3-variable system of exogenous variables for the US fiscal model for 
-#' the period 1948 Q1 -- 2024 Q2
+#' @title A 3-variable system of exogenous variables' future values for the 
+#' forecast horizon of two years for the US fiscal model for the period 
+#' 2024 Q3 -- 2026 Q2
 #'
-#' @description Exogenous variables used to identify the US fiscal policy shocks.
-#' Last data update was implemented on 2024-10-20.
+#' @description Exogenous variables to be used in forecasting of the US fiscal 
+#' policy shocks. Last data update was implemented on 2024-10-22.
 #'
-#' @usage data(us_fiscal_ex)
+#' @usage data(us_fiscal_ex_forecasts)
 #' 
-#' @format A matrix and a \code{ts} object with time series of over three hundred observations on 3 variables:
+#' @format A matrix and a \code{ts} object with time series of eight values on 
+#' 3 variables:
 #' \describe{
 #'   \item{t}{a time trend}
 #'   \item{t^2}{a quadratic trend}
@@ -23,6 +25,6 @@
 #' Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{10.1016/j.jmoneco.2013.04.004}.
 #' 
 #' @examples 
-#' data(us_fiscal_ex)   # upload the data
-#' plot(us_fiscal_ex)   # plot the data
-"us_fiscal_ex"
+#' data(us_fiscal_ex_forecasts)   # upload the data
+#' 
+"us_fiscal_ex_forecasts"

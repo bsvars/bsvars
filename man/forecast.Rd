@@ -44,10 +44,10 @@ set.seed(123)
 specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 10)
 
 # sample from predictive density 1 year ahead
 predictive     = forecast(posterior, 4)
@@ -57,10 +57,42 @@ predictive     = forecast(posterior, 4)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
+  estimate(S = 5) |> 
   estimate(S = 10) |> 
-  estimate(S = 20) |> 
   forecast(horizon = 4) -> predictive
 
+# conditional forecasting using a model with exogenous variables
+############################################################
+data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
+data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
+
+#' set.seed(123)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 10)
+
+# forecast 2 years ahead
+predictive     = forecast(
+                    posterior, 
+                    horizon = 8,
+                    exogenous_forecast = us_fiscal_ex_forecasts,
+                    conditional_forecast = us_fiscal_cond_forecasts
+                  )
+summary(predictive)
+
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1, exogenous = us_fiscal_ex) |>
+  estimate(S = 5) |> 
+  estimate(S = 10) |> 
+  forecast(
+    horizon = 8,
+    exogenous_forecast = us_fiscal_ex_forecasts,
+    conditional_forecast = us_fiscal_cond_forecasts
+  ) |> plot()
+  
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

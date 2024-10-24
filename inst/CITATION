@@ -1,6 +1,6 @@
 
 bibentry(bibtype = "Manual",
-  header       = "To cite bsvars package in publications please use:",
+  header       = "To cite the bsvars package in publications please use:",
   title        = "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models",
   author       = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
   year         = 2024,
@@ -8,6 +8,17 @@ bibentry(bibtype = "Manual",
   url      = "https://CRAN.R-project.org/package=bsvars",
   doi      = "10.32614/CRAN.package.bsvars",
   textVersion = "Woźniak, Tomasz (2024). bsvars: Bayesian Estimation of Structural Vector Autoregressive Models. R package version 3.1, URL: https://cran.r-project.org/package=bsvars, DOI: 10.32614/CRAN.package.bsvars."
+)
+
+bibentry(bibtype = "article",
+  header       = "To cite the bsvars package in publications please use:",
+  title        = "Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R Package bsvars",
+  author       = person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me"),
+  year         = 2024,
+  journal      = "University of Melbourne Working Paper",
+  pages        = "1--25",
+  doi           = "10.48550/arXiv.2410.15090",
+  textVersion = "Woźniak, Tomasz (2024). Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R Package bsvars, DOI: ."
 )
 
 bibentry(bibtype = "article",
