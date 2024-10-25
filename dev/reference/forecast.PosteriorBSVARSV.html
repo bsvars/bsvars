@@ -5,7 +5,7 @@ bvarPANELs at forecast horizons from 1 to horizon specified as
 an argument of the function."><meta property="og:description" content="Samples from the joint predictive density of all of the dependent
 variables for models from packages bsvars, bsvarSIGNs or
 bvarPANELs at forecast horizons from 1 to horizon specified as
-an argument of the function."><meta property="og:image" content="https://bsvars.github.io/bsvars/logo.png"><meta name="robots" content="noindex"></head><body>
+an argument of the function."><meta property="og:image" content="https://bsvars.org/bsvars/logo.png"><meta name="robots" content="noindex"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +13,7 @@ an argument of the function."><meta property="og:image" content="https://bsvars.
 
     <a class="navbar-brand me-2" href="../index.html">bsvars</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,15 +126,15 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate the model</span></span></span>
-<span class="r-in"><span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR-SV model              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Non-centred SV model is estimated              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 10 draws</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Every 2nd draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 5 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
@@ -147,7 +147,7 @@ deviations and data. The output elements include:</p>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span>  </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span>  </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">predictive</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
@@ -166,26 +166,101 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR-SV model              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Non-centred SV model is estimated              |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 10 draws</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Every 2nd draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 5 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span><span class="co"># conditional forecasting 2 quarters ahead conditioning on </span></span></span>
-<span class="r-in"><span><span class="co">#  provided future values for the Gross Domestic Product </span></span></span>
+<span class="r-in"><span><span class="co"># conditional forecasting using a model with exogenous variables</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="va">cf</span>        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span> , <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">cf</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>   <span class="co"># conditional forecasts equal to the last gdp observation</span></span></span>
-<span class="r-in"><span><span class="va">predictive</span>    <span class="op">=</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="fl">2</span>, conditional_forecast <span class="op">=</span> <span class="va">cf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_ex_forecasts</span><span class="op">)</span>      <span class="co"># upload exogenous variables future values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_cond_forecasts</span><span class="op">)</span>    <span class="co"># upload a matrix with projected ttr</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#' set.seed(123)</span></span></span>
+<span class="r-in"><span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
+<span class="r-in"><span><span class="va">burn_in</span>        <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR-SV model              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Non-centred SV model is estimated              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 5 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-in"><span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Gibbs sampler for the SVAR-SV model              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Non-centred SV model is estimated              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Progress of the MCMC simulation for 10 draws</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># forecast 2 years ahead</span></span></span>
+<span class="r-in"><span><span class="va">predictive</span>     <span class="op">=</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>                    <span class="va">posterior</span>, </span></span>
+<span class="r-in"><span>                    horizon <span class="op">=</span> <span class="fl">8</span>,</span></span>
+<span class="r-in"><span>                    exogenous_forecast <span class="op">=</span> <span class="va">us_fiscal_ex_forecasts</span>,</span></span>
+<span class="r-in"><span>                    conditional_forecast <span class="op">=</span> <span class="va">us_fiscal_cond_forecasts</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">predictive</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  bsvars: Bayesian Structural Vector Autoregressions|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Posterior summary of forecasts                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $variable1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mean sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -8.914237  0   -8.914237    -8.914237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -8.908921  0   -8.908921    -8.908921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -8.903604  0   -8.903604    -8.903604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -8.898288  0   -8.898288    -8.898288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -8.892971  0   -8.892971    -8.892971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -8.887655  0   -8.887655    -8.887655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -8.882338  0   -8.882338    -8.882338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -8.877022  0   -8.877022    -8.877022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $variable2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -9.801378 0.04080090   -9.858755    -9.744542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -9.797170 0.07741141   -9.925891    -9.732677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -9.783389 0.10526064   -9.918446    -9.634818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -9.762187 0.12700058   -9.906041    -9.568356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -9.727569 0.11760669   -9.891131    -9.577446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -9.699829 0.09889552   -9.798880    -9.547920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -9.703115 0.09167881   -9.789990    -9.559704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -9.677395 0.06518820   -9.773295    -9.603806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $variable3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -7.025267 0.05289274   -7.109652    -6.965024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -7.023606 0.07621542   -7.137697    -6.956108</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -7.015341 0.08573187   -7.121614    -6.889787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -7.010124 0.10519257   -7.128084    -6.845124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -6.985408 0.09679628   -7.094420    -6.829482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -6.974759 0.06176905   -7.041074    -6.895757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -6.968195 0.06891017   -7.036560    -6.859999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -6.942274 0.04728218   -7.018396    -6.893926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">2</span>, conditional_forecast <span class="op">=</span> <span class="va">cf</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">predictive</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    horizon <span class="op">=</span> <span class="fl">8</span>,</span></span>
+<span class="r-in"><span>    exogenous_forecast <span class="op">=</span> <span class="va">us_fiscal_ex_forecasts</span>,</span></span>
+<span class="r-in"><span>    conditional_forecast <span class="op">=</span> <span class="va">us_fiscal_cond_forecasts</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
@@ -207,7 +282,8 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-in"><span>  </span></span>
+<span class="r-plt img"><img src="forecast.PosteriorBSVARSV-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
