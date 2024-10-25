@@ -1,10 +1,10 @@
 # bsvars (development version)
 
-# bsvars 3.2
-
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
 Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
+
+# bsvars 3.2
 
 1. The package includes the first version of the vignette [5](https://github.com/bsvars/bsvars/issues/5)
 2. Updates on the website [https://bsvars.org/bsvars/](https://bsvars.org/bsvars/)
