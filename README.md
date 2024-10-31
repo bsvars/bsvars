@@ -152,8 +152,10 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 ## Resources
 
-- a vignette by by [Woźniak
+- a vignette by [Woźniak
   (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+- a [reference
+  manual](https://cran.r-project.org/web/packages/bsvars/bsvars.pdf)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
 - presentations:
