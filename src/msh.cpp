@@ -79,7 +79,7 @@ arma::rowvec rIG2_Dirichlet1 (
 // [[Rcpp::export]]
 arma::mat filtering_msh (
   const arma::mat&  U,                  // NxT
-  const arma::mat&  sigma,              // NxM
+  const arma::mat&  sigma,              // NxM - in fact, a matrix with regime-specific VARIANCES!!!
   const arma::mat&  PR_TR,              // MxM
   const arma::vec&  pi_0                // Mx1
 ) {
