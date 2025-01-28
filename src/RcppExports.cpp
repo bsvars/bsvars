@@ -202,14 +202,14 @@ RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP foreca
     return rcpp_result_gen;
 }
 // bsvars_structural_shocks
-arma::cube bsvars_structural_shocks(const arma::cube& posterior_B, const arma::cube& posterior_A, const arma::mat& Y, const arma::mat& X);
+arma::cube bsvars_structural_shocks(arma::cube& posterior_B, arma::cube& posterior_A, arma::mat& Y, arma::mat& X);
 static SEXP _bsvars_bsvars_structural_shocks_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP YSEXP, SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const arma::cube& >::type posterior_B(posterior_BSEXP);
-    Rcpp::traits::input_parameter< const arma::cube& >::type posterior_A(posterior_ASEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_A(posterior_ASEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
     rcpp_result_gen = Rcpp::wrap(bsvars_structural_shocks(posterior_B, posterior_A, Y, X));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -2149,7 +2149,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd_homosk)(arma::field<arma::cube>&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd_heterosk)(arma::field<arma::cube>&,arma::cube&,arma::mat&)");
-        signatures.insert("arma::cube(*bsvars_structural_shocks)(const arma::cube&,const arma::cube&,const arma::mat&,const arma::mat&)");
+        signatures.insert("arma::cube(*bsvars_structural_shocks)(arma::cube&,arma::cube&,arma::mat&,arma::mat&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&,const bool)");
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_filter_forecast_smooth)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
