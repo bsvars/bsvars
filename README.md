@@ -159,6 +159,16 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
 - presentations:
+  - for students at [Szkoła Główna Handlowa](https://www.sgh.waw.pl/)
+    given in Warsaw in December 2024 [featuring **bsvars** 3.2 and
+    **bsvarSIGNs** 1.0.1](https://bsvars.org/2024-12-sgh/)\]
+  - at [Uniwersytet Warszawski](https://www.wne.uw.edu.pl/) given in
+    Warsaw in December 2024 [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uwwne/)
+  - for students and researchers at [Uniwersytet Ekonomiczny w
+    Krakowie](https://uek.krakow.pl/) given in Cracow in December 2024
+    [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uek/)
   - for Bayesian Econometrics students at the University of Melbourne
     given in October 2024 [featuring **bsvars**
     3.1](https://bsvars.org/2024-10-be24-bsvars/)
