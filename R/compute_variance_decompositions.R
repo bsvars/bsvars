@@ -337,11 +337,9 @@ compute_variance_decompositions.PosteriorBSVART <- function(posterior, horizon) 
   Y               = posterior$last_draw$data_matrices$Y
 
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  lambda          = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # (horizon, S)
-  for (n in 1:N) {
-    sigma2[n,,]   = lambda
-    sigma2_T[n,]  = posterior$posterior$lambda[T,]
-  }
+  sigma2          = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # (horizon, S)
+  sigma2_T        = posterior$posterior$lambda[,T,]
+
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
