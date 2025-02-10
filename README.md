@@ -40,7 +40,7 @@ constitute an integrated toolset.
 
 <a href="https://bsvars.org">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg" width="40" height="40"/>
-</a> <a href="mailto:bsvars@pm.me">
+</a> <a href="mailto:contact@bsvars.org">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
 </a> <a href="https://github.com/bsvars/bsvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
