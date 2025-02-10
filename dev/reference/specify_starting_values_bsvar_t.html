@@ -58,13 +58,13 @@ hierarchical prior distribution.</p></dd>
 
 
 <dt><code>lambda</code></dt>
-<dd><p>a <code>Tx1</code> vector of starting values for latent variables.</p></dd>
+<dd><p>a <code>NxT</code> matrix of starting values for latent variables.</p></dd>
 
 
 <dt><code>df</code></dt>
-<dd><p>a positive scalar with starting values for the degrees of
-freedom parameter of the Student-t conditional distribution of structural
-shock.</p></dd>
+<dd><p>an <code>Nx1</code> vector of positive numbers with starting values
+for the equation-specific degrees of freedom parameters of the Student-t
+conditional distribution of structural shocks.</p></dd>
 
 
 </dl><p></p></div>
@@ -201,10 +201,10 @@ as the starting value to be passed to the continuation of the MCMC estimation us
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]     [,2]      [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.4107911 0.000000 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.549907 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.000000 0.4405458    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.6625562 0.0000000 0.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.3935665 0.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.6849008    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>

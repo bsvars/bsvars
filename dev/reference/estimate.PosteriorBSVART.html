@@ -91,7 +91,7 @@ the MCMC sampling starting from the last draw of the previous run.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class PosteriorBSVART containing the Bayesian estimation
+    <p>An object of class <code>PosteriorBSVART</code> containing the Bayesian estimation
 output and containing two elements:</p>
 <p><code>posterior</code> a list with a collection of <code>S</code> draws from the posterior
  distribution generated via Gibbs sampler containing:</p><dl><dt>A</dt>
@@ -105,14 +105,14 @@ output and containing two elements:</p>
  of the hierarchical prior distribution</p></dd>
 
  <dt>df</dt>
-<dd><p>an <code>S</code> vector with the posterior draws for the degrees-of-freedom
- parameter of the Student-t distribution</p></dd>
+<dd><p>an <code>NxS</code> matrix with the posterior draws for the
+ equation-specific degrees-of-freedom parameter of the Student-t distribution</p></dd>
 
  <dt>lambda</dt>
-<dd><p>a <code>TxS</code> matrix with the posterior draws for the latent variable</p></dd>
+<dd><p>an <code>NxTxS</code> array with the posterior draws for the latent variable</p></dd>
 
 
-</dl><p><code>last_draw</code> an object of class BSVART with the last draw of the current
+</dl><p><code>last_draw</code> an object of class <code>BSVART</code> with the last draw of the current
 MCMC run as the starting value to be passed to the continuation of the MCMC
 estimation using <code><a href="estimate.html">estimate()</a></code>.</p>
     </div>
@@ -131,7 +131,7 @@ where \(U\) is an <code>NxT</code> matrix of structural form error terms, and
 \(B\) is an <code>NxN</code> matrix of contemporaneous relationships.</p>
 <p>Finally, the structural shocks, <code>U</code>, are temporally and contemporaneously
 independent and jointly Student-t distributed with zero mean, unit variances,
-and an estimated degrees-of-freedom parameter.</p>
+and estimated equation-specific degrees-of-freedom parameter.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
