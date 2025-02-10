@@ -29,8 +29,8 @@ arma::cube forecast_sigma2_sv (
 );
 
 
-arma::mat forecast_lambda_t (
-    arma::mat&    posterior_df,      // Sx1
+arma::cube forecast_lambda_t (
+    arma::mat&    posterior_df,      // NxS
     const int&    horizon
 );
 
