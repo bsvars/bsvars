@@ -340,11 +340,11 @@ namespace bsvars {
         return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
-    inline arma::mat forecast_lambda_t(arma::mat& posterior_df, const int& horizon) {
+    inline arma::cube forecast_lambda_t(arma::mat& posterior_df, const int& horizon) {
         typedef SEXP(*Ptr_forecast_lambda_t)(SEXP,SEXP);
         static Ptr_forecast_lambda_t p_forecast_lambda_t = NULL;
         if (p_forecast_lambda_t == NULL) {
-            validateSignature("arma::mat(*forecast_lambda_t)(arma::mat&,const int&)");
+            validateSignature("arma::cube(*forecast_lambda_t)(arma::mat&,const int&)");
             p_forecast_lambda_t = (Ptr_forecast_lambda_t)R_GetCCallable("bsvars", "_bsvars_forecast_lambda_t");
         }
         RObject rcpp_result_gen;
@@ -358,7 +358,7 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<arma::mat >(rcpp_result_gen);
+        return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
     inline arma::cube forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon) {
@@ -738,11 +738,11 @@ namespace bsvars {
         return Rcpp::as<arma::mat >(rcpp_result_gen);
     }
 
-    inline arma::vec sample_lambda(const double& aux_df, const arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& Y, const arma::mat& X) {
+    inline arma::mat sample_lambda(const arma::vec& aux_df, const arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& Y, const arma::mat& X) {
         typedef SEXP(*Ptr_sample_lambda)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_lambda p_sample_lambda = NULL;
         if (p_sample_lambda == NULL) {
-            validateSignature("arma::vec(*sample_lambda)(const double&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
+            validateSignature("arma::mat(*sample_lambda)(const arma::vec&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
             p_sample_lambda = (Ptr_sample_lambda)R_GetCCallable("bsvars", "_bsvars_sample_lambda");
         }
         RObject rcpp_result_gen;
@@ -756,14 +756,14 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<arma::vec >(rcpp_result_gen);
+        return Rcpp::as<arma::mat >(rcpp_result_gen);
     }
 
-    inline double log_kernel_df(const double& aux_df, const arma::vec& aux_lambda) {
+    inline double log_kernel_df(const double& aux_df, const arma::rowvec& aux_lambda) {
         typedef SEXP(*Ptr_log_kernel_df)(SEXP,SEXP);
         static Ptr_log_kernel_df p_log_kernel_df = NULL;
         if (p_log_kernel_df == NULL) {
-            validateSignature("double(*log_kernel_df)(const double&,const arma::vec&)");
+            validateSignature("double(*log_kernel_df)(const double&,const arma::rowvec&)");
             p_log_kernel_df = (Ptr_log_kernel_df)R_GetCCallable("bsvars", "_bsvars_log_kernel_df");
         }
         RObject rcpp_result_gen;
@@ -780,11 +780,11 @@ namespace bsvars {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline arma::vec sample_df(double& aux_df, double& adaptive_scale, const arma::vec& aux_lambda, const int& s, const arma::vec& adptive_alpha_gamma) {
+    inline Rcpp::List sample_df(arma::vec& aux_df, arma::vec& adaptive_scale, const arma::mat& aux_lambda, const int& s, const arma::vec& adptive_alpha_gamma) {
         typedef SEXP(*Ptr_sample_df)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_sample_df p_sample_df = NULL;
         if (p_sample_df == NULL) {
-            validateSignature("arma::vec(*sample_df)(double&,double&,const arma::vec&,const int&,const arma::vec&)");
+            validateSignature("Rcpp::List(*sample_df)(arma::vec&,arma::vec&,const arma::mat&,const int&,const arma::vec&)");
             p_sample_df = (Ptr_sample_df)R_GetCCallable("bsvars", "_bsvars_sample_df");
         }
         RObject rcpp_result_gen;
@@ -798,7 +798,7 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<arma::vec >(rcpp_result_gen);
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
     inline double do_rgig1(double lambda, double chi, double psi) {
