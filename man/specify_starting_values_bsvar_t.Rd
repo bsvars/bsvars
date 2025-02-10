@@ -47,11 +47,11 @@ sv$set_starting_values(sv_list)      # providing to the class object
 \item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
 
-\item{\code{lambda}}{a \code{Tx1} vector of starting values for latent variables.}
+\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
 
-\item{\code{df}}{a positive scalar with starting values for the degrees of 
-freedom parameter of the Student-t conditional distribution of structural 
-shock.}
+\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+for the equation-specific degrees of freedom parameters of the Student-t 
+conditional distribution of structural shocks.}
 }
 \if{html}{\out{</div>}}
 }
