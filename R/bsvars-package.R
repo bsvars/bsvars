@@ -73,7 +73,7 @@
 #'   \item heteroskedastic model with stationary Markov switching in the variances
 #'   \item heteroskedastic model with non-centred Stochastic Volatility process for variances
 #'   \item heteroskedastic model with centred Stochastic Volatility process for variances
-#'   \item a model with Student-t distributed structural shocks
+#'   \item a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter
 #'   \item non-normal model with a finite mixture of normal components and component-specific variances
 #'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
 #'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
