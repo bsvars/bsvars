@@ -618,11 +618,7 @@ verify_autoregression.PosteriorBSVART <- function(posterior, hypothesis) {
   Y               = posterior$last_draw$data_matrices$Y
   X               = posterior$last_draw$data_matrices$X
 
-  posterior_sigma = array(NA, c(dim(Y), dim(just_posterior$B)[3]))
-  for (n in 1:dim(Y)[1]) {
-    posterior_sigma[n,,] = sqrt(just_posterior$lambda)
-  }
-  just_posterior$sigma = posterior_sigma
+  just_posterior$sigma = sqrt(just_posterior$lambda)
   
   hypothesis_cpp  = hypothesis
   hypothesis_cpp[is.na(hypothesis_cpp)] = 999
@@ -1014,12 +1010,18 @@ verify_identification.PosteriorBSVARMSH <- function(posterior) {
 #' @export
 verify_identification.PosteriorBSVART <- function(posterior) {
   
-  # get the inputs to estimation
-  posterior_df    = posterior$posterior$df
-  eta             = posterior_df / (1 + posterior_df)
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
   
-  # estimate the SDDR
-  sddr_numerator  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = posterior_df / (1 + posterior_df)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
   
   out             = list()
   out$logSDDR     = log(sddr_numerator)
