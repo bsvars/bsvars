@@ -54,7 +54,7 @@ Provides fast and efficient procedures for Bayesian analysis of Structural Vecto
   - time-varying with stationary **Markov Switching**
   - time-varying with **sparse Markov Switching** where the number of volatility regimes is estimated
 - In **three more models** non-normal structural shocks follow
-  - a joint **Student-t** distribution with estimated degrees-of-freedom parameter
+  - a joint **Student-t** distribution with estimated equation-specific degrees-of-freedom parameter
   - a finite **mixture of normal** components and component-specific variances
   - a **sparse mixture of normal** components and component-specific variances where the number of states is estimated
   
@@ -66,7 +66,7 @@ Provides fast and efficient procedures for Bayesian analysis of Structural Vecto
 - Provide structural analyses using **impulse responses**, forecast error variance decompositions, historical decompositions, and structural shocks using functions `compute_impulse_responses()`, `compute_variance_decompositions()`, `compute_historical_decompositions()`, and `compute_structural_shocks()` respectively
 - Analyse the fitted values, time-varying volatility, and volatility regimes using functions `compute_fitted_values()`, `compute_conditional_sd()`, and `compute_regime_probabilities()` respectively
 - Use `plot()` and `summary()` methods to gain the insights into the core of the empirical problem.
-- Verify heteroskedasticity, non-normality, and hypotheses on autoregressive parameters using functions `verify_volatility()` and `verify_autoregression()`
+- Verify identification through heteroskedasticity, non-normality, and hypotheses on autoregressive parameters using functions `verify_identification()` and `verify_autoregression()`
 
 #### Fast and efficient computations
 

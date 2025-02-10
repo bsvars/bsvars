@@ -82,8 +82,8 @@ constitute an integrated toolset.
   - time-varying with **sparse Markov Switching** where the number of
     volatility regimes is estimated
 - In **three more models** non-normal structural shocks follow
-  - a joint **Student-t** distribution with estimated degrees-of-freedom
-    parameter
+  - a joint **Student-t** distribution with estimated equation-specific
+    degrees-of-freedom parameter
   - a finite **mixture of normal** components and component-specific
     variances
   - a **sparse mixture of normal** components and component-specific
@@ -107,9 +107,9 @@ constitute an integrated toolset.
   respectively
 - Use `plot()` and `summary()` methods to gain the insights into the
   core of the empirical problem.
-- Verify heteroskedasticity, non-normality, and hypotheses on
-  autoregressive parameters using functions `verify_volatility()` and
-  `verify_autoregression()`
+- Verify identification through heteroskedasticity, non-normality, and
+  hypotheses on autoregressive parameters using functions
+  `verify_identification()` and `verify_autoregression()`
 
 #### Fast and efficient computations
 
