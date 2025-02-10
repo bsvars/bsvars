@@ -833,14 +833,10 @@ forecast.PosteriorBSVART = function(
   }
   
   # forecast volatility
-  forecast_sigma2_tmp = .Call(`_bsvars_forecast_lambda_t`, 
+  forecast_sigma2 = .Call(`_bsvars_forecast_lambda_t`, 
                               posterior_df,
                               horizon
                         ) # END .Call
-  forecast_sigma2     = array(NA, c(N, horizon, S))
-  for (n in 1:N) {
-    forecast_sigma2[n,,] = forecast_sigma2_tmp
-  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 

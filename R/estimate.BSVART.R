@@ -29,15 +29,15 @@
 #' 
 #' Finally, the structural shocks, \code{U}, are temporally and contemporaneously 
 #' independent and jointly Student-t distributed with zero mean, unit variances, 
-#' and an estimated degrees-of-freedom parameter.
+#' and estimated equation-specific degrees-of-freedom parameter.
 #' 
-#' @param specification an object of class BSVART generated using the 
+#' @param specification an object of class \code{BSVART} generated using the 
 #' \code{specify_bsvar_t$new()} function.
 #' @param S a positive integer, the number of posterior draws to be generated
 #' @param thin a positive integer, specifying the frequency of MCMC output thinning
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
-#' @return An object of class PosteriorBSVART containing the Bayesian estimation 
+#' @return An object of class \code{PosteriorBSVART} containing the Bayesian estimation 
 #' output and containing two elements:
 #' 
 #'  \code{posterior} a list with a collection of \code{S} draws from the posterior 
@@ -47,12 +47,12 @@
 #'  \item{B}{an \code{NxNxS} array with the posterior draws for matrix \eqn{B}}
 #'  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters 
 #'  of the hierarchical prior distribution}
-#'  \item{df}{an \code{S} vector with the posterior draws for the degrees-of-freedom 
-#'  parameter of the Student-t distribution}
-#'  \item{lambda}{a \code{TxS} matrix with the posterior draws for the latent variable}
+#'  \item{df}{an \code{NxS} matrix with the posterior draws for the 
+#'  equation-specific degrees-of-freedom parameter of the Student-t distribution}
+#'  \item{lambda}{an \code{NxTxS} array with the posterior draws for the latent variable}
 #' }
 #' 
-#' \code{last_draw} an object of class BSVART with the last draw of the current 
+#' \code{last_draw} an object of class \code{BSVART} with the last draw of the current 
 #' MCMC run as the starting value to be passed to the continuation of the MCMC 
 #' estimation using \code{estimate()}. 
 #'

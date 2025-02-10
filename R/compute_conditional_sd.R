@@ -346,14 +346,11 @@ compute_conditional_sd.PosteriorBSVARSV <- function(posterior) {
 compute_conditional_sd.PosteriorBSVART <- function(posterior) {
   
   Y                       = posterior$last_draw$data_matrices$Y
-  N                       = dim(posterior$posterior$B)[1]
-  T                       = dim(posterior$posterior$lambda)[1]
-  S                       = dim(posterior$posterior$lambda)[2]
-  posterior_sigma         = array(NA, c(N,T,S), dimnames = list(rownames(Y), colnames(Y), 1:S))
-  for (n in 1:N) {
-    posterior_sigma[n,,]  = sqrt(posterior$posterior$lambda)
-  }
+  S                       = dim(posterior$posterior$lambda)[3]
+  
+  posterior_sigma         = sqrt(posterior$posterior$lambda)
   class(posterior_sigma)  = "PosteriorSigma"
+  dimnames(posterior_sigma) = list(rownames(Y), colnames(Y), 1:S) 
   
   return(posterior_sigma)
 }

@@ -118,19 +118,22 @@ arma::cube forecast_sigma2_sv (
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-arma::mat forecast_lambda_t (
-    arma::mat&    posterior_df,      // Sx1
+arma::cube forecast_lambda_t (
+    arma::mat&    posterior_df,      // NxS
     const int&    horizon
 ) {
   
-  const int       S = posterior_df.n_rows;
-  mat             forecasts_lambda(horizon, S, fill::ones);
+  const int       N = posterior_df.n_rows;
+  const int       S = posterior_df.n_cols;
+  cube            forecasts_lambda(N, horizon, S, fill::ones);
   
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
-      double df_s               = as_scalar(posterior_df.row(s));
-      forecasts_lambda.col(s)   *= df_s + 2;
-      forecasts_lambda.col(s)  /= chi2rnd( df_s, horizon );
+      vec df_s                  = posterior_df.col(s);
+      forecasts_lambda.slice(s).each_col()  %= df_s + 2;
+      for (int n=0; n<N; n++) {
+        forecasts_lambda.slice(s).row(n)  /= trans(chi2rnd( df_s(n), horizon ));
+      } // END n loop
     } // END h loop
   } // END s loop
   

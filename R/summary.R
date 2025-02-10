@@ -1886,15 +1886,16 @@ summary.SDDRidT = function(
   )
   
   exp_sddr  = object$SDDR
+  N         = length(exp_sddr)
   
-  out = cbind(
+  out       = cbind(
     object$logSDDR,
     object$SDDR,
     exp_sddr / (1 + exp_sddr),
     1 / (1 + exp_sddr)
   )
   colnames(out) = c("log(SDDR)", "SDDR", "Pr[H0|data]", "Pr[H1|data]")
-  rownames(out) = ""
+  rownames(out) = paste0("shock ", 1:N)
   
   return(out)
 } # END summary.SDDRidT

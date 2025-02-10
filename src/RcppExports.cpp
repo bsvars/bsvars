@@ -589,7 +589,7 @@ RcppExport SEXP _bsvars_forecast_sigma2_sv(SEXP posterior_h_TSEXP, SEXP posterio
     return rcpp_result_gen;
 }
 // forecast_lambda_t
-arma::mat forecast_lambda_t(arma::mat& posterior_df, const int& horizon);
+arma::cube forecast_lambda_t(arma::mat& posterior_df, const int& horizon);
 static SEXP _bsvars_forecast_lambda_t_try(SEXP posterior_dfSEXP, SEXP horizonSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -1295,11 +1295,11 @@ RcppExport SEXP _bsvars_sample_hyperparameters(SEXP aux_hyperSEXP, SEXP aux_BSEX
     return rcpp_result_gen;
 }
 // sample_lambda
-arma::vec sample_lambda(const double& aux_df, const arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& Y, const arma::mat& X);
+arma::mat sample_lambda(const arma::vec& aux_df, const arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& Y, const arma::mat& X);
 static SEXP _bsvars_sample_lambda_try(SEXP aux_dfSEXP, SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP YSEXP, SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const double& >::type aux_df(aux_dfSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type aux_df(aux_dfSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type aux_B(aux_BSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type aux_A(aux_ASEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
@@ -1333,12 +1333,12 @@ RcppExport SEXP _bsvars_sample_lambda(SEXP aux_dfSEXP, SEXP aux_BSEXP, SEXP aux_
     return rcpp_result_gen;
 }
 // log_kernel_df
-double log_kernel_df(const double& aux_df, const arma::vec& aux_lambda);
+double log_kernel_df(const double& aux_df, const arma::rowvec& aux_lambda);
 static SEXP _bsvars_log_kernel_df_try(SEXP aux_dfSEXP, SEXP aux_lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const double& >::type aux_df(aux_dfSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type aux_lambda(aux_lambdaSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type aux_lambda(aux_lambdaSEXP);
     rcpp_result_gen = Rcpp::wrap(log_kernel_df(aux_df, aux_lambda));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -1368,13 +1368,13 @@ RcppExport SEXP _bsvars_log_kernel_df(SEXP aux_dfSEXP, SEXP aux_lambdaSEXP) {
     return rcpp_result_gen;
 }
 // sample_df
-arma::vec sample_df(double& aux_df, double& adaptive_scale, const arma::vec& aux_lambda, const int& s, const arma::vec& adptive_alpha_gamma);
+Rcpp::List sample_df(arma::vec& aux_df, arma::vec& adaptive_scale, const arma::mat& aux_lambda, const int& s, const arma::vec& adptive_alpha_gamma);
 static SEXP _bsvars_sample_df_try(SEXP aux_dfSEXP, SEXP adaptive_scaleSEXP, SEXP aux_lambdaSEXP, SEXP sSEXP, SEXP adptive_alpha_gammaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< double& >::type aux_df(aux_dfSEXP);
-    Rcpp::traits::input_parameter< double& >::type adaptive_scale(adaptive_scaleSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type aux_lambda(aux_lambdaSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type aux_df(aux_dfSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type adaptive_scale(adaptive_scaleSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type aux_lambda(aux_lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type adptive_alpha_gamma(adptive_alpha_gammaSEXP);
     rcpp_result_gen = Rcpp::wrap(sample_df(aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma));
@@ -2159,7 +2159,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::vec(*mvnrnd_cond)(arma::vec,arma::vec,arma::mat)");
         signatures.insert("arma::cube(*forecast_sigma2_msh)(arma::cube&,arma::cube&,arma::mat&,const int&)");
         signatures.insert("arma::cube(*forecast_sigma2_sv)(arma::mat&,arma::mat&,arma::mat&,const int&,const bool&)");
-        signatures.insert("arma::mat(*forecast_lambda_t)(arma::mat&,const int&)");
+        signatures.insert("arma::cube(*forecast_lambda_t)(arma::mat&,const int&)");
         signatures.insert("arma::cube(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
         signatures.insert("arma::vec(*Ergodic_PR_TR)(const arma::mat&)");
         signatures.insert("arma::mat(*count_regime_transitions)(const arma::mat&)");
@@ -2178,9 +2178,9 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::mat(*sample_B_homosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
         signatures.insert("arma::mat(*sample_B_heterosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
         signatures.insert("arma::mat(*sample_hyperparameters)(arma::mat&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const Rcpp::List&)");
-        signatures.insert("arma::vec(*sample_lambda)(const double&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
-        signatures.insert("double(*log_kernel_df)(const double&,const arma::vec&)");
-        signatures.insert("arma::vec(*sample_df)(double&,double&,const arma::vec&,const int&,const arma::vec&)");
+        signatures.insert("arma::mat(*sample_lambda)(const arma::vec&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
+        signatures.insert("double(*log_kernel_df)(const double&,const arma::rowvec&)");
+        signatures.insert("Rcpp::List(*sample_df)(arma::vec&,arma::vec&,const arma::mat&,const int&,const arma::vec&)");
         signatures.insert("double(*do_rgig1)(double,double,double)");
         signatures.insert("Rcpp::List(*cholesky_tridiagonal)(const arma::vec&,const double&)");
         signatures.insert("arma::vec(*forward_algorithm)(const arma::vec&,const arma::vec&,const arma::vec&)");

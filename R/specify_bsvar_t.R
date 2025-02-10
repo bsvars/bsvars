@@ -102,13 +102,13 @@ specify_starting_values_bsvar_t = R6::R6Class(
     #' hierarchical prior distribution. 
     hyper         = matrix(),
     
-    #' @field lambda a \code{Tx1} vector of starting values for latent variables.
-    lambda        = numeric(),
+    #' @field lambda a \code{NxT} matrix of starting values for latent variables.
+    lambda        = matrix(),
     
-    #' @field df a positive scalar with starting values for the degrees of 
-    #' freedom parameter of the Student-t conditional distribution of structural 
-    #' shock.
-    df            = NA,
+    #' @field df an \code{Nx1} vector of positive numbers with starting values 
+    #' for the equation-specific degrees of freedom parameters of the Student-t 
+    #' conditional distribution of structural shocks.
+    df            = numeric(),
     
     #' @description
     #' Create new starting values StartingValuesBSVART
@@ -124,8 +124,8 @@ specify_starting_values_bsvar_t = R6::R6Class(
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       
       super$initialize(N, p, d)
-      self$lambda = rep(1, T)
-      self$df     = 6
+      self$lambda = matrix(1, N, T)
+      self$df     = rep(3, N)
     }, # END initialize
     
     #' @description
