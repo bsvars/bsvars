@@ -65,6 +65,7 @@ Create a new specification of the BSVAR model with t-distributed structural shoc
   data,
   p = 1L,
   B,
+  A,
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data))
 )}\if{html}{\out{</div>}}
@@ -80,6 +81,10 @@ Create a new specification of the BSVAR model with t-distributed structural shoc
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the 
 elements of the structural matrix \eqn{B} to be estimated and value 
 \code{FALSE} for exclusion restrictions to be set to zero.}
+
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
 
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
