@@ -108,7 +108,7 @@ estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) 
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
   data_matrices       = specification$data_matrices$get_data_matrices()
   finiteM             = specification$finiteM
   if (finiteM) {
@@ -173,7 +173,7 @@ estimate.PosteriorBSVARMIX <- function(specification, S, thin = 1, show_progress
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   finiteM             = specification$last_draw$finiteM
   if (finiteM) {
