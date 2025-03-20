@@ -18,6 +18,7 @@ Rcpp::List bsvar_t_cpp(
   const arma::mat&  Y,                  // NxT dependent variables
   const arma::mat&  X,                  // KxT dependent variables
   const arma::field<arma::mat>& VB,     // N-list
+  const arma::field<arma::mat>& VA,     // N-list
   const Rcpp::List& prior,              // a list of priors
   const Rcpp::List& starting_values,    // a list of starting values
   const arma::vec&  adptive_alpha_gamma,// a 2x1 vector of adaptive MH tuning parameters: target acceptance and discounting factor
@@ -87,8 +88,8 @@ Rcpp::List bsvar_t_cpp(
     aux_lambda      = sample_lambda ( aux_df, aux_B, aux_A, Y, X );
     tmp_lambda_sqrt = sqrt(aux_lambda);
     
-    aux_hyper       = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
-    aux_A           = sample_A_heterosk1 ( aux_A, aux_B, aux_hyper, tmp_lambda_sqrt, Y, X, prior);
+    aux_hyper       = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
+    aux_A           = sample_A_heterosk1 ( aux_A, aux_B, aux_hyper, tmp_lambda_sqrt, Y, X, prior, VA );
     aux_B           = sample_B_heterosk1 ( aux_B, aux_A, aux_hyper, tmp_lambda_sqrt, Y, X, prior, VB );
     
     if (s % thin == 0) {
