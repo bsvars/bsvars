@@ -210,9 +210,10 @@ arma::field<arma::cube> bsvars_hd (
     for (int t=0; t<T; t++) {
       
       cube        hds_at_t(N, N, t + 1);
-      for (int i=0; i<t; i++) {
-        posterior_irf_t   = posterior_irf_T(s).slice(t - i - 1);
-        hds_at_t.slice(i) = posterior_irf_t.each_col() % structural_shocks.slice(s).col(i);
+      for (int i = 0; i <= t; i++) {
+        posterior_irf_t = posterior_irf_T(s).slice(i);
+        hds_at_t.slice(i) = posterior_irf_t.each_row() %
+                            structural_shocks.slice(s).col(t - i).t();
       } // END i loop
       
       aux_hds.slice(t) = sum(hds_at_t, 2);
