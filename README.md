@@ -166,7 +166,7 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
     Warsaw in December 2024 [featuring **bsvars** 3.2 and **bsvarSIGNs**
     1.0.1](https://bsvars.org/2024-12-uwwne/)
   - for students and researchers at [Uniwersytet Ekonomiczny w
-    Krakowie](https://uek.krakow.pl/) given in Cracow in December 2024
+    Krakowie](https://uek.krakow.pl/) given in Kraków in December 2024
     [featuring **bsvars** 3.2 and **bsvarSIGNs**
     1.0.1](https://bsvars.org/2024-12-uek/)
   - for Bayesian Econometrics students at the University of Melbourne
