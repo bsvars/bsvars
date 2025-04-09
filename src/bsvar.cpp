@@ -17,6 +17,7 @@ Rcpp::List bsvar_cpp(
   const arma::mat&  Y,                  // NxT dependent variables
   const arma::mat&  X,                  // KxT dependent variables
   const arma::field<arma::mat>& VB,     // N-list
+  const arma::field<arma::mat>& VA,     // N-list
   const Rcpp::List& prior,              // a list of priors
   const Rcpp::List& starting_values,    // a list of starting values
   const int         thin = 100,         // introduce thinning
@@ -65,8 +66,8 @@ Rcpp::List bsvar_cpp(
     // Check for user interrupts
     if (s % 200 == 0) checkUserInterrupt();
     
-    aux_hyper     = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
-    aux_A         = sample_A_homosk1(aux_A, aux_B, aux_hyper, Y, X, prior);
+    aux_hyper     = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
+    aux_A         = sample_A_homosk1(aux_A, aux_B, aux_hyper, Y, X, prior, VA);
     aux_B         = sample_B_homosk1(aux_B, aux_A, aux_hyper, Y, X, prior, VB);
     
     if (s % thin == 0) {

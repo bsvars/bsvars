@@ -8,7 +8,8 @@ The class StartingValuesBSVARSV presents starting values for the bsvar model wit
 }
 \examples{
 # starting values for a bsvar model for a 3-variable system
-sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+A = matrix(TRUE, 3, 4)
+sv = specify_starting_values_bsvar_sv$new(A = A, N = 3, p = 1, T = 100)
 
 
 ## ------------------------------------------------
@@ -16,7 +17,8 @@ sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+A = matrix(TRUE, 3, 4)
+sv = specify_starting_values_bsvar_sv$new(A = A, N = 3, p = 1, T = 100)
 sv$get_starting_values()   # show starting values as list
 
 
@@ -25,7 +27,8 @@ sv$get_starting_values()   # show starting values as list
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+A = matrix(TRUE, 3, 4)
+sv = specify_starting_values_bsvar_sv$new(A = A, N = 3, p = 1, T = 100)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list
@@ -77,12 +80,16 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVARSV.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_sv$new(N, p, T, d = 0)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_sv$new(A, N, p, T, d = 0)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
@@ -109,7 +116,8 @@ Returns the elements of the starting values StartingValuesBSVARSV as a \code{lis
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+A = matrix(TRUE, 3, 4)
+sv = specify_starting_values_bsvar_sv$new(A = A, N = 3, p = 1, T = 100)
 sv$get_starting_values()   # show starting values as list
 
 }
@@ -140,7 +148,8 @@ An object of class StartingValuesBSVAR including the last draw of the current MC
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar_sv$new(N = 3, p = 1, T = 100)
+A = matrix(TRUE, 3, 4)
+sv = specify_starting_values_bsvar_sv$new(A = A, N = 3, p = 1, T = 100)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list

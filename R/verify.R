@@ -395,7 +395,26 @@ verify_volatility.PosteriorBSVARMSH <- function(posterior) {
 #' @export
 verify_autoregression <- function(posterior, hypothesis) {
   
-  stopifnot("Argument hypothesis must be a numeric matrix." = is.matrix(hypothesis) & is.numeric(hypothesis))
+  stopifnot(
+    "Argument hypothesis must be a numeric matrix." 
+    = is.matrix(hypothesis) & is.numeric(hypothesis)
+  )
+  
+  dimA = dim(posterior$last_draw$starting_values$A)
+  stopifnot(
+    "The hypothesis must be of the same dimension as the autoregressive matrix A."
+    = all(dim(hypothesis) == dimA)
+  )
+  
+  VA = posterior$last_draw$identification$VA
+  restrictions = matrix(0, dimA[1], dimA[2])
+  for (n in 1:dimA[1]) {
+    restrictions[n, apply(VA[[n]], 2, sum) == 1] = NA
+  }
+  stopifnot(
+    "The hypothesis cannot verify restricted elements of matrix A."
+    = all(is.na(restrictions == hypothesis))
+  )
   
   # call method
   UseMethod("verify_autoregression", posterior)

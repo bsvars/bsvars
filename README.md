@@ -17,8 +17,9 @@ Provides fast and efficient procedures for Bayesian analysis of
 Structural Vector Autoregressions. This package estimates a wide range
 of models, including homo-, heteroskedastic, and non-normal
 specifications. Structural models can be identified by adjustable
-exclusion restrictions, time-varying volatility, or non-normality. They
-all include a flexible three-level equation-specific local-global
+exclusion restrictions, time-varying volatility, or non-normality, and
+include exclusion restrictions on autoregressive parameters. They all
+include a flexible three-level equation-specific local-global
 hierarchical prior distribution for the estimated level of shrinkage for
 autoregressive and structural parameters. Additionally, the package
 facilitates predictive and structural analyses such as impulse
@@ -70,9 +71,10 @@ constitute an integrated toolset.
 
 - The models are identified via exclusion restrictions,
   heteroskedasticity, or non-normality
-- The autoregressive parameters `A` and the structural matrix `B`
-  feature a three-level local-global hierarchical prior that estimates
-  the equation-specific level of shrinkage
+- The autoregressive parameters `A` and the structural matrix `B` may
+  include exclusion restrictions and feature a three-level local-global
+  hierarchical prior that estimates the equation-specific level of
+  shrinkage
 - In **five models** the structural shocks are conditionally normal with
   zero mean and diagonal covariance matrix with variances that are:
   - equal to one, that is, time invariant

@@ -108,7 +108,8 @@ estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) 
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
+  VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
   finiteM             = specification$finiteM
   if (finiteM) {
@@ -118,7 +119,7 @@ estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) 
   }
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, FALSE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, FALSE, model, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification, qqq$posterior)
@@ -173,7 +174,8 @@ estimate.PosteriorBSVARMIX <- function(specification, S, thin = 1, show_progress
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
+  VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   finiteM             = specification$last_draw$finiteM
   if (finiteM) {
@@ -183,7 +185,7 @@ estimate.PosteriorBSVARMIX <- function(specification, S, thin = 1, show_progress
   }
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, finiteM, FALSE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, FALSE, model, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification$last_draw, qqq$posterior)

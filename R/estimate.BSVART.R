@@ -102,12 +102,13 @@ estimate.BSVART <- function(specification, S, thin = 1, show_progress = TRUE) {
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
+  VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
   adptive_alpha_gamma = specification$adaptiveMH  
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_t$new(specification, qqq$posterior)
@@ -159,12 +160,13 @@ estimate.PosteriorBSVART <- function(specification, S, thin = 1, show_progress =
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
+  VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   adptive_alpha_gamma = specification$last_draw$adaptiveMH  
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_t$new(specification$last_draw, qqq$posterior)

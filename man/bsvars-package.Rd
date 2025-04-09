@@ -10,7 +10,8 @@ Provides fast and efficient procedures for Bayesian analysis of
 Structural Vector Autoregressions. This package estimates a wide range of 
 models, including homo-, heteroskedastic and non-normal specifications. 
 Structural models can be identified by adjustable exclusion restrictions, 
-time-varying volatility, or non-normality.
+time-varying volatility, or non-normality, and include exclusion restrictions 
+on autoregressive parameters.
 They all include a flexible three-level equation-specific local-global 
 hierarchical prior distribution for the estimated level of shrinkage for 
 autoregressive and structural parameters. Additionally, the package facilitates 
@@ -120,33 +121,32 @@ us_fiscal_lsuw |>
 data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
 data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
 
-#' set.seed(123)
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
-burn_in        = estimate(specification, 5)
-posterior      = estimate(burn_in, 10)
-
-# forecast 2 years ahead
-predictive     = forecast(
-                    posterior, 
-                    horizon = 8,
-                    exogenous_forecast = us_fiscal_ex_forecasts,
-                    conditional_forecast = us_fiscal_cond_forecasts
-                  )
-summary(predictive)
-
-# workflow with the pipe |>
-############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
-  estimate(S = 10) |> 
-  forecast(
+  estimate(S = 10) -> posterior
+  
+ posterior |> forecast(
     horizon = 8,
     exogenous_forecast = us_fiscal_ex_forecasts,
     conditional_forecast = us_fiscal_cond_forecasts
-  ) |> plot()
+  ) -> predictive
   
+  predictive |> summary()
+  predictive |> plot(probability = 0.68)
+  
+# estimation of a model with exogeneity restrictions on the  autoregressive matrix
+############################################################
+set.seed(123)
+A = matrix(TRUE, 3, 7)
+A[1,3] = A[1,6] = FALSE
+us_fiscal_lsuw |>
+  specify_bsvar_sv$new(p = 2, A = A) |>
+  estimate(S = 5) |> 
+  estimate(S = 10) -> posterior
+posterior |> summary()
+
 }
 \references{
 Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
