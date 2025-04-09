@@ -7,6 +7,7 @@ Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSS
 1. The model with Student-t structural shocks features now, an estimated equation-specific degrees-of-freedom parameter, see `specify_bsvar_t()` with verified normality using function `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
 2. Updated C++ flags to the newest recommended setup as inspired by the PR [#103](https://github.com/bsvars/bsvars/pull/103) by [@haansn08](https://github.com/haansn08)
 3. Corrected C++ code for historical decompositions in PR [#108](https://github.com/bsvars/bsvars/pull/108) by [Adam Wang](https://github.com/adamwang15)
+4. Upon popular request the package includes possibility of imposing exclusion restrictions on autoregressive parameters for all models [#106](https://github.com/bsvars/bsvars/issues/106)
 
 # bsvars 3.2
 
