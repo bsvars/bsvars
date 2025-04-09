@@ -83,6 +83,7 @@
 <span>  <span class="va">data</span>,</span>
 <span>  p <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  <span class="va">B</span>,</span>
+<span>  <span class="va">A</span>,</span>
 <span>  exogenous <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
@@ -101,6 +102,12 @@
 <dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
 the structural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
+to be set to zero.</p></dd>
+
+
+<dt><code>A</code></dt>
+<dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
+the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
 
@@ -260,11 +267,12 @@ otherwise to random walk.</p></dd>
 <span class="r-in"><span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;IdentificationBSVARs&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     VA: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     VB: list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_identification: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (N, B) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     set_identification: function (N, B) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (B, A, N, K) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     set_identification: function (B, A, N, K) </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -315,7 +323,7 @@ otherwise to random walk.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_starting_values: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hyper: 10 10 10 10 10 10 10 10 10 10 10 10 10 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (N, p, d = 0) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (A, N, p, d = 0) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_starting_values: function (last_draw) </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

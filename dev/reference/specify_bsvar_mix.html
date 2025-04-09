@@ -92,6 +92,7 @@
 <span>  p <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  M <span class="op">=</span> <span class="fl">2L</span>,</span>
 <span>  <span class="va">B</span>,</span>
+<span>  <span class="va">A</span>,</span>
 <span>  exogenous <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  finiteM <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -114,6 +115,12 @@
 
 <dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of the structural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions to be set to zero.</p></dd>
+
+
+<dt><code>A</code></dt>
+<dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
+the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
+to be set to zero.</p></dd>
 
 
 <dt><code>exogenous</code></dt>
