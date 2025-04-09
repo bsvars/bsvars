@@ -20,7 +20,7 @@
 #'
 #' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 #'
-#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me} and Xiaolei Wang \email{adamwang15@gmail.com}
 #' 
 #' @references 
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
