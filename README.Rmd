@@ -46,7 +46,7 @@ Provides fast and efficient procedures for Bayesian analysis of Structural Vecto
    BE = U                (structural equation)
 ```
 - The models are identified via exclusion restrictions, heteroskedasticity, or non-normality
-- The autoregressive parameters `A` and the structural matrix `B` feature a three-level local-global hierarchical prior that estimates the equation-specific level of shrinkage
+- The autoregressive parameters `A` and the structural matrix `B` may include exclusion restrictions and feature a three-level local-global hierarchical prior that estimates the equation-specific level of shrinkage
 - In **five models** the structural shocks are conditionally normal with zero mean and diagonal covariance matrix with variances that are:
   - equal to one, that is, time invariant
   - time-varying following non-centred **Stochastic Volatility**
