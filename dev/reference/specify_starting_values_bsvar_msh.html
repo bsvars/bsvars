@@ -86,7 +86,7 @@ hierarchical prior distribution.</p></dd>
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Create new starting values StartingValuesBSVAR-MS.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="va">M</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span>, finiteM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="va">M</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span>, finiteM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -94,6 +94,12 @@ hierarchical prior distribution.</p></dd>
 <p></p><div class="arguments"><dl><dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
+to be set to zero.</p></dd>
+
+
+<dt><code>B</code></dt>
+<dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
+the staructural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
 
@@ -139,7 +145,8 @@ to be set to zero.</p></dd>
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># starting values for a homoskedastic bsvar with 1 lag for a 3-variable system</span></span>
 <span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># show starting values as list</span></span>
 <span></span></code></pre></div><p></p></div>
 </div>
@@ -168,7 +175,8 @@ to be set to zero.</p></dd>
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span>
 <span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_msh.html">specify_starting_values_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Modify the starting values by:</span></span>
 <span><span class="va">sv_list</span> <span class="op">=</span> <span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># getting them as list</span></span>
@@ -202,7 +210,8 @@ to be set to zero.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># starting values for a bsvar model for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -211,19 +220,20 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># starting values for a homoskedastic bsvar with 1 lag for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># show starting values as list</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.8757338 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.9338268 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.9977885</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]      [,2]      [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.331873 0.0000000 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.000000 0.9451127 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.000000 0.0000000 0.3133975    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]     [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.3654112 0.0000000 0.000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.3875827 0.000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.255191    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
@@ -248,32 +258,32 @@ to be set to zero.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $xi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    0    0    0    0    0    1    1     1     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1    1    1    1    1    0    0     0     1     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    1    0    0    0    1    0    0     1     1     0     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    0    1    1    1    0    1    1     0     0     1     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22] [,23] [,24] [,25] [,26]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     0     1     1     0     1     0     1     1     1     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     1     0     0     1     0     1     0     0     0     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     1     1     1     0     1     0     1     1     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     0     0     0     1     0     1     0     0     1     1     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,27] [,28] [,29] [,30] [,31] [,32] [,33] [,34] [,35] [,36] [,37] [,38]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     0     0     1     1     1     0     1     0     1     1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     1     1     0     0     0     1     0     1     0     0     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     1     1     1     1     0     0     1     1     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     0     0     0     0     1     1     0     0     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,39] [,40] [,41] [,42] [,43] [,44] [,45] [,46] [,47] [,48] [,49] [,50]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     1     0     1     1     1     1     0     0     0     1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     0     1     0     0     0     0     1     1     1     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     1     0     0     1     0     1     0     0     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     0     1     1     0     1     0     1     1     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,51] [,52] [,53] [,54] [,55] [,56] [,57] [,58] [,59] [,60] [,61] [,62]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     0     1     0     0     1     1     1     0     1     0     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     1     0     1     1     0     0     0     1     0     1     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     0     0     1     0     1     0     1     0     1     0     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     1     1     0     1     0     1     0     1     0     1     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,63] [,64] [,65] [,66] [,67] [,68] [,69] [,70] [,71] [,72] [,73] [,74]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     0     1     0     1     0     1     1     0     1     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     1     0     1     0     1     0     0     1     0     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0     0     0     1     0     1     1     0     0     0     1     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1     1     1     0     1     0     0     1     1     1     0     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,75] [,76] [,77] [,78] [,79] [,80] [,81] [,82] [,83] [,84] [,85] [,86]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     0     0     0     0     1     0     0     0     1     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     1     1     1     1     0     1     1     1     0     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     1     1     1     1     1     0     0     1     1     0     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     0     0     0     0     0     1     1     0     0     1     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,87] [,88] [,89] [,90] [,91] [,92] [,93] [,94] [,95] [,96] [,97] [,98]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     0     0     0     1     1     1     0     1     1     1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     1     1     1     0     0     0     1     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1     0     1     1     0     0     0     1     0     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0     1     0     0     1     1     1     0     1     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,99] [,100]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     1      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]     0      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pi_0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5</span>
@@ -286,7 +296,8 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, M <span class="op">=</span> <span class="fl">2</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modify the starting values by:</span></span></span>
 <span class="r-in"><span><span class="va">sv_list</span> <span class="op">=</span> <span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># getting them as list</span></span></span>

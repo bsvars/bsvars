@@ -98,7 +98,7 @@ hierarchical prior distribution.</p></dd>
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Create new starting values StartingValuesBSVARSV.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -106,6 +106,12 @@ hierarchical prior distribution.</p></dd>
 <p></p><div class="arguments"><dl><dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
+to be set to zero.</p></dd>
+
+
+<dt><code>B</code></dt>
+<dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
+the staructural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
 
@@ -143,7 +149,8 @@ to be set to zero.</p></dd>
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span>
 <span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># show starting values as list</span></span>
 <span></span></code></pre></div><p></p></div>
 </div>
@@ -172,7 +179,8 @@ to be set to zero.</p></dd>
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span>
 <span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">sv</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_starting_values_bsvar_sv.html">specify_starting_values_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Modify the starting values by:</span></span>
 <span><span class="va">sv_list</span> <span class="op">=</span> <span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># getting them as list</span></span>
@@ -206,7 +214,8 @@ to be set to zero.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># starting values for a bsvar model for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -215,19 +224,20 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># show starting values as list</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.7424524 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.1182828 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.1655069</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]     [,2]      [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.3318723 0.000000 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.346466 0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.000000 0.8990109    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.8092106 0.0000000 0.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.7653974 0.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000 0.9025619    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
@@ -240,86 +250,86 @@ to be set to zero.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [7,]   10   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $h</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]         [,2]         [,3]          [,4]         [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.007993441 -0.013108567  0.005739362  0.0034222326 -0.006524764</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.009097298 -0.023020841 -0.001490578  0.0009779576  0.008919517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.002393719  0.003858592  0.007939204 -0.0042209180 -0.015017540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               [,6]         [,7]         [,8]         [,9]        [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.0055542018  0.007088785  0.003419632  0.008206653  0.003231842</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0169571995  0.003621811  0.007108519 -0.003409744 -0.012773486</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.0008899199 -0.007861842 -0.002742643 -0.008118558 -0.006630309</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,11]         [,12]       [,13]        [,14]        [,15]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.012944372 -0.0136842132 0.005139047 -0.002899472 -0.006170025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.032799833 -0.0072774865 0.008031218 -0.003923063  0.002243530</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.001415334 -0.0006799332 0.001397936 -0.001067155 -0.002273791</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,16]        [,17]        [,18]        [,19]       [,20]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.012679484  0.021698881 -0.005684802 -0.008833441  0.01072849</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.009352083 -0.012511730  0.015408483 -0.012843713 -0.01753654</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.017156587  0.001451547  0.012060007 -0.013215001  0.01151025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,21]         [,22]        [,23]        [,24]       [,25]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.003299165 -0.0176734301 -0.003880488  0.011214104 0.001408869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.006797154 -0.0086959354  0.003299577 -0.002844446 0.005611951</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.001337795  0.0006974608  0.010542715  0.007515271 0.003243084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,26]        [,27]         [,28]        [,29]        [,30]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.006081463 -0.006364024  0.0002383211  0.004862736 -0.018539232</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.010371123  0.002275526 -0.0030391591  0.003728357 -0.006902341</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.011956196  0.012125183 -0.0146480804 -0.006944515 -0.022335911</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,31]        [,32]        [,33]        [,34]         [,35]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.012118715  0.013900707 -0.003986172  0.007827815  0.0087499116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.017113250  0.010483659  0.005640803 -0.001203244  0.0129628811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.004607611 -0.003159489  0.018400766 -0.011836146 -0.0008296511</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,36]        [,37]        [,38]        [,39]       [,40]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.01064824 -0.008102441 -0.008740994  0.011355231 0.009807995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.01331040 -0.006859101 -0.009084825  0.003230856 0.001539338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.01955196 -0.004645406 -0.009390148 -0.013174959 0.003984450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,41]        [,42]         [,43]         [,44]        [,45]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.001841147 -0.002237727 -8.719661e-05  0.0130118807 -0.014894705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.007244854  0.009047563 -1.663445e-03  0.0125103285  0.029458145</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.003173064  0.015245423  6.378047e-03 -0.0005527552  0.006193544</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,46]        [,47]       [,48]        [,49]         [,50]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.002348650  0.016727400 -0.01051528 -0.004499903 -8.039465e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.008148530 -0.010045191 -0.02408812  0.014701197 -2.132873e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.006928341 -0.004068894 -0.00287735  0.013309807  1.743540e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,51]        [,52]        [,53]        [,54]        [,55]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0080674730 -0.002184488  0.017978047  0.015521314 -0.015558980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0144608747 -0.001866469  0.001862015 -0.002382433  0.005373756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0006025153  0.007680541 -0.011809137 -0.006210552 -0.012538553</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,56]        [,57]       [,58]         [,59]        [,60]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.003894997 -0.006237393  0.01095835  6.529136e-05 -0.007166842</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.004993635  0.001410334  0.01255852  8.727580e-03 -0.009177434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.003226266  0.002137548 -0.02094807 -8.152385e-03  0.001684255</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,61]         [,62]        [,63]        [,64]       [,65]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.01068923 -0.0075804615 -0.013390090 -0.010438266 0.014547613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.01595577 -0.0210038938  0.002207463  0.005643683 0.013143884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.00799967  0.0001464444  0.012957100  0.016066215 0.002492362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,66]         [,67]         [,68]         [,69]         [,70]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.006834259  0.0002623308  0.0045008180  0.0108203413  0.0112841861</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.004920259  0.0064064304 -0.0009461899  0.0026148831 -0.0007551702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.009521897 -0.0009757059 -0.0072193336 -0.0001177592 -0.0119583170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,71]         [,72]         [,73]        [,74]        [,75]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.015249006  0.0003515349 -0.0004477032  0.003942061 -0.006803883</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.003954474 -0.0091878812 -0.0027813924 -0.005783064 -0.009889167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.019746527  0.0072224219 -0.0045575160  0.007835626 -0.005307092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,76]         [,77]         [,78]        [,79]        [,80]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.001385678  0.0075151728 -3.365499e-03  0.018068604 -0.009784660</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.022184692 -0.0167804389  1.460187e-02 -0.004127064  0.009145015</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.010129136  0.0009444189 -7.411895e-05  0.010177888 -0.007228003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]         [,2]         [,3]         [,4]         [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.004091069  0.003423916  0.009701273  0.001003765 -0.009625332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.019290814 -0.006689113 -0.012098527 -0.009985212  0.004565653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.008905861  0.015557458  0.006806607  0.004683360  0.003908667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,6]         [,7]         [,8]          [,9]        [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.001276711  0.001400654  0.000176626  0.0124524628 -0.008246079</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.005979914 -0.010965013 -0.002754935 -0.0002098818  0.003538000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.004735051 -0.009352632  0.001087633 -0.0082551251  0.004856955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,11]        [,12]        [,13]         [,14]        [,15]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.004843274 -0.009860696  0.008910815 -0.0006642422  0.005571862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.011996783  0.003816953 -0.007648796 -0.0164227448  0.010696844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.008210180 -0.003812924  0.013281537  0.0132034770 -0.001356095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,16]        [,17]        [,18]        [,19]         [,20]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.004910207  0.003577448  0.001112525 -0.008099521 -0.0223027221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.023929446  0.010294851 -0.014842674  0.002946115 -0.0072224787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.011417361 -0.001692373 -0.013380777  0.004020161  0.0001926589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,21]         [,22]        [,23]       [,24]       [,25]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.006024632 -4.605751e-05 -0.001082821 -0.02030099 0.010058527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.003285815 -1.055430e-02 -0.011608536 -0.01025549 0.004972037</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.009531976  1.546575e-02 -0.001731496  0.01369646 0.003871160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,26]        [,27]        [,28]       [,29]         [,30]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.001977763  0.017412513 -0.007595765 0.003588457  0.0076687908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.002935466  0.003863564 -0.009190425 0.003866253  0.0057394101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.022332537 -0.012046309 -0.009865530 0.003988654 -0.0004945287</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,31]         [,32]         [,33]       [,34]         [,35]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.005618925 -0.0043568057 -0.0003806899 0.011928968 -0.0002177701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.007440256 -0.0172785738 -0.0084354703 0.005541414 -0.0087152297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.007643031  0.0009564995  0.0090885140 0.004715230 -0.0086605052</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,36]        [,37]        [,38]         [,39]       [,40]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.004590057 -0.014118931  0.023525193 -0.0109280243 -0.00537267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.012306364 -0.003515438  0.008800434  0.0056836169  0.00218107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.013391846  0.004478974 -0.006572268 -0.0003108208  0.01882337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,41]       [,42]        [,43]        [,44]       [,45]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.0088749001  0.00928123 8.834931e-03  0.001739818 0.001885176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0189316921  0.00944807 4.209273e-05  0.006917449 0.012325515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.0002905484 -0.01540659 2.001188e-03 -0.015964847 0.017545406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,46]        [,47]       [,48]        [,49]        [,50]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.003205100 -0.002660926 0.013332261 -0.004026464 -0.005357827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.002778383 -0.001524790 0.018386736  0.003124563  0.021913685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.005242286 -0.011558332 0.005622716  0.005320381 -0.008510788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,51]        [,52]       [,53]        [,54]        [,55]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.012831615 -0.001845503 -0.01661639 -0.018971457  0.003364819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.007017589  0.011873613  0.01121065  0.001945925 -0.007435415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.010792475  0.023508584 -0.00996439 -0.002525417  0.009365315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,56]       [,57]        [,58]         [,59]         [,60]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.0002003118 0.002244325 -0.001607089 -0.0004322814  0.0048056020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0080111922 0.021192285  0.014267875 -0.0045455308 -0.0075554124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.0005981327 0.002102720  0.005152520 -0.0101588735  0.0009499493</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,61]        [,62]        [,63]        [,64]         [,65]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.004725476 -0.017101291  0.004251416 -0.011972039  0.0013025163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.006425953 -0.008065755 -0.017430154 -0.003574001 -0.0013149134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.005947017 -0.012891771  0.010513863 -0.009651296  0.0005403131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,66]        [,67]        [,68]        [,69]         [,70]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.0006721806 -0.009860870  0.006884529  0.023622132 -0.0001477221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.0153163323 -0.005145388  0.001783650 -0.005762755  0.0023355031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.0229653325  0.004701425 -0.010669371  0.017210438 -0.0127777598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,71]        [,72]         [,73]        [,74]        [,75]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.001515977 -0.002431533 -0.0003948757  0.019199963  0.002186849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.016350916  0.002235997 -0.0186148787 -0.005880273 -0.002399690</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.002120347  0.006316088  0.0106339574  0.003888120 -0.022496447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,76]         [,77]        [,78]       [,79]         [,80]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.0036787210 -0.0001515137 -0.010677182 0.001842258 -6.897704e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0042633234  0.0062547142 -0.001268914 0.002720596  4.044921e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0006877749 -0.0044852653  0.016844550 0.002307963 -6.784610e-03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,81]        [,82]        [,83]        [,84]        [,85]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 9.833365e-04  0.001661308 -0.008741380 -0.009677743 -0.008366076</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.107666e-03 -0.001377826  0.020996636 -0.015779881 -0.023925400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 7.088089e-05  0.004411687 -0.005337946  0.014823097  0.004922077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,86]        [,87]        [,88]        [,89]        [,90]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.0140632542 -0.009311521 -0.007611175  0.005021242 -0.004835457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0007795195 -0.003341507 -0.025296832 -0.003940378 -0.013957465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.0053703670 -0.002113345  0.011976476  0.012436873 -0.001183805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,91]        [,92]        [,93]        [,94]         [,95]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.004227505 -0.004498554 -0.009117186  0.007581388 -0.0034330152</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.005864420 -0.002252556  0.012088435  0.003280514  0.0009091654</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.006896318  0.008422449  0.001972102 -0.012531479  0.0121752921</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,96]       [,97]       [,98]        [,99]       [,100]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.0108861719 0.006819918 -0.01601643  0.010556519 -0.026993191</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.0168462086 0.003065204  0.01388499  0.008881706 -0.001031313</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0007443028 0.008086338  0.00571859 -0.001788534 -0.016084115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.008535026 -0.007968161  0.012137771  0.005670553  0.009942170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.003607988 -0.007430530 -0.005840344  0.003218527 -0.012132398</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.007348662  0.003119482  0.006014289 -0.008482299 -0.009353683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,86]        [,87]        [,88]        [,89]         [,90]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.002924309 -0.017662577 -0.003074248  0.016152139  0.0065042497</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.012556069  0.005631744 -0.006220321 -0.001285639 -0.0017110897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.018450496  0.002910809  0.003070266  0.012308648  0.0007902557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,91]        [,92]         [,93]       [,94]        [,95]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.002310349 -0.001589211 -0.0001518845 0.012217144 -0.014884968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.002429864 -0.010524746  0.0015314348 0.003504325  0.014189715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.016627611 -0.001904356 -0.0096737551 0.003515033 -0.005744438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,96]        [,97]        [,98]        [,99]       [,100]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.01563993  0.005668586 -0.004380099 -0.009139582 -0.006727500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.02010730 -0.003793235  0.013164333 -0.002834277 -0.006857386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.01113052  0.010523575  0.005816090 -0.001135066  0.021575635</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rho</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5 0.5</span>
@@ -382,7 +392,8 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># starting values for a bsvar model with 1 lag for a 3-variable system</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sv</span> <span class="op">=</span> <span class="va">specify_starting_values_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>A <span class="op">=</span> <span class="va">A</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, T <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modify the starting values by:</span></span></span>
 <span class="r-in"><span><span class="va">sv_list</span> <span class="op">=</span> <span class="va">sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span>   <span class="co"># getting them as list</span></span></span>
