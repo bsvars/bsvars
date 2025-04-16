@@ -101,11 +101,11 @@ burn_in        = estimate(specification, 5)
 # estimate the model
 posterior      = estimate(burn_in, 10)
 
-# compute impulse responses 2 years ahead
-irf           = compute_impulse_responses(posterior, horizon = 8)
+# compute impulse responses one year ahead
+irf           = compute_impulse_responses(posterior, horizon = 2)
 
-# compute forecast error variance decomposition 2 years ahead
-fevd           = compute_variance_decompositions(posterior, horizon = 8)
+# compute forecast error variance decomposition one year ahead
+fevd           = compute_variance_decompositions(posterior, horizon = 4)
 
 # workflow with the pipe |>
 ############################################################
@@ -114,7 +114,7 @@ us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
   estimate(S = 10) |> 
-  compute_variance_decompositions(horizon = 8) -> fevds
+  compute_variance_decompositions(horizon = 4) -> fevds
 
 # conditional forecasting using a model with exogenous variables
 ############################################################
