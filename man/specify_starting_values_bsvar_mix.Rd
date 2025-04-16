@@ -9,7 +9,8 @@ The class StartingValuesBSVARMIX presents starting values for the bsvar model wi
 \examples{
 # starting values for a bsvar model for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_mix$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_mix$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 
 }
 \section{Super classes}{
@@ -56,7 +57,7 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVARMIX.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(A, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -64,6 +65,10 @@ Create new starting values StartingValuesBSVARMIX.
 \describe{
 \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}

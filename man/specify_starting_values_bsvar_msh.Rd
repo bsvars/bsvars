@@ -9,7 +9,8 @@ The class StartingValuesBSVARMSH presents starting values for the bsvar model wi
 \examples{
 # starting values for a bsvar model for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 
 
 ## ------------------------------------------------
@@ -18,7 +19,8 @@ sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 sv$get_starting_values()   # show starting values as list
 
 
@@ -28,7 +30,8 @@ sv$get_starting_values()   # show starting values as list
 
 # starting values for a bsvar model with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list
@@ -74,7 +77,7 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVAR-MS.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$new(A, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -82,6 +85,10 @@ Create new starting values StartingValuesBSVAR-MS.
 \describe{
 \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
@@ -115,7 +122,8 @@ Returns the elements of the starting values StartingValuesBSVAR-MS as a \code{li
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 sv$get_starting_values()   # show starting values as list
 
 }
@@ -147,7 +155,8 @@ An object of class StartingValuesBSVAR-MS including the last draw of the current
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
-sv = specify_starting_values_bsvar_msh$new(A = A, N = 3, p = 1, M = 2, T = 100)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list

@@ -83,7 +83,8 @@ specify_prior_bsvar_t = R6::R6Class(
 #' @examples 
 #' # starting values for a bsvar model for a 3-variable system
 #' A = matrix(TRUE, 3, 4)
-#' sv = specify_starting_values_bsvar_t$new(A = A, N = 3, p = 1, T = 100)
+#' B = matrix(TRUE, 3, 3)
+#' sv = specify_starting_values_bsvar_t$new(A = A, B = B, N = 3, p = 1, T = 100)
 #' 
 #' @export
 specify_starting_values_bsvar_t = R6::R6Class(
@@ -116,18 +117,21 @@ specify_starting_values_bsvar_t = R6::R6Class(
     #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
     #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param T a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @return Starting values StartingValuesBSVART
-    initialize = function(A, N, p, T, d = 0){
+    initialize = function(A, B, N, p, T, d = 0){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       
-      super$initialize(A, N, p, d)
+      super$initialize(A, B, N, p, d)
       self$lambda = matrix(1, N, T)
       self$df     = rep(3, N)
     }, # END initialize
@@ -138,7 +142,8 @@ specify_starting_values_bsvar_t = R6::R6Class(
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
     #' A = matrix(TRUE, 3, 4)
-    #' sv = specify_starting_values_bsvar$new(A = A, N = 3, p = 1)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar$new(A = A, B =  B, N = 3, p = 1)
     #' sv$get_starting_values()   # show starting values as list
     #' 
     get_starting_values   = function(){
@@ -161,7 +166,8 @@ specify_starting_values_bsvar_t = R6::R6Class(
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
     #' A = matrix(TRUE, 3, 4)
-    #' sv = specify_starting_values_bsvar$new(A = A, N = 3, p = 1)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
     #' 
     #' # Modify the starting values by:
     #' sv_list = sv$get_starting_values()   # getting them as list
@@ -272,7 +278,7 @@ specify_bsvar_t = R6::R6Class(
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar_t$new(N, p, d, stationary)
-      self$starting_values = specify_starting_values_bsvar_t$new(A, N, self$p, T, d)
+      self$starting_values = specify_starting_values_bsvar_t$new(A, B, N, self$p, T, d)
       self$adaptiveMH      = c(0.44, 0.6)
     } # END initialize
   ) # END public
