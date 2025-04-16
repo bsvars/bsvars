@@ -103,7 +103,7 @@ This beautiful logo can be reproduced in R using [this file](https://github.com/
 ## Resources
 
 - a vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090) 
-- a [reference manual](https://cran.r-project.org/web/packages/bsvars/bsvars.pdf)
+- a [reference manual](https://cran.r-project.org/package=bsvars)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
 - presentations:
@@ -168,7 +168,7 @@ devtools::install_github("bsvars/bsvars")
 
 ## Development
 
-The package is under intensive development. Your help is most welcome! Please, have a look at the [roadmap](https://github.com/bsvars/bsvars/milestones), [discuss](https://github.com/bsvars/bsvars/discussions) package features and applications, or [report a bug](https://github.com/bsvars/bsvars/issues). Thank you!
+The package is under intensive development. Your help is most welcome! Please, have a look at the [roadmap](https://github.com/bsvars/bsvars/milestones), or [report a bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 ## About the author
 

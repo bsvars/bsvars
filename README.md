@@ -156,8 +156,7 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 - a vignette by [Woźniak
   (2024)](https://doi.org/10.48550/arXiv.2410.15090)
-- a [reference
-  manual](https://cran.r-project.org/web/packages/bsvars/bsvars.pdf)
+- a [reference manual](https://cran.r-project.org/package=bsvars)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
 - presentations:
@@ -251,9 +250,7 @@ installed by typing:
 
 The package is under intensive development. Your help is most welcome!
 Please, have a look at the
-[roadmap](https://github.com/bsvars/bsvars/milestones),
-[discuss](https://github.com/bsvars/bsvars/discussions) package features
-and applications, or [report a
+[roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
 bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 ## About the author
