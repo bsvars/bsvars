@@ -37,6 +37,7 @@ Rcpp::List verify_volatility_sv_cpp (
   // fixed values for auxiliary mixture
   const NumericVector alpha_s = NumericVector::create(1.92677,1.34744,0.73504,0.02266,0-0.85173,-1.97278,-3.46788,-5.55246,-8.68384,-14.65000);
   const NumericVector sigma_s = NumericVector::create(0.11265,0.17788,0.26768,0.40611,0.62699,0.98583,1.57469,2.54498,4.16591,7.33342);
+  const double        ccc     = 0.000000001;      // a constant to make log((u+ccc)^2) feasible
   
   if ( prior_a_ <= 0.5 ) {
     stop("'prior$sv_a_' must be greater than 0.5");
@@ -57,7 +58,7 @@ Rcpp::List verify_volatility_sv_cpp (
   mat     log_numerator_s(N, S);
   for (int s = 0; s < S; s++) {
     for (int n = 0; n < N; n++) {
-      mat     residuals       = log(square(posterior_B.slice(s) * (Y - posterior_A.slice(s) * X)));
+      mat     residuals       = log(square(posterior_B.slice(s) * (Y - posterior_A.slice(s) * X)) + ccc);
       
       rowvec  alpha_S(T);
       vec     sigma_S_inv(T);
