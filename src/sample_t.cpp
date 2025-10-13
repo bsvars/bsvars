@@ -22,7 +22,7 @@ arma::mat sample_lambda (
   
   mat       s_lambda    = pow(U, 2);
   s_lambda.each_col()  += aux_df + 2;
-  vec       nu_lambda   = aux_df + N;
+  vec       nu_lambda   = aux_df + 1;
   
   mat       aux_lambda(N, T);
   for (int n=0; n<N; n++) {
