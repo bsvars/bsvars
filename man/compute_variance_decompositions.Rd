@@ -7,19 +7,20 @@
 compute_variance_decompositions(posterior, horizon)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of one of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
+\item{posterior}{posterior estimation outcome obtained by running the \code{estimate} function. 
+The interpretation depends on the normalisation of the shocks
 using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
 
-\item{horizon}{a positive integer number denoting the forecast horizon for the impulse responses computations.}
+\item{horizon}{a positive integer number denoting the forecast horizon for 
+the forecast error variance decomposition computations.}
 }
 \value{
 An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 
 containing \code{S} draws of the forecast error variance decomposition.
 }
 \description{
-Each of the draws from the posterior estimation of a model
+Each of the draws from the posterior estimation of models from
+packages \pkg{bsvars} or \pkg{bsvarSIGNs}
 is transformed into a draw from the posterior distribution of the forecast error variance decomposition.
 }
 \examples{
@@ -28,13 +29,13 @@ data(us_fiscal_lsuw)
 
 # specify the model and set seed
 set.seed(123)
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 2)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in, 20)
 
 # compute forecast error variance decomposition 2 years ahead
 fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -43,9 +44,9 @@ fevd           = compute_variance_decompositions(posterior, horizon = 8)
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar$new(p = 2) |>
+  specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
-  estimate(S = 50) |> 
+  estimate(S = 20) |> 
   compute_variance_decompositions(horizon = 8) -> fevd
 
 }
@@ -53,7 +54,7 @@ us_fiscal_lsuw |>
 Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 }
 \seealso{
-\code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise_posterior}}
+\code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

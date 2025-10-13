@@ -15,7 +15,7 @@ in which case the values represent the joint hypothesis, and missing value \code
 for these parameters that are not tested}
 }
 \value{
-An object of class SDDR that is a list of three components:
+An object of class \code{SDDRautoregression} that is a list of three components:
 
 \code{logSDDR} a scalar with values of the logarithm of the Bayes factors for 
 the autoregressive hypothesis for each of the shocks
@@ -56,7 +56,7 @@ specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate(specification, 10, thin = 1)
+posterior      = estimate(specification, 10)
 
 # verify autoregression
 H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
@@ -68,12 +68,12 @@ sddr           = verify_autoregression(posterior, H0)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
-  estimate(S = 10, thin = 1) |> 
+  estimate(S = 10) |> 
   verify_autoregression(hypothesis = H0) -> sddr
 
 }
 \references{
-Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
+Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -2,22 +2,23 @@
 % Please edit documentation in R/compute_fitted_values.R
 \name{compute_fitted_values}
 \alias{compute_fitted_values}
-\title{Computes posterior draws of dependent variables' fitted values}
+\title{Computes posterior draws from data predictive density}
 \usage{
 compute_fitted_values(posterior)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
+\item{posterior}{posterior estimation outcome
 obtained by running the \code{estimate} function.}
 }
 \value{
-An object of class PosteriorFitted, that is, an \code{NxTxS} array with attribute PosteriorFitted 
-containing \code{S} draws of the fitted values.
+An object of class \code{PosteriorFitted}, that is, an \code{NxTxS} 
+array with attribute \code{PosteriorFitted} containing \code{S} draws from 
+the data predictive density.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
-a draw from the posterior distribution of the fitted values.
+Each of the draws from the posterior estimation of models from 
+packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
+a draw from the data predictive density.
 }
 \examples{
 # upload data
@@ -31,9 +32,9 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 20)
 
-# compute dependent variables' fitted values
+# compute draws from in-sample predictive density
 fitted         = compute_fitted_values(posterior)
 
 # workflow with the pipe |>
@@ -41,13 +42,13 @@ fitted         = compute_fitted_values(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 50) |> 
-  estimate(S = 100) |> 
+  estimate(S = 10) |> 
+  estimate(S = 20) |> 
   compute_fitted_values() -> fitted
 
 }
 \seealso{
-\code{\link{estimate}}
+\code{\link{estimate}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

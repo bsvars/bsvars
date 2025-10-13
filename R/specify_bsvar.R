@@ -132,7 +132,9 @@ specify_prior_bsvar = R6::R6Class(
 #' 
 #' @examples 
 #' # starting values for a homoskedastic bsvar for a 3-variable system
-#' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+#' A = matrix(TRUE, 3, 4)
+#' B = matrix(TRUE, 3, 3)
+#' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
 #' 
 #' @export
 specify_starting_values_bsvar = R6::R6Class(
@@ -152,22 +154,32 @@ specify_starting_values_bsvar = R6::R6Class(
     
     #' @description
     #' Create new starting values StartingValuesBSVAR.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @return Starting values StartingValuesBSVAR.
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
-    #' sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+    #' A = matrix(TRUE, 3, 13)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 4)
     #' 
-    initialize = function(N, p, d = 0){
+    initialize = function(A, B, N, p, d = 0){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
 
       K                   = N * p + 1 + d
-      self$B              = diag(N)
-      self$A              = cbind(diag(runif(N)), matrix(0, N, K - N))
+      self$B              = matrix(0, N, N)
+      self$A              = matrix(0, N, K)
+      diag(self$B)[diag(B[,1:N])] = runif(sum(diag(B[,1:N])))
+      diag(self$A)[diag(A[,1:N])] = runif(sum(diag(A[,1:N])))
       self$hyper          = matrix(10, 2 * N + 1, 2)
     }, # END initialize
     
@@ -176,7 +188,9 @@ specify_starting_values_bsvar = R6::R6Class(
     #' 
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' A = matrix(TRUE, 3, 4)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
     #' sv$get_starting_values()   # show starting values as list
     #' 
     get_starting_values   = function(){
@@ -196,7 +210,9 @@ specify_starting_values_bsvar = R6::R6Class(
     #' 
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+    #' A = matrix(TRUE, 3, 4)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
     #' 
     #' # Modify the starting values by:
     #' sv_list = sv$get_starting_values()   # getting them as list
@@ -219,10 +235,10 @@ specify_starting_values_bsvar = R6::R6Class(
 #' The class IdentificationBSVARs presents the identifying restrictions for the bsvar models.
 #' 
 #' @examples 
-#' specify_identification_bsvars$new(N = 3) # recursive specification for a 3-variable system
+#' specify_identification_bsvars$new(N = 3, K = 4) # recursive specification for a 3-variable system
 #' 
 #' B = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-#' specify_identification_bsvars$new(N = 3, B = B) # an alternative identification pattern
+#' specify_identification_bsvars$new(B = B, N = 3, K = 4) # an alternative identification pattern
 #' 
 #' @export
 specify_identification_bsvars = R6::R6Class(
@@ -233,24 +249,37 @@ specify_identification_bsvars = R6::R6Class(
     #' @field VB a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}. 
     VB    = list(),
     
+    #' @field VA a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{A}. 
+    VA    = list(),
+    
     #' @description
     #' Create new identifying restrictions IdentificationBSVARs.
-    #' @param N a positive integer - the number of dependent variables in the model.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
     #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param K a positive integer - the number of parameters in a row of autoregressive matrix.
     #' @return Identifying restrictions IdentificationBSVARs.
-    initialize = function(N, B) {
+    initialize = function(B, A, N, K) {
       if (missing(B)) {
           B     = matrix(FALSE, N, N)
           B[lower.tri(B, diag = TRUE)] = TRUE
       }
+      if (missing(A)) {
+        A     = matrix(TRUE, N, K)
+      }
 
       stopifnot("Argument B must be an NxN matrix with logical values." = is.logical(B) & is.matrix(B) & prod(dim(B) == N))
+      stopifnot("Argument A must be an NxK matrix with logical values." = is.logical(A) & is.matrix(A) & prod(dim(A) == c(N, K)))
       
       self$VB          <- vector("list", N)
+      self$VA          <- vector("list", N)
       for (n in 1:N) {
         self$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
+        self$VA[[n]]   <- matrix(diag(K)[A[n,],], ncol = K)
       }
     }, # END initialize
     
@@ -259,36 +288,49 @@ specify_identification_bsvars = R6::R6Class(
     #' 
     #' @examples 
     #' B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-    #' spec = specify_identification_bsvars$new(N = 3, B = B)
+    #' spec = specify_identification_bsvars$new(B = B, N = 3, K = 4)
     #' spec$get_identification()
     #' 
     get_identification = function() {
-      as.list(self$VB)
+      list(
+        VB = self$VB,
+        VA = self$VA
+      )
     }, # END get_identification
     
     #' @description
     #' Set new starting values StartingValuesBSVAR.
-    #' @param N a positive integer - the number of dependent variables in the model.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
     #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param K a positive integer - the number of parameters in a row of autoregressive matrix.
     #' 
     #' @examples 
-    #' spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+    #' spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
     #' B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-    #' spec$set_identification(N = 3, B = B)  # modify an existing specification
+    #' spec$set_identification(B = B, N = 3, K = 4)  # modify an existing specification
     #' spec$get_identification()              # check the outcome
-    set_identification = function(N, B) {
+    set_identification = function(B, A, N, K) {
       if (missing(B)) {
         B     = matrix(FALSE, N, N)
         B[lower.tri(B, diag = TRUE)] = TRUE
       }
+      if (missing(A)) {
+        A     = matrix(TRUE, N, K)
+      }
       
       stopifnot("Argument B must be an NxN matrix with logical values." = is.logical(B) & is.matrix(B) & prod(dim(B) == N))
+      stopifnot("Argument A must be an NxK matrix with logical values." = is.logical(A) & is.matrix(A) & prod(dim(A) == c(N, K)))
       
       self$VB          <- vector("list", N)
+      self$VA          <- vector("list", N)
       for (n in 1:N) {
         self$VB[[n]]   <- matrix(diag(N)[B[n,],], ncol = N)
+        self$VA[[n]]   <- matrix(diag(K)[A[n,],], ncol = K)
       }
     } # END set_identification
   ) # END public
@@ -354,13 +396,24 @@ specify_data_matrices = R6::R6Class(
       TT            = nrow(data)
       T             = TT - p
       
-      self$Y        = t(data[(p + 1):TT,])
+      Y             = t(data[(p + 1):TT,])
+      colnames(Y)   = 1:T
+      rownames(Y)   = paste0("v", 1:ncol(data))
+      
+      if ( any(class(data) == "ts") ) {
+        colnames(Y) = as.numeric(time(data))[(p + 1):TT]
+      }  
+      if ( !is.null(colnames(data)) ) {
+        rownames(Y) = colnames(data)
+      }
+      
+      self$Y        = Y
       X             = matrix(0, T, 0)
       for (i in 1:p) {
         X           = cbind(X, data[(p + 1):TT - i,])
       }
       X             = cbind(X, rep(1, T))
-      if (!is.null(data)) {
+      if (!is.null(exogenous)) {
         X           = cbind(X, exogenous[(p + 1):TT,])
       }
       self$X        = t(X)
@@ -427,6 +480,9 @@ specify_bsvar = R6::R6Class(
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
     #' the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
     #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
@@ -436,6 +492,7 @@ specify_bsvar = R6::R6Class(
       data,
       p = 1L,
       B,
+      A,
       exogenous = NULL,
       stationary = rep(FALSE, ncol(data))
     ) {
@@ -449,6 +506,7 @@ specify_bsvar = R6::R6Class(
       if (!is.null(exogenous)) {
         d           = ncol(exogenous)
       }
+      K             = N * p + 1 + d
       
       if (missing(B)) {
         message("The identification is set to the default option of lower-triangular structural matrix.")
@@ -456,11 +514,15 @@ specify_bsvar = R6::R6Class(
         B[lower.tri(B, diag = TRUE)] = TRUE
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
+      if (missing(A)) {
+        A     = matrix(TRUE, N, K)
+      }
+      stopifnot("Incorrectly specified argument A." = (is.matrix(A) & is.logical(A)))
       
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
-      self$identification  = specify_identification_bsvars$new(N, B)
+      self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar$new(N, p, d, stationary)
-      self$starting_values = specify_starting_values_bsvar$new(N, self$p, d)
+      self$starting_values = specify_starting_values_bsvar$new(A, B, N, self$p, d)
     }, # END initialize
     
     #' @description

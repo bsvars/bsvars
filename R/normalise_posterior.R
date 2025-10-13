@@ -27,7 +27,7 @@
 #' 
 #' @references 
 #' Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multiple Equation Models. 
-#' \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.
+#' \emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{10.1016/S0304-4076(03)00087-3}.
 #'
 #' @examples
 #' # upload data
@@ -51,7 +51,7 @@
 #' @export
 normalise_posterior <- function(posterior, B_hat) {
   
-  stopifnot("Argument posterior must contain estimation output from the estimate function." = any(class(posterior)[1] == c("PosteriorBSVAR", "PosteriorBSVARMSH", "PosteriorBSVARMIX", "PosteriorBSVARSV")))
+  stopifnot("Argument posterior must contain estimation output from the estimate function for bsvar model." = substr(class(posterior)[1], 1, 14) == "PosteriorBSVAR")
   posterior_B     = posterior$posterior$B
   N               = dim(posterior_B)[1]
   last_draw_B     = array(NA, c(N, N, 1))

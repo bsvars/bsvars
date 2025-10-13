@@ -13,6 +13,9 @@
 Nothing. Just displays a message: The model is homoskedastic.
 }
 \description{
+This function will be deprecated starting from version 4.0. 
+It is replaced by \code{\link{verify_identification}} function.
+
 Displays information that the model is homoskedastic.
 }
 \examples{
@@ -26,7 +29,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 set.seed(123)
 
 # estimate the model
-posterior      = estimate(specification, 5, thin = 1)
+posterior      = estimate(specification, 10)
 
 # verify heteroskedasticity
 sddr           = verify_volatility(posterior)
@@ -36,14 +39,14 @@ sddr           = verify_volatility(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 5, thin = 1) |> 
+  estimate(S = 10) |> 
   verify_volatility() -> sddr
   
 }
 \references{
-Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
+Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T., (2023) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -7,18 +7,20 @@
 compute_conditional_sd(posterior)
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of either of the classes: 
-PosteriorBSVAR, PosteriorBSVARMSH, PosteriorBSVARMIX, or PosteriorBSVARSV
-obtained by running the \code{estimate} function. The interpretation depends on the normalisation of the shocks
-using function \code{normalise_posterior()}. Verify if the default settings are appropriate.}
+\item{posterior}{posterior estimation outcome obtained by running the 
+\code{estimate} function. The interpretation depends on the normalisation of 
+the shocks using function \code{normalise_posterior()}. Verify if the default 
+settings are appropriate.}
 }
 \value{
-An object of class PosteriorSigma, that is, an \code{NxTxS} array with attribute PosteriorSigma 
-containing \code{S} draws of the structural shock conditional standard deviations.
+An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+structural shock conditional standard deviations.
 }
 \description{
-Each of the draws from the posterior estimation of a model is transformed into
-a draw from the posterior distribution of the structural shock conditional standard deviations.
+Each of the draws from the posterior estimation of models is 
+transformed into a draw from the posterior distribution of the structural 
+shock conditional standard deviations.
 }
 \examples{
 # upload data
@@ -32,7 +34,7 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in$get_last_draw(), 50)
+posterior      = estimate(burn_in, 20)
 
 # compute structural shocks' conditional standard deviations
 sigma          = compute_conditional_sd(posterior)
@@ -42,13 +44,13 @@ sigma          = compute_conditional_sd(posterior)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 50) |> 
-  estimate(S = 100) |> 
+  estimate(S = 10) |> 
+  estimate(S = 20) |> 
   compute_conditional_sd() -> csd
 
 }
 \seealso{
-\code{\link{estimate}}, \code{\link{normalise_posterior}}
+\code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

@@ -4,7 +4,7 @@
 \alias{estimate.BSVAR}
 \title{Bayesian estimation of a homoskedastic Structural Vector Autoregression via Gibbs sampler}
 \usage{
-\method{estimate}{BSVAR}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{BSVAR}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class BSVAR generated using the \code{specify_bsvar$new()} function.}
@@ -29,11 +29,11 @@ An object of class PosteriorBSVAR containing the Bayesian estimation output and 
 }
 \description{
 Estimates the homoskedastic SVAR using the Gibbs sampler proposed by Waggoner & Zha (2003)
-for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
+for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2024)
 for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
-overall shrinkage parameters estimated using a hierarchical prior distribution. 
-See section \bold{Details} for the model equations.
+overall shrinkage parameters estimated using a hierarchical prior distribution
+as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). See section \bold{Details} for the model equations.
 }
 \details{
 The homoskedastic SVAR model is given by the reduced form equation:
@@ -59,28 +59,27 @@ specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 50)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 100)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 50) |> 
+  estimate(S = 5) |> 
+  estimate(S = 10, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }
 \references{
-Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
+Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 
-Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 
-Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-
-Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
+Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 }
 \seealso{
 \code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise_posterior}}

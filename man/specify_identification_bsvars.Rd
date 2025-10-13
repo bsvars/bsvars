@@ -7,10 +7,10 @@
 The class IdentificationBSVARs presents the identifying restrictions for the bsvar models.
 }
 \examples{
-specify_identification_bsvars$new(N = 3) # recursive specification for a 3-variable system
+specify_identification_bsvars$new(N = 3, K = 4) # recursive specification for a 3-variable system
 
 B = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-specify_identification_bsvars$new(N = 3, B = B) # an alternative identification pattern
+specify_identification_bsvars$new(B = B, N = 3, K = 4) # an alternative identification pattern
 
 
 ## ------------------------------------------------
@@ -18,7 +18,7 @@ specify_identification_bsvars$new(N = 3, B = B) # an alternative identification 
 ## ------------------------------------------------
 
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-spec = specify_identification_bsvars$new(N = 3, B = B)
+spec = specify_identification_bsvars$new(B = B, N = 3, K = 4)
 spec$get_identification()
 
 
@@ -26,15 +26,17 @@ spec$get_identification()
 ## Method `specify_identification_bsvars$set_identification`
 ## ------------------------------------------------
 
-spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-spec$set_identification(N = 3, B = B)  # modify an existing specification
+spec$set_identification(B = B, N = 3, K = 4)  # modify an existing specification
 spec$get_identification()              # check the outcome
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{VB}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}.}
+
+\item{\code{VA}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{A}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -53,17 +55,23 @@ spec$get_identification()              # check the outcome
 \subsection{Method \code{new()}}{
 Create new identifying restrictions IdentificationBSVARs.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$new(N, B)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$new(B, A, N, K)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
+
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+
+\item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
 }
 \if{html}{\out{</div>}}
 }
@@ -83,7 +91,7 @@ Returns the elements of the identification pattern IdentificationBSVARs as a \co
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-spec = specify_identification_bsvars$new(N = 3, B = B)
+spec = specify_identification_bsvars$new(B = B, N = 3, K = 4)
 spec$get_identification()
 
 }
@@ -98,25 +106,31 @@ spec$get_identification()
 \subsection{Method \code{set_identification()}}{
 Set new starting values StartingValuesBSVAR.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$set_identification(N, B)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$set_identification(B, A, N, K)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
+
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+
+\item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{spec = specify_identification_bsvars$new(N = 3) # specify a model with the default option
+\preformatted{spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
-spec$set_identification(N = 3, B = B)  # modify an existing specification
+spec$set_identification(B = B, N = 3, K = 4)  # modify an existing specification
 spec$get_identification()              # check the outcome
 }
 \if{html}{\out{</div>}}

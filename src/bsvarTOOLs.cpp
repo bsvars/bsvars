@@ -1,6 +1,8 @@
 
 #include <RcppArmadillo.h>
+#include "progress.hpp"
 #include "msh.h"
+#include "forecast.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -64,24 +66,28 @@ arma::field<arma::cube> bsvars_ir (
 
 
 
-// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::interfaces(cpp,r)]]
 // [[Rcpp::export]]
-arma::field<arma::cube> bsvars_fevd (
+arma::field<arma::cube> bsvars_fevd_homosk (
     arma::field<arma::cube>&    posterior_irf   // output of bsvars_irf
 ) {
   
   const int       N = posterior_irf(0).n_rows;
-  const int       S = posterior_irf.size();
+  const int       S = posterior_irf.n_rows;
   const int       horizon = posterior_irf(0).n_slices;
   
   field<cube>     fevds(S);
-  cube            aux_fevds(N, N, horizon);  // + 0 and inf horizons
+  cube            aux_fevds(N, N, horizon);
+  cube            tmp_fevds(N, N, horizon);
   
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
+      
+      tmp_fevds.slice(h) = square(posterior_irf(s).slice(h));
+      
       for (int n=0; n<N; n++) {
         for (int nn=0; nn<N; nn++) {
-          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(square(posterior_irf(s).subcube(n, nn, 0, n, nn, h)));
+          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(tmp_fevds.subcube(n, nn, 0, n, nn, h));
         }
       }
       aux_fevds.slice(h)  = diagmat(1/sum(aux_fevds.slice(h), 1)) * aux_fevds.slice(h);
@@ -91,17 +97,62 @@ arma::field<arma::cube> bsvars_fevd (
   } // END s loop
   
   return fevds;
-} // END bsvars_fevd
+} // END bsvars_fevd_homosk
+
+
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::field<arma::cube> bsvars_fevd_heterosk (
+    arma::field<arma::cube>&    posterior_irf,    // output of bsvars_irf
+    arma::cube&                 forecast_sigma2,  // (N, H, S) output from forecast_sigma2 or forecast_sigma2_msh
+    arma::mat&                  sigma2_T          // (N, S) the last in the sample
+) {
+  
+  const int       N = posterior_irf(0).n_rows;
+  const int       S = posterior_irf.n_rows;
+  const int       horizon = posterior_irf(0).n_slices;
+  
+  field<cube>     fevds(S);
+  cube            aux_fevds(N, N, horizon);
+  cube            tmp_fevds(N, N, horizon);
+  
+  for (int s=0; s<S; s++) {
+    for (int h=0; h<horizon; h++) {
+      if ( h == 0) {
+        mat diag_sigma2     = diagmat(sigma2_T.col(s));
+        tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      } else {
+        mat diag_sigma2     = diagmat(forecast_sigma2.slice(s).col(h - 1));
+        tmp_fevds.slice(h)  = square(posterior_irf(s).slice(h)) * diag_sigma2;
+      }
+      
+      for (int n=0; n<N; n++) {
+        for (int nn=0; nn<N; nn++) {
+          aux_fevds.subcube(n, nn, h, n, nn, h) = accu(tmp_fevds.subcube(n, nn, 0, n, nn, h));
+        }
+      }
+      aux_fevds.slice(h)  = diagmat(1/sum(aux_fevds.slice(h), 1)) * aux_fevds.slice(h);
+    }
+    aux_fevds            *= 100;
+    fevds(s)              = aux_fevds;
+  } // END s loop
+  
+  return fevds;
+} // END bsvars_fevd_heterosk
+
 
 
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 arma::cube bsvars_structural_shocks (
-    const arma::cube&     posterior_B,    // (N, N, S)
-    const arma::cube&     posterior_A,    // (N, K, S)
-    const arma::mat&      Y,              // NxT dependent variables
-    const arma::mat&      X               // KxT dependent variables
+    arma::cube&     posterior_B,    // (N, N, S)
+    arma::cube&     posterior_A,    // (N, K, S)
+    arma::mat&      Y,              // NxT dependent variables
+    arma::mat&      X               // KxT dependent variables
 ) {
   
   const int       N = Y.n_rows;
@@ -123,24 +174,45 @@ arma::cube bsvars_structural_shocks (
 // [[Rcpp::export]]
 arma::field<arma::cube> bsvars_hd (
     arma::field<arma::cube>&    posterior_irf_T,    // output of bsvars_irf with irfs at T horizons
-    arma::cube&                 structural_shocks   // NxTxS output bsvars_structural_shocks
+    arma::cube&                 structural_shocks,  // NxTxS output bsvars_structural_shocks
+    const bool                  show_progress = true
 ) {
   
   const int       N = structural_shocks.n_rows;
   const int       T = structural_shocks.n_cols;
   const int       S = structural_shocks.n_slices;
   
+  // Progress bar setup
+  vec prog_rep_points = arma::round(arma::linspace(0, S, 50));
+  if (show_progress) {
+    Rcout << "**************************************************|" << endl;
+    Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " Computing historical decomposition               |" << endl;
+    Rcout << "**************************************************|" << endl;
+    Rcout << " This might take a little while :)                " << endl;
+    Rcout << "**************************************************|" << endl;
+  }
+  Progress p(50, show_progress);
+  
+  
   field<cube>     hds(S);
   cube            aux_hds(N, N, T);
   mat             posterior_irf_t(N, N);
   
   for (int s=0; s<S; s++) {
+    
+    // Increment progress bar
+    if (any(prog_rep_points == s)) p.increment();
+    // Check for user interrupts
+    if (s % 200 == 0) checkUserInterrupt();
+    
     for (int t=0; t<T; t++) {
       
       cube        hds_at_t(N, N, t + 1);
-      for (int i=0; i<t; i++) {
-        posterior_irf_t   = posterior_irf_T(s).slice(t - i - 1);
-        hds_at_t.slice(i) = posterior_irf_t.each_col() % structural_shocks.slice(s).col(i);
+      for (int i = 0; i <= t; i++) {
+        posterior_irf_t   = posterior_irf_T(s).slice(i);
+        hds_at_t.slice(i) = posterior_irf_t.each_row() % structural_shocks.slice(s).col(t - i).t();
       } // END i loop
       
       aux_hds.slice(t) = sum(hds_at_t, 2);
@@ -158,6 +230,8 @@ arma::field<arma::cube> bsvars_hd (
 // [[Rcpp::export]]
 arma::cube bsvars_fitted_values (
   arma::cube&     posterior_A,        // NxKxS
+  arma::cube&     posterior_B,        // NxNxS
+  arma::cube&     posterior_sigma,    // NxTxS
   arma::mat&      X                   // KxT
 ) {
   
@@ -165,10 +239,11 @@ arma::cube bsvars_fitted_values (
   const int   S = posterior_A.n_slices;
   const int   T = X.n_cols;
   
-  cube    fitted_values(N, T, S);
+  cube    fitted_values(N, T, S, fill::randn);
   
   for (int s=0; s<S; s++) {
-    fitted_values.slice(s) = posterior_A.slice(s) * X;
+    mat Binv_sigma_norm    = solve(posterior_B.slice(s), posterior_sigma.slice(s) % fitted_values.slice(s));
+    fitted_values.slice(s) = posterior_A.slice(s) * X + Binv_sigma_norm; 
   } // END s loop
   
   return fitted_values;

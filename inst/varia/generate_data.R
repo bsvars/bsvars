@@ -111,6 +111,7 @@ colnames(us_fiscal_lsuw_tmp)  = c("ttr", "gs", "gdp")
 us_fiscal_lsuw        = ts(as.matrix(us_fiscal_lsuw_tmp), start = c(1948, 1), frequency = 4)
 save(us_fiscal_lsuw, file = "data/us_fiscal_lsuw.rda")
 
+start_fore = c(2024, 3)
 
 # Exogenous terms
 ############################################################
@@ -126,3 +127,34 @@ dummy_1975Q2["1975-04/1975-06"] = 1
 us_fiscal_ex_tmp    = cbind(cubic_trend, dummy_1975Q2)
 us_fiscal_ex        = ts(as.matrix(us_fiscal_ex_tmp), start = c(1948, 1), frequency = 4)
 save(us_fiscal_ex, file = "data/us_fiscal_ex.rda")
+
+
+# Exogenous terms for forecasting
+############################################################
+
+t_fore      = seq(from = as.numeric(tail(cubic_trend[,1], 1)), by = 1, length.out = 8)
+us_fiscal_ex_forecasts = ts(
+  cbind(
+    t_fore,
+    t_fore^2,
+    rep(0, 8)
+  ), 
+  start     = start_fore,
+  frequency = 4
+)
+colnames(us_fiscal_ex_forecasts) = c("linear", "quadratic", "dummy_1975Q2")
+save(us_fiscal_ex_forecasts, file = "data/us_fiscal_ex_forecasts.rda")
+
+# For conditional forecasting
+############################################################
+us_fiscal_cond_forecasts = ts(
+  cbind(
+    tail(us_fiscal_lsuw[,1], 1) + (1:8) * mean(diff(us_fiscal_lsuw[,1])),
+    matrix(NA, 8, 2)
+  ),
+  start     = start_fore,
+  frequency = 4
+)
+colnames(us_fiscal_cond_forecasts)  = c("ttr", "gs", "gdp")
+save(us_fiscal_cond_forecasts, file = "data/us_fiscal_cond_forecasts.rda")
+

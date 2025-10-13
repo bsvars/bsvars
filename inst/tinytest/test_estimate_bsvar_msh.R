@@ -46,3 +46,15 @@ expect_error(
   estimate(specification_no1, 2, 3, show_progress = FALSE),
   info = "Argument S is not a positive integer multiplication of argument thin."
 )
+
+# checks model with restrictions on the A matrix
+A       = matrix(TRUE, 3, 4)
+A[1, 3] = FALSE
+suppressMessages(
+  specification_no4 <- specify_bsvar_msh$new(us_fiscal_lsuw, M = 2, A = A)
+)
+run_no4             <- estimate(specification_no4, 3, 1, show_progress = FALSE)
+expect_true(
+  all(run_no4$posterior$A[1, 3, ] == 0),
+  info = "estimate_bsvar_msh: the A matrix is restricted correctly."
+)

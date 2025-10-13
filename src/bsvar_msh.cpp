@@ -19,6 +19,7 @@ Rcpp::List bsvar_msh_cpp (
     const arma::mat&        X,              // KxT explanatory variables
     const Rcpp::List&       prior,          // a list of priors - original dimensions
     const arma::field<arma::mat>& VB,       // restrictions on B0
+    const arma::field<arma::mat>& VA,       // N-list
     const Rcpp::List&       starting_values,
     const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
@@ -86,13 +87,13 @@ Rcpp::List bsvar_msh_cpp (
     if (s % 200 == 0) checkUserInterrupt();
     
     // sample aux_hyper
-    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, prior);
+    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
     
     // sample aux_B
     aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
     
     // sample aux_A
-    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
+    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior, VA);
       
     // sample aux_xi
     mat U = aux_B * (Y - aux_A * X);

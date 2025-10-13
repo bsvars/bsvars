@@ -1,4 +1,4 @@
-url: https://bsvars.github.io/bsvars/
+url: https://bsvars.org/bsvars/
 template:
   bootstrap: 5
 
@@ -7,16 +7,7 @@ development:
 
 navbar:
   structure:
-    right: [mastodon, bluesky, github]
-  components:
-    mastodon:
-      icon: bi-mastodon
-      href: https://fosstodon.org/@bsvars
-      aria-label: mastodon
-    bluesky:
-      icon: fa-cloud
-      href: https://bsky.app/profile/bsvars.bsky.social
-      aria-label: bluesky
+    right: [github]
 
 reference:
 - title: "bsvars: Bayesian Estimation of Structural Vector Autoregressive Models"
@@ -46,6 +37,10 @@ reference:
   - matches("estimate")
   - matches("normalise")
   - matches("specify_posterior")
+- title: "Posterior summaries"
+  desc: "Analyse the posterior summaries of the posterior estimation outcomes"
+- contents:
+  - matches("summary")
 - title: "Forecasting"
   desc: "Predict future values of your variables"
 - contents:
@@ -58,3 +53,7 @@ reference:
   desc: "Verify heteroskedasticity and autoregressive parameters (in preparation: structural identification)"
 - contents:
   - matches("verify")
+- title: "Plot your results"
+  desc: "Prepare beautiful and informative plots for your analyses"
+- contents:
+  - matches("plot")

@@ -51,7 +51,7 @@ normalise_posterior(posterior, B_hat)                      # draws in posterior 
 }
 \references{
 Waggoner, D.F., and Zha, T., (2003) Likelihood Preserving Normalization in Multiple Equation Models. 
-\emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{https://doi.org/10.1016/S0304-4076(03)00087-3}.
+\emph{Journal of Econometrics}, \bold{114}(2), 329--47, \doi{10.1016/S0304-4076(03)00087-3}.
 }
 \seealso{
 \code{\link{estimate}}

@@ -19,6 +19,7 @@ Rcpp::List bsvar_sv_cpp (
     const arma::mat&              X,          // KxT explanatory variables
     const Rcpp::List&             prior,      // a list of priors - original dimensions
     const arma::field<arma::mat>& VB,         // restrictions on B0
+    const arma::field<arma::mat>& VA,         // N-list
     const Rcpp::List&             starting_values, 
     const int                     thin = 100, // introduce thinning
     const bool                    centred_sv = false,
@@ -44,7 +45,7 @@ Rcpp::List bsvar_sv_cpp (
     Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Gibbs sampler for the SVAR-SV model              |" << endl;
-    Rcout << "   " << name_model << " SV model is estimated             |" << endl;
+    Rcout << "   " << name_model << " SV model is estimated              |" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
     Rcout << "    Every " << oo << "draw is saved via MCMC thinning" << endl;
@@ -103,13 +104,13 @@ Rcpp::List bsvar_sv_cpp (
     if (s % 200 == 0) checkUserInterrupt();
     
     // sample aux_hyper
-    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, prior);
+    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, VA, prior);
     
     // sample aux_B
     aux_B           = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
     
     // sample aux_A
-    aux_A           = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior);
+    aux_A           = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior, VA);
     
     // sample aux_h, aux_omega and aux_S, aux_sigma2_omega
     mat U = aux_B * (Y - aux_A * X);

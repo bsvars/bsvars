@@ -40,7 +40,7 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 2, M = 2)
 burn_in        = estimate(specification, 10)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 20)
 
 # compute the posterior draws of realized regime indicators
 regimes        = compute_regime_probabilities(posterior)
@@ -54,16 +54,16 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
   estimate(S = 10) |> 
-  estimate(S = 50) -> posterior
+  estimate(S = 20) -> posterior
 regimes        = compute_regime_probabilities(posterior)
 filtered       = compute_regime_probabilities(posterior, "filtered")
 
 }
 \references{
-Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
+Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 }
 \seealso{
-\code{\link{estimate}}, \code{\link{normalise_posterior}}
+\code{\link{estimate}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

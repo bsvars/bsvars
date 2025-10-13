@@ -20,30 +20,33 @@ arma::mat sample_A_homosk1 (
     const arma::mat&  aux_hyper,      // (2*N+1) x 2 :: col 0 for B, col 1 for A
     const arma::mat&  Y,              // NxT dependent variables
     const arma::mat&  X,              // KxT dependent variables
-    const Rcpp::List& prior           // a list of priors - original dimensions
+    const Rcpp::List& prior,          // a list of priors - original dimensions
+    const arma::field<arma::mat>& VA  // restrictions on A
 ) {
   // the function changes the value of aux_A by reference
   const int N         = aux_A.n_rows;
   const int K         = aux_A.n_cols;
-
+  
   mat prior_A_mean    = as<mat>(prior["A"]);
   mat prior_A_Vinv    = as<mat>(prior["A_V_inv"]);
   rowvec    zerosA(K);
   
   for (int n=0; n<N; n++) {
+    
+    int rna           = VA(n).n_rows;
     mat   A0          = aux_A;
     A0.row(n)         = zerosA;
     vec   zn          = vectorise( aux_B * (Y - A0 * X) );
     mat   Wn          = kron( trans(X), aux_B.col(n) );
     
-    mat     precision = (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(Wn) * Wn;
-    rowvec  location  = prior_A_mean.row(n) * (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(zn) * Wn;
+    mat     precision = VA(n) * ( (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(Wn) * Wn ) * trans(VA(n));
+    rowvec  location  = ( prior_A_mean.row(n) * (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(zn) * Wn ) * trans(VA(n));
     
     mat     precision_chol = trimatu(chol(precision));
-    vec     xx(K, fill::randn);
+    vec     xx(rna, fill::randn);
     vec     draw      = solve(precision_chol, 
-                                solve(trans(precision_chol), trans(location)) + xx);
-    aux_A.row(n)      = trans(draw);
+                              solve(trans(precision_chol), trans(location)) + xx);
+    aux_A.row(n)      = trans(draw) * VA(n);
   } // END n loop
   
   return aux_A;
@@ -61,7 +64,8 @@ arma::mat sample_A_heterosk1 (
     const arma::mat&  aux_sigma,      // NxT conditional STANDARD DEVIATIONS
     const arma::mat&  Y,              // NxT dependent variables
     const arma::mat&  X,              // KxT dependent variables
-    const Rcpp::List& prior           // a list of priors - original dimensions
+    const Rcpp::List& prior,          // a list of priors - original dimensions
+    const arma::field<arma::mat>& VA  // restrictions on A
 ) {
   // the function changes the value of aux_A by reference
   const int N         = aux_A.n_rows;
@@ -73,6 +77,8 @@ arma::mat sample_A_heterosk1 (
   vec sigma_vectorised= vectorise(aux_sigma);
   
   for (int n=0; n<N; n++) {
+    
+    int rna           = VA(n).n_rows;
     mat   A0          = aux_A;
     A0.row(n)         = zerosA;
     vec   zn          = vectorise( aux_B * (Y - A0 * X) );
@@ -80,15 +86,15 @@ arma::mat sample_A_heterosk1 (
     mat   Wn          = kron( trans(X), aux_B.col(n) );
     mat   Wn_sigma    = Wn.each_col() / sigma_vectorised;
     
-    mat     precision = (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(Wn_sigma) * Wn_sigma;
+    mat     precision = VA(n) * ( (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(Wn_sigma) * Wn_sigma ) * trans(VA(n));
     precision         = 0.5 * (precision + precision.t());
-    rowvec  location  = prior_A_mean.row(n) * (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(zn_sigma) * Wn_sigma;
+    rowvec  location  = ( prior_A_mean.row(n) * (pow(aux_hyper(n,1), -1) * prior_A_Vinv) + trans(zn_sigma) * Wn_sigma ) * trans(VA(n));
     
     mat     precision_chol = trimatu(chol(precision));
-    vec     xx(K, fill::randn);
+    vec     xx(rna, fill::randn);
     vec     draw      = solve(precision_chol, 
                               solve(trans(precision_chol), trans(location)) + xx);
-    aux_A.row(n)      = trans(draw);
+    aux_A.row(n)      = trans(draw) * VA(n);
   } // END n loop
   
   return aux_A;
@@ -232,12 +238,12 @@ arma::mat sample_hyperparameters (
     const arma::mat&        aux_B,            // NxN
     const arma::mat&        aux_A,
     const arma::field<arma::mat>& VB,
+    const arma::field<arma::mat>& VA,
     const Rcpp::List&       prior
 ) {
   // the function returns aux_hyper by reference (filling it with a new draw)
   
   const int N = aux_B.n_rows;
-  const int K = aux_A.n_cols;
   
   double prior_hyper_nu_B     = as<double>(prior["hyper_nu_B"]);
   double prior_hyper_a_B      = as<double>(prior["hyper_a_B"]);
@@ -269,6 +275,7 @@ arma::mat sample_hyperparameters (
     
     // count unrestricted elements of aux_B's row
     int rn            = VB(n).n_rows;
+    int rna           = VA(n).n_rows;
     
     // aux_B - related hyper-parameters 
     scale_tmp         = 1 / ((1 / (2 * aux_hyper(n, 0))) + (1 / aux_hyper(2 * N, 0)));
@@ -286,7 +293,7 @@ arma::mat sample_hyperparameters (
     
     scale_tmp         = aux_hyper(N + n, 1) + 
       as_scalar((aux_A.row(n) - prior_A.row(n)) * prior_A_V_inv * trans(aux_A.row(n) - prior_A.row(n)));
-    shape_tmp         = prior_hyper_nu_A + K;
+    shape_tmp         = prior_hyper_nu_A + rna;
     aux_hyper(n, 1)   = scale_tmp / R::rchisq(shape_tmp);
   } // END n loop
   

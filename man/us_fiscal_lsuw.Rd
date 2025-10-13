@@ -3,7 +3,7 @@
 \docType{data}
 \name{us_fiscal_lsuw}
 \alias{us_fiscal_lsuw}
-\title{A 3-variable US fiscal system for the period 1948 Q1 -- 2023 Q3}
+\title{A 3-variable US fiscal system for the period 1948 Q1 -- 2024 Q2}
 \format{
 A matrix and a \code{ts} object with time series of over three hundred observations on 3 variables:
 \describe{
@@ -21,7 +21,7 @@ Differences with respect to Mertens & Ravn's data :
 }
 }
 \source{
-U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/products/national-income-and-product-accounts}
+U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/}
 
 FRED Economic Database, Federal Reserve Bank of St. Louis, \url{https://fred.stlouisfed.org/}
 }
@@ -30,17 +30,17 @@ data(us_fiscal_lsuw)
 }
 \description{
 A system used to identify the US fiscal policy shocks. 
-Last data update was implemented on 2024-01-02.
+Last data update was implemented on 2024-10-20.
 }
 \examples{
 data(us_fiscal_lsuw)   # upload the data
 plot(us_fiscal_lsuw)   # plot the data
 }
 \references{
-Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Implications for the Technology‐hours Debate. \emph{Journal of Money, Credit and Banking}, 41(6), 1071-1097, DOI: \doi{https://doi.org/10.1111/j.1538-4616.2009.00247.x}.
+Francis, N., and Ramey, V.A. (2009) Measures of per capita Hours and Their Implications for the Technology‐hours Debate. \emph{Journal of Money, Credit and Banking}, 41(6), 1071-1097, DOI: \doi{10.1111/j.1538-4616.2009.00247.x}.
 
-Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{https://doi.org/10.1016/j.jmoneco.2013.04.004}.
+Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{10.1016/j.jmoneco.2013.04.004}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
 }
 \keyword{datasets}

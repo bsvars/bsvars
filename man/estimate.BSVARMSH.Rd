@@ -5,7 +5,7 @@
 \title{Bayesian estimation of a Structural Vector Autoregression with 
 Markov-switching heteroskedasticity via Gibbs sampler}
 \usage{
-\method{estimate}{BSVARMSH}(specification, S, thin = 10, show_progress = TRUE)
+\method{estimate}{BSVARMSH}(specification, S, thin = 1, show_progress = TRUE)
 }
 \arguments{
 \item{specification}{an object of class BSVARMSH generated using the \code{specify_bsvar_msh$new()} function.}
@@ -36,12 +36,12 @@ An object of class PosteriorBSVARMSH containing the Bayesian estimation output a
 \description{
 Estimates the SVAR with Markov-switching heteroskedasticity with \code{M} regimes (MS(M)) proposed by Woźniak & Droumaguet (2022).
 Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
-for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2021)
+for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, Koop, & Yu (2024)
 for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
 overall shrinkage parameters estimated thanks to a hierarchical prior distribution. The MS
-model is estimated using the prior distributions and algorithms proposed by Woźniak & Droumaguet (2022).
-See section \bold{Details} for the model equations.
+model is estimated using the prior distributions and algorithms proposed by Woźniak & Droumaguet (2024),
+Lütkepohl & Woźniak (2020), and Song & Woźniak (2021). See section \bold{Details} for the model equations.
 }
 \details{
 The heteroskedastic SVAR model is given by the reduced form equation:
@@ -81,53 +81,31 @@ specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 set.seed(123)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 50)
+posterior      = estimate(burn_in, 10, thin = 2)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
-  estimate(S = 10) |> 
-  estimate(S = 50) |> 
+  estimate(S = 5) |> 
+  estimate(S = 10, thin = 2) |> 
   compute_impulse_responses(horizon = 4) -> irf
 
 }
 \references{
-The model, prior distributions, and estimation algorithms were proposed by
+Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 
-Woźniak, T., and Droumaguet, M., (2022) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
+Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
 
-Some more analysis on heteroskedastic SVAR models was proposed by:
+Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 
-Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{https://doi.org/10.1016/j.jedc.2020.103862}.
+Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 
-Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
-
-Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
-
-Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-
-Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
-
-The estimation of the Markov-switching heteroskedasticity closely follows procedures described by:
-
-Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{https://doi.org/10.1093/acrefore/9780190625979.013.174}.
-
-and
-
-Frühwirth-Schnatter, S., (2006) Finite Mixture and Markov Switching Models. Springer Series in Statistics. New York: Springer, \doi{https://doi.org/10.1007/978-0-387-35768-3}.
-
-The sparse model is inspired by:
-
-Malsiner-Walli, G., Frühwirth-Schnatter, S., and Grün, B. (2016) Model-based clustering based on sparse finite Gaussian mixtures. \emph{Statistics and Computing}, \bold{26}(1–2), 303--324, \doi{https://doi.org/10.1007/s11222-014-9500-2}.
-
-The forward-filtering backward-sampling is implemented following the proposal by:
-
-Chib, S. (1996) Calculating posterior distributions and modal estimates in Markov mixture models. \emph{Journal of Econometrics}, \bold{75}(1), 79–97, \doi{https://doi.org/10.1016/0304-4076(95)01770-4}.
+Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \seealso{
 \code{\link{specify_bsvar_msh}}, \code{\link{specify_posterior_bsvar_msh}}, \code{\link{normalise_posterior}}

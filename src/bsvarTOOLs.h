@@ -23,16 +23,23 @@ arma::field<arma::cube> bsvars_ir (
 );
 
 
-arma::field<arma::cube> bsvars_fevd (
-    arma::field<arma::cube>   posterior_irf   // output of bsvars_irf
+arma::field<arma::cube> bsvars_fevd_homosk (
+    arma::field<arma::cube>&    posterior_irf   // output of bsvars_irf
+);
+
+
+arma::field<arma::cube> bsvars_fevd_heterosk (
+    arma::field<arma::cube>&    posterior_irf,    // output of bsvars_irf
+    arma::cube&                 forecast_sigma2,  // (N, H, S) output from forecast_sigma2 or forecast_sigma2_msh
+    arma::mat&                  sigma2_T          // (N, S) the last in the sample
 );
 
 
 arma::cube bsvars_structural_shocks (
-    const arma::cube&     posterior_B,    // (N, N, S)
-    const arma::cube&     posterior_A,    // (N, K, S)
-    const arma::mat&      Y,              // NxT dependent variables
-    const arma::mat&      X               // KxT dependent variables
+    arma::cube&     posterior_B,    // (N, N, S)
+    arma::cube&     posterior_A,    // (N, K, S)
+    arma::mat&      Y,              // NxT dependent variables
+    arma::mat&      X               // KxT dependent variables
 );
 
 
@@ -44,6 +51,8 @@ arma::field<arma::cube> bsvars_hd (
 
 arma::cube bsvars_fitted_values (
     arma::cube&     posterior_A,        // NxKxS
+    arma::cube&     posterior_B,        // NxNxS
+    arma::cube&     posterior_sigma,    // NxTxS
     arma::mat&      X                   // KxT
 );
 

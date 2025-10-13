@@ -4,28 +4,41 @@
 \alias{forecast.PosteriorBSVAR}
 \title{Forecasting using Structural Vector Autoregression}
 \usage{
-\method{forecast}{PosteriorBSVAR}(posterior, horizon, exogenous_forecast = NULL)
+\method{forecast}{PosteriorBSVAR}(
+  posterior,
+  horizon = 1,
+  exogenous_forecast = NULL,
+  conditional_forecast = NULL
+)
 }
 \arguments{
 \item{posterior}{posterior estimation outcome - an object of class 
-PosteriorBSVAR obtained by running the \code{estimate} function.}
+\code{PosteriorBSVAR} obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
 
 \item{exogenous_forecast}{a matrix of dimension \code{horizon x d} containing 
 forecasted values of the exogenous variables.}
+
+\item{conditional_forecast}{a \code{horizon x N} matrix with forecasted values 
+for selected variables. It should only contain \code{numeric} or \code{NA} 
+values. The entries with \code{NA} values correspond to the values that are 
+forecasted conditionally on the realisations provided as \code{numeric} values.}
 }
 \value{
 A list of class \code{Forecasts} containing the
-draws from the predictive density. The output list includes element:
+draws from the predictive density and data. The output list includes element:
 
 \describe{
  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
+ \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
 }
 }
 \description{
-Samples from the joint predictive density of all of the dependent variables at forecast horizons 
-from 1 to \code{horizon} specified as an argument of the function.
+Samples from the joint predictive density of all of the dependent 
+variables for models from packages \pkg{bsvars}, \pkg{bsvarSIGNs} or 
+\pkg{bvarPANELs} at forecast horizons from 1 to \code{horizon} specified as 
+an argument of the function.
 }
 \examples{
 # upload data
@@ -36,10 +49,10 @@ set.seed(123)
 specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 
 # estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 10)
 
 # sample from predictive density 1 year ahead
 predictive     = forecast(posterior, 4)
@@ -49,9 +62,41 @@ predictive     = forecast(posterior, 4)
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
+  estimate(S = 5) |> 
   estimate(S = 10) |> 
-  estimate(S = 20) |> 
   forecast(horizon = 4) -> predictive
+
+# conditional forecasting using a model with exogenous variables
+############################################################
+data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
+data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
+
+#' set.seed(123)
+specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 10)
+
+# forecast 2 years ahead
+predictive     = forecast(
+                    posterior, 
+                    horizon = 8,
+                    exogenous_forecast = us_fiscal_ex_forecasts,
+                    conditional_forecast = us_fiscal_cond_forecasts
+                  )
+summary(predictive)
+
+# workflow with the pipe |>
+############################################################
+set.seed(123)
+us_fiscal_lsuw |>
+  specify_bsvar$new(p = 1, exogenous = us_fiscal_ex) |>
+  estimate(S = 5) |> 
+  estimate(S = 10) |> 
+  forecast(
+    horizon = 8,
+    exogenous_forecast = us_fiscal_ex_forecasts,
+    conditional_forecast = us_fiscal_cond_forecasts
+  ) |> plot()
 
 }
 \author{

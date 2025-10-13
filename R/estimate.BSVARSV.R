@@ -3,10 +3,10 @@
 #' Stochastic Volatility heteroskedasticity via Gibbs sampler
 #'
 #' @description Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity 
-#' proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2022).
+#' proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2024).
 #' Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 #' for the structural matrix \eqn{B} and the equation-by-equation sampler 
-#' by Chan, Koop, & Yu (2021)
+#' by Chan, Koop, & Yu (2024)
 #' for the autoregressive slope parameters \eqn{A}. Additionally, 
 #' the parameter matrices \eqn{A} and \eqn{B}
 #' follow a Minnesota prior and generalised-normal prior distributions 
@@ -77,25 +77,18 @@
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
-#' @references The model, prior distributions, and estimation algorithms were proposed by
+#' @references 
 #' 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2022) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference.
-#' 
-#' Sampling from the generalised-normal full conditional posterior distribution of matrix \eqn{B} is implemented using the Gibbs sampler by:
-#' 
-#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{https://doi.org/10.1016/S0165-1889(02)00168-9}.
-#'
-#' Sampling from the multivariate normal full conditional posterior distribution of each of the \eqn{A} matrix row is implemented using the sampler by:
-#' 
-#' Chan, J.C.C., Koop, G, and Yu, X. (2021) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
-#' 
-#' Many of the techniques employed for the estimation of the Stochastic Volatility model 
-#' are summarised by:
+#' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 #' 
 #' Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
 #' Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 #' \doi{10.1016/j.csda.2013.01.002}.
 #' 
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' 
+#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
+#'
 #' @method estimate BSVARSV
 #' 
 #' @examples
@@ -112,7 +105,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 10)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -120,21 +113,22 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 10, thin = 2) |> 
+#'   estimate(S = 10) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
   
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
+  VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
   centred_sv          = specification$centred_sv
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, centred_sv, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, centred_sv, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_sv$new(specification, qqq$posterior)
@@ -172,7 +166,7 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' posterior      = estimate(burn_in, 10)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -180,21 +174,22 @@ estimate.BSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) 
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 10, thin = 2) |> 
+#'   estimate(S = 10) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
-estimate.PosteriorBSVARSV <- function(specification, S, thin = 10, show_progress = TRUE) {
+estimate.PosteriorBSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
+  VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   centred_sv          = specification$last_draw$centred_sv
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, centred_sv, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, centred_sv, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_sv$new(specification$last_draw, qqq$posterior)
