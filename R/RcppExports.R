@@ -41,6 +41,10 @@ sample_variances_msh <- function(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior) 
     .Call(`_bsvars_sample_variances_msh`, aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior)
 }
 
+sample_variances_hmsh <- function(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior) {
+    .Call(`_bsvars_sample_variances_hmsh`, aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call(`_bsvars_RcppExport_registerCCallable`)
