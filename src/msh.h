@@ -52,6 +52,16 @@ arma::mat sample_Markov_process_msh (
 );
 
 
+arma::cube sample_Markov_process_hmsh (
+    arma::cube&       aux_xi,             // MxTxN
+    const arma::mat&  U,                  // NxT
+    const arma::mat&  aux_sigma2,         // NxM
+    const arma::cube& aux_PR_TR,          // MxMxN
+    const arma::mat&  aux_pi_0,           // MxN
+    const bool        finiteM = true
+);
+
+
 Rcpp::List sample_transition_probabilities (
     arma::mat           aux_PR_TR,    // MxM 
     arma::vec           aux_pi_0,     // Mx1
@@ -68,6 +78,17 @@ arma::mat sample_variances_msh (
     const arma::mat&    Y,          // NxT dependent variables
     const arma::mat&    X,          // KxT explanatory variables
     const arma::mat&    aux_xi,     // MxT state variables
+    const Rcpp::List&   prior       // a list of priors - original dimensions
+);
+
+
+arma::mat sample_variances_hmsh (
+    arma::mat&          aux_sigma2, // NxM
+    const arma::mat&    aux_B,      // NxN
+    const arma::mat&    aux_A,      // NxK
+    const arma::mat&    Y,          // NxT dependent variables
+    const arma::mat&    X,          // KxT explanatory variables
+    const arma::cube&   aux_xi,     // MxTxN state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 );
 

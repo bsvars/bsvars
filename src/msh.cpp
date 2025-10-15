@@ -361,3 +361,41 @@ arma::mat sample_variances_msh (
   return aux_sigma2;
 } // END sample_variances_msh
 
+
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+arma::mat sample_variances_hmsh (
+    arma::mat&          aux_sigma2, // NxM
+    const arma::mat&    aux_B,      // NxN
+    const arma::mat&    aux_A,      // NxK
+    const arma::mat&    Y,          // NxT dependent variables
+    const arma::mat&    X,          // KxT explanatory variables
+    const arma::cube&   aux_xi,     // MxTxN state variables
+    const Rcpp::List&   prior       // a list of priors - original dimensions
+) {
+  // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
+  const int   M     = aux_xi.n_rows;
+  const int   N     = aux_B.n_rows;
+  const int   T     = Y.n_cols;
+  const double MM   = M;
+  
+  mat sq_resid = square(aux_B * (Y - aux_A * X)); // NxT
+  for (int n=0; n<N; n++) {
+    rowvec posterior_s(M);
+    posterior_s.fill(prior["sigma_s"]);
+    for (int m=0; m<M; m++) {
+      for (int t=0; t<T; t++) {
+        if (aux_xi(m,t,n)==1) {
+          posterior_s(m) += sq_resid(n,t);
+        }
+      }
+    }
+
+    rowvec posterior_nu   = sum(aux_xi.slice(n), 1).t() + as<double>(prior["sigma_nu"]);
+    aux_sigma2.row(n)     = MM*rIG2_Dirichlet1( posterior_s, posterior_nu);
+  }
+  
+  return aux_sigma2;
+} // END sample_variances_hmsh
+
