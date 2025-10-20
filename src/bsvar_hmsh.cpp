@@ -39,7 +39,7 @@ Rcpp::List bsvar_hmsh_cpp (
     Rcout << "**************************************************|" << endl;
     Rcout << "bsvars: Bayesian Structural Vector Autoregressions|" << endl;
     Rcout << "**************************************************|" << endl;
-    Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model             |" << endl;
+    Rcout << " Gibbs sampler for the SVAR-" << name_model <<" model" << endl;
     Rcout << "**************************************************|" << endl;
     Rcout << " Progress of the MCMC simulation for " << S << " draws" << endl;
     Rcout << "    Every " << oo << "draw is saved via MCMC thinning" << endl;
