@@ -37,6 +37,14 @@ Rcpp::List verify_volatility_msh_cpp (
 );
 
 
+Rcpp::List verify_volatility_hmsh_cpp (
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X           // KxT explanatory variables
+);
+
+
 double dmvnorm_chol_precision (
     const arma::rowvec&   x,  
     const arma::rowvec&   location,  
