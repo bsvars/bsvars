@@ -599,6 +599,43 @@ RcppExport SEXP _bsvars_forecast_sigma2_msh(SEXP posterior_sigma2SEXP, SEXP post
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// forecast_sigma2_hmsh
+arma::cube forecast_sigma2_hmsh(arma::cube& posterior_sigma2, arma::field<arma::cube>& posterior_PR_TR, arma::cube& S_T, const int& horizon);
+static SEXP _bsvars_forecast_sigma2_hmsh_try(SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP S_TSEXP, SEXP horizonSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_sigma2(posterior_sigma2SEXP);
+    Rcpp::traits::input_parameter< arma::field<arma::cube>& >::type posterior_PR_TR(posterior_PR_TRSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type S_T(S_TSEXP);
+    Rcpp::traits::input_parameter< const int& >::type horizon(horizonSEXP);
+    rcpp_result_gen = Rcpp::wrap(forecast_sigma2_hmsh(posterior_sigma2, posterior_PR_TR, S_T, horizon));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_forecast_sigma2_hmsh(SEXP posterior_sigma2SEXP, SEXP posterior_PR_TRSEXP, SEXP S_TSEXP, SEXP horizonSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_forecast_sigma2_hmsh_try(posterior_sigma2SEXP, posterior_PR_TRSEXP, S_TSEXP, horizonSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // forecast_sigma2_sv
 arma::cube forecast_sigma2_sv(arma::mat& posterior_h_T, arma::mat& posterior_rho, arma::mat& posterior_omega, const int& horizon, const bool& centred_sv);
 static SEXP _bsvars_forecast_sigma2_sv_try(SEXP posterior_h_TSEXP, SEXP posterior_rhoSEXP, SEXP posterior_omegaSEXP, SEXP horizonSEXP, SEXP centred_svSEXP) {
@@ -2120,6 +2157,43 @@ RcppExport SEXP _bsvars_verify_volatility_msh_cpp(SEXP posteriorSEXP, SEXP prior
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// verify_volatility_hmsh_cpp
+Rcpp::List verify_volatility_hmsh_cpp(const Rcpp::List& posterior, const Rcpp::List& prior, const arma::mat& Y, const arma::mat& X);
+static SEXP _bsvars_verify_volatility_hmsh_cpp_try(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type posterior(posteriorSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(verify_volatility_hmsh_cpp(posterior, prior, Y, X));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_verify_volatility_hmsh_cpp(SEXP posteriorSEXP, SEXP priorSEXP, SEXP YSEXP, SEXP XSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_verify_volatility_hmsh_cpp_try(posteriorSEXP, priorSEXP, YSEXP, XSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // dmvnorm_chol_precision
 double dmvnorm_chol_precision(const arma::rowvec& x, const arma::rowvec& location, const arma::mat& chol_precision, const bool logarithm);
 static SEXP _bsvars_dmvnorm_chol_precision_try(SEXP xSEXP, SEXP locationSEXP, SEXP chol_precisionSEXP, SEXP logarithmSEXP) {
@@ -2290,6 +2364,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::List(*bsvar_t_cpp)(const int&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const Rcpp::List&,const arma::vec&,const int,const bool)");
         signatures.insert("arma::vec(*mvnrnd_cond)(arma::vec,arma::vec,arma::mat)");
         signatures.insert("arma::cube(*forecast_sigma2_msh)(arma::cube&,arma::cube&,arma::mat&,const int&)");
+        signatures.insert("arma::cube(*forecast_sigma2_hmsh)(arma::cube&,arma::field<arma::cube>&,arma::cube&,const int&)");
         signatures.insert("arma::cube(*forecast_sigma2_sv)(arma::mat&,arma::mat&,arma::mat&,const int&,const bool&)");
         signatures.insert("arma::cube(*forecast_lambda_t)(arma::mat&,const int&)");
         signatures.insert("arma::cube(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
@@ -2331,6 +2406,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("double(*dig2dirichlet)(const arma::rowvec&,const arma::rowvec&,const arma::rowvec&,const bool)");
         signatures.insert("double(*ddirichlet)(const arma::rowvec&,const arma::rowvec&,const bool)");
         signatures.insert("Rcpp::List(*verify_volatility_msh_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
+        signatures.insert("Rcpp::List(*verify_volatility_hmsh_cpp)(const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
         signatures.insert("double(*dmvnorm_chol_precision)(const arma::rowvec&,const arma::rowvec&,const arma::mat&,const bool)");
         signatures.insert("double(*dmvnorm_mean_var)(const arma::vec&,const arma::vec&,const arma::mat&,const bool)");
         signatures.insert("Rcpp::List(*verify_autoregressive_heterosk_cpp)(const arma::mat&,const Rcpp::List&,const Rcpp::List&,const arma::mat&,const arma::mat&)");
@@ -2356,6 +2432,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_t_cpp", (DL_FUNC)_bsvars_bsvar_t_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_mvnrnd_cond", (DL_FUNC)_bsvars_mvnrnd_cond_try);
     R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_msh", (DL_FUNC)_bsvars_forecast_sigma2_msh_try);
+    R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_hmsh", (DL_FUNC)_bsvars_forecast_sigma2_hmsh_try);
     R_RegisterCCallable("bsvars", "_bsvars_forecast_sigma2_sv", (DL_FUNC)_bsvars_forecast_sigma2_sv_try);
     R_RegisterCCallable("bsvars", "_bsvars_forecast_lambda_t", (DL_FUNC)_bsvars_forecast_lambda_t_try);
     R_RegisterCCallable("bsvars", "_bsvars_forecast_bsvars", (DL_FUNC)_bsvars_forecast_bsvars_try);
@@ -2397,6 +2474,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_dig2dirichlet", (DL_FUNC)_bsvars_dig2dirichlet_try);
     R_RegisterCCallable("bsvars", "_bsvars_ddirichlet", (DL_FUNC)_bsvars_ddirichlet_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_msh_cpp", (DL_FUNC)_bsvars_verify_volatility_msh_cpp_try);
+    R_RegisterCCallable("bsvars", "_bsvars_verify_volatility_hmsh_cpp", (DL_FUNC)_bsvars_verify_volatility_hmsh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_dmvnorm_chol_precision", (DL_FUNC)_bsvars_dmvnorm_chol_precision_try);
     R_RegisterCCallable("bsvars", "_bsvars_dmvnorm_mean_var", (DL_FUNC)_bsvars_dmvnorm_mean_var_try);
     R_RegisterCCallable("bsvars", "_bsvars_verify_autoregressive_heterosk_cpp", (DL_FUNC)_bsvars_verify_autoregressive_heterosk_cpp_try);
@@ -2421,6 +2499,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvar_t_cpp", (DL_FUNC) &_bsvars_bsvar_t_cpp, 10},
     {"_bsvars_mvnrnd_cond", (DL_FUNC) &_bsvars_mvnrnd_cond, 3},
     {"_bsvars_forecast_sigma2_msh", (DL_FUNC) &_bsvars_forecast_sigma2_msh, 4},
+    {"_bsvars_forecast_sigma2_hmsh", (DL_FUNC) &_bsvars_forecast_sigma2_hmsh, 4},
     {"_bsvars_forecast_sigma2_sv", (DL_FUNC) &_bsvars_forecast_sigma2_sv, 5},
     {"_bsvars_forecast_lambda_t", (DL_FUNC) &_bsvars_forecast_lambda_t, 2},
     {"_bsvars_forecast_bsvars", (DL_FUNC) &_bsvars_forecast_bsvars, 7},
@@ -2462,6 +2541,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_dig2dirichlet", (DL_FUNC) &_bsvars_dig2dirichlet, 4},
     {"_bsvars_ddirichlet", (DL_FUNC) &_bsvars_ddirichlet, 3},
     {"_bsvars_verify_volatility_msh_cpp", (DL_FUNC) &_bsvars_verify_volatility_msh_cpp, 4},
+    {"_bsvars_verify_volatility_hmsh_cpp", (DL_FUNC) &_bsvars_verify_volatility_hmsh_cpp, 4},
     {"_bsvars_dmvnorm_chol_precision", (DL_FUNC) &_bsvars_dmvnorm_chol_precision, 4},
     {"_bsvars_dmvnorm_mean_var", (DL_FUNC) &_bsvars_dmvnorm_mean_var, 4},
     {"_bsvars_verify_autoregressive_heterosk_cpp", (DL_FUNC) &_bsvars_verify_autoregressive_heterosk_cpp, 5},
