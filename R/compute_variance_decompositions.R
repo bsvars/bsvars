@@ -153,6 +153,74 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
 
 
 
+#' @inherit compute_variance_decompositions
+#' @method compute_variance_decompositions PosteriorBSVARHMSH
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. In this heteroskedastic model the forecast error 
+#' variance decompositions are computed for the forecasts with the origin at the
+#' last observation in sample data and using the conditional variance forecasts.
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute forecast error variance decomposition 2 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_hmsh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_variance_decompositions(horizon = 8) -> fevd
+#' 
+#' @export
+compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizon) {
+  
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+  M               = dim(posterior$posterior$xi)[1]
+  T               = dim(posterior$posterior$xi)[2]
+  posterior_PR_TR = posterior$posterior$PR_TR_cpp
+  posterior_sigma2 = posterior$posterior$sigma2
+  
+  S_T             = array(NA, c(M,N,S))
+  for (s in 1:S) {
+    S_T[,,s]      = posterior$posterior$xi_cpp[S,1][[1]][,T,]
+  }
+
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
+  Y               = posterior$last_draw$data_matrices$Y
+  
+  posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
+  sigma2          = .Call(`_bsvars_forecast_sigma2_hmsh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
+  
+  fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
+  for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
+  class(fevd)     = "PosteriorFEVD"
+  
+  return(fevd)
+}
+
+
+
+
+
+
 
 
 

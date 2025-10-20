@@ -24,12 +24,8 @@
 #' Song, Y., and Woźniak, T., (2021) Markov Switching. \emph{Oxford Research Encyclopedia of Economics and Finance}, Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 2, M = 2)
+#' # specify the model
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 10)
@@ -45,9 +41,8 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_msh$new(p = 1, M = 2) |>
+#'   specify_bsvar_msh$new() |>
 #'   estimate(S = 10) |> 
 #'   estimate(S = 20) -> posterior
 #' regimes        = compute_regime_probabilities(posterior)
@@ -99,6 +94,84 @@ compute_regime_probabilities.PosteriorBSVARMSH <- function(posterior, type = c("
   
   return(probs)
 }
+
+
+
+
+
+
+
+#' @inherit compute_regime_probabilities
+#' @method compute_regime_probabilities PosteriorBSVARHMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute the posterior draws of realized regime indicators
+#' regimes        = compute_regime_probabilities(posterior)
+#' 
+#' # compute the posterior draws of filtered probabilities
+#' filtered       = compute_regime_probabilities(posterior, "filtered")
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_hmsh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) -> posterior
+#' regimes        = compute_regime_probabilities(posterior)
+#' filtered       = compute_regime_probabilities(posterior, "filtered")
+#' 
+#' @export
+compute_regime_probabilities.PosteriorBSVARHMSH <- function(posterior, type = c("realized", "filtered", "forecasted", "smoothed")) {
+  
+  type          = match.arg(type)
+  
+  posteriors    = posterior$posterior
+  Y             = posterior$last_draw$data_matrices$Y
+  X             = posterior$last_draw$data_matrices$X
+  dims          = dim(posterior$posterior$xi) 
+  M               = dims[1]
+  N               = dims[3]
+  S               = dims[4]
+  
+  if (type == "realized") {
+    probs         = posteriors$xi
+  } else {
+    if (type == "filtered") {
+      forecasted  = FALSE
+      smoothed    = FALSE
+    } else if (type == "forecasted") {
+      forecasted  = TRUE
+      smoothed    = FALSE
+    } else if (type == "smoothed") {
+      forecasted  = FALSE
+      smoothed    = TRUE
+    }
+    
+    probs_tmp     = .Call(`_bsvars_bsvars_filter_forecast_smooth_hmsh`, posteriors, Y, X, forecasted, smoothed)
+    probs         = array(0, dims)
+    for (s in 1:S) {
+      probs[,,,s] = probs_tmp[s,1][[1]]
+    }
+  }
+  
+  class(probs)    = "PosteriorRegimePr"
+  dimnames(probs) = list(1:M, 1:dims[2], 1:N, 1:S)
+  
+  return(probs)
+}
+
+
 
 
 
