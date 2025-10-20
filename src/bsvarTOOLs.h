@@ -66,4 +66,13 @@ arma::cube bsvars_filter_forecast_smooth (
 );
 
 
+arma::field<arma::cube> bsvars_filter_forecast_smooth_hmsh (
+    Rcpp::List&       posterior,
+    const arma::mat&  Y,
+    const arma::mat&  X,
+    const bool        forecasted,
+    const bool        smoothed
+);
+
+
 #endif  // _BSVARTOOLS_H_

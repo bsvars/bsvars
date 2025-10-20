@@ -302,3 +302,59 @@ arma::cube bsvars_filter_forecast_smooth (
 } // END bsvars_filter_forecast_smooth
 
 
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::field<arma::cube> bsvars_filter_forecast_smooth_hmsh (
+    Rcpp::List&       posterior,
+    const arma::mat&  Y,
+    const arma::mat&  X,
+    const bool        forecasted,
+    const bool        smoothed
+) {
+  
+  cube  posterior_B       = as<cube>(posterior["B"]);
+  cube  posterior_A       = as<cube>(posterior["A"]);
+  cube  posterior_sigma2  = as<cube>(posterior["sigma2"]);
+  field<cube> posterior_PR_TR = as<field<cube>>(posterior["PR_TR_cpp"]);
+  cube  posterior_pi_0    = as<cube>(posterior["pi_0"]);
+  
+  const int   N           = Y.n_rows;
+  const int   M           = posterior_pi_0.n_rows;
+  const int   T           = Y.n_cols;
+  const int   S           = posterior_B.n_slices;
+  
+  field<cube> filtered_probabilities(S); //(S)(M, T, N);
+  field<cube> for_smo_probabilities(S); //(S)(M, T, N);
+  mat   shocks(N, T);
+  
+  for (int s=0; s<S; s++) {
+    shocks                = posterior_B.slice(s) * ( Y - posterior_A.slice(s) * X );
+    cube fp(M, T, N);
+    cube for_smo(M, T, N);
+    for (int n=0; n<N; n++) {
+      fp.slice(n)         = filtering_msh(
+        shocks, 
+        posterior_sigma2.slice(s), 
+        posterior_PR_TR(s).slice(n), 
+        posterior_pi_0.slice(s).col(n)
+      );
+      if (forecasted) {
+        for_smo.slice(n)      = posterior_PR_TR(s).slice(n) * fp.slice(n);
+      } else if (smoothed) {
+        for_smo.slice(n)      = smoothing_msh(shocks, posterior_PR_TR(s).slice(n), fp.slice(n));
+      }
+    } // END n loop
+    filtered_probabilities(s) = fp;
+    for_smo_probabilities(s)  = for_smo;
+  } // END s loop
+  
+  field<cube> out   = filtered_probabilities;
+  if (forecasted || smoothed) {
+    out             = for_smo_probabilities;
+  }
+  
+  return out;
+} // END bsvars_filter_forecast_smooth
+
