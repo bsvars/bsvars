@@ -656,6 +656,55 @@ verify_autoregression.PosteriorBSVARMSH <- function(posterior, hypothesis) {
 
 
 
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVARHMSH
+#' @inheritParams verify_autoregression
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model 
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(posterior, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_hmsh$new() |>
+#'   estimate(S = 10) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression.PosteriorBSVARHMSH <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDRautoregression"
+  return(sddr)
+}
+
+
+
+
 #' @inherit verify_autoregression
 #' @method verify_autoregression PosteriorBSVART
 #' @inheritParams verify_autoregression
