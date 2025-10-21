@@ -554,10 +554,15 @@ plot.PosteriorRegimePr = function(
   if ( missing(main) ) main = "Regime Probabilities"
   if ( missing(xlab) ) xlab = "time"
   
-  M = dim(x)[1]
+  dims  = dim(x)
+  N     = 1
+  if ( length(dims) == 4 ) {
+    N   = dims[3]
+  }
+  M     = dims[1]
   
   oldpar <- graphics::par( 
-    mfrow = c(M, 1),
+    mfrow = c(M, N),
     mar = mar.multi,
     oma = oma.multi
   )
