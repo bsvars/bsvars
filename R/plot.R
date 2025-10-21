@@ -569,27 +569,34 @@ plot.PosteriorRegimePr = function(
   on.exit(graphics::par(oldpar))
   
   for (m in 1:M) {
-    
-    plot_ribbon(
-      x[m,,],
-      probability = probability,
-      col         = col,
-      main = "",
-      ylim = c(0, 1),
-      ylab = paste("regime ", m),
-      xlab = "",
-      start_at    = 1,
-      bty = "n",
-      axes = FALSE,
-      ...
-    )
-    
-    lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
-    ll = as.numeric(dimnames(x)[[2]])[lw]
-    graphics::axis(1, at = lw, labels = if (m == M) ll else FALSE)
-    graphics::axis(2, c(0, 1), c(0, 1))
-    
-  } # END n loop
+    for (n in 1:N) {
+      
+      if ( length(dims) == 4 ) {
+        xmn  = x[m,,n,]
+      } else {
+        xmn    = x[m,,]
+      }
+      
+      plot_ribbon(
+        xmn,
+        probability = probability,
+        col         = col,
+        main = "",
+        ylim = c(0, 1),
+        ylab = paste("regime ", m),
+        xlab = "",
+        start_at    = 1,
+        bty = "n",
+        axes = FALSE,
+        ...
+      )
+      
+      lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
+      ll = as.numeric(dimnames(x)[[2]])[lw]
+      graphics::axis(1, at = lw, labels = if (m == M) ll else FALSE)
+      graphics::axis(2, c(0, 1), c(0, 1))
+    } # END n loop
+  } # END m loop
   
   graphics::mtext( # main title
     main,
