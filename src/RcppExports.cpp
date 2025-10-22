@@ -1501,24 +1501,21 @@ RcppExport SEXP _bsvars_sample_hyperparameters(SEXP aux_hyperSEXP, SEXP aux_BSEX
     return rcpp_result_gen;
 }
 // sample_lambda
-arma::mat sample_lambda(const arma::vec& aux_df, const arma::mat& aux_B, const arma::mat& aux_A, const arma::mat& Y, const arma::mat& X);
-static SEXP _bsvars_sample_lambda_try(SEXP aux_dfSEXP, SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP YSEXP, SEXP XSEXP) {
+arma::mat sample_lambda(const arma::vec& aux_df, const arma::mat& U);
+static SEXP _bsvars_sample_lambda_try(SEXP aux_dfSEXP, SEXP USEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const arma::vec& >::type aux_df(aux_dfSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type aux_B(aux_BSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type aux_A(aux_ASEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(sample_lambda(aux_df, aux_B, aux_A, Y, X));
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_lambda(aux_df, U));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_sample_lambda(SEXP aux_dfSEXP, SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP YSEXP, SEXP XSEXP) {
+RcppExport SEXP _bsvars_sample_lambda(SEXP aux_dfSEXP, SEXP USEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_sample_lambda_try(aux_dfSEXP, aux_BSEXP, aux_ASEXP, YSEXP, XSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_sample_lambda_try(aux_dfSEXP, USEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2426,7 +2423,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::mat(*sample_B_homosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
         signatures.insert("arma::mat(*sample_B_heterosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
         signatures.insert("arma::mat(*sample_hyperparameters)(arma::mat&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&)");
-        signatures.insert("arma::mat(*sample_lambda)(const arma::vec&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
+        signatures.insert("arma::mat(*sample_lambda)(const arma::vec&,const arma::mat&)");
         signatures.insert("double(*log_kernel_df)(const double&,const arma::rowvec&)");
         signatures.insert("Rcpp::List(*sample_df)(arma::vec&,arma::vec&,const arma::mat&,const int&,const arma::vec&)");
         signatures.insert("double(*do_rgig1)(double,double,double)");
@@ -2563,7 +2560,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_sample_B_homosk1", (DL_FUNC) &_bsvars_sample_B_homosk1, 7},
     {"_bsvars_sample_B_heterosk1", (DL_FUNC) &_bsvars_sample_B_heterosk1, 8},
     {"_bsvars_sample_hyperparameters", (DL_FUNC) &_bsvars_sample_hyperparameters, 6},
-    {"_bsvars_sample_lambda", (DL_FUNC) &_bsvars_sample_lambda, 5},
+    {"_bsvars_sample_lambda", (DL_FUNC) &_bsvars_sample_lambda, 2},
     {"_bsvars_log_kernel_df", (DL_FUNC) &_bsvars_log_kernel_df, 2},
     {"_bsvars_sample_df", (DL_FUNC) &_bsvars_sample_df, 5},
     {"_bsvars_do_rgig1", (DL_FUNC) &_bsvars_do_rgig1, 3},
