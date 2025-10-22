@@ -1273,13 +1273,14 @@ summary.PosteriorRegimePr = function(
   for (n in 1:N) {
     out_n   = list()
     
-    if ( length(dims) == 4 ) {  
-      omn = object[m,,n,]
-    } else {
-      omn = object[m,,]
-    } 
-    
     for (m in 1:M) {
+    
+      if ( length(dims) == 4 ) {  
+        omn = object[m,,n,]
+      } else {
+        omn = object[m,,]
+      } 
+    
       out_n[[m]]    = cbind(
         apply(omn, 1, mean),
         apply(omn, 1, sd)
