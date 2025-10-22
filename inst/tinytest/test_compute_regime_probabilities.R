@@ -114,3 +114,32 @@ expect_error(
   info = "compute_regime_probabilities: BSVAR: wrong posterior provided."
 )
 
+
+
+
+# for bsvar_hmsh
+set.seed(1)
+suppressMessages(
+  specification_no1 <- specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
+)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
+rp                  <- compute_regime_probabilities(run_no1)
+
+set.seed(1)
+suppressMessages(
+  rp2               <- us_fiscal_lsuw |>
+    specify_bsvar_hmsh$new(M = 2) |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
+    compute_regime_probabilities()
+)
+
+expect_true(
+  all(dim(rp) == dim(rp2)),
+  info = "compute_regime_probabilities: HMSH: same output dimentions for normal and pipe workflow."
+)
+
+expect_identical(
+  rp[1,1,1,1], rp2[1,1,1,1],
+  info = "compute_regime_probabilities: HMSH: identical for normal and pipe workflow."
+)
+
