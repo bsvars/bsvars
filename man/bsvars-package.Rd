@@ -55,12 +55,14 @@ The various SVAR models estimated differ by the specification of structural shoc
 variances. The different models include:
 \itemize{
   \item homoskedastic model with unit variances
-  \item heteroskedastic model with stationary Markov switching in the variances
   \item heteroskedastic model with non-centred Stochastic Volatility process for variances
   \item heteroskedastic model with centred Stochastic Volatility process for variances
+  \item heteroskedastic model with stationary Markov switching in the variances
+  \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
+  \item heteroskedastic model with stationary heterogeneous Markov switching in the variances, where each shock volatility has its own Markov process
+  \item heteroskedastic model with sparse heterogeneous Markov switching in the variances where the number of heteroskedastic components is estimated
   \item a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter
   \item non-normal model with a finite mixture of normal components and component-specific variances
-  \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
 }
 
@@ -71,28 +73,22 @@ local-global hierarchical prior that make the shrinkage estimation flexible impr
 the model fit and its forecasting performance.
 
 \strong{Estimation algorithm.} The models are estimated using frontier numerical methods
-making the Gibbs sampler fast and efficient. The sampler of the structural matrix 
+making the Gibbs sampler fast and efficient. The estimation follows closely 
+Lütkepohl, Shang, Uzeda, & Woźniak (2025). The sampler of the structural matrix 
 follows Waggoner & Zha (2003), whereas that 
 for autoregressive parameters follows Chan, Koop, Yu (2022). 
 The specification of Markov switching heteroskedasticity is inspired by 
 Song & Woźniak (2021), and that of 
 Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014).
-The estimation algorithms for particular models are scrutinised in 
-Lütkepohl, Shang, Uzeda, & Woźniak (2024) and Woźniak & Droumaguet (2024)
-and some other inferential and identification problems are considered in 
-Lütkepohl & Woźniak (2020).
+The identification problems are considered in Lütkepohl, Shang, Uzeda, & Woźniak (2025)
+and Lütkepohl & Woźniak (2020).
 }
 \note{
 This package is currently in active development. Your comments,
 suggestions and requests are warmly welcome!
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)    # upload dependent variables
-data(us_fiscal_ex)      # upload exogenous variables
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
 
 # run the burn-in
@@ -109,7 +105,6 @@ fevd           = compute_variance_decompositions(posterior, horizon = 4)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
@@ -118,10 +113,6 @@ us_fiscal_lsuw |>
 
 # conditional forecasting using a model with exogenous variables
 ############################################################
-data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
-data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
-
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
@@ -137,8 +128,7 @@ us_fiscal_lsuw |>
   predictive |> plot(probability = 0.68)
   
 # estimation of a model with exogeneity restrictions on the  autoregressive matrix
-############################################################
-set.seed(123)
+#############################################################' set.seed(123)
 A = matrix(TRUE, 3, 7)
 A[1,3] = A[1,6] = FALSE
 us_fiscal_lsuw |>
@@ -149,21 +139,25 @@ posterior |> summary()
 
 }
 \references{
-Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
+Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. 
+\emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 
 Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
 Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 \doi{10.1016/j.csda.2013.01.002}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+\emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 
-Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
+Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. 
+\emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
 
-Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. In: \emph{Oxford Research Encyclopedia of Economics and Finance}. Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
+Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. 
+In: \emph{Oxford Research Encyclopedia of Economics and Finance}. Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 
-Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
-
-Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
+Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. 
+\emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 }
 \seealso{
 Useful links:
