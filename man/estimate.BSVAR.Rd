@@ -51,12 +51,8 @@ Finally, the structural shocks, \code{U}, are temporally and contemporaneously i
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
+# specify the model
 specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
-set.seed(123)
 
 # run the burn-in
 burn_in        = estimate(specification, 5)
@@ -66,7 +62,6 @@ posterior      = estimate(burn_in, 10, thin = 2)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 5) |> 
