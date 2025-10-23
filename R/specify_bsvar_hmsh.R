@@ -76,7 +76,7 @@ specify_starting_values_bsvar_hmsh = R6::R6Class(
         M = 20
       }
       
-      super$initialize(A, B, N, p, d)
+      super$initialize(A, B, N, T, p, d)
       
       self$sigma2         = matrix(1, N, M)
       self$pi_0           = matrix(1/M, M, N)

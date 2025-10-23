@@ -134,7 +134,7 @@ specify_prior_bsvar = R6::R6Class(
 #' # starting values for a homoskedastic bsvar for a 3-variable system
 #' A = matrix(TRUE, 3, 4)
 #' B = matrix(TRUE, 3, 3)
-#' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
+#' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 #' 
 #' @export
 specify_starting_values_bsvar = R6::R6Class(
@@ -152,6 +152,14 @@ specify_starting_values_bsvar = R6::R6Class(
     #' hierarchical prior distribution. 
     hyper         = matrix(),
     
+    #' @field lambda a \code{NxT} matrix of starting values for latent variables.
+    lambda        = matrix(),
+    
+    #' @field df an \code{Nx1} vector of positive numbers with starting values 
+    #' for the equation-specific degrees of freedom parameters of the Student-t 
+    #' conditional distribution of structural shocks.
+    df            = numeric(),
+    
     #' @description
     #' Create new starting values StartingValuesBSVAR.
     #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
@@ -161,6 +169,7 @@ specify_starting_values_bsvar = R6::R6Class(
     #' the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
     #' @param N a positive integer - the number of dependent variables in the model.
+    #' @param T a positive integer - the number of time periods in the data.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @return Starting values StartingValuesBSVAR.
@@ -168,10 +177,11 @@ specify_starting_values_bsvar = R6::R6Class(
     #' # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
     #' A = matrix(TRUE, 3, 13)
     #' B = matrix(TRUE, 3, 3)
-    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 4)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
     #' 
-    initialize = function(A, B, N, p, d = 0){
+    initialize = function(A, B, N, T, p, d = 0){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
+      stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
 
@@ -181,6 +191,8 @@ specify_starting_values_bsvar = R6::R6Class(
       diag(self$B)[diag(B[,1:N])] = runif(sum(diag(B[,1:N])))
       diag(self$A)[diag(A[,1:N])] = runif(sum(diag(A[,1:N])))
       self$hyper          = matrix(10, 2 * N + 1, 2)
+      self$lambda         = matrix(1, N, T)
+      self$df             = rep(3, N)
     }, # END initialize
     
     #' @description
@@ -190,14 +202,16 @@ specify_starting_values_bsvar = R6::R6Class(
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
     #' A = matrix(TRUE, 3, 4)
     #' B = matrix(TRUE, 3, 3)
-    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
     #' sv$get_starting_values()   # show starting values as list
     #' 
     get_starting_values   = function(){
       list(
         B                 = self$B,
         A                 = self$A,
-        hyper             = self$hyper
+        hyper             = self$hyper,
+        lambda            = self$lambda,
+        df                = self$df
       )
     }, # END get_starting_values
     
@@ -212,7 +226,7 @@ specify_starting_values_bsvar = R6::R6Class(
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
     #' A = matrix(TRUE, 3, 4)
     #' B = matrix(TRUE, 3, 3)
-    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, p = 1)
+    #' sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
     #' 
     #' # Modify the starting values by:
     #' sv_list = sv$get_starting_values()   # getting them as list
@@ -223,6 +237,8 @@ specify_starting_values_bsvar = R6::R6Class(
         self$B            = last_draw$B
         self$A            = last_draw$A
         self$hyper        = last_draw$hyper
+        self$lambda       = last_draw$lambda
+        self$df           = last_draw$df
     } # END set_starting_values
   ) # END public
 ) # END specify_starting_values_bsvar
@@ -456,6 +472,10 @@ specify_data_matrices = R6::R6Class(
 specify_bsvar = R6::R6Class(
   "BSVAR",
   
+  private = list(
+    normal = TRUE
+  ), # END private
+  
   public = list(
     
     #' @field p a non-negative integer specifying the autoregressive lag order of the model. 
@@ -483,6 +503,9 @@ specify_bsvar = R6::R6Class(
     #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
     #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param distribution a character string specifying the conditional distribution 
+    #' of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+    #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
     #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
@@ -493,11 +516,14 @@ specify_bsvar = R6::R6Class(
       p = 1L,
       B,
       A,
+      distribution = c("norm","t"),
       exogenous = NULL,
       stationary = rep(FALSE, ncol(data))
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
       self$p     = p
+      
+      distribution  = match.arg(distribution)
       
       TT            = nrow(data)
       T             = TT - self$p
@@ -519,11 +545,26 @@ specify_bsvar = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument A." = (is.matrix(A) & is.logical(A)))
       
+      if (distribution == "t") {
+        private$normal = FALSE
+      }
+      
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar$new(N, p, d, stationary)
-      self$starting_values = specify_starting_values_bsvar$new(A, B, N, self$p, d)
+      self$starting_values = specify_starting_values_bsvar$new(A, B, N, T, self$p, d)
     }, # END initialize
+    
+    #' @description
+    #' Returns the logical value of whether the conditional shock distribution is normal.
+    #' 
+    #' @examples 
+    #' spec = specify_bsvar$new(us_fiscal_lsuw)
+    #' spec$get_normal()
+    #' 
+    get_normal = function() {
+      private$normal
+    }, # END get_normal
     
     #' @description
     #' Returns the data matrices as the DataMatricesBSVAR object.

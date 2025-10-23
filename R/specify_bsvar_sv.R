@@ -185,7 +185,7 @@ specify_starting_values_bsvar_sv = R6::R6Class(
       stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       
-      super$initialize(A, B, N, p, d)
+      super$initialize(A, B, N, T, p, d)
       
       self$h              = matrix(rnorm(N * T, sd = .01), N, T)
       self$rho            = rep(.5, N)
