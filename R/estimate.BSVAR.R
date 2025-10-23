@@ -55,12 +55,8 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
-#' set.seed(123)
 #' 
 #' # run the burn-in
 #' burn_in        = estimate(specification, 5)
@@ -70,7 +66,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 5) |> 
@@ -86,9 +81,10 @@ estimate.BSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
   VB                  = specification$identification$VB
   VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
-
+  normal              = specification$get_normal()
+  
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, normal, thin, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar$new(specification, qqq$posterior)
@@ -143,9 +139,10 @@ estimate.PosteriorBSVAR <- function(specification, S, thin = 1, show_progress = 
   VB                  = specification$last_draw$identification$VB
   VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
+  normal              = specification$last_draw$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, normal, thin, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar$new(specification$last_draw, qqq$posterior)
