@@ -15,8 +15,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // bsvar_cpp
-Rcpp::List bsvar_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& prior, const Rcpp::List& starting_values, const int thin, const bool show_progress);
-static SEXP _bsvars_bsvar_cpp_try(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP priorSEXP, SEXP starting_valuesSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+Rcpp::List bsvar_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& prior, const Rcpp::List& starting_values, const bool normal, const int thin, const bool show_progress);
+static SEXP _bsvars_bsvar_cpp_try(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP priorSEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const int& >::type S(SSEXP);
@@ -26,17 +26,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VA(VASEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
+    Rcpp::traits::input_parameter< const bool >::type normal(normalSEXP);
     Rcpp::traits::input_parameter< const int >::type thin(thinSEXP);
     Rcpp::traits::input_parameter< const bool >::type show_progress(show_progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(bsvar_cpp(S, Y, X, VB, VA, prior, starting_values, thin, show_progress));
+    rcpp_result_gen = Rcpp::wrap(bsvar_cpp(S, Y, X, VB, VA, prior, starting_values, normal, thin, show_progress));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_bsvar_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP priorSEXP, SEXP starting_valuesSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+RcppExport SEXP _bsvars_bsvar_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP priorSEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_bsvar_cpp_try(SSEXP, YSEXP, XSEXP, VBSEXP, VASEXP, priorSEXP, starting_valuesSEXP, thinSEXP, show_progressSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_bsvar_cpp_try(SSEXP, YSEXP, XSEXP, VBSEXP, VASEXP, priorSEXP, starting_valuesSEXP, normalSEXP, thinSEXP, show_progressSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2384,7 +2385,7 @@ RcppExport SEXP _bsvars_verify_autoregressive_homosk_cpp(SEXP hypothesisSEXP, SE
 static int _bsvars_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Rcpp::List(*bsvar_cpp)(const int&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const Rcpp::List&,const int,const bool)");
+        signatures.insert("Rcpp::List(*bsvar_cpp)(const int&,const arma::mat&,const arma::mat&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const Rcpp::List&,const bool,const int,const bool)");
         signatures.insert("arma::cube(*bsvars_ir1)(arma::mat&,arma::mat&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_ir)(arma::cube&,arma::cube&,const int,const int,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_fevd_homosk)(arma::field<arma::cube>&)");
@@ -2521,7 +2522,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_bsvars_bsvar_cpp", (DL_FUNC) &_bsvars_bsvar_cpp, 9},
+    {"_bsvars_bsvar_cpp", (DL_FUNC) &_bsvars_bsvar_cpp, 10},
     {"_bsvars_bsvars_ir1", (DL_FUNC) &_bsvars_bsvars_ir1, 5},
     {"_bsvars_bsvars_ir", (DL_FUNC) &_bsvars_bsvars_ir, 5},
     {"_bsvars_bsvars_fevd_homosk", (DL_FUNC) &_bsvars_bsvars_fevd_homosk, 1},
