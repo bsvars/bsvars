@@ -36,12 +36,8 @@ the difference requires numerical integration.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
+# specify the model
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-set.seed(123)
 
 # estimate the model
 posterior      = estimate(specification, 10)
@@ -51,7 +47,6 @@ sddr           = verify_identification(posterior)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
   estimate(S = 10) |> 
