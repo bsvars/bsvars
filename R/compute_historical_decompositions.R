@@ -26,11 +26,7 @@
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 #' 
 #' # run the burn-in
@@ -44,7 +40,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -90,11 +85,7 @@ compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 #' 
 #' # run the burn-in
@@ -108,7 +99,6 @@ compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -173,11 +163,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -191,7 +177,6 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -330,11 +315,7 @@ compute_historical_decompositions.PosteriorBSVARHMSH <- function(posterior, show
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -348,7 +329,6 @@ compute_historical_decompositions.PosteriorBSVARHMSH <- function(posterior, show
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -411,11 +391,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -429,7 +405,6 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 5) |> 
@@ -494,11 +469,7 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw), p = 1)
 #' 
 #' # run the burn-in
@@ -512,7 +483,6 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar_t$new(p = 1) |>
 #'   estimate(S = 10) |> 

@@ -187,11 +187,7 @@ compute_regime_probabilities.PosteriorBSVARHMSH <- function(posterior, type = c(
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 2, M = 2)
 #' 
 #' # run the burn-in
@@ -208,7 +204,6 @@ compute_regime_probabilities.PosteriorBSVARHMSH <- function(posterior, type = c(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
