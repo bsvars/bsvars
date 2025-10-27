@@ -45,12 +45,8 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model 
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -60,7 +56,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -91,12 +86,8 @@ verify_volatility <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -106,7 +97,6 @@ verify_volatility <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -146,12 +136,8 @@ verify_volatility.PosteriorBSVAR <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -161,7 +147,6 @@ verify_volatility.PosteriorBSVAR <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -215,12 +200,8 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -230,7 +211,6 @@ verify_volatility.PosteriorBSVARSV <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -280,12 +260,8 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -295,7 +271,6 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -382,6 +357,300 @@ verify_volatility.PosteriorBSVARHMSH <- function(posterior) {
 
 
 
+
+
+
+
+
+
+#' @title Verifies normality of structural shocks equation by equation 
+#'
+#' @description Computes the logarithm of Bayes factor for the normality hypothesis 
+#' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
+#' The hypothesis of normality, \eqn{H_0}, is represented by restriction that the
+#' equation-specific degrees of freedom parameter is equal to infinity, 
+#' \eqn{\nu_n\rightarrow\infty}.
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+#' less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(H_0 | data) - log p(H_0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' normality of the structural shock. The estimation of th first element relies on 
+#' kernel density estimation of the marginal posterior density, whereas the second
+#' element is equal to the log of value 1.
+#' 
+#' @param posterior the \code{posterior} element of the list from the estimation outcome
+#' 
+#' @return An object of class \code{SDDRnormality} that is a list of three components:
+#' 
+#' \code{logSDDR} an \code{N}-vector with values of the logarithm of the Bayes factors for 
+#' the normality hypothesis for each of the shocks
+#' 
+#' \code{log_SDDR_se} an \code{N}-vector with estimation standard errors of the logarithm of 
+#' the Bayes factors reported in output element \code{logSDDR} that are computed based on 30 random 
+#' sub-samples of the log-ordinates of the marginal posterior and prior distributions.
+#' 
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @references 
+#' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
+#' 
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, distribution = "t")
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_normality(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#' 
+#' @export
+verify_normality <- function(posterior) {
+  
+  # call method
+  UseMethod("verify_normality", posterior)
+}
+
+
+
+
+
+#' @inherit verify_normality
+#' @method verify_normality PosteriorBSVARSV
+#' @inheritParams verify_normality
+#'
+#' @seealso \code{\link{specify_bsvar_sv}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, distribution = "t")
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_normality(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#'   
+#' @export
+verify_normality.PosteriorBSVARSV <- function(posterior) {
+  
+  normal          = posterior$last_draw$get_normal()
+  stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
+  
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
+  
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = (posterior_df - 2) / (posterior_df - 1)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
+  out             = list()
+  out$logSDDR     = log(sddr_numerator)
+  out$SDDR        = sddr_numerator
+  class(out)     = "SDDRnormality"
+  return(out)
+}
+
+
+
+
+#' @inherit verify_normality
+#' @method verify_normality PosteriorBSVARMIX
+#' @inheritParams verify_normality
+#'
+#' @seealso \code{\link{specify_bsvar_mix}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model 
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2, distribution = "t")
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_normality(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_mix$new(M = 2, distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#'   
+#' @export
+verify_normality.PosteriorBSVARMIX <- function(posterior) {
+  
+  normal          = posterior$last_draw$get_normal()
+  stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
+  
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
+  
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = (posterior_df - 2) / (posterior_df - 1)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
+  out             = list()
+  out$logSDDR     = log(sddr_numerator)
+  out$SDDR        = sddr_numerator
+  class(out)     = "SDDRnormality"
+  return(out)
+}
+
+
+
+
+
+#' @inherit verify_normality
+#' @method verify_normality PosteriorBSVARMSH
+#' @inheritParams verify_normality
+#'
+#' @seealso \code{\link{specify_bsvar_msh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2, distribution = "t")
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_normality(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(M = 2, distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#'   
+#' @export
+verify_normality.PosteriorBSVARMSH <- function(posterior) {
+  
+  normal          = posterior$last_draw$get_normal()
+  stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
+  
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
+  
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = (posterior_df - 2) / (posterior_df - 1)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
+  out             = list()
+  out$logSDDR     = log(sddr_numerator)
+  out$SDDR        = sddr_numerator
+  class(out)     = "SDDRnormality"
+  return(out)
+}
+
+
+
+
+
+
+#' @inherit verify_normality
+#' @method verify_normality PosteriorBSVARHMSH
+#' @inheritParams verify_normality
+#' 
+#' @seealso \code{\link{specify_bsvar_hmsh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model 
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2, distribution = "t")
+#' 
+#' # estimate the model
+#' posterior      = estimate(specification, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_normality(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new(M = 2, distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#'   
+#' @export
+verify_normality.PosteriorBSVARHMSH <- function(posterior) {
+  
+  normal          = posterior$last_draw$get_normal()
+  stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
+  
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
+  
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = (posterior_df - 2) / (posterior_df - 1)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
+  out             = list()
+  out$logSDDR     = log(sddr_numerator)
+  out$SDDR        = sddr_numerator
+  class(out)     = "SDDRnormality"
+  return(out)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 #' @title Verifies hypotheses involving autoregressive parameters
 #'
 #' @description Computes the logarithm of Bayes factor for the joint hypothesis, 
@@ -427,12 +696,8 @@ verify_volatility.PosteriorBSVARHMSH <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -444,7 +709,6 @@ verify_volatility.PosteriorBSVARHMSH <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -512,12 +776,8 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -529,7 +789,6 @@ verify_autoregression.PosteriorBSVAR <- function(posterior, hypothesis) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -562,12 +821,8 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -579,7 +834,6 @@ verify_autoregression.PosteriorBSVARSV <- function(posterior, hypothesis) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -612,10 +866,7 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' set.seed(123)
 #' 
@@ -629,7 +880,6 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -712,10 +962,7 @@ verify_autoregression.PosteriorBSVARHMSH <- function(posterior, hypothesis) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw)
 #' set.seed(123)
 #' 
@@ -729,7 +976,6 @@ verify_autoregression.PosteriorBSVARHMSH <- function(posterior, hypothesis) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new() |>
 #'   estimate(S = 10) |> 
@@ -807,12 +1053,8 @@ verify_autoregression.PosteriorBSVART <- function(posterior, hypothesis) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -822,7 +1064,6 @@ verify_autoregression.PosteriorBSVART <- function(posterior, hypothesis) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -850,12 +1091,8 @@ verify_identification <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -865,7 +1102,6 @@ verify_identification <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -903,12 +1139,8 @@ verify_identification.PosteriorBSVAR <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -918,7 +1150,6 @@ verify_identification.PosteriorBSVAR <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -973,12 +1204,8 @@ verify_identification.PosteriorBSVARSV <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -988,7 +1215,6 @@ verify_identification.PosteriorBSVARSV <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -1038,12 +1264,8 @@ verify_identification.PosteriorBSVARMIX <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -1053,7 +1275,6 @@ verify_identification.PosteriorBSVARMIX <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -1174,12 +1395,8 @@ verify_identification.PosteriorBSVARHMSH <- function(posterior) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw)
-#' set.seed(123)
 #' 
 #' # estimate the model
 #' posterior      = estimate(specification, 10)
@@ -1189,7 +1406,6 @@ verify_identification.PosteriorBSVARHMSH <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new() |>
 #'   estimate(S = 10) |> 
@@ -1204,7 +1420,7 @@ verify_identification.PosteriorBSVART <- function(posterior) {
   for (n in 1:N) {
     # get the inputs to estimation
     posterior_df    = posterior$posterior$df[n,]
-    eta             = posterior_df / (1 + posterior_df)
+    eta             = (posterior_df - 2) / (posterior_df - 1)
     
     # estimate the SDDR
     sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
