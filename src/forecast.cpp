@@ -168,7 +168,7 @@ arma::cube forecast_lambda_t (
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
       vec df_s                  = posterior_df.col(s);
-      forecasts_lambda.slice(s).each_col()  %= df_s + 2;
+      forecasts_lambda.slice(s).each_col()  %= df_s - 2;
       for (int n=0; n<N; n++) {
         forecasts_lambda.slice(s).row(n)  /= trans(chi2rnd( df_s(n), horizon ));
       } // END n loop
