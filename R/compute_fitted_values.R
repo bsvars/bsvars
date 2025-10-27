@@ -17,11 +17,7 @@
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -35,7 +31,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -70,11 +65,7 @@ compute_fitted_values <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -88,7 +79,6 @@ compute_fitted_values <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -105,7 +95,7 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
   N               = dim(posterior_A)[1]
   T               = dim(posterior$last_draw$data_matrices$X)[2]
   S               = dim(posterior_A)[3]
-  posterior_sigma = array(1, c(N, T, S))
+  posterior_sigma = sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
 
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
@@ -139,11 +129,7 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -157,7 +143,6 @@ compute_fitted_values.PosteriorBSVAR <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -170,7 +155,7 @@ compute_fitted_values.PosteriorBSVARMSH <- function(posterior) {
   Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
-  posterior_sigma = posterior$posterior$sigma
+  posterior_sigma = posterior$posterior$sigma * sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
 
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
@@ -235,7 +220,7 @@ compute_fitted_values.PosteriorBSVARHMSH <- function(posterior) {
   Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
-  posterior_sigma = posterior$posterior$sigma
+  posterior_sigma = posterior$posterior$sigma * sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
@@ -276,11 +261,7 @@ compute_fitted_values.PosteriorBSVARHMSH <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -294,7 +275,6 @@ compute_fitted_values.PosteriorBSVARHMSH <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -307,7 +287,7 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
   Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
-  posterior_sigma = posterior$posterior$sigma
+  posterior_sigma = posterior$posterior$sigma * sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
@@ -345,11 +325,7 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -363,7 +339,6 @@ compute_fitted_values.PosteriorBSVARMIX <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -376,7 +351,7 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
   Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
-  posterior_sigma = posterior$posterior$sigma
+  posterior_sigma = posterior$posterior$sigma * sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)
@@ -410,11 +385,7 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -428,7 +399,6 @@ compute_fitted_values.PosteriorBSVARSV <- function(posterior) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -441,7 +411,7 @@ compute_fitted_values.PosteriorBSVART <- function(posterior) {
   Y               = posterior$last_draw$data_matrices$Y
   posterior_A     = posterior$posterior$A
   posterior_B     = posterior$posterior$B
-  posterior_sigma = compute_conditional_sd(posterior)
+  posterior_sigma = sqrt(posterior$posterior$lambda)
   X               = posterior$last_draw$data_matrices$X
   
   fv              = .Call(`_bsvars_bsvars_fitted_values`, posterior_A, posterior_B, posterior_sigma, X)

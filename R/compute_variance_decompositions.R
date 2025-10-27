@@ -22,11 +22,7 @@
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -40,7 +36,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -73,9 +68,17 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
   p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
   Y               = posterior$last_draw$data_matrices$Y
+  sigma2_T        = matrix(1, N, S)
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  sigma2          = array(1, c(N, horizon, S))
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
-  qqq             = .Call(`_bsvars_bsvars_fevd_homosk`, posterior_irf)
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
 
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
@@ -99,11 +102,7 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -117,7 +116,6 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -138,9 +136,16 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
   S_T             = posterior$posterior$xi[,T,]
   sigma2_T        = posterior$posterior$sigma[,T,]^2
   Y               = posterior$last_draw$data_matrices$Y
-
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
+
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
@@ -196,6 +201,8 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
   T               = dim(posterior$posterior$xi)[2]
   posterior_PR_TR = posterior$posterior$PR_TR_cpp
   posterior_sigma2 = posterior$posterior$sigma2
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   S_T             = array(NA, c(M,N,S))
   for (s in 1:S) {
@@ -207,6 +214,10 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
   
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_hmsh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
@@ -237,11 +248,7 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -255,7 +262,6 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -276,9 +282,15 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
   S_T             = posterior$posterior$xi[,T,]
   sigma2_T        = posterior$posterior$sigma[,T,]^2
   Y               = posterior$last_draw$data_matrices$Y
-
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_msh`, posterior_sigma2, posterior_PR_TR, S_T, horizon)
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
@@ -301,11 +313,7 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -319,7 +327,6 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -341,9 +348,15 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
   centred_sv      = posterior$last_draw$centred_sv
   sigma2_T        = posterior$posterior$sigma[,T,]^2
   Y               = posterior$last_draw$data_matrices$Y
-
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_sigma2_sv`, posterior_h_T, posterior_rho, posterior_omega, horizon, centred_sv)
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
@@ -365,11 +378,7 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
 #' \code{PosteriorBSVART} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw)
 #' 
 #' # run the burn-in
@@ -383,7 +392,6 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new() |>
 #'   estimate(S = 10) |> 
@@ -406,8 +414,7 @@ compute_variance_decompositions.PosteriorBSVART <- function(posterior, horizon) 
 
   posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
   sigma2          = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # (horizon, S)
-  sigma2_T        = posterior$posterior$lambda[,T,]
-
+  sigma2_T        = matrix(1, N, S)
   qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
   
   fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
