@@ -168,6 +168,13 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' @field pi_0 an \code{M}-vector of starting values for state probability at time \code{t=0}. Its elements sum to 1.
     pi_0          = numeric(),
     
+    #' @field lambda a \code{NxT} matrix of starting values for latent variables.
+    lambda        = matrix(),
+    
+    #' @field df an \code{Nx1} vector of positive numbers with starting values 
+    #' for the equation-specific degrees of freedom parameters of the Student-t 
+    #' conditional distribution of structural shocks.
+    df            = numeric(),
     
     #' @description
     #' Create new starting values StartingValuesBSVAR-MS.
@@ -219,6 +226,8 @@ specify_starting_values_bsvar_msh = R6::R6Class(
         B                 = self$B,
         A                 = self$A,
         hyper             = self$hyper,
+        lambda            = self$lambda,
+        df                = self$df,
         sigma2            = self$sigma2,
         PR_TR             = self$PR_TR,
         xi                = self$xi,
@@ -246,6 +255,8 @@ specify_starting_values_bsvar_msh = R6::R6Class(
       self$B            = last_draw$B
       self$A            = last_draw$A
       self$hyper        = last_draw$hyper
+      self$lambda       = last_draw$lambda
+      self$df           = last_draw$df
       self$sigma2       = last_draw$sigma2
       self$PR_TR        = last_draw$PR_TR
       self$xi           = last_draw$xi
@@ -276,6 +287,10 @@ specify_starting_values_bsvar_msh = R6::R6Class(
 specify_bsvar_msh = R6::R6Class(
   "BSVARMSH",
   
+  private = list(
+    normal = TRUE
+  ), # END private
+  
   public = list(
     
     #' @field p a non-negative integer specifying the autoregressive lag order of the model. 
@@ -305,6 +320,9 @@ specify_bsvar_msh = R6::R6Class(
     #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
     #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
+    #' @param distribution a character string specifying the conditional distribution 
+    #' of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+    #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @param finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
@@ -315,12 +333,15 @@ specify_bsvar_msh = R6::R6Class(
     M = 2L,
     B,
     A,
+    distribution = c("norm","t"),
     exogenous = NULL,
     stationary = rep(FALSE, ncol(data)),
     finiteM = TRUE
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
       self$p        = p
+      
+      distribution  = match.arg(distribution)
       
       TT            = nrow(data)
       T             = TT - self$p
@@ -350,11 +371,26 @@ specify_bsvar_msh = R6::R6Class(
       }
       stopifnot("Incorrectly specified argument A." = (is.matrix(A) & is.logical(A)))
       
+      if (distribution == "t") {
+        private$normal = FALSE
+      }
+      
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
       self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar_msh$new(N, p, d, M, stationary)
       self$starting_values = specify_starting_values_bsvar_msh$new(A, B, N, self$p, M, T, d, finiteM)
     }, # END initialize
+    
+    #' @description
+    #' Returns the logical value of whether the conditional shock distribution is normal.
+    #' 
+    #' @examples 
+    #' spec = specify_bsvar_msh$new(us_fiscal_lsuw)
+    #' spec$get_normal()
+    #' 
+    get_normal = function() {
+      private$normal
+    }, # END get_normal
     
     #' @description
     #' Returns the data matrices as the DataMatricesBSVAR object.
