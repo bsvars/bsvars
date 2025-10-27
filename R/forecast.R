@@ -187,6 +187,8 @@ forecast.PosteriorBSVAR = function(
   T               = ncol(posterior$last_draw$data_matrices$X)
   X_T             = posterior$last_draw$data_matrices$X[,T]
   Y               = posterior$last_draw$data_matrices$Y
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -223,7 +225,14 @@ forecast.PosteriorBSVAR = function(
   }
   
   # forecast volatility
-  forecast_sigma2   = array(1, c(N, horizon, S))
+  if (normal) {
+    forecast_sigma2   = array(1, c(N, horizon, S))
+  } else {
+    forecast_sigma2 = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -325,6 +334,8 @@ forecast.PosteriorBSVARHMSH = function(
   T                 = ncol(posterior$last_draw$data_matrices$X)
   X_T               = posterior$last_draw$data_matrices$X[,T]
   Y                 = posterior$last_draw$data_matrices$Y
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   M               = ncol(posterior_sigma2)
   N               = nrow(posterior_B)
@@ -374,6 +385,15 @@ forecast.PosteriorBSVARHMSH = function(
                             horizon
   )  # END .Call
 
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
+  
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
@@ -487,6 +507,8 @@ forecast.PosteriorBSVARMSH = function(
   X_T               = posterior$last_draw$data_matrices$X[,T]
   Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -529,6 +551,15 @@ forecast.PosteriorBSVARMSH = function(
                             S_T,
                             horizon
                       )  # END .Call
+  
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -637,6 +668,8 @@ forecast.PosteriorBSVARMIX = function(
   X_T               = posterior$last_draw$data_matrices$X[,T]
   Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -679,6 +712,15 @@ forecast.PosteriorBSVARMIX = function(
                             S_T,
                             horizon
   ) # END .Call
+  
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -789,6 +831,8 @@ forecast.PosteriorBSVARSV = function(
   Y                 = posterior$last_draw$data_matrices$Y
   posterior_h_T     = posterior$posterior$h[,T,]
   centred_sv        = posterior$last_draw$centred_sv
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -833,6 +877,15 @@ forecast.PosteriorBSVARSV = function(
                             centred_sv
                       ) # END .Call
                             
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
+  
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
