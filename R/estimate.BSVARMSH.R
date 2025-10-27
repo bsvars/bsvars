@@ -117,9 +117,10 @@ estimate.BSVARMSH <- function(specification, S, thin = 1, show_progress = TRUE) 
   } else {
     model             = "sparseMSH"
   }
+  normal              = specification$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, TRUE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, finiteM, TRUE, model, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_msh$new(specification, qqq$posterior)
@@ -183,9 +184,10 @@ estimate.PosteriorBSVARMSH <- function(specification, S, thin = 1, show_progress
   } else {
     model             = "sparseMSH"
   }
+  normal              = specification$last_draw$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, TRUE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, finiteM, TRUE, model, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_msh$new(specification$last_draw, qqq$posterior)
