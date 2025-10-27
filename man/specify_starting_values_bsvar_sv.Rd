@@ -65,6 +65,12 @@ hierarchical prior distribution.}
 \item{\code{sigma2_omega}}{an \code{N}-vector with variances of the zero-mean normal prior for \eqn{\omega_n}.}
 
 \item{\code{s_}}{a positive scalar with the scale of the gamma prior of the hierarchical prior for \eqn{\sigma^2_{\omega}}.}
+
+\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+
+\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+for the equation-specific degrees of freedom parameters of the Student-t 
+conditional distribution of structural shocks.}
 }
 \if{html}{\out{</div>}}
 }

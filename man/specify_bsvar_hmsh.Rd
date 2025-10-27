@@ -17,6 +17,14 @@ spec = specify_bsvar_hmsh$new(
 
 
 ## ------------------------------------------------
+## Method `specify_bsvar_hmsh$get_normal`
+## ------------------------------------------------
+
+spec = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+spec$get_normal()
+
+
+## ------------------------------------------------
 ## Method `specify_bsvar_hmsh$get_data_matrices`
 ## ------------------------------------------------
 
@@ -90,6 +98,7 @@ which \code{M=20} and the number of visited states is estimated.}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-BSVARHMSH-new}{\code{specify_bsvar_hmsh$new()}}
+\item \href{#method-BSVARHMSH-get_normal}{\code{specify_bsvar_hmsh$get_normal()}}
 \item \href{#method-BSVARHMSH-get_data_matrices}{\code{specify_bsvar_hmsh$get_data_matrices()}}
 \item \href{#method-BSVARHMSH-get_identification}{\code{specify_bsvar_hmsh$get_identification()}}
 \item \href{#method-BSVARHMSH-get_prior}{\code{specify_bsvar_hmsh$get_prior()}}
@@ -110,6 +119,7 @@ Switching Heteroskedasticity, BSVARHMSH.
   M = 2L,
   B,
   A,
+  distribution = c("norm", "t"),
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
@@ -133,6 +143,10 @@ for exclusion restrictions to be set to zero.}
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
+\item{\code{distribution}}{a character string specifying the conditional distribution 
+of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+while value \code{"t"} sets the Student-t distribution.}
+
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} 
@@ -149,6 +163,26 @@ is estimated. Otherwise, a sparse Markov switching model is estimated in which
 A new complete specification for the bsvar model with Heterogeneous 
 Markov Switching Heteroskedasticity, BSVARHMSH.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BSVARHMSH-get_normal"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARHMSH-get_normal}{}}}
+\subsection{Method \code{get_normal()}}{
+Returns the logical value of whether the conditional shock distribution is normal.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_hmsh$get_normal()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{spec = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+spec$get_normal()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARHMSH-get_data_matrices"></a>}}

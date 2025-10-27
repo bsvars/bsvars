@@ -65,6 +65,12 @@ indicator. Its columns are a chosen column of an identity matrix of order \code{
 
 \item{\code{pi_0}}{an \code{MxN} matrix of starting values for state probability at 
 time \code{t=0}. Its elements sum to 1 in columns.}
+
+\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+
+\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+for the equation-specific degrees of freedom parameters of the Student-t 
+conditional distribution of structural shocks.}
 }
 \if{html}{\out{</div>}}
 }
