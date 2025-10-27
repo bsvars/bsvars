@@ -46,7 +46,7 @@ Vihola (2012) is used to the \code{df} parameter of the Student-t distribution.
 Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively 
 with the matrix-specific overall shrinkage parameters estimated using a 
-hierarchical prior distribution as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). 
+hierarchical prior distribution as in Lütkepohl, Shang, Uzeda, and Woźniak (2025). 
 See section \bold{Details} for the model equations.
 }
 \details{
@@ -90,7 +90,9 @@ us_fiscal_lsuw |>
 \references{
 Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+\emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 

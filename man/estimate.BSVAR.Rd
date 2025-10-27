@@ -33,7 +33,7 @@ for the structural matrix \eqn{B} and the equation-by-equation sampler by Chan, 
 for the autoregressive slope parameters \eqn{A}. Additionally, the parameter matrices \eqn{A} and \eqn{B}
 follow a Minnesota prior and generalised-normal prior distributions respectively with the matrix-specific
 overall shrinkage parameters estimated using a hierarchical prior distribution
-as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). See section \bold{Details} for the model equations.
+as in Lütkepohl, Shang, Uzeda, and Woźniak (2025). See section \bold{Details} for the model equations.
 }
 \details{
 The homoskedastic SVAR model is given by the reduced form equation:
@@ -46,7 +46,10 @@ The structural equation is given by
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 
-Finally, the structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
+Finally, the structural shocks, \code{U}, are temporally and contemporaneously 
+independent and jointly distributed with zero mean and unit variances.
+The structural shocks can be either normally or Student-t distributed, where in 
+the latter case the shock-specific degrees of freedom parameters are estimated.
 }
 \examples{
 # simple workflow
@@ -72,7 +75,9 @@ us_fiscal_lsuw |>
 \references{
 Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+\emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 }

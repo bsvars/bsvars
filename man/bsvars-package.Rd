@@ -22,7 +22,7 @@ of structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the 
 vignette by Woźniak (2024) <doi:10.48550/arXiv.2410.15090> complement all this. 
 The implemented techniques align closely with those presented in 
-Lütkepohl, Shang, Uzeda, & Woźniak (2024) <doi:10.48550/arXiv.2404.11057>, 
+Lütkepohl, Shang, Uzeda, & Woźniak (2025) <doi:10.1016/j.jeconom.2025.106107>, 
 Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
 Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>, and 
 Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>. The 'bsvars' 
@@ -46,9 +46,8 @@ The structural equation is given by:
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 
-Finally, all of the models share the following assumptions regarding the structural
-shocks \code{U}, namely, joint conditional normality given the past observations collected
-in matrix \code{X}, and temporal and contemporaneous independence. The latter implies 
+Finally, all of the models share assumptions regarding the structural
+shocks \code{U}, namely, temporal and contemporaneous independence. They imply 
 zero correlations and autocorrelations. 
 
 The various SVAR models estimated differ by the specification of structural shocks
@@ -65,6 +64,8 @@ variances. The different models include:
   \item non-normal model with a finite mixture of normal components and component-specific variances
   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
 }
+The structural shocks can be either normally or Student-t distributed, where in 
+the latter case the shock-specific degrees of freedom parameters are estimated.
 
 \strong{Prior distributions.} All the models feature a Minnesota prior for autoregressive 
 parameters in matrix \eqn{A} and a generalised-normal distribution for the structural 
@@ -82,6 +83,14 @@ Song & Woźniak (2021), and that of
 Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014).
 The identification problems are considered in Lütkepohl, Shang, Uzeda, & Woźniak (2025)
 and Lütkepohl & Woźniak (2020).
+
+\strong{Identification verification.} The structural shocks can be identified 
+through heteroskedasticity or non-normality following Lütkepohl, Shang, Uzeda, & Woźniak (2025)
+and Lütkepohl & Woźniak (2020). The package provides functions to verify both,
+homoskedasticity and normality of the structural shocks, which facilitates 
+making probabilistic statements regarding the identification. Additionally,
+the package makes it possible to verify linear restrictions on autoregressive 
+parameters.
 }
 \note{
 This package is currently in active development. Your comments,
