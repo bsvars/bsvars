@@ -13,6 +13,7 @@ Rcpp::List bsvar_hmsh_cpp (
     const arma::field<arma::mat>& VB,       // restrictions on B0
     const arma::field<arma::mat>& VA,       // N-list
     const Rcpp::List&       starting_values,
+    const bool              normal = true,
     const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
     const bool              MSnotMIX = true,

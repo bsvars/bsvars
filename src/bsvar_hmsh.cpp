@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "sample_ABhyper.h"
 #include "msh.h"
+#include "sample_t.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -21,6 +22,7 @@ Rcpp::List bsvar_hmsh_cpp (
     const arma::field<arma::mat>& VB,       // restrictions on B0
     const arma::field<arma::mat>& VA,       // N-list
     const Rcpp::List&       starting_values,
+    const bool              normal = true,
     const int               thin = 100,     // introduce thinning
     const bool              finiteM = true,
     const bool              MSnotMIX = true,
@@ -48,6 +50,8 @@ Rcpp::List bsvar_hmsh_cpp (
   }
   Progress p(50, show_progress);
   
+  const vec adptive_alpha_gamma = as<vec>(NumericVector::create(0.44, 0.6));
+  
   const int   T     = Y.n_cols;
   const int   N     = Y.n_rows;
   const int   K     = X.n_rows;
@@ -60,6 +64,11 @@ Rcpp::List bsvar_hmsh_cpp (
   mat   aux_pi_0    = as<mat>(starting_values["pi_0"]);       // MxN
   cube  aux_xi      = as<cube>(starting_values["xi"]);        // MxTxN
   mat   aux_hyper   = as<mat>(starting_values["hyper"]);
+  mat   aux_lambda  = as<mat>(starting_values["lambda"]);
+  mat   aux_lambda_sqrt(N, T, fill::ones);
+  mat   aux_hetero(N, T, fill::ones);
+  vec   aux_df      = as<vec>(starting_values["df"]);
+  mat   U;
   
   const int   M     = aux_PR_TR.n_rows;
   
@@ -73,6 +82,8 @@ Rcpp::List bsvar_hmsh_cpp (
   field<cube> posterior_xi(SS);                   // (S)(M, T, N)
   cube  posterior_hyper(2 * N + 1, 2, SS);
   cube  posterior_sigma(N, T, SS);
+  cube  posterior_lambda(N, T, SS);
+  mat   posterior_df(N, SS);
   
   int   ss = 0;
   for (int t=0; t<T; t++) {
@@ -81,6 +92,13 @@ Rcpp::List bsvar_hmsh_cpp (
     }
   }
   
+  aux_hetero = aux_sigma % aux_lambda_sqrt;
+  
+  // the initial value for the adaptive_scale is set to the negative inverse of 
+  // Hessian for the posterior log_kenel for df evaluated at df = 30
+  double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
+  vec     adaptive_scale(N, fill::value(adaptive_scale_init));
+  
   for (int s=0; s<S; s++) {
     
     // Increment progress bar
@@ -88,17 +106,29 @@ Rcpp::List bsvar_hmsh_cpp (
     // Check for user interrupts
     if (s % 200 == 0) checkUserInterrupt();
     
+    // sample aux_df and aux_lambda
+    if ( !normal ) {
+      List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
+      aux_df          = as<vec>(df_tmp["aux_df"]);
+      adaptive_scale  = as<vec>(df_tmp["adaptive_scale"]);
+      
+      U               = aux_B * (Y - aux_A * X) / aux_sigma;
+      aux_lambda      = sample_lambda ( aux_df, U );
+      aux_lambda_sqrt = sqrt(aux_lambda);
+      aux_hetero      = aux_sigma % aux_lambda_sqrt;
+    }
+    
     // sample aux_hyper
     aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
     
     // sample aux_B
-    aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_sigma, Y, X, prior, VB);
+    aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
     
     // sample aux_A
-    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_sigma, Y, X, prior, VA);
+    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_hetero, Y, X, prior, VA);
       
     // sample aux_xi
-    mat U = aux_B * (Y - aux_A * X);
+    U                 = aux_B * (Y - aux_A * X) / aux_sigma;
     aux_xi            = sample_Markov_process_hmsh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM);
     
     // sample aux_PR_TR
@@ -109,13 +139,15 @@ Rcpp::List bsvar_hmsh_cpp (
     }
 
     // sample aux_sigma2
-    aux_sigma2        = sample_variances_hmsh(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior);
+    U                 = aux_B * (Y - aux_A * X) / aux_lambda_sqrt;
+    aux_sigma2        = sample_variances_hmsh(aux_sigma2, U, aux_xi, prior);
     
     for (int t=0; t<T; t++) {
       for (int n=0; n<N; n++) {
         aux_sigma(n,t)  = sqrt( aux_sigma2(n, aux_xi.slice(n).col(t).index_max()) );
       }
     }
+    aux_hetero      = aux_sigma % aux_lambda_sqrt;
     
     if (s % thin == 0) {
       posterior_B.slice(ss)      = aux_B;
@@ -126,6 +158,8 @@ Rcpp::List bsvar_hmsh_cpp (
       posterior_xi(ss)           = aux_xi;
       posterior_hyper.slice(ss)  = aux_hyper;
       posterior_sigma.slice(ss)  = aux_sigma;
+      posterior_lambda.slice(ss) = aux_lambda;
+      posterior_df.col(ss)       = aux_df;
       ss++;
     }
   } // END s loop
@@ -139,7 +173,9 @@ Rcpp::List bsvar_hmsh_cpp (
       _["pi_0"]     = aux_pi_0,
       _["xi"]       = aux_xi,
       _["hyper"]    = aux_hyper,
-      _["sigma"]    = aux_sigma
+      _["sigma"]    = aux_sigma,
+      _["lambda"]   = aux_lambda,
+      _["df"]       = aux_df
     ),
     _["posterior"]  = List::create(
       _["B"]        = posterior_B,
@@ -147,9 +183,11 @@ Rcpp::List bsvar_hmsh_cpp (
       _["sigma2"]   = posterior_sigma2,
       _["PR_TR_cpp"]  = posterior_PR_TR,
       _["pi_0"]     = posterior_pi_0,
-      _["xi_cpp"]       = posterior_xi,
+      _["xi_cpp"]   = posterior_xi,
       _["hyper"]    = posterior_hyper,
-      _["sigma"]    = posterior_sigma
+      _["sigma"]    = posterior_sigma,
+      _["lambda"]   = posterior_lambda,
+      _["df"]       = posterior_df
     )
   );
 } // END bsvar_msh

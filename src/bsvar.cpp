@@ -26,8 +26,6 @@ Rcpp::List bsvar_cpp(
   const bool        show_progress = true
 ) {
 
-  const vec adptive_alpha_gamma = as<vec>(NumericVector::create(0.44, 0.6));
-  
   std::string oo = "";
   if ( thin != 1 ) {
     oo      = ordinal(thin) + " ";
@@ -48,6 +46,8 @@ Rcpp::List bsvar_cpp(
   }
   Progress p(50, show_progress);
   
+  const vec adptive_alpha_gamma = as<vec>(NumericVector::create(0.44, 0.6));
+  
   const int N       = Y.n_rows;
   const int K       = X.n_rows;
   const int T       = Y.n_cols;
@@ -67,12 +67,12 @@ Rcpp::List bsvar_cpp(
   cube  posterior_lambda(N, T, SS);
   mat   posterior_df(N, SS);
   
-  int   ss = 0;
-  
   // the initial value for the adaptive_scale is set to the negative inverse of 
   // Hessian for the posterior log_kenel for df evaluated at df = 30
   double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
   vec     adaptive_scale(N, fill::value(adaptive_scale_init));
+  
+  int   ss = 0;
   
   for (int s=0; s<S; s++) {
   
@@ -81,6 +81,7 @@ Rcpp::List bsvar_cpp(
     // Check for user interrupts
     if (s % 200 == 0) checkUserInterrupt();
     
+    // sample aux_df and aux_lambda
     if ( !normal ) {
       List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
       aux_df          = as<vec>(df_tmp["aux_df"]);

@@ -73,10 +73,7 @@ Rcpp::List sample_transition_probabilities (
 
 arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT dependent variables
-    const arma::mat&    X,          // KxT explanatory variables
+    const arma::mat&    U,          // NxT
     const arma::mat&    aux_xi,     // MxT state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 );
@@ -84,10 +81,7 @@ arma::mat sample_variances_msh (
 
 arma::mat sample_variances_hmsh (
     arma::mat&          aux_sigma2, // NxM
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT dependent variables
-    const arma::mat&    X,          // KxT explanatory variables
+    const arma::mat&    U,          // NxT 
     const arma::cube&   aux_xi,     // MxTxN state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 );

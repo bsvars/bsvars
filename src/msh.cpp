@@ -330,26 +330,24 @@ Rcpp::List sample_transition_probabilities (
 // [[Rcpp::export]]
 arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT dependent variables
-    const arma::mat&    X,          // KxT explanatory variables
+    const arma::mat&    U,          // NxT
     const arma::mat&    aux_xi,     // MxT state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
   const int   M     = aux_xi.n_rows;
-  const int   N     = aux_B.n_rows;
-  const int   T     = Y.n_cols;
+  const int   N     = U.n_rows;
+  const int   T     = U.n_cols;
   const double MM   = M;
   
   rowvec posterior_nu   = sum(aux_xi, 1).t() + as<double>(prior["sigma_nu"]);
   mat posterior_s(N, M);
   posterior_s.fill(prior["sigma_s"]);
+  mat sq_resid = square(U); // NxT
   for (int m=0; m<M; m++) {
     for (int t=0; t<T; t++) {
       if (aux_xi(m,t)==1) {
-        posterior_s.col(m) += square(aux_B * (Y.col(t) - aux_A * X.col(t)));
+        posterior_s.col(m) += sq_resid.col(t);
       }
     }
   }
@@ -367,20 +365,17 @@ arma::mat sample_variances_msh (
 // [[Rcpp::export]]
 arma::mat sample_variances_hmsh (
     arma::mat&          aux_sigma2, // NxM
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT dependent variables
-    const arma::mat&    X,          // KxT explanatory variables
+    const arma::mat&    U,          // NxT 
     const arma::cube&   aux_xi,     // MxTxN state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
   const int   M     = aux_xi.n_rows;
-  const int   N     = aux_B.n_rows;
-  const int   T     = Y.n_cols;
+  const int   N     = U.n_rows;
+  const int   T     = U.n_cols;
   const double MM   = M;
   
-  mat sq_resid = square(aux_B * (Y - aux_A * X)); // NxT
+  mat sq_resid = square(U); // NxT
   for (int n=0; n<N; n++) {
     rowvec posterior_s(M);
     posterior_s.fill(prior["sigma_s"]);
