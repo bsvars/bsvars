@@ -122,7 +122,10 @@ where \(Y\) is an <code>NxT</code> matrix of dependent variables, \(X\) is a <co
 $$BE = U$$
 where \(U\) is an <code>NxT</code> matrix of structural form error terms, and
 \(B\) is an <code>NxN</code> matrix of contemporaneous relationships.</p>
-<p>Finally, the structural shocks, \(U\), are temporally and contemporaneously independent and finite-mixture of normals distributed with zero mean.
+<p>Finally, the structural shocks, \(U\), are temporally and contemporaneously
+independent and finite-mixture of normals distributed with zero mean.
+Alternatively, the structural shocks can be Student-t distributed, where the
+shock-specific degrees of freedom parameters are estimated.
 The conditional variance of the <code>n</code>th shock at time <code>t</code> is given by:
 $$Var_{t-1}[u_{n.t}] = s^2_{n.s_t}$$
 where \(s_t\) is a the regime indicator of

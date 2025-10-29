@@ -74,6 +74,7 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-BSVARMSH-new"><code>specify_bsvar_msh$new()</code></a></p></li>
+<li><p><a href="#method-BSVARMSH-get_normal"><code>specify_bsvar_msh$get_normal()</code></a></p></li>
 <li><p><a href="#method-BSVARMSH-get_data_matrices"><code>specify_bsvar_msh$get_data_matrices()</code></a></p></li>
 <li><p><a href="#method-BSVARMSH-get_identification"><code>specify_bsvar_msh$get_identification()</code></a></p></li>
 <li><p><a href="#method-BSVARMSH-get_prior"><code>specify_bsvar_msh$get_prior()</code></a></p></li>
@@ -89,6 +90,7 @@
 <span>  M <span class="op">=</span> <span class="fl">2L</span>,</span>
 <span>  <span class="va">B</span>,</span>
 <span>  <span class="va">A</span>,</span>
+<span>  distribution <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"norm"</span>, <span class="st">"t"</span><span class="op">)</span>,</span>
 <span>  exogenous <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  finiteM <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -119,6 +121,12 @@ the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for
 to be set to zero.</p></dd>
 
 
+<dt><code>distribution</code></dt>
+<dd><p>a character string specifying the conditional distribution
+of structural shocks. Value <code>"norm"</code> sets it to the normal distribution,
+while value <code>"t"</code> sets the Student-t distribution.</p></dd>
+
+
 <dt><code>exogenous</code></dt>
 <dd><p>a <code>(T+p)xd</code> matrix of exogenous variables.</p></dd>
 
@@ -138,15 +146,30 @@ to be set to zero.</p></dd>
 <p>A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.</p>
 </div>
 
-</div><p></p><hr><a id="method-BSVARMSH-get_data_matrices"></a><div class="section">
-<h3 id="method-get-data-matrices-">Method <code>get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#method-get-data-matrices-"></a></h3>
-<p>Returns the data matrices as the DataMatricesBSVAR object.</p><div class="section">
+</div><p></p><hr><a id="method-BSVARMSH-get_normal"></a><div class="section">
+<h3 id="method-get-normal-">Method <code>get_normal()</code><a class="anchor" aria-label="anchor" href="#method-get-normal-"></a></h3>
+<p>Returns the logical value of whether the conditional shock distribution is normal.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
+<p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_msh.html">specify_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span>
+<span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-BSVARMSH-get_data_matrices"></a><div class="section">
+<h3 id="method-get-data-matrices-">Method <code>get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#method-get-data-matrices-"></a></h3>
+<p>Returns the data matrices as the DataMatricesBSVAR object.</p><div class="section">
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_msh.html">specify_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
@@ -161,12 +184,12 @@ to be set to zero.</p></dd>
 </div><p></p><hr><a id="method-BSVARMSH-get_identification"></a><div class="section">
 <h3 id="method-get-identification-">Method <code>get_identification()</code><a class="anchor" aria-label="anchor" href="#method-get-identification-"></a></h3>
 <p>Returns the identifying restrictions as the IdentificationBSVARs object.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
+<h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_msh.html">specify_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
@@ -181,12 +204,12 @@ to be set to zero.</p></dd>
 </div><p></p><hr><a id="method-BSVARMSH-get_prior"></a><div class="section">
 <h3 id="method-get-prior-">Method <code>get_prior()</code><a class="anchor" aria-label="anchor" href="#method-get-prior-"></a></h3>
 <p>Returns the prior specification as the PriorBSVARMSH object.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
+<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_msh.html">specify_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
@@ -201,12 +224,12 @@ to be set to zero.</p></dd>
 </div><p></p><hr><a id="method-BSVARMSH-get_starting_values"></a><div class="section">
 <h3 id="method-get-starting-values-">Method <code>get_starting_values()</code><a class="anchor" aria-label="anchor" href="#method-get-starting-values-"></a></h3>
 <p>Returns the starting values as the StartingValuesBSVARMSH object.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
+<h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_msh.html">specify_bsvar_msh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
@@ -221,7 +244,7 @@ to be set to zero.</p></dd>
 </div><p></p><hr><a id="method-BSVARMSH-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -247,6 +270,16 @@ to be set to zero.</p></dd>
 <span class="r-in"><span>   M <span class="op">=</span> <span class="fl">2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co">## Method `specify_bsvar_msh$get_normal`</span></span></span>
+<span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_msh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
+<span class="r-in"><span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -342,17 +375,19 @@ to be set to zero.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;StartingValuesBSVARMSH&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;StartingValuesBSVAR&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     A: 0.607121946290135 0 0 0 0.107453117612749 0 0 0 0.978260 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     B: 0.379549054428935 0 0 0 0.555391244823113 0 0 0 0.772014 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A: 0.228724795160815 0 0 0 0.853974298108369 0 0 0 0.622460 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B: 0.924772243481129 0 0 0 0.21277891844511 0 0 0 0.3542258 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     PR_TR: 1 0 0 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     df: 3 3 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_starting_values: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hyper: 10 10 10 10 10 10 10 10 10 10 10 10 10 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (A, B, N, p, M, T, d = 0, finiteM = TRUE) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     lambda: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     pi_0: 0.5 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_starting_values: function (last_draw) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     sigma2: 1 1 1 1 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     xi: 0 1 0 1 0 1 1 0 1 0 1 0 0 1 1 0 1 0 1 0 0 1 0 1 1 0 1 0  ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     xi: 0 1 1 0 1 0 0 1 1 0 0 1 1 0 1 0 1 0 0 1 1 0 1 0 0 1 1 0  ...</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

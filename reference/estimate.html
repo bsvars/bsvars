@@ -122,7 +122,10 @@ where \(Y\) is an <code>NxT</code> matrix of dependent variables, \(X\) is a <co
 $$BE = U$$
 where \(U\) is an <code>NxT</code> matrix of structural form error terms, and
 \(B\) is an <code>NxN</code> matrix of contemporaneous relationships.</p>
-<p>The structural shocks, <code>U</code>, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.</p>
+<p>The structural shocks, <code>U</code>, are temporally and contemporaneously independent
+and jointly distributed with zero mean and unit variances.
+The shock density can be either normal or Student-t with shock-specific
+degrees-of-freedom parameters that are estimated.</p>
 <p>The various SVAR models estimated differ by the specification of structural shocks
 variances. Their specification depends on the <code>specify_bsvar*</code> function used. The different models include:</p><ul><li><p>homoskedastic model with unit variances</p></li>
 <li><p>heteroskedastic model with stationary Markov switching in the variances</p></li>

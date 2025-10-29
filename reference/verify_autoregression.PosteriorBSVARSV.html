@@ -120,13 +120,9 @@ sub-samples of the log-ordinates of the marginal posterior and prior distributio
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># simple workflow</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="co"># upload data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># specify the model and set seed</span></span></span>
+<span class="r-in"><span><span class="co"># specify the model</span></span></span>
 <span class="r-in"><span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate the model</span></span></span>
 <span class="r-in"><span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">10</span><span class="op">)</span></span></span>
@@ -148,7 +144,6 @@ sub-samples of the log-ordinates of the marginal posterior and prior distributio
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>

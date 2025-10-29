@@ -15,7 +15,7 @@ of structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the
 vignette by Woźniak (2024) &amp;lt;doi:10.48550/arXiv.2410.15090&amp;gt; complement all this.
 The implemented techniques align closely with those presented in
-Lütkepohl, Shang, Uzeda, &amp;amp; Woźniak (2024) &amp;lt;doi:10.48550/arXiv.2404.11057&amp;gt;,
+Lütkepohl, Shang, Uzeda, &amp;amp; Woźniak (2025) &amp;lt;doi:10.1016/j.jeconom.2025.106107&amp;gt;,
 Lütkepohl &amp;amp; Woźniak (2020) &amp;lt;doi:10.1016/j.jedc.2020.103862&amp;gt;,
 Song &amp;amp; Woźniak (2021) &amp;lt;doi:10.1093/acrefore/9780190625979.013.174&amp;gt;, and
 Woźniak &amp;amp; Droumaguet (2015) &amp;lt;doi:10.13140/RG.2.2.19492.55687&amp;gt;. The 'bsvars'
@@ -38,7 +38,7 @@ of structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the
 vignette by Woźniak (2024) &amp;lt;doi:10.48550/arXiv.2410.15090&amp;gt; complement all this.
 The implemented techniques align closely with those presented in
-Lütkepohl, Shang, Uzeda, &amp;amp; Woźniak (2024) &amp;lt;doi:10.48550/arXiv.2404.11057&amp;gt;,
+Lütkepohl, Shang, Uzeda, &amp;amp; Woźniak (2025) &amp;lt;doi:10.1016/j.jeconom.2025.106107&amp;gt;,
 Lütkepohl &amp;amp; Woźniak (2020) &amp;lt;doi:10.1016/j.jedc.2020.103862&amp;gt;,
 Song &amp;amp; Woźniak (2021) &amp;lt;doi:10.1093/acrefore/9780190625979.013.174&amp;gt;, and
 Woźniak &amp;amp; Droumaguet (2015) &amp;lt;doi:10.13140/RG.2.2.19492.55687&amp;gt;. The 'bsvars'
@@ -93,7 +93,7 @@ of structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the
 vignette by Woźniak (2024) &lt;doi:10.48550/arXiv.2410.15090&gt; complement all this.
 The implemented techniques align closely with those presented in
-Lütkepohl, Shang, Uzeda, &amp; Woźniak (2024) &lt;doi:10.48550/arXiv.2404.11057&gt;,
+Lütkepohl, Shang, Uzeda, &amp; Woźniak (2025) &lt;doi:10.1016/j.jeconom.2025.106107&gt;,
 Lütkepohl &amp; Woźniak (2020) &lt;doi:10.1016/j.jedc.2020.103862&gt;,
 Song &amp; Woźniak (2021) &lt;doi:10.1093/acrefore/9780190625979.013.174&gt;, and
 Woźniak &amp; Droumaguet (2015) &lt;doi:10.13140/RG.2.2.19492.55687&gt;. The 'bsvars'
@@ -118,35 +118,44 @@ parameters on deterministic terms in \(X\).</p>
 $$BE = U$$
 where \(U\) is an <code>NxT</code> matrix of structural form error terms, and
 \(B\) is an <code>NxN</code> matrix of contemporaneous relationships.</p>
-<p>Finally, all of the models share the following assumptions regarding the structural
-shocks <code>U</code>, namely, joint conditional normality given the past observations collected
-in matrix <code>X</code>, and temporal and contemporaneous independence. The latter implies
+<p>Finally, all of the models share assumptions regarding the structural
+shocks <code>U</code>, namely, temporal and contemporaneous independence. They imply
 zero correlations and autocorrelations.</p>
 <p>The various SVAR models estimated differ by the specification of structural shocks
 variances. The different models include:</p><ul><li><p>homoskedastic model with unit variances</p></li>
-<li><p>heteroskedastic model with stationary Markov switching in the variances</p></li>
 <li><p>heteroskedastic model with non-centred Stochastic Volatility process for variances</p></li>
 <li><p>heteroskedastic model with centred Stochastic Volatility process for variances</p></li>
+<li><p>heteroskedastic model with stationary Markov switching in the variances</p></li>
+<li><p>heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated</p></li>
+<li><p>heteroskedastic model with stationary heterogeneous Markov switching in the variances, where each shock volatility has its own Markov process</p></li>
+<li><p>heteroskedastic model with sparse heterogeneous Markov switching in the variances where the number of heteroskedastic components is estimated</p></li>
 <li><p>a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter</p></li>
 <li><p>non-normal model with a finite mixture of normal components and component-specific variances</p></li>
-<li><p>heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated</p></li>
 <li><p>non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated</p></li>
-</ul><p><strong>Prior distributions.</strong> All the models feature a Minnesota prior for autoregressive
+</ul><p>The structural shocks can be either normally or Student-t distributed, where in
+the latter case the shock-specific degrees of freedom parameters are estimated.</p>
+<p><strong>Prior distributions.</strong> All the models feature a Minnesota prior for autoregressive
 parameters in matrix \(A\) and a generalised-normal distribution for the structural
 matrix \(B\). Both of these distributions feature a 3-level equation-specific
 local-global hierarchical prior that make the shrinkage estimation flexible improving
 the model fit and its forecasting performance.</p>
 <p><strong>Estimation algorithm.</strong> The models are estimated using frontier numerical methods
-making the Gibbs sampler fast and efficient. The sampler of the structural matrix
+making the Gibbs sampler fast and efficient. The estimation follows closely
+Lütkepohl, Shang, Uzeda, &amp; Woźniak (2025). The sampler of the structural matrix
 follows Waggoner &amp; Zha (2003), whereas that
 for autoregressive parameters follows Chan, Koop, Yu (2022).
 The specification of Markov switching heteroskedasticity is inspired by
 Song &amp; Woźniak (2021), and that of
 Stochastic Volatility model by Kastner &amp; Frühwirth-Schnatter (2014).
-The estimation algorithms for particular models are scrutinised in
-Lütkepohl, Shang, Uzeda, &amp; Woźniak (2024) and Woźniak &amp; Droumaguet (2024)
-and some other inferential and identification problems are considered in
-Lütkepohl &amp; Woźniak (2020).</p>
+The identification problems are considered in Lütkepohl, Shang, Uzeda, &amp; Woźniak (2025)
+and Lütkepohl &amp; Woźniak (2020).</p>
+<p><strong>Identification verification.</strong> The structural shocks can be identified
+through heteroskedasticity or non-normality following Lütkepohl, Shang, Uzeda, &amp; Woźniak (2025)
+and Lütkepohl &amp; Woźniak (2020). The package provides functions to verify both,
+homoskedasticity and normality of the structural shocks, which facilitates
+making probabilistic statements regarding the identification. Additionally,
+the package makes it possible to verify linear restrictions on autoregressive
+parameters.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -155,21 +164,26 @@ suggestions and requests are warmly welcome!</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. <em>Journal of Business &amp; Economic Statistics</em>, <b>42</b>, <a href="https://doi.org/10.1080/07350015.2023.2252039" class="external-link">doi:10.1080/07350015.2023.2252039</a>
+    <p>Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility.
+<em>Journal of Business &amp; Economic Statistics</em>, <b>42</b>, <a href="https://doi.org/10.1080/07350015.2023.2252039" class="external-link">doi:10.1080/07350015.2023.2252039</a>
 .</p>
 <p>Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC
 Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; Data Analysis</em>, <b>76</b>, 408–423,
 <a href="https://doi.org/10.1016/j.csda.2013.01.002" class="external-link">doi:10.1016/j.csda.2013.01.002</a>
 .</p>
-<p>Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. <em>University of Melbourne Working Paper</em>, 1–57, <a href="https://doi.org/10.48550/arXiv.2404.11057" class="external-link">doi:10.48550/arXiv.2404.11057</a>
+<p>Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025)
+Partial identification of structural vector autoregressions with non-centred stochastic volatility.
+<em>Journal of Econometrics</em>, 1–18, <a href="https://doi.org/10.1016/j.jeconom.2025.106107" class="external-link">doi:10.1016/j.jeconom.2025.106107</a>
 .</p>
-<p>Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. <em>Journal of Economic Dynamics and Control</em> <b>113</b>, 103862, <a href="https://doi.org/10.1016/j.jedc.2020.103862" class="external-link">doi:10.1016/j.jedc.2020.103862</a>
+<p>Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity.
+<em>Journal of Economic Dynamics and Control</em> <b>113</b>, 103862, <a href="https://doi.org/10.1016/j.jedc.2020.103862" class="external-link">doi:10.1016/j.jedc.2020.103862</a>
 .</p>
-<p>Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford University Press, <a href="https://doi.org/10.1093/acrefore/9780190625979.013.174" class="external-link">doi:10.1093/acrefore/9780190625979.013.174</a>
+<p>Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis.
+In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford University Press, <a href="https://doi.org/10.1093/acrefore/9780190625979.013.174" class="external-link">doi:10.1093/acrefore/9780190625979.013.174</a>
 .</p>
-<p>Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. <em>Journal of Economic Dynamics and Control</em>, <b>28</b>, 349–366, <a href="https://doi.org/10.1016/S0165-1889%2802%2900168-9" class="external-link">doi:10.1016/S0165-1889(02)00168-9</a>
+<p>Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions.
+<em>Journal of Economic Dynamics and Control</em>, <b>28</b>, 349–366, <a href="https://doi.org/10.1016/S0165-1889%2802%2900168-9" class="external-link">doi:10.1016/S0165-1889(02)00168-9</a>
 .</p>
-<p>Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -184,12 +198,7 @@ Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; D
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># upload data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span>    <span class="co"># upload dependent variables</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_ex</span><span class="op">)</span>      <span class="co"># upload exogenous variables</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># specify the model and set seed</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># specify the model</span></span></span>
 <span class="r-in"><span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-in"><span></span></span>
@@ -227,7 +236,6 @@ Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; D
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
@@ -257,10 +265,6 @@ Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; D
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># conditional forecasting using a model with exogenous variables</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_ex_forecasts</span><span class="op">)</span>      <span class="co"># upload exogenous variables future values</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_cond_forecasts</span><span class="op">)</span>    <span class="co"># upload a matrix with projected ttr</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
@@ -312,32 +316,31 @@ Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; D
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $variable2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -9.807578 0.02620802   -9.851238    -9.779322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -9.810974 0.04133350   -9.869271    -9.760496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -9.814198 0.04761576   -9.875812    -9.753942</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -9.813673 0.06063877   -9.891039    -9.737388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -9.813226 0.07618672   -9.913654    -9.718430</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -9.822374 0.08913250   -9.940681    -9.718759</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -9.812894 0.08245051   -9.921437    -9.688456</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -9.800520 0.09376893   -9.917567    -9.669746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -9.801570 0.02461738   -9.826443    -9.759645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -9.781897 0.05291951   -9.829511    -9.692489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -9.771452 0.03441272   -9.810729    -9.722865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -9.764805 0.02728938   -9.795746    -9.729700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -9.737497 0.03838067   -9.788843    -9.682628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -9.713819 0.04279013   -9.783243    -9.662745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -9.704600 0.05570405   -9.792471    -9.641823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -9.687173 0.05591612   -9.762390    -9.632503</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $variable3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -6.918741 0.16196022   -7.091722    -6.638308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -7.103088 0.07985092   -7.204332    -6.990256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -7.039501 0.15427734   -7.251881    -6.813179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -7.050201 0.18270698   -7.308895    -6.808690</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -6.928176 0.14053971   -7.141007    -6.735026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -6.947533 0.10699443   -7.084129    -6.787344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -6.927049 0.14183971   -7.144199    -6.772969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -6.927177 0.20875749   -7.177887    -6.613856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        mean          sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -7.038850 0.008640515   -7.051357    -7.026558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -7.027129 0.021443456   -7.057193    -6.998167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -7.022918 0.022102259   -7.053668    -6.998491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -7.022433 0.028556017   -7.058885    -6.984686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -7.010358 0.032624488   -7.062007    -6.973963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -6.998988 0.035197000   -7.052331    -6.959375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -6.997833 0.036982789   -7.054506    -6.955022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -6.990241 0.030686309   -7.040281    -6.954311</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span>  <span class="va">predictive</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>probability <span class="op">=</span> <span class="fl">0.68</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bsvars-package-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># estimation of a model with exogeneity restrictions on the  autoregressive matrix</span></span></span>
-<span class="r-in"><span><span class="co">############################################################</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#############################################################' set.seed(123)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="va">A</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">6</span><span class="op">]</span> <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
@@ -373,73 +376,73 @@ Estimation of Stochastic Volatility Models. <em>Computational Statistics &amp; D
 <span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.8281532 0.04628699   0.7601291     0.884352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             mean          sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,1] 0.1194719 0.004819527   0.1128786     0.126199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             mean       sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -19.94384 1.077020   -21.31002    -18.46195</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2]  36.81909 2.017702    33.99173     39.36692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,1] -9.356277 0.5603879   -10.07410     -8.51888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,2] 42.512822 2.5341297    38.74305     45.79078</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -39.783541 3.2094247  -43.648314   -35.080221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2] -18.436292 2.0814790  -21.524541   -16.045719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3]   7.570582 0.5181408    6.961117     8.390481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              mean       sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,1] -27.744161 1.300482   -29.84577   -26.201960</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,2]  -7.333758 3.339787   -11.96375    -3.077487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,3] 101.762096 5.205416    96.79466   110.253466</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.02734961 0.05062726  0.95969754   1.09129058</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.01955853 0.06059090 -0.06825852   0.09418168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.36821264 0.11119564  0.20033633   0.47820684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.01079518 0.07517436 -0.10739904   0.10219896</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.00000000 0.00000000  0.00000000   0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.14487932 0.05318257 -0.21121899  -0.07305876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.01998247 0.05792600 -0.09320922   0.06192935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.19009102 0.10842426 -0.29920507  -0.02339306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.08290319 0.07840665 -0.03293198   0.17455763</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.00000000 0.00000000  0.00000000   0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.02017513 0.11791755 -0.13218487   0.16747109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const      1.29335160 0.22091919  1.05801206   1.65583041</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd  5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  0.09072031 0.06488892 -0.005152796   0.17750546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.35339977 0.04264534  1.298700659   1.41840697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.03551226 0.09025436 -0.077685938   0.17164693</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.13893082 0.06009426 -0.222892943  -0.05909279</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.39003460 0.03887292 -0.442629033  -0.33677553</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.04532772 0.09674371 -0.180966679   0.07676069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.30300248 0.10332803 -0.443786257  -0.15163619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.08079585 0.06157712  -0.1639466 -0.005912932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.32562528 0.04810601   1.2554261  1.395657225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.02792873 0.14746302  -0.2366955  0.169167395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.10556671 0.06359887  -0.1922593 -0.028166620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.35150369 0.04537706  -0.4088457 -0.282082178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.04192893 0.15250754  -0.1555828  0.268448060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.07764524 0.12123637  -0.2507233  0.062169690</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A$equation3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.30973421 0.2683566 -0.67401042 -0.007648606</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.05380371 0.1795839 -0.30174752  0.147854668</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.57381476 0.1684270  0.31401962  0.733430413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.15527825 0.2245874 -0.41950154  0.164988786</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.08827299 0.1876388 -0.14219006  0.349134221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.05649344 0.1766342 -0.19353992  0.236656146</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> const      0.33435161 0.2252866  0.04387097  0.641598297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd  5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.16080159 0.04945300 -0.224462088  -0.09419038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.01974789 0.02487709 -0.050642494   0.02226621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.97136418 0.04945745  0.911779437   1.02906339</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.07420789 0.04713039 -0.137116046  -0.01310627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.03813332 0.02410573 -0.003764333   0.06451397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.02445496 0.04836261 -0.034274487   0.08471546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> const      0.34018130 0.05793614  0.267311261   0.42804340</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean         sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage        20.64044   9.959616    9.037995     34.95205</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage       200.03666  91.054811  104.434520    331.92063</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage       224.16491  51.299994  170.887803    301.14505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale 245.37057 145.022032  125.509743    498.36315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale 448.04693 350.468391  140.556787   1078.20197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale 457.84783 368.193590  148.327160   1128.63297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale         32.02609  24.307723   12.148379     75.37094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             mean        sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage         46.76948  41.86744    7.343454     111.1308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage        202.39598  82.58750  113.252063     336.8246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage       1067.62451 391.33459  536.639196    1625.6988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[1,]_shrinkage_scale  423.43113 417.24099   80.039587    1105.0414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[2,]_shrinkage_scale  565.30993 344.13797  249.348601    1092.2456</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B[3,]_shrinkage_scale  655.88459 594.70820  146.789987    1692.5588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_global_scale          48.73223  44.05628   11.743976     124.7098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $hyper$A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean        sd 5% quantile 95% quantile</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.3820641 0.2637251   0.1615489    0.8236607</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.3071936 0.1660522   0.1287482    0.5366894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.3500886 0.3221947   0.1422525    0.9004749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 3.9848936 1.5491911   1.9936165    6.1320778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 3.7675588 2.1672289   1.7290065    7.2092064</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 3.7955356 1.0838053   2.2705629    5.0615578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        0.4986532 0.1097576   0.3818226    0.6729104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            mean         sd 5% quantile 95% quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.4077533 0.23847674   0.2611852    0.7767609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.1896373 0.05754023   0.1221834    0.2742914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.2081753 0.10506497   0.1155404    0.3765476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 3.9119189 0.65201363   3.1519602    4.6940409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 3.1114483 1.27400186   2.2555118    5.3782120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 2.9740477 1.14822406   1.7627029    4.9295659</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        0.5032632 0.13970375   0.4030431    0.7621052</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
