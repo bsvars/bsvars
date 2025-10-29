@@ -23,11 +23,7 @@ is transformed into a draw from the posterior distribution of the forecast
 error variance decomposition.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar_t$new(us_fiscal_lsuw)
 
 # run the burn-in
@@ -41,7 +37,6 @@ fevd           = compute_variance_decompositions(posterior, horizon = 8)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_t$new() |>
   estimate(S = 10) |> 

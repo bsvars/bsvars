@@ -24,11 +24,7 @@
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -42,7 +38,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -96,11 +91,7 @@ compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standar
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -114,7 +105,6 @@ compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standar
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -146,6 +136,57 @@ compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, stan
 
 
 
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVARHMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # specify the model 
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 20)
+#' 
+#' # compute impulse responses
+#' irfs            = compute_impulse_responses(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_msh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_impulse_responses(horizon = 4) -> irfs
+#'   
+#' @export
+compute_impulse_responses.PosteriorBSVARHMSH <- function(posterior, horizon, standardise = FALSE) {
+  
+  Y               = posterior$last_draw$data_matrices$Y
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+  
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
+  
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
+  for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
+  class(irfs)     = "PosteriorIR"
+  
+  return(irfs)
+}
+
+
+
+
+
+
+
 
 #' @inherit compute_impulse_responses
 #' @method compute_impulse_responses PosteriorBSVARMIX
@@ -153,11 +194,7 @@ compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, stan
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
 #' 
 #' # run the burn-in
@@ -171,7 +208,6 @@ compute_impulse_responses.PosteriorBSVARMSH <- function(posterior, horizon, stan
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
 #'   estimate(S = 10) |> 
@@ -210,11 +246,7 @@ compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, stan
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -228,7 +260,6 @@ compute_impulse_responses.PosteriorBSVARMIX <- function(posterior, horizon, stan
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
@@ -264,11 +295,7 @@ compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, stand
 #' \code{PosteriorBSVART} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
 #' 
 #' # run the burn-in
@@ -282,7 +309,6 @@ compute_impulse_responses.PosteriorBSVARSV <- function(posterior, horizon, stand
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new(p = 1) |>
 #'   estimate(S = 10) |> 

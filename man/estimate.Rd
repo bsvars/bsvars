@@ -52,7 +52,10 @@ The structural equation is given by
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 
-The structural shocks, \code{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean and unit variances.
+The structural shocks, \code{U}, are temporally and contemporaneously independent 
+and jointly distributed with zero mean and unit variances. 
+The shock density can be either normal or Student-t with shock-specific 
+degrees-of-freedom parameters that are estimated.
 
 The various SVAR models estimated differ by the specification of structural shocks
 variances. Their specification depends on the \code{specify_bsvar*} function used. The different models include:

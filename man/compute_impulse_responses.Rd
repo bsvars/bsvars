@@ -27,11 +27,7 @@ packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the impulse responses.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
@@ -45,7 +41,6 @@ irf           = compute_impulse_responses(posterior, horizon = 8)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 

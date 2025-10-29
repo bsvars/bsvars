@@ -7,10 +7,7 @@
 
 arma::mat sample_lambda (
     const arma::vec&    aux_df,     // Nx1
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT
-    const arma::mat&    X           // KxT
+    const arma::mat&    U           // NxT
 );
 
 

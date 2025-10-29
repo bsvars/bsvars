@@ -70,7 +70,7 @@ Rcpp::List bsvar_t_cpp(
   
   // the initial value for the adaptive_scale is set to the negative inverse of 
   // Hessian for the posterior log_kenel for df evaluated at df = 30
-  double  adaptive_scale_init = pow(0.25 * T * R::psigamma(15, 1) - T * pow(17, -2) - 2 * pow(16, -2), -1);
+  double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
   vec     adaptive_scale(N, fill::value(adaptive_scale_init));
   
   for (int s=0; s<S; s++) {
@@ -81,13 +81,13 @@ Rcpp::List bsvar_t_cpp(
     if (s % 200 == 0) checkUserInterrupt();
     
     List df_tmp      = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
-    
     aux_df          = as<vec>(df_tmp["aux_df"]);
     adaptive_scale  = as<vec>(df_tmp["adaptive_scale"]);
-    
-    aux_lambda      = sample_lambda ( aux_df, aux_B, aux_A, Y, X );
+  
+    mat U           = aux_B * (Y - aux_A * X);
+    aux_lambda      = sample_lambda ( aux_df, U );
     tmp_lambda_sqrt = sqrt(aux_lambda);
-    
+  
     aux_hyper       = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
     aux_A           = sample_A_heterosk1 ( aux_A, aux_B, aux_hyper, tmp_lambda_sqrt, Y, X, prior, VA );
     aux_B           = sample_B_heterosk1 ( aux_B, aux_A, aux_hyper, tmp_lambda_sqrt, Y, X, prior, VB );

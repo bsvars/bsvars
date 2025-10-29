@@ -15,6 +15,14 @@ spec = specify_bsvar$new(
 
 
 ## ------------------------------------------------
+## Method `specify_bsvar$get_normal`
+## ------------------------------------------------
+
+spec = specify_bsvar$new(us_fiscal_lsuw)
+spec$get_normal()
+
+
+## ------------------------------------------------
 ## Method `specify_bsvar$get_data_matrices`
 ## ------------------------------------------------
 
@@ -84,6 +92,7 @@ spec$get_starting_values()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-BSVAR-new}{\code{specify_bsvar$new()}}
+\item \href{#method-BSVAR-get_normal}{\code{specify_bsvar$get_normal()}}
 \item \href{#method-BSVAR-get_data_matrices}{\code{specify_bsvar$get_data_matrices()}}
 \item \href{#method-BSVAR-get_identification}{\code{specify_bsvar$get_identification()}}
 \item \href{#method-BSVAR-get_prior}{\code{specify_bsvar$get_prior()}}
@@ -102,6 +111,7 @@ Create a new specification of the homoskedastic bsvar model BSVAR.
   p = 1L,
   B,
   A,
+  distribution = c("norm", "t"),
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data))
 )}\if{html}{\out{</div>}}
@@ -122,6 +132,10 @@ to be set to zero.}
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
+\item{\code{distribution}}{a character string specifying the conditional distribution 
+of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+while value \code{"t"} sets the Student-t distribution.}
+
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
@@ -133,6 +147,26 @@ otherwise to random walk.}
 \subsection{Returns}{
 A new complete specification for the homoskedastic bsvar model BSVAR.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BSVAR-get_normal"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVAR-get_normal}{}}}
+\subsection{Method \code{get_normal()}}{
+Returns the logical value of whether the conditional shock distribution is normal.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar$get_normal()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{spec = specify_bsvar$new(us_fiscal_lsuw)
+spec$get_normal()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVAR-get_data_matrices"></a>}}

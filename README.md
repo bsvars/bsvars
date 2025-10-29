@@ -31,10 +31,10 @@ informative summary functions, and extensive documentation including the
 vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
 complement all this. The implemented techniques align closely with those
 presented in [Lütkepohl, Shang, Uzeda, & Woźniak
-(2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak
-(2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
-(2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174). The
-**bsvars** package is aligned regarding objects, workflows, and code
+(2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
+Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
+The **bsvars** package is aligned regarding objects, workflows, and code
 structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
 (2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
 constitute an integrated toolset.
@@ -147,9 +147,12 @@ This beautiful logo can be reproduced in R using [this
 file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 <p>
+
 </p>
+
 <a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p>
+
 </p>
 
 ## Resources

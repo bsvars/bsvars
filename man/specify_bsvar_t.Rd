@@ -50,6 +50,7 @@ Metropolis sampler for df: target acceptance rate and adaptive rate.}
 <ul>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_data_matrices"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_data_matrices'><code>bsvars::BSVAR$get_data_matrices()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_identification"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_identification'><code>bsvars::BSVAR$get_identification()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_normal"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_normal'><code>bsvars::BSVAR$get_normal()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_prior"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_prior'><code>bsvars::BSVAR$get_prior()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_starting_values"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_starting_values'><code>bsvars::BSVAR$get_starting_values()</code></a></span></li>
 </ul>

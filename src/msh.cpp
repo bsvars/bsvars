@@ -201,6 +201,88 @@ arma::mat sample_Markov_process_msh (
 
 
 
+
+
+
+
+
+
+
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+arma::cube sample_Markov_process_hmsh (
+    arma::cube&       aux_xi,             // MxTxN
+    const arma::mat&  U,                  // NxT
+    const arma::mat&  aux_sigma2,         // NxM
+    const arma::cube& aux_PR_TR,          // MxMxN
+    const arma::mat&  aux_pi_0,           // MxN
+    const bool        finiteM = true
+) {
+  
+  int minimum_regime_occurrences = 0;
+  int max_iterations = 1;
+  if ( finiteM ) {
+    minimum_regime_occurrences = 2;
+    max_iterations = 10;
+  }
+  
+  const int   T   = U.n_cols;
+  const int   N   = U.n_rows;
+  const int   M   = aux_PR_TR.n_cols;
+  cube aux_xi_tmp = aux_xi;
+  mat xi(M, T);
+  
+  mat     aj      = eye(M, M);
+  
+  for (int n=0; n<N; n++) {
+    mat filtered    = filtering_msh(U.row(n), aux_sigma2.row(n), aux_PR_TR.slice(n), aux_pi_0.col(n));
+    mat smoothed    = smoothing_msh(U.row(n), aux_PR_TR.slice(n), filtered);
+    int draw        = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
+    aux_xi_tmp.slice(n).col(T-1)     = aj.col(draw-1);
+    
+    if ( minimum_regime_occurrences==0 ) {
+      for (int t=T-2; t>=0; --t) {
+        vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+        aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
+      }
+      aux_xi = aux_xi_tmp;
+    } else {
+      int regime_occurrences  = 1;
+      int iterations  = 1;
+      while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
+        for (int t=T-2; t>=0; --t) {
+          vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+          draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+          aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
+        } // END t loop
+        
+        mat transitions       = count_regime_transitions(aux_xi_tmp.slice(n));
+        regime_occurrences    = min(transitions.diag());
+        iterations++;
+      } // END while
+      
+      if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
+    } // END if else
+  } // END n loop
+  
+  return aux_xi;
+} // END sample_Markov_process_hmsh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 Rcpp::List sample_transition_probabilities (
@@ -248,26 +330,24 @@ Rcpp::List sample_transition_probabilities (
 // [[Rcpp::export]]
 arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
-    const arma::mat&    aux_B,      // NxN
-    const arma::mat&    aux_A,      // NxK
-    const arma::mat&    Y,          // NxT dependent variables
-    const arma::mat&    X,          // KxT explanatory variables
+    const arma::mat&    U,          // NxT
     const arma::mat&    aux_xi,     // MxT state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
   const int   M     = aux_xi.n_rows;
-  const int   N     = aux_B.n_rows;
-  const int   T     = Y.n_cols;
+  const int   N     = U.n_rows;
+  const int   T     = U.n_cols;
   const double MM   = M;
   
   rowvec posterior_nu   = sum(aux_xi, 1).t() + as<double>(prior["sigma_nu"]);
   mat posterior_s(N, M);
   posterior_s.fill(prior["sigma_s"]);
+  mat sq_resid = square(U); // NxT
   for (int m=0; m<M; m++) {
     for (int t=0; t<T; t++) {
       if (aux_xi(m,t)==1) {
-        posterior_s.col(m) += square(aux_B * (Y.col(t) - aux_A * X.col(t)));
+        posterior_s.col(m) += sq_resid.col(t);
       }
     }
   }
@@ -278,4 +358,39 @@ arma::mat sample_variances_msh (
   
   return aux_sigma2;
 } // END sample_variances_msh
+
+
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+arma::mat sample_variances_hmsh (
+    arma::mat&          aux_sigma2, // NxM
+    const arma::mat&    U,          // NxT 
+    const arma::cube&   aux_xi,     // MxTxN state variables
+    const Rcpp::List&   prior       // a list of priors - original dimensions
+) {
+  // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
+  const int   M     = aux_xi.n_rows;
+  const int   N     = U.n_rows;
+  const int   T     = U.n_cols;
+  const double MM   = M;
+  
+  mat sq_resid = square(U); // NxT
+  for (int n=0; n<N; n++) {
+    rowvec posterior_s(M);
+    posterior_s.fill(prior["sigma_s"]);
+    for (int m=0; m<M; m++) {
+      for (int t=0; t<T; t++) {
+        if (aux_xi(m,t,n)==1) {
+          posterior_s(m) += sq_resid(n,t);
+        }
+      }
+    }
+
+    rowvec posterior_nu   = sum(aux_xi.slice(n), 1).t() + as<double>(prior["sigma_nu"]);
+    aux_sigma2.row(n)     = MM*rIG2_Dirichlet1( posterior_s, posterior_nu);
+  }
+  
+  return aux_sigma2;
+} // END sample_variances_hmsh
 

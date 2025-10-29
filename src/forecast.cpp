@@ -75,6 +75,44 @@ arma::cube forecast_sigma2_msh (
 
 
 
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+arma::cube forecast_sigma2_hmsh (
+    arma::cube&               posterior_sigma2,   // (N, M, S)
+    arma::field<arma::cube>&  posterior_PR_TR,    // (S)(M, M, N)
+    arma::cube&               S_T,                // (M,N,S)
+    const int&                horizon
+) {
+  
+  const int       N = posterior_sigma2.n_rows;
+  const int       M = posterior_sigma2.n_cols;
+  const int       S = posterior_sigma2.n_slices;
+  
+  cube            forecasts_sigma2(N, horizon, S);
+  
+  for (int s=0; s<S; s++) {
+    
+    for (int n=0; n<N; n++) {
+      int St(M);
+      vec PR_ST             = S_T.slice(s).col(n);
+      NumericVector zeroM   = wrap(seq_len(M) - 1);
+      
+      for (int h=0; h<horizon; h++) {
+        PR_ST       = trans(posterior_PR_TR(s).slice(n)) * PR_ST;
+        St          = csample_num1(zeroM, wrap(PR_ST));
+        forecasts_sigma2.slice(s).col(h) = posterior_sigma2.slice(s).col(St);
+      } // END h loop
+      
+    } // END n loop
+  } // END s loop
+  
+  return forecasts_sigma2;
+} // END forecast_sigma2_hmsh
+
+
+
+
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
 arma::cube forecast_sigma2_sv (
@@ -130,7 +168,7 @@ arma::cube forecast_lambda_t (
   for (int s=0; s<S; s++) {
     for (int h=0; h<horizon; h++) {
       vec df_s                  = posterior_df.col(s);
-      forecasts_lambda.slice(s).each_col()  %= df_s + 2;
+      forecasts_lambda.slice(s).each_col()  %= df_s - 2;
       for (int n=0; n<N; n++) {
         forecasts_lambda.slice(s).row(n)  /= trans(chi2rnd( df_s(n), horizon ));
       } // END n loop

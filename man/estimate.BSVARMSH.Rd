@@ -54,7 +54,10 @@ The structural equation is given by
 where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 
-Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
+Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously 
+independent and jointly distributed with zero mean.
+The structural shocks can be either normally or Student-t distributed, where in 
+the latter case the shock-specific degrees of freedom parameters are estimated.
 The conditional variance of the \code{n}th shock at time \code{t} is given by:
 \deqn{Var_{t-1}[u_{n.t}] = s^2_{n.s_t}}
 where \eqn{s_t} is a Markov process driving the time-variability of 

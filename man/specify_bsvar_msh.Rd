@@ -16,6 +16,14 @@ spec = specify_bsvar_msh$new(
 
 
 ## ------------------------------------------------
+## Method `specify_bsvar_msh$get_normal`
+## ------------------------------------------------
+
+spec = specify_bsvar_msh$new(us_fiscal_lsuw)
+spec$get_normal()
+
+
+## ------------------------------------------------
 ## Method `specify_bsvar_msh$get_data_matrices`
 ## ------------------------------------------------
 
@@ -91,6 +99,7 @@ spec$get_starting_values()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-BSVARMSH-new}{\code{specify_bsvar_msh$new()}}
+\item \href{#method-BSVARMSH-get_normal}{\code{specify_bsvar_msh$get_normal()}}
 \item \href{#method-BSVARMSH-get_data_matrices}{\code{specify_bsvar_msh$get_data_matrices()}}
 \item \href{#method-BSVARMSH-get_identification}{\code{specify_bsvar_msh$get_identification()}}
 \item \href{#method-BSVARMSH-get_prior}{\code{specify_bsvar_msh$get_prior()}}
@@ -110,6 +119,7 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
   M = 2L,
   B,
   A,
+  distribution = c("norm", "t"),
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
@@ -131,6 +141,10 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
+\item{\code{distribution}}{a character string specifying the conditional distribution 
+of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+while value \code{"t"} sets the Student-t distribution.}
+
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
@@ -142,6 +156,26 @@ to be set to zero.}
 \subsection{Returns}{
 A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BSVARMSH-get_normal"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-get_normal}{}}}
+\subsection{Method \code{get_normal()}}{
+Returns the logical value of whether the conditional shock distribution is normal.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_normal()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{spec = specify_bsvar_msh$new(us_fiscal_lsuw)
+spec$get_normal()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_data_matrices"></a>}}

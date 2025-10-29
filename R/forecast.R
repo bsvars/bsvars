@@ -187,6 +187,8 @@ forecast.PosteriorBSVAR = function(
   T               = ncol(posterior$last_draw$data_matrices$X)
   X_T             = posterior$last_draw$data_matrices$X[,T]
   Y               = posterior$last_draw$data_matrices$Y
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -223,7 +225,14 @@ forecast.PosteriorBSVAR = function(
   }
   
   # forecast volatility
-  forecast_sigma2   = array(1, c(N, horizon, S))
+  if (normal) {
+    forecast_sigma2   = array(1, c(N, horizon, S))
+  } else {
+    forecast_sigma2 = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -244,6 +253,168 @@ forecast.PosteriorBSVAR = function(
   
   return(fore)
 } # END forecast.PosteriorBSVAR
+
+
+
+
+
+
+
+
+
+#' @inherit forecast
+#' @method forecast PosteriorBSVARHMSH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
+#' 
+#' @examples
+#' # specify the model and set seed
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 5)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # sample from predictive density 1 year ahead
+#' predictive     = forecast(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_hmsh$new(M = 2) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) |> 
+#'   forecast(horizon = 4) -> predictive
+#'   
+#' # forecasting using a model with exogenous variables
+#' ############################################################
+#' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2, exogenous = us_fiscal_ex)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # forecast 2 years ahead
+#' predictive     = forecast(
+#'                     posterior, 
+#'                     horizon = 8,
+#'                     exogenous_forecast = us_fiscal_ex_forecasts
+#'                   )
+#' summary(predictive)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_hmsh$new(M = 2, exogenous = us_fiscal_ex) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) |> 
+#'   forecast(
+#'     horizon = 8,
+#'     exogenous_forecast = us_fiscal_ex_forecasts
+#'   ) |> plot()
+#'   
+#' @export
+forecast.PosteriorBSVARHMSH = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
+  
+  posterior_B       = posterior$posterior$B
+  posterior_A       = posterior$posterior$A
+  posterior_sigma2  = posterior$posterior$sigma2
+  posterior_PR_TR   = posterior$posterior$PR_TR_cpp
+  T                 = ncol(posterior$last_draw$data_matrices$X)
+  X_T               = posterior$last_draw$data_matrices$X[,T]
+  Y                 = posterior$last_draw$data_matrices$Y
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
+  M               = ncol(posterior_sigma2)
+  N               = nrow(posterior_B)
+  K               = length(X_T)
+  d               = K - N * posterior$last_draw$p - 1
+  S               = dim(posterior_B)[3]
+  
+  S_T             = array(NA, c(M,N,S))
+  for (s in 1:S) {
+    S_T[,,s]      = posterior$posterior$xi_cpp[S,1][[1]][,T,]
+  }
+    
+  # prepare forecasting with exogenous variables
+  if (d == 0 ) {
+    exogenous_forecast = matrix(NA, horizon, 1)
+  } else {
+    stopifnot("Forecasted values of exogenous variables are missing." = (d > 0) & !is.null(exogenous_forecast))
+    stopifnot("The matrix of exogenous_forecast does not have a correct number of columns." = ncol(exogenous_forecast) == d)
+    stopifnot("Provide exogenous_forecast for all forecast periods specified by argument horizon." = nrow(exogenous_forecast) == horizon)
+    stopifnot("Argument exogenous has to be a matrix." = is.matrix(exogenous_forecast) & is.numeric(exogenous_forecast))
+    stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
+  }
+  
+  # prepare forecasting with conditional forecasts
+  if ( is.null(conditional_forecast) ) {
+    # this will not be used for forecasting, but needs to be provided
+    conditional_forecast = matrix(NA, horizon, N)
+  } else {
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+  }
+  
+  # forecast volatility
+  forecast_sigma2   = .Call(`_bsvars_forecast_sigma2_hmsh`, 
+                            posterior_sigma2,
+                            posterior_PR_TR,
+                            S_T,
+                            horizon
+  )  # END .Call
+
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
+  
+  # perform forecasting
+  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+                      posterior_B,
+                      posterior_A,
+                      forecast_sigma2,    # (N, horizon, S)
+                      X_T,
+                      exogenous_forecast,
+                      conditional_forecast,
+                      horizon
+  ) # END .Call
+  
+  fore                  = list()
+  fore$forecasts        = for_y
+  fore$forecasts_sigma  = forecast_sigma2
+  fore$Y                = Y
+  class(fore)           = "Forecasts"
+  
+  return(fore)
+} # END forecast.PosteriorBSVARHMSH
+
+
 
 
 
@@ -336,6 +507,8 @@ forecast.PosteriorBSVARMSH = function(
   X_T               = posterior$last_draw$data_matrices$X[,T]
   Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -378,6 +551,15 @@ forecast.PosteriorBSVARMSH = function(
                             S_T,
                             horizon
                       )  # END .Call
+  
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -486,6 +668,8 @@ forecast.PosteriorBSVARMIX = function(
   X_T               = posterior$last_draw$data_matrices$X[,T]
   Y                 = posterior$last_draw$data_matrices$Y
   S_T               = posterior$posterior$xi[,T,]
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -528,6 +712,15 @@ forecast.PosteriorBSVARMIX = function(
                             S_T,
                             horizon
   ) # END .Call
+  
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
   
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
@@ -638,6 +831,8 @@ forecast.PosteriorBSVARSV = function(
   Y                 = posterior$last_draw$data_matrices$Y
   posterior_h_T     = posterior$posterior$h[,T,]
   centred_sv        = posterior$last_draw$centred_sv
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
   
   N               = nrow(posterior_B)
   K               = length(X_T)
@@ -682,6 +877,15 @@ forecast.PosteriorBSVARSV = function(
                             centred_sv
                       ) # END .Call
                             
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
+  
   # perform forecasting
   for_y       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,

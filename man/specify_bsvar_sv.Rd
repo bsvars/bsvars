@@ -15,6 +15,14 @@ spec = specify_bsvar_sv$new(
 
 
 ## ------------------------------------------------
+## Method `specify_bsvar_sv$get_normal`
+## ------------------------------------------------
+
+spec = specify_bsvar_sv$new(us_fiscal_lsuw)
+spec$get_normal()
+
+
+## ------------------------------------------------
 ## Method `specify_bsvar_sv$get_data_matrices`
 ## ------------------------------------------------
 
@@ -86,6 +94,7 @@ spec$get_starting_values()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-BSVARSV-new}{\code{specify_bsvar_sv$new()}}
+\item \href{#method-BSVARSV-get_normal}{\code{specify_bsvar_sv$get_normal()}}
 \item \href{#method-BSVARSV-get_data_matrices}{\code{specify_bsvar_sv$get_data_matrices()}}
 \item \href{#method-BSVARSV-get_identification}{\code{specify_bsvar_sv$get_identification()}}
 \item \href{#method-BSVARSV-get_prior}{\code{specify_bsvar_sv$get_prior()}}
@@ -104,6 +113,7 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
   p = 1L,
   B,
   A,
+  distribution = c("norm", "t"),
   exogenous = NULL,
   centred_sv = FALSE,
   stationary = rep(FALSE, ncol(data))
@@ -123,6 +133,10 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
 
+\item{\code{distribution}}{a character string specifying the conditional distribution 
+of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+while value \code{"t"} sets the Student-t distribution.}
+
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 
 \item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
@@ -134,6 +148,26 @@ to be set to zero.}
 \subsection{Returns}{
 A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BSVARSV-get_normal"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-get_normal}{}}}
+\subsection{Method \code{get_normal()}}{
+Returns the logical value of whether the conditional shock distribution is normal.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_normal()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{spec = specify_bsvar_sv$new(us_fiscal_lsuw)
+spec$get_normal()
+
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_data_matrices"></a>}}

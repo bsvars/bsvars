@@ -50,6 +50,7 @@ spec = specify_bsvar_mix$new(
 <ul>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_data_matrices"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_data_matrices'><code>bsvars::BSVARMSH$get_data_matrices()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_identification"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_identification'><code>bsvars::BSVARMSH$get_identification()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_normal"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_normal'><code>bsvars::BSVARMSH$get_normal()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_prior"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_prior'><code>bsvars::BSVARMSH$get_prior()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_starting_values"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_starting_values'><code>bsvars::BSVARMSH$get_starting_values()</code></a></span></li>
 </ul>
@@ -67,6 +68,7 @@ Create a new specification of the BSVAR model with a zero-mean mixture of normal
   M = 2L,
   B,
   A,
+  distribution = c("norm", "t"),
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
@@ -87,6 +89,10 @@ Create a new specification of the BSVAR model with a zero-mean mixture of normal
 \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
+
+\item{\code{distribution}}{a character string specifying the conditional distribution 
+of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+while value \code{"t"} sets the Student-t distribution.}
 
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 

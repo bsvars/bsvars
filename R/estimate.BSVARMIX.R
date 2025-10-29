@@ -22,7 +22,10 @@
 #' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 #' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 #' 
-#' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and finite-mixture of normals distributed with zero mean.
+#' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously 
+#' independent and finite-mixture of normals distributed with zero mean.
+#' Alternatively, the structural shocks can be Student-t distributed, where the 
+#' shock-specific degrees of freedom parameters are estimated.
 #' The conditional variance of the \code{n}th shock at time \code{t} is given by:
 #' \deqn{Var_{t-1}[u_{n.t}] = s^2_{n.s_t}}
 #' where \eqn{s_t} is a the regime indicator of 
@@ -117,9 +120,10 @@ estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) 
   } else {
     model             = "sparseMIX"
   }
+  normal              = specification$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, FALSE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, finiteM, FALSE, model, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification, qqq$posterior)
@@ -183,9 +187,10 @@ estimate.PosteriorBSVARMIX <- function(specification, S, thin = 1, show_progress
   } else {
     model             = "sparseMIX"
   }
+  normal              = specification$last_draw$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, thin, finiteM, FALSE, model, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_msh_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, finiteM, FALSE, model, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_mix$new(specification$last_draw, qqq$posterior)
