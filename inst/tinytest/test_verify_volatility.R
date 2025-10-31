@@ -100,3 +100,19 @@ expect_true(
   info = "verify_volatility: for sparse  HMSH model; logSDDR is numeric"
 )
 
+
+
+
+
+#############################################
+set.seed(1)
+suppressMessages(
+  specification_no1 <- specify_bsvar_exh$new(us_fiscal_lsuw)
+)
+run_no1             <- estimate(specification_no1, 60, 1, show_progress = FALSE)
+
+expect_true(
+  is.numeric(verify_volatility(run_no1)$logSDDR),
+  info = "verify_volatility: for sparse  EXH model; logSDDR is numeric"
+)
+
