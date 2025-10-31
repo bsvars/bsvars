@@ -48,10 +48,7 @@ numerical integration.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
+# specify the model
 specification  = specify_bsvar_t$new(us_fiscal_lsuw)
 set.seed(123)
 
@@ -65,7 +62,6 @@ sddr           = verify_autoregression(posterior, H0)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_t$new() |>
   estimate(S = 10) |> 

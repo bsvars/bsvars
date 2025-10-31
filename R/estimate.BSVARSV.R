@@ -3,7 +3,7 @@
 #' Stochastic Volatility heteroskedasticity via Gibbs sampler
 #'
 #' @description Estimates the SVAR with Stochastic Volatility (SV) heteroskedasticity 
-#' proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2024).
+#' proposed by Lütkepohl, Shang, Uzeda, and Woźniak (2025).
 #' Implements the Gibbs sampler proposed by Waggoner & Zha (2003)
 #' for the structural matrix \eqn{B} and the equation-by-equation sampler 
 #' by Chan, Koop, & Yu (2024)
@@ -27,7 +27,9 @@
 #' \deqn{BE = U}
 #' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 #' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
-#' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly normally distributed with zero mean.
+#' Finally, the structural shocks, \eqn{U}, are temporally and contemporaneously independent and jointly distributed with zero mean.
+#' The structural shocks can be either normally or Student-t distributed, where in 
+#' the latter case the shock-specific degrees of freedom parameters are estimated.
 #' 
 #' Two alternative specifications of the conditional variance of the \code{n}th shock at time \code{t} 
 #' can be estimated: non-centred Stochastic Volatility by Lütkepohl, Shang, Uzeda, and Woźniak (2022) 
@@ -85,7 +87,9 @@
 #' Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 #' \doi{10.1016/j.csda.2013.01.002}.
 #' 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+#' Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+#' \emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 #' 
 #' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 #'
@@ -105,7 +109,7 @@
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20, 2)
+#' posterior      = estimate(burn_in, 10)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -113,7 +117,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 2) |> 
+#'   estimate(S = 10) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
@@ -122,12 +126,14 @@ estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
+  VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
   centred_sv          = specification$centred_sv
+  normal              = specification$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, centred_sv, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, centred_sv, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_sv$new(specification, qqq$posterior)
@@ -165,7 +171,7 @@ estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 #' burn_in        = estimate(specification, 10)
 #' 
 #' # estimate the model
-#' posterior      = estimate(burn_in, 20, 2)
+#' posterior      = estimate(burn_in, 10)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -173,7 +179,7 @@ estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 2) |> 
+#'   estimate(S = 10) |> 
 #'   compute_impulse_responses(horizon = 4) -> irf
 #' 
 #' @export
@@ -182,12 +188,14 @@ estimate.PosteriorBSVARSV <- function(specification, S, thin = 1, show_progress 
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
+  VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   centred_sv          = specification$last_draw$centred_sv
+  normal              = specification$last_draw$get_normal()
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, starting_values, thin, centred_sv, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_sv_cpp`, S, data_matrices$Y, data_matrices$X, prior, VB, VA, starting_values, normal, thin, centred_sv, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_sv$new(specification$last_draw, qqq$posterior)

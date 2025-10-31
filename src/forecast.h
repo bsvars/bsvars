@@ -20,6 +20,14 @@ arma::cube forecast_sigma2_msh (
 );
 
 
+arma::cube forecast_sigma2_hmsh (
+    arma::cube&               posterior_sigma2,   // (N, M, S)
+    arma::field<arma::cube>&  posterior_PR_TR,    // (S)(M, M, N)
+    arma::cube&               S_T,                // (M,N,S)
+    const int&                horizon
+);
+
+
 arma::cube forecast_sigma2_sv (
     arma::mat&    posterior_h_T,      // NxS
     arma::mat&    posterior_rho,      // NxS
@@ -35,7 +43,7 @@ arma::cube forecast_lambda_t (
 );
 
 
-arma::cube forecast_bsvars (
+Rcpp::List forecast_bsvars (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     arma::cube&   forecast_sigma2,    // (N, horizon, S)

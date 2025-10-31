@@ -134,7 +134,9 @@ specify_prior_bsvar_msh = R6::R6Class(
 #' 
 #' @examples 
 #' # starting values for a bsvar model for a 3-variable system
-#' sv = specify_starting_values_bsvar_msh$new(N = 3, p = 1, M = 2, T = 100)
+#' A = matrix(TRUE, 3, 4)
+#' B = matrix(TRUE, 3, 3)
+#' sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 #' 
 #' @export
 specify_starting_values_bsvar_msh = R6::R6Class(
@@ -166,9 +168,22 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' @field pi_0 an \code{M}-vector of starting values for state probability at time \code{t=0}. Its elements sum to 1.
     pi_0          = numeric(),
     
+    #' @field lambda a \code{NxT} matrix of starting values for latent variables.
+    lambda        = matrix(),
+    
+    #' @field df an \code{Nx1} vector of positive numbers with starting values 
+    #' for the equation-specific degrees of freedom parameters of the Student-t 
+    #' conditional distribution of structural shocks.
+    df            = numeric(),
     
     #' @description
     #' Create new starting values StartingValuesBSVAR-MS.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+    #' the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
@@ -176,7 +191,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
     #' @return Starting values StartingValuesBSVAR-MS.
-    initialize = function(N, p, M, T, d = 0, finiteM = TRUE){
+    initialize = function(A, B, N, p, M, T, d = 0, finiteM = TRUE){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
       stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
       stopifnot("Argument M must be an integer number greater than 1." = M > 1 & M %% 1 == 0)
@@ -188,7 +203,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
         M = 20
       }
       
-      super$initialize(N, p, d)
+      super$initialize(A, B, N, T, p, d)
       
       self$sigma2         = matrix(1, N, M)
       self$PR_TR          = diag(M)
@@ -201,7 +216,9 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' 
     #' @examples 
     #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar_msh$new(N = 3, p = 1, M = 2, T = 100)
+    #' A = matrix(TRUE, 3, 4)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
     #' sv$get_starting_values()   # show starting values as list
     #' 
     get_starting_values   = function(){
@@ -209,6 +226,8 @@ specify_starting_values_bsvar_msh = R6::R6Class(
         B                 = self$B,
         A                 = self$A,
         hyper             = self$hyper,
+        lambda            = self$lambda,
+        df                = self$df,
         sigma2            = self$sigma2,
         PR_TR             = self$PR_TR,
         xi                = self$xi,
@@ -223,7 +242,9 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' 
     #' @examples 
     #' # starting values for a bsvar model with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar_msh$new(N = 3, p = 1, M = 2, T = 100)
+    #' A = matrix(TRUE, 3, 4)
+    #' B = matrix(TRUE, 3, 3)
+    #' sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
     #' 
     #' # Modify the starting values by:
     #' sv_list = sv$get_starting_values()   # getting them as list
@@ -234,6 +255,8 @@ specify_starting_values_bsvar_msh = R6::R6Class(
       self$B            = last_draw$B
       self$A            = last_draw$A
       self$hyper        = last_draw$hyper
+      self$lambda       = last_draw$lambda
+      self$df           = last_draw$df
       self$sigma2       = last_draw$sigma2
       self$PR_TR        = last_draw$PR_TR
       self$xi           = last_draw$xi
@@ -264,6 +287,10 @@ specify_starting_values_bsvar_msh = R6::R6Class(
 specify_bsvar_msh = R6::R6Class(
   "BSVARMSH",
   
+  private = list(
+    normal = TRUE
+  ), # END private
+  
   public = list(
     
     #' @field p a non-negative integer specifying the autoregressive lag order of the model. 
@@ -290,6 +317,12 @@ specify_bsvar_msh = R6::R6Class(
     #' @param p a positive integer providing model's autoregressive lag order.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
+    #' @param distribution a character string specifying the conditional distribution 
+    #' of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
+    #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
     #' @param finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
@@ -299,12 +332,16 @@ specify_bsvar_msh = R6::R6Class(
     p = 1L,
     M = 2L,
     B,
+    A,
+    distribution = c("norm","t"),
     exogenous = NULL,
     stationary = rep(FALSE, ncol(data)),
     finiteM = TRUE
     ) {
       stopifnot("Argument p has to be a positive integer." = ((p %% 1) == 0 & p > 0))
       self$p        = p
+      
+      distribution  = match.arg(distribution)
       
       TT            = nrow(data)
       T             = TT - self$p
@@ -313,6 +350,7 @@ specify_bsvar_msh = R6::R6Class(
       if (!is.null(exogenous)) {
         d           = ncol(exogenous)
       }
+      K             = N * p + 1 + d
       
       if (!finiteM) {
         if ( M < 20 ) {
@@ -328,12 +366,31 @@ specify_bsvar_msh = R6::R6Class(
         B[lower.tri(B, diag = TRUE)] = TRUE
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
+      if (missing(A)) {
+        A     = matrix(TRUE, N, K)
+      }
+      stopifnot("Incorrectly specified argument A." = (is.matrix(A) & is.logical(A)))
+      
+      if (distribution == "t") {
+        private$normal = FALSE
+      }
       
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
-      self$identification  = specify_identification_bsvars$new(N, B)
+      self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar_msh$new(N, p, d, M, stationary)
-      self$starting_values = specify_starting_values_bsvar_msh$new(N, self$p, M, T, d, finiteM)
+      self$starting_values = specify_starting_values_bsvar_msh$new(A, B, N, self$p, M, T, d, finiteM)
     }, # END initialize
+    
+    #' @description
+    #' Returns the logical value of whether the conditional shock distribution is normal.
+    #' 
+    #' @examples 
+    #' spec = specify_bsvar_msh$new(us_fiscal_lsuw)
+    #' spec$get_normal()
+    #' 
+    get_normal = function() {
+      private$normal
+    }, # END get_normal
     
     #' @description
     #' Returns the data matrices as the DataMatricesBSVAR object.

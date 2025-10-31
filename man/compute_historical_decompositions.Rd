@@ -28,11 +28,7 @@ covariance stationary data. Application to unit-root non-stationary data might
 result in non-interpretable outcomes.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
 
 # run the burn-in
@@ -46,7 +42,6 @@ hd            = compute_historical_decompositions(posterior)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 diff(us_fiscal_lsuw) |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 10) |> 
@@ -61,5 +56,5 @@ Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Struct
 \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
 }
 \author{
-Tomasz Woźniak \email{wozniak.tom@pm.me}
+Tomasz Woźniak \email{wozniak.tom@pm.me} and Xiaolei Wang \email{adamwang15@gmail.com}
 }

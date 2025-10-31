@@ -25,7 +25,8 @@
 #' Structural Vector Autoregressions. This package estimates a wide range of 
 #' models, including homo-, heteroskedastic and non-normal specifications. 
 #' Structural models can be identified by adjustable exclusion restrictions, 
-#' time-varying volatility, or non-normality.
+#' time-varying volatility, or non-normality, and include exclusion restrictions 
+#' on autoregressive parameters.
 #' They all include a flexible three-level equation-specific local-global 
 #' hierarchical prior distribution for the estimated level of shrinkage for 
 #' autoregressive and structural parameters. Additionally, the package facilitates 
@@ -36,7 +37,7 @@
 #' informative summary functions, and extensive documentation including the 
 #' vignette by Woźniak (2024) <doi:10.48550/arXiv.2410.15090> complement all this. 
 #' The implemented techniques align closely with those presented in 
-#' Lütkepohl, Shang, Uzeda, & Woźniak (2024) <doi:10.48550/arXiv.2404.11057>, 
+#' Lütkepohl, Shang, Uzeda, & Woźniak (2025) <doi:10.1016/j.jeconom.2025.106107>, 
 #' Lütkepohl & Woźniak (2020) <doi:10.1016/j.jedc.2020.103862>, 
 #' Song & Woźniak (2021) <doi:10.1093/acrefore/9780190625979.013.174>, and 
 #' Woźniak & Droumaguet (2015) <doi:10.13140/RG.2.2.19492.55687>. The 'bsvars' 
@@ -61,23 +62,26 @@
 #' where \eqn{U} is an \code{NxT} matrix of structural form error terms, and
 #' \eqn{B} is an \code{NxN} matrix of contemporaneous relationships.
 #' 
-#' Finally, all of the models share the following assumptions regarding the structural
-#' shocks \code{U}, namely, joint conditional normality given the past observations collected
-#' in matrix \code{X}, and temporal and contemporaneous independence. The latter implies 
+#' Finally, all of the models share assumptions regarding the structural
+#' shocks \code{U}, namely, temporal and contemporaneous independence. They imply 
 #' zero correlations and autocorrelations. 
 #' 
 #' The various SVAR models estimated differ by the specification of structural shocks
 #' variances. The different models include:
 #' \itemize{
 #'   \item homoskedastic model with unit variances
-#'   \item heteroskedastic model with stationary Markov switching in the variances
 #'   \item heteroskedastic model with non-centred Stochastic Volatility process for variances
 #'   \item heteroskedastic model with centred Stochastic Volatility process for variances
+#'   \item heteroskedastic model with stationary Markov switching in the variances
+#'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
+#'   \item heteroskedastic model with stationary heterogeneous Markov switching in the variances, where each shock volatility has its own Markov process
+#'   \item heteroskedastic model with sparse heterogeneous Markov switching in the variances where the number of heteroskedastic components is estimated
 #'   \item a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter
 #'   \item non-normal model with a finite mixture of normal components and component-specific variances
-#'   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
 #'   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
 #' }
+#' The structural shocks can be either normally or Student-t distributed, where in 
+#' the latter case the shock-specific degrees of freedom parameters are estimated.
 #' 
 #' \strong{Prior distributions.} All the models feature a Minnesota prior for autoregressive 
 #' parameters in matrix \eqn{A} and a generalised-normal distribution for the structural 
@@ -86,16 +90,23 @@
 #' the model fit and its forecasting performance.
 #' 
 #' \strong{Estimation algorithm.} The models are estimated using frontier numerical methods
-#' making the Gibbs sampler fast and efficient. The sampler of the structural matrix 
+#' making the Gibbs sampler fast and efficient. The estimation follows closely 
+#' Lütkepohl, Shang, Uzeda, & Woźniak (2025). The sampler of the structural matrix 
 #' follows Waggoner & Zha (2003), whereas that 
 #' for autoregressive parameters follows Chan, Koop, Yu (2022). 
 #' The specification of Markov switching heteroskedasticity is inspired by 
 #' Song & Woźniak (2021), and that of 
 #' Stochastic Volatility model by Kastner & Frühwirth-Schnatter (2014).
-#' The estimation algorithms for particular models are scrutinised in 
-#' Lütkepohl, Shang, Uzeda, & Woźniak (2024) and Woźniak & Droumaguet (2024)
-#' and some other inferential and identification problems are considered in 
-#' Lütkepohl & Woźniak (2020).
+#' The identification problems are considered in Lütkepohl, Shang, Uzeda, & Woźniak (2025)
+#' and Lütkepohl & Woźniak (2020).
+#' 
+#' \strong{Identification verification.} The structural shocks can be identified 
+#' through heteroskedasticity or non-normality following Lütkepohl, Shang, Uzeda, & Woźniak (2025)
+#' and Lütkepohl & Woźniak (2020). The package provides functions to verify both,
+#' homoskedasticity and normality of the structural shocks, which facilitates 
+#' making probabilistic statements regarding the identification. Additionally,
+#' the package makes it possible to verify linear restrictions on autoregressive 
+#' parameters.
 #' 
 #' @name bsvars-package
 #' @aliases bsvars-package bsvars
@@ -115,31 +126,30 @@
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' @references
 #' 
-#' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
+#' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. 
+#' \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 #' 
 #' Kastner, G. and Frühwirth-Schnatter, S. (2014) Ancillarity-Sufficiency Interweaving Strategy (ASIS) for Boosting MCMC 
 #' Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Data Analysis}, \bold{76}, 408--423, 
 #' \doi{10.1016/j.csda.2013.01.002}.
 #' 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+#' Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+#' \emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 #' 
-#' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
+#' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. 
+#' \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
 #' 
-#' Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. In: \emph{Oxford Research Encyclopedia of Economics and Finance}. Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
+#' Song, Y., and Woźniak, T. (2021) Markov Switching Heteroskedasticity in Time Series Analysis. 
+#' In: \emph{Oxford Research Encyclopedia of Economics and Finance}. Oxford University Press, \doi{10.1093/acrefore/9780190625979.013.174}.
 #' 
-#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
-#' 
-#' Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs.
+#' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. 
+#' \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 #' 
 #' @keywords package models ts
 #' 
 #' @examples
-#' # upload data
-#' data(us_fiscal_lsuw)    # upload dependent variables
-#' data(us_fiscal_ex)      # upload exogenous variables
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
 #' 
 #' # run the burn-in
@@ -148,51 +158,44 @@
 #' # estimate the model
 #' posterior      = estimate(burn_in, 10)
 #' 
-#' # compute impulse responses 2 years ahead
-#' irf           = compute_impulse_responses(posterior, horizon = 8)
+#' # compute impulse responses one year ahead
+#' irf           = compute_impulse_responses(posterior, horizon = 2)
 #' 
-#' # compute forecast error variance decomposition 2 years ahead
-#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' # compute forecast error variance decomposition one year ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 4)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
 #'   estimate(S = 5) |> 
 #'   estimate(S = 10) |> 
-#'   compute_variance_decompositions(horizon = 8) -> fevds
+#'   compute_variance_decompositions(horizon = 4) -> fevds
 #' 
 #' # conditional forecasting using a model with exogenous variables
 #' ############################################################
-#' data(us_fiscal_ex_forecasts)      # upload exogenous variables future values
-#' data(us_fiscal_cond_forecasts)    # upload a matrix with projected ttr
-#' 
-#' #' set.seed(123)
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
-#' burn_in        = estimate(specification, 5)
-#' posterior      = estimate(burn_in, 10)
-#' 
-#' # forecast 2 years ahead
-#' predictive     = forecast(
-#'                     posterior, 
-#'                     horizon = 8,
-#'                     exogenous_forecast = us_fiscal_ex_forecasts,
-#'                     conditional_forecast = us_fiscal_cond_forecasts
-#'                   )
-#' summary(predictive)
-#' 
-#' # workflow with the pipe |>
-#' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) |> 
-#'   forecast(
+#'   estimate(S = 10) -> posterior
+#'   
+#'  posterior |> forecast(
 #'     horizon = 8,
 #'     exogenous_forecast = us_fiscal_ex_forecasts,
 #'     conditional_forecast = us_fiscal_cond_forecasts
-#'   ) |> plot()
+#'   ) -> predictive
 #'   
+#'   predictive |> summary()
+#'   predictive |> plot(probability = 0.68)
+#'   
+#' # estimation of a model with exogeneity restrictions on the  autoregressive matrix
+#' #############################################################' set.seed(123)
+#' A = matrix(TRUE, 3, 7)
+#' A[1,3] = A[1,6] = FALSE
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_sv$new(p = 2, A = A) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) -> posterior
+#' posterior |> summary()
+#' 
 "_PACKAGE"

@@ -8,7 +8,9 @@ The class StartingValuesBSVAR presents starting values for the homoskedastic bsv
 }
 \examples{
 # starting values for a homoskedastic bsvar for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 
 
 ## ------------------------------------------------
@@ -16,7 +18,9 @@ sv = specify_starting_values_bsvar$new(N = 3, p = 1)
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+A = matrix(TRUE, 3, 13)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
 
 
 ## ------------------------------------------------
@@ -24,7 +28,9 @@ sv = specify_starting_values_bsvar$new(N = 3, p = 4)
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 sv$get_starting_values()   # show starting values as list
 
 
@@ -33,7 +39,9 @@ sv$get_starting_values()   # show starting values as list
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list
@@ -50,6 +58,12 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 \item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
+
+\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+
+\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+for the equation-specific degrees of freedom parameters of the Student-t 
+conditional distribution of structural shocks.}
 }
 \if{html}{\out{</div>}}
 }
@@ -68,13 +82,23 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVAR.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$new(N, p, d = 0)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$new(A, B, N, T, p, d = 0)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+
+\item{\code{T}}{a positive integer - the number of time periods in the data.}
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
 
@@ -88,7 +112,9 @@ Starting values StartingValuesBSVAR.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 4)
+A = matrix(TRUE, 3, 13)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
 
 }
 \if{html}{\out{</div>}}
@@ -108,7 +134,9 @@ Returns the elements of the starting values StartingValuesBSVAR as a \code{list}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 sv$get_starting_values()   # show starting values as list
 
 }
@@ -141,7 +169,9 @@ as the starting value to be passed to the continuation of the MCMC estimation us
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-sv = specify_starting_values_bsvar$new(N = 3, p = 1)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 
 # Modify the starting values by:
 sv_list = sv$get_starting_values()   # getting them as list

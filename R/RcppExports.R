@@ -29,12 +29,20 @@ sample_Markov_process_msh <- function(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0
     .Call(`_bsvars_sample_Markov_process_msh`, aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM)
 }
 
+sample_Markov_process_hmsh <- function(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM = TRUE) {
+    .Call(`_bsvars_sample_Markov_process_hmsh`, aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM)
+}
+
 sample_transition_probabilities <- function(aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX = TRUE) {
     .Call(`_bsvars_sample_transition_probabilities`, aux_PR_TR, aux_pi_0, aux_xi, prior, MSnotMIX)
 }
 
-sample_variances_msh <- function(aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior) {
-    .Call(`_bsvars_sample_variances_msh`, aux_sigma2, aux_B, aux_A, Y, X, aux_xi, prior)
+sample_variances_msh <- function(aux_sigma2, U, aux_xi, prior) {
+    .Call(`_bsvars_sample_variances_msh`, aux_sigma2, U, aux_xi, prior)
+}
+
+sample_variances_hmsh <- function(aux_sigma2, U, aux_xi, prior) {
+    .Call(`_bsvars_sample_variances_hmsh`, aux_sigma2, U, aux_xi, prior)
 }
 
 # Register entry points for exported C++ functions

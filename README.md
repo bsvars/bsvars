@@ -17,8 +17,9 @@ Provides fast and efficient procedures for Bayesian analysis of
 Structural Vector Autoregressions. This package estimates a wide range
 of models, including homo-, heteroskedastic, and non-normal
 specifications. Structural models can be identified by adjustable
-exclusion restrictions, time-varying volatility, or non-normality. They
-all include a flexible three-level equation-specific local-global
+exclusion restrictions, time-varying volatility, or non-normality, and
+include exclusion restrictions on autoregressive parameters. They all
+include a flexible three-level equation-specific local-global
 hierarchical prior distribution for the estimated level of shrinkage for
 autoregressive and structural parameters. Additionally, the package
 facilitates predictive and structural analyses such as impulse
@@ -30,10 +31,10 @@ informative summary functions, and extensive documentation including the
 vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
 complement all this. The implemented techniques align closely with those
 presented in [Lütkepohl, Shang, Uzeda, & Woźniak
-(2024)](https://doi.org/10.48550/arXiv.2404.11057), [Lütkepohl & Woźniak
-(2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song & Woźniak
-(2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174). The
-**bsvars** package is aligned regarding objects, workflows, and code
+(2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
+Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
+The **bsvars** package is aligned regarding objects, workflows, and code
 structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
 (2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
 constitute an integrated toolset.
@@ -70,9 +71,10 @@ constitute an integrated toolset.
 
 - The models are identified via exclusion restrictions,
   heteroskedasticity, or non-normality
-- The autoregressive parameters `A` and the structural matrix `B`
-  feature a three-level local-global hierarchical prior that estimates
-  the equation-specific level of shrinkage
+- The autoregressive parameters `A` and the structural matrix `B` may
+  include exclusion restrictions and feature a three-level local-global
+  hierarchical prior that estimates the equation-specific level of
+  shrinkage
 - In **five models** the structural shocks are conditionally normal with
   zero mean and diagonal covariance matrix with variances that are:
   - equal to one, that is, time invariant
@@ -145,17 +147,19 @@ This beautiful logo can be reproduced in R using [this
 file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 
 <p>
+
 </p>
+
 <a href="https://bsvars.org/bsvars/"><img src="man/figures/logo.png" height="400" alt="bsvars website" /></a>
 <p>
+
 </p>
 
 ## Resources
 
 - a vignette by [Woźniak
   (2024)](https://doi.org/10.48550/arXiv.2410.15090)
-- a [reference
-  manual](https://cran.r-project.org/web/packages/bsvars/bsvars.pdf)
+- a [reference manual](https://cran.r-project.org/package=bsvars)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
 - presentations:
@@ -166,7 +170,7 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
     Warsaw in December 2024 [featuring **bsvars** 3.2 and **bsvarSIGNs**
     1.0.1](https://bsvars.org/2024-12-uwwne/)
   - for students and researchers at [Uniwersytet Ekonomiczny w
-    Krakowie](https://uek.krakow.pl/) given in Cracow in December 2024
+    Krakowie](https://uek.krakow.pl/) given in Kraków in December 2024
     [featuring **bsvars** 3.2 and **bsvarSIGNs**
     1.0.1](https://bsvars.org/2024-12-uek/)
   - for Bayesian Econometrics students at the University of Melbourne
@@ -249,9 +253,7 @@ installed by typing:
 
 The package is under intensive development. Your help is most welcome!
 Please, have a look at the
-[roadmap](https://github.com/bsvars/bsvars/milestones),
-[discuss](https://github.com/bsvars/bsvars/discussions) package features
-and applications, or [report a
+[roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
 bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 ## About the author

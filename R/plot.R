@@ -554,37 +554,49 @@ plot.PosteriorRegimePr = function(
   if ( missing(main) ) main = "Regime Probabilities"
   if ( missing(xlab) ) xlab = "time"
   
-  M = dim(x)[1]
+  dims  = dim(x)
+  N     = 1
+  if ( length(dims) == 4 ) {
+    N   = dims[3]
+  }
+  M     = dims[1]
   
   oldpar <- graphics::par( 
-    mfrow = c(M, 1),
+    mfrow = c(M, N),
     mar = mar.multi,
     oma = oma.multi
   )
   on.exit(graphics::par(oldpar))
   
   for (m in 1:M) {
-    
-    plot_ribbon(
-      x[m,,],
-      probability = probability,
-      col         = col,
-      main = "",
-      ylim = c(0, 1),
-      ylab = paste("regime ", m),
-      xlab = "",
-      start_at    = 1,
-      bty = "n",
-      axes = FALSE,
-      ...
-    )
-    
-    lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
-    ll = as.numeric(dimnames(x)[[2]])[lw]
-    graphics::axis(1, at = lw, labels = if (m == M) ll else FALSE)
-    graphics::axis(2, c(0, 1), c(0, 1))
-    
-  } # END n loop
+    for (n in 1:N) {
+      
+      if ( length(dims) == 4 ) {
+        xmn  = x[m,,n,]
+      } else {
+        xmn    = x[m,,]
+      }
+      
+      plot_ribbon(
+        xmn,
+        probability = probability,
+        col         = col,
+        main = "",
+        ylim = c(0, 1),
+        ylab = paste("regime ", m),
+        xlab = "",
+        start_at    = 1,
+        bty = "n",
+        axes = FALSE,
+        ...
+      )
+      
+      lw = which(as.numeric(dimnames(x)[[2]]) %% 1 == 0)
+      ll = as.numeric(dimnames(x)[[2]])[lw]
+      graphics::axis(1, at = lw, labels = if (m == M) ll else FALSE)
+      graphics::axis(2, c(0, 1), c(0, 1))
+    } # END n loop
+  } # END m loop
   
   graphics::mtext( # main title
     main,
@@ -796,6 +808,7 @@ plot.Forecasts = function(
   
   N             = dim(fore)[1]
   H             = dim(fore)[2]
+  S             = dim(fore)[3]
   T             = dim(Y)[2]
   
   T_in_plot     = floor(data_in_plot * T)
@@ -814,9 +827,9 @@ plot.Forecasts = function(
   for (n in 1:N) {
     
     # compute forecasts characteristics
-    fore_median   = apply(fore[n,,], 1, stats::median)
-    fore_lb       = apply(fore[n,,], 1, stats::quantile, probs = 0.5 * (1 - probability)) # K x N  
-    fore_ub       = apply(fore[n,,], 1, stats::quantile, probs = 1 - 0.5 * (1 - probability)) # K x N
+    fore_median   = apply(matrix(fore[n,,], ncol = S), 1, stats::median)
+    fore_lb       = apply(matrix(fore[n,,], ncol = S), 1, stats::quantile, probs = 0.5 * (1 - probability)) # K x N  
+    fore_ub       = apply(matrix(fore[n,,], ncol = S), 1, stats::quantile, probs = 1 - 0.5 * (1 - probability)) # K x N
     fore_range    = range(fore_lb, fore_ub, Y[n, obs_in_plot])
     
     base::plot(
@@ -947,10 +960,11 @@ plot.PosteriorFEVD = function(
   }
   
   fevd      = apply(x, 1:3, mean)
+  K         = dim(fevd)[3]
   FEVD      = list()
   FEVD_mid  = list()
   for (n in 1:N) {
-    FEVD[[n]] = rbind(rep(0, H + 1), apply(fevd[n,,], 2, cumsum))
+    FEVD[[n]] = rbind(rep(0, H + 1), apply(matrix(fevd[n,,], ncol = K), 2, cumsum))
     FEVD_mid[[n]] = (FEVD[[n]][1:N, H + 1] + FEVD[[n]][2:(N + 1), H + 1]) / 2
   }
   

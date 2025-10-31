@@ -1,6 +1,6 @@
-## Submission notes bsvars v3.2
+## Submission notes bsvars v4.0
 
-## Re the Last released version's CRAN status: OK: 9, NOTE: 4 all show the following:
+## Re the Last released version's CRAN status - all notes have been addressed. In particular, I implemented the explicit dependency on R's version 4.1.0. Also they show:
 ```
 Version: 3.1
 Check: installed package size

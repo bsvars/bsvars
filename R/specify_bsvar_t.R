@@ -74,106 +74,6 @@ specify_prior_bsvar_t = R6::R6Class(
 
 
 
-#' R6 Class Representing StartingValuesBSVART
-#'
-#' @description
-#' The class StartingValuesBSVART presents starting values for the bsvar model 
-#' with t-distributed structural shocks.
-#' 
-#' @examples 
-#' # starting values for a bsvar model for a 3-variable system
-#' sv = specify_starting_values_bsvar_t$new(N = 3, p = 1, T = 100)
-#' 
-#' @export
-specify_starting_values_bsvar_t = R6::R6Class(
-  "StartingValuesBSVART",
-  
-  inherit = specify_starting_values_bsvar,
-  
-  public = list(
-    
-    #' @field A an \code{NxK} matrix of starting values for the parameter \eqn{A}. 
-    A             = matrix(),
-    
-    #' @field B an \code{NxN} matrix of starting values for the parameter \eqn{B}. 
-    B             = matrix(),
-    
-    #' @field hyper a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
-    #' hierarchical prior distribution. 
-    hyper         = matrix(),
-    
-    #' @field lambda a \code{NxT} matrix of starting values for latent variables.
-    lambda        = matrix(),
-    
-    #' @field df an \code{Nx1} vector of positive numbers with starting values 
-    #' for the equation-specific degrees of freedom parameters of the Student-t 
-    #' conditional distribution of structural shocks.
-    df            = numeric(),
-    
-    #' @description
-    #' Create new starting values StartingValuesBSVART
-    #' @param N a positive integer - the number of dependent variables in the model.
-    #' @param p a positive integer - the autoregressive lag order of the SVAR model.
-    #' @param T a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.
-    #' @param d a positive integer - the number of \code{exogenous} variables in the model.
-    #' @return Starting values StartingValuesBSVART
-    initialize = function(N, p, T, d = 0){
-      stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
-      stopifnot("Argument p must be a positive integer number." = p > 0 & p %% 1 == 0)
-      stopifnot("Argument T must be a positive integer number." = T > 0 & T %% 1 == 0)
-      stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
-      
-      super$initialize(N, p, d)
-      self$lambda = matrix(1, N, T)
-      self$df     = rep(3, N)
-    }, # END initialize
-    
-    #' @description
-    #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-    #' 
-    #' @examples 
-    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
-    #' sv$get_starting_values()   # show starting values as list
-    #' 
-    get_starting_values   = function(){
-      list(
-        B                 = self$B,
-        A                 = self$A,
-        hyper             = self$hyper,
-        lambda            = self$lambda,
-        df                = self$df
-      )
-    }, # END get_starting_values
-    
-    #' @description
-    #' Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-    #' @param last_draw a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
-    #' \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.
-    #' @return An object of class StartingValuesBSVAR including the last draw of the current MCMC 
-    #' as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
-    #' 
-    #' @examples 
-    #' # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
-    #' sv = specify_starting_values_bsvar$new(N = 3, p = 1)
-    #' 
-    #' # Modify the starting values by:
-    #' sv_list = sv$get_starting_values()   # getting them as list
-    #' sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
-    #' sv$set_starting_values(sv_list)      # providing to the class object
-    #' 
-    set_starting_values   = function(last_draw) {
-      self$B            = last_draw$B
-      self$A            = last_draw$A
-      self$hyper        = last_draw$hyper
-      self$lambda       = last_draw$lambda
-      self$df           = last_draw$df
-    } # END set_starting_values
-  ) # END public
-) # END specify_starting_values_bsvar_t
-
-
-
 
 #' R6 Class representing the specification of the BSVAR model with t-distributed structural shocks.
 #'
@@ -223,6 +123,9 @@ specify_bsvar_t = R6::R6Class(
     #' @param B a logical \code{NxN} matrix containing value \code{TRUE} for the 
     #' elements of the structural matrix \eqn{B} to be estimated and value 
     #' \code{FALSE} for exclusion restrictions to be set to zero.
+    #' @param A a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+    #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+    #' to be set to zero.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to 
     #' \code{FALSE} sets the prior mean for the autoregressive parameters of the 
@@ -233,6 +136,7 @@ specify_bsvar_t = R6::R6Class(
       data,
       p = 1L,
       B,
+      A,
       exogenous = NULL,
       stationary = rep(FALSE, ncol(data))
     ) {
@@ -246,6 +150,7 @@ specify_bsvar_t = R6::R6Class(
       if (!is.null(exogenous)) {
         d           = ncol(exogenous)
       }
+      K             = N * p + 1 + d
       
       if (missing(B)) {
         message("The identification is set to the default option of lower-triangular structural matrix.")
@@ -253,11 +158,15 @@ specify_bsvar_t = R6::R6Class(
         B[lower.tri(B, diag = TRUE)] = TRUE
       }
       stopifnot("Incorrectly specified argument B." = (is.matrix(B) & is.logical(B)) | (length(B) == 1 & is.na(B)))
+      if (missing(A)) {
+        A     = matrix(TRUE, N, K)
+      }
+      stopifnot("Incorrectly specified argument A." = (is.matrix(A) & is.logical(A)))
       
       self$data_matrices   = specify_data_matrices$new(data, p, exogenous)
-      self$identification  = specify_identification_bsvars$new(N, B)
+      self$identification  = specify_identification_bsvars$new(B, A, N, K)
       self$prior           = specify_prior_bsvar_t$new(N, p, d, stationary)
-      self$starting_values = specify_starting_values_bsvar_t$new(N, self$p, T, d)
+      self$starting_values = specify_starting_values_bsvar$new(A, B, N, T, self$p, d)
       self$adaptiveMH      = c(0.44, 0.6)
     } # END initialize
   ) # END public

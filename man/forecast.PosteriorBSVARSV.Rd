@@ -33,9 +33,9 @@ deviations and data. The output elements include:
 
 \describe{
  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
- \item{forecasts_sigma}{provided only for heteroskedastic models, an \code{NxTxS} array with the draws 
- from the predictive density of structural shocks conditional standard deviations}
  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
+ \item{forecast_mean}{an \code{NxTxS} array with the mean of the predictive density}
+ \item{forecast_covariance}{an \code{NxTxS} array with the covariance of the predictive density}
 }
 }
 \description{

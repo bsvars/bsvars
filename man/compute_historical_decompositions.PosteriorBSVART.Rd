@@ -26,11 +26,7 @@ covariance stationary data. Application to unit-root non-stationary data might
 result in non-interpretable outcomes.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw), p = 1)
 
 # run the burn-in
@@ -44,7 +40,6 @@ hd            = compute_historical_decompositions(posterior)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 diff(us_fiscal_lsuw) |>
   specify_bsvar_t$new(p = 1) |>
   estimate(S = 10) |> 

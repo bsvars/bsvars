@@ -99,3 +99,17 @@ expect_true(
   info = "verify_identification: for T model; SDDR is numeric"
 )
 
+
+
+#############################################
+set.seed(1)
+suppressMessages(
+  specification_no1 <- specify_bsvar_hmsh$new(us_fiscal_lsuw)
+)
+run_no1             <- estimate(specification_no1, 60, 1, show_progress = FALSE)
+
+expect_true(
+  is.numeric(verify_identification(run_no1)$logSDDR),
+  info = "verify_identification: for hmsh model; SDDR is numeric"
+)
+

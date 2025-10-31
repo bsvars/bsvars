@@ -20,11 +20,7 @@ Each of the draws from the posterior estimation of the model is
 transformed into a draw from the data predictive density.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
 
 # run the burn-in
@@ -38,7 +34,6 @@ fitted         = compute_fitted_values(posterior)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_t$new(p = 1) |>
   estimate(S = 10) |> 

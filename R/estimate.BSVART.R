@@ -10,7 +10,7 @@
 #' Additionally, the parameter matrices \eqn{A} and \eqn{B}
 #' follow a Minnesota prior and generalised-normal prior distributions respectively 
 #' with the matrix-specific overall shrinkage parameters estimated using a 
-#' hierarchical prior distribution as in Lütkepohl, Shang, Uzeda, and Woźniak (2024). 
+#' hierarchical prior distribution as in Lütkepohl, Shang, Uzeda, and Woźniak (2025). 
 #' See section \bold{Details} for the model equations.
 #' 
 #' @details 
@@ -64,7 +64,9 @@
 #' 
 #' Chan, J.C.C., Koop, G, and Yu, X. (2024) Large Order-Invariant Bayesian VARs with Stochastic Volatility. \emph{Journal of Business & Economic Statistics}, \bold{42}, \doi{10.1080/07350015.2023.2252039}.
 #' 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+#' Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+#' \emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
 #' 
 #' Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 #' 
@@ -75,11 +77,7 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' set.seed(123)
+#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 4)
 #' 
 #' # run the burn-in
@@ -90,7 +88,6 @@
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new(p = 1) |>
 #'   estimate(S = 5) |> 
@@ -102,12 +99,13 @@ estimate.BSVART <- function(specification, S, thin = 1, show_progress = TRUE) {
   # get the inputs to estimation
   prior               = specification$prior$get_prior()
   starting_values     = specification$starting_values$get_starting_values()
-  VB                  = specification$identification$get_identification()
+  VB                  = specification$identification$VB
+  VA                  = specification$identification$VA
   data_matrices       = specification$data_matrices$get_data_matrices()
   adptive_alpha_gamma = specification$adaptiveMH  
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
   
   specification$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_t$new(specification, qqq$posterior)
@@ -159,12 +157,13 @@ estimate.PosteriorBSVART <- function(specification, S, thin = 1, show_progress =
   # get the inputs to estimation
   prior               = specification$last_draw$prior$get_prior()
   starting_values     = specification$last_draw$starting_values$get_starting_values()
-  VB                  = specification$last_draw$identification$get_identification()
+  VB                  = specification$last_draw$identification$VB
+  VA                  = specification$last_draw$identification$VA
   data_matrices       = specification$last_draw$data_matrices$get_data_matrices()
   adptive_alpha_gamma = specification$last_draw$adaptiveMH  
   
   # estimation
-  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
+  qqq                 = .Call(`_bsvars_bsvar_t_cpp`, S, data_matrices$Y, data_matrices$X, VB, VA, prior, starting_values, adptive_alpha_gamma, thin, show_progress)
   
   specification$last_draw$starting_values$set_starting_values(qqq$last_draw)
   output              = specify_posterior_bsvar_t$new(specification$last_draw, qqq$posterior)

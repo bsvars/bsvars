@@ -27,11 +27,15 @@ forecasted conditionally on the realisations provided as \code{numeric} values.}
 }
 \value{
 A list of class \code{Forecasts} containing the
-draws from the predictive density and data. The output list includes element:
+draws from the predictive density and for heteroskedastic models the draws 
+from the predictive density of structural shocks conditional standard 
+deviations and data. The output elements include:
 
 \describe{
  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
+ \item{forecast_mean}{an \code{NxTxS} array with the mean of the predictive density}
+ \item{forecast_covariance}{an \code{NxTxS} array with the covariance of the predictive density}
 }
 }
 \description{

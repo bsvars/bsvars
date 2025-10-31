@@ -8,7 +8,9 @@ The class StartingValuesBSVARMIX presents starting values for the bsvar model wi
 }
 \examples{
 # starting values for a bsvar model for a 3-variable system
-sv = specify_starting_values_bsvar_mix$new(N = 3, p = 1, M = 2, T = 100)
+A = matrix(TRUE, 3, 4)
+B = matrix(TRUE, 3, 3)
+sv = specify_starting_values_bsvar_mix$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 
 }
 \section{Super classes}{
@@ -31,6 +33,12 @@ hierarchical prior distribution.}
 \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
 
 \item{\code{pi_0}}{an \code{M}-vector of starting values for mixture components state probabilities. Its elements sum to 1.}
+
+\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+
+\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+for the equation-specific degrees of freedom parameters of the Student-t 
+conditional distribution of structural shocks.}
 }
 \if{html}{\out{</div>}}
 }
@@ -55,12 +63,20 @@ hierarchical prior distribution.}
 \subsection{Method \code{new()}}{
 Create new starting values StartingValuesBSVARMIX.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
+\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
+
 \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
 
 \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}

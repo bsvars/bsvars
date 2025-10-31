@@ -1,59 +1,59 @@
-# bsvars (development version)
+# bsvars 4.0
 
 The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
-Have a question, or suggestion, or wanna get in touch? Join the package [DISCUSSION](https://github.com/bsvars/bsvars/discussions) forum.
+Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsvars.org](mailto:contact@bsvars.org) forum.
 
-1. The model with Student-t structural shocks features now, an estimated equation-specific degrees-of-freedom parameter, see `specify_bsvar_t()` with verified normality using function `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
-2. Updated C++ flags to the newest recommended setup as inspired by the PR [#103](https://github.com/bsvars/bsvars/pull/103) by [@haansn08](https://github.com/haansn08)
+1.  The model with Student-t structural shocks features now, an estimated equation-specific degrees-of-freedom parameter, see `specify_bsvar_t()` with verified normality using function `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
+2.  Updated C++ flags to the newest recommended setup as inspired by the PR [#103](https://github.com/bsvars/bsvars/pull/103) by [\@haansn08](https://github.com/haansn08)
+3.  Corrected C++ code for historical decompositions in PR [#108](https://github.com/bsvars/bsvars/pull/108) by [Adam Wang](https://github.com/adamwang15)
+4.  Upon popular request the package includes possibility of imposing exclusion restrictions on autoregressive parameters for all models [#106](https://github.com/bsvars/bsvars/issues/106)
 
 # bsvars 3.2
 
-1. The package includes the first version of the vignette [5](https://github.com/bsvars/bsvars/issues/5)
-2. Updates on the website [https://bsvars.org/bsvars/](https://bsvars.org/bsvars/)
-3. New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
-4. Improved examples for forecasting with exogenous variables. Sample matrices included in the package. Fixed the bug in **cpp** code for forecasting. Thanks to [@DawievLill](https://github.com/DawievLill) for asking for clarity! [96](https://github.com/bsvars/bsvars/issues/96)
-
+1.  The package includes the first version of the vignette [5](https://github.com/bsvars/bsvars/issues/5)
+2.  Updates on the website <https://bsvars.org/bsvars/>
+3.  New plots with axes reading variable names, time scale, and letting you specify structural shock names! [97](https://github.com/bsvars/bsvars/issues/97)
+4.  Improved examples for forecasting with exogenous variables. Sample matrices included in the package. Fixed the bug in **cpp** code for forecasting. Thanks to [\@DawievLill](https://github.com/DawievLill) for asking for clarity! [96](https://github.com/bsvars/bsvars/issues/96)
 
 # bsvars 3.1
 
-1. A NEW MODEL! An SVAR with t-distributed structural shocks facilitating identification through non-normality is now included in the package with all the necessary functionality [#84](https://github.com/bsvars/bsvars/issues/84)
-2. New ways of verifying identification through heteroskedasticity or non-normality using method `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
-3. Improve coding of `forecast` **cpp** function and **R** methods [#89](https://github.com/bsvars/bsvars/issues/89)
-4. Included or updated legend in FEVD and HD plots as requested by [@ccoleman9](https://github.com/ccoleman9) [#85](https://github.com/bsvars/bsvars/issues/85)
+1.  A NEW MODEL! An SVAR with t-distributed structural shocks facilitating identification through non-normality is now included in the package with all the necessary functionality [#84](https://github.com/bsvars/bsvars/issues/84)
+2.  New ways of verifying identification through heteroskedasticity or non-normality using method `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
+3.  Improve coding of `forecast` **cpp** function and **R** methods [#89](https://github.com/bsvars/bsvars/issues/89)
+4.  Included or updated legend in FEVD and HD plots as requested by [\@ccoleman9](https://github.com/ccoleman9) [#85](https://github.com/bsvars/bsvars/issues/85)
 
 # bsvars 3.0.1
 
-1. Fixed the bugs that started coming up in the new tested version of **Armadillo** and **RcppArmadillo** [#82](https://github.com/bsvars/bsvars/issues/82) and [RcppCore/RcppArmadillo#443](https://github.com/RcppCore/RcppArmadillo/issues/443)
-2. Corrected the computations of `verify_autoregression` [#82](https://github.com/bsvars/bsvars/issues/82)
-
+1.  Fixed the bugs that started coming up in the new tested version of **Armadillo** and **RcppArmadillo** [#82](https://github.com/bsvars/bsvars/issues/82) and [RcppCore/RcppArmadillo#443](https://github.com/RcppCore/RcppArmadillo/issues/443)
+2.  Corrected the computations of `verify_autoregression` [#82](https://github.com/bsvars/bsvars/issues/82)
 
 # bsvars 3.0
 
-1. The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
-2. The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
-3. The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
-4. Method `forecast` allow for conditional forecasting given provided future trajectories of selected variables [#76](https://github.com/bsvars/bsvars/issues/76)
-5. Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
-6. A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
-7. The website features the new logo. And includes some new information [#38](https://github.com/bsvars/bsvars/issues/38)
-8. Updates on documentation to accommodate the fact that some generics and functions from package **bsvars** will be used in a broader family of packages, first of which is [**bsvarSIGNs**](https://github.com/bsvars/bsvarSIGNs). Includes updates on references. [#63](https://github.com/bsvars/bsvars/issues/63)
-9. Fixed `compute_fitted_values()`. Now it's correctly sampling from the predictive data density. [#67](https://github.com/bsvars/bsvars/issues/67)
+1.  The package has a logo! And it's beautiful! [#37](https://github.com/bsvars/bsvars/issues/37)
+2.  The package includes `summary` methods [#1](https://github.com/bsvars/bsvars/issues/1)
+3.  The package includes `plot` methods [#36](https://github.com/bsvars/bsvars/issues/36)
+4.  Method `forecast` allow for conditional forecasting given provided future trajectories of selected variables [#76](https://github.com/bsvars/bsvars/issues/76)
+5.  Sparse mixture and Markov-switching models can now have more than 20 regimes [#57](https://github.com/bsvars/bsvars/issues/57)
+6.  A new, more detailed, package description [#62](https://github.com/bsvars/bsvars/issues/62)
+7.  The website features the new logo. And includes some new information [#38](https://github.com/bsvars/bsvars/issues/38)
+8.  Updates on documentation to accommodate the fact that some generics and functions from package **bsvars** will be used in a broader family of packages, first of which is [**bsvarSIGNs**](https://github.com/bsvars/bsvarSIGNs). Includes updates on references. [#63](https://github.com/bsvars/bsvars/issues/63)
+9.  Fixed `compute_fitted_values()`. Now it's correctly sampling from the predictive data density. [#67](https://github.com/bsvars/bsvars/issues/67)
 10. Fixed some bugs that did not create problems [#55](https://github.com/bsvars/bsvars/issues/55)
 11. Got rid of filling by reference in the samplers for the sake of granting the exported **cpp** functions usability [#56](https://github.com/bsvars/bsvars/issues/56)
 12. Coded `compute_*()` functions as generics and methods [#70](https://github.com/bsvars/bsvars/issues/70)
-13. Updated code for forecast error variance decompositions for heteroskedastic models (qas prompted by [@adamwang15](https://github.com/adamwang15)) [#69](https://github.com/bsvars/bsvars/issues/69)
+13. Updated code for forecast error variance decompositions for heteroskedastic models (qas prompted by [\@adamwang15](https://github.com/adamwang15)) [#69](https://github.com/bsvars/bsvars/issues/69)
 
 # bsvars 2.1.0
 
 Published on 11 December 2023
 
-1. Included Bayesian procedure for verifying structural shocks' heteroskedasticty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
-2. Included Bayesian procedure for verifying joint hypotheses on autoregressive parameters using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
-3. Included the possibility of specifying exogenous variables or deterministic terms and included the deterministic terms used by Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
-4. Updated the data as in Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
-5. Fixing the compilation problems reported [HERE](https://cran.r-project.org/web/checks/check_results_bsvars.html) [#48](https://github.com/bsvars/bsvars/issues/48)
-6. The package has its pkgdown website at [bsvars.org/bsvars/](https://bsvars.org/bsvars/) [#38](https://github.com/bsvars/bsvars/issues/38)
+1.  Included Bayesian procedure for verifying structural shocks' heteroskedasticty equation-by-equation using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
+2.  Included Bayesian procedure for verifying joint hypotheses on autoregressive parameters using Savage-Dickey density ratios [#26](https://github.com/bsvars/bsvars/issues/26)
+3.  Included the possibility of specifying exogenous variables or deterministic terms and included the deterministic terms used by Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
+4.  Updated the data as in Lütkepohl, Shang, Uzeda, Woźniak (2023) [#45](https://github.com/bsvars/bsvars/issues/45)
+5.  Fixing the compilation problems reported [HERE](https://cran.r-project.org/web/checks/check_results_bsvars.html) [#48](https://github.com/bsvars/bsvars/issues/48)
+6.  The package has its pkgdown website at [bsvars.org/bsvars/](https://bsvars.org/bsvars/) [#38](https://github.com/bsvars/bsvars/issues/38)
 
 # bsvars 2.0.0
 
@@ -76,7 +76,7 @@ Published on 23 October 2023
 8.  Added samplers from joint predictive densities [#15](https://github.com/bsvars/bsvars/issues/15)
 9.  A new centred Stochastic Volatility heteroskedastic process is implemented [#22](https://github.com/bsvars/bsvars/issues/22)
 10. Introduced a three-level local-global equation-specific prior shrinkage hierarchy for the parameters of matrices \eqn{B} and \eqn{A} [#34](https://github.com/bsvars/bsvars/issues/34)
-11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [@mfaragd](https://github.com/mfaragd) [#33](https://github.com/bsvars/bsvars/issues/33)
+11. Improved checks for correct specification of arguments `S` and `thin` of the `estimate` method as enquired by [\@mfaragd](https://github.com/mfaragd) [#33](https://github.com/bsvars/bsvars/issues/33)
 12. Improved the ordinal numerals presentation for thinning in the progress bar [#27](https://github.com/bsvars/bsvars/issues/27)
 
 # bsvars 1.0.0

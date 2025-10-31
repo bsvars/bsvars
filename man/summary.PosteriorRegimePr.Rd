@@ -22,11 +22,7 @@ Provides posterior summary of regime probabilities
 including their mean, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
+# specify the model
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 
 # run the burn-in
@@ -41,7 +37,6 @@ rp_summary     = summary(rp)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
   estimate(S = 10) |> 

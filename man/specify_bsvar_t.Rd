@@ -50,6 +50,7 @@ Metropolis sampler for df: target acceptance rate and adaptive rate.}
 <ul>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_data_matrices"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_data_matrices'><code>bsvars::BSVAR$get_data_matrices()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_identification"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_identification'><code>bsvars::BSVAR$get_identification()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_normal"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_normal'><code>bsvars::BSVAR$get_normal()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_prior"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_prior'><code>bsvars::BSVAR$get_prior()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVAR" data-id="get_starting_values"><a href='../../bsvars/html/BSVAR.html#method-BSVAR-get_starting_values'><code>bsvars::BSVAR$get_starting_values()</code></a></span></li>
 </ul>
@@ -65,6 +66,7 @@ Create a new specification of the BSVAR model with t-distributed structural shoc
   data,
   p = 1L,
   B,
+  A,
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data))
 )}\if{html}{\out{</div>}}
@@ -80,6 +82,10 @@ Create a new specification of the BSVAR model with t-distributed structural shoc
 \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the 
 elements of the structural matrix \eqn{B} to be estimated and value 
 \code{FALSE} for exclusion restrictions to be set to zero.}
+
+\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
+to be set to zero.}
 
 \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
 

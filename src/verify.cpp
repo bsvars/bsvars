@@ -37,6 +37,7 @@ Rcpp::List verify_volatility_sv_cpp (
   // fixed values for auxiliary mixture
   const NumericVector alpha_s = NumericVector::create(1.92677,1.34744,0.73504,0.02266,0-0.85173,-1.97278,-3.46788,-5.55246,-8.68384,-14.65000);
   const NumericVector sigma_s = NumericVector::create(0.11265,0.17788,0.26768,0.40611,0.62699,0.98583,1.57469,2.54498,4.16591,7.33342);
+  const double        ccc     = 0.000000001;      // a constant to make log((u+ccc)^2) feasible
   
   if ( prior_a_ <= 0.5 ) {
     stop("'prior$sv_a_' must be greater than 0.5");
@@ -57,7 +58,7 @@ Rcpp::List verify_volatility_sv_cpp (
   mat     log_numerator_s(N, S);
   for (int s = 0; s < S; s++) {
     for (int n = 0; n < N; n++) {
-      mat     residuals       = log(square(posterior_B.slice(s) * (Y - posterior_A.slice(s) * X)));
+      mat     residuals       = log(square(posterior_B.slice(s) * (Y - posterior_A.slice(s) * X)) + ccc);
       
       rowvec  alpha_S(T);
       vec     sigma_S_inv(T);
@@ -165,7 +166,7 @@ Rcpp::List verify_volatility_msh_cpp (
     const Rcpp::List&       posterior,  // a list of posteriors
     const Rcpp::List&       prior,      // a list of priors - original dimensions
     const arma::mat&        Y,          // NxT dependent variables
-    const arma::mat&        X          // KxT explanatory variables
+    const arma::mat&        X           // KxT explanatory variables
 ) {
   
   cube  posterior_sigma2    = posterior["sigma2"];
@@ -178,7 +179,7 @@ Rcpp::List verify_volatility_msh_cpp (
   const int   T             = Y.n_cols;
   const int   S             = posterior_B.n_slices;
   
-  rowvec      homoskedasticity_hypothesis(M, fill::ones);
+  rowvec      homoskedasticity_hypothesis(M, fill::value(1 / M));
   
   // compute denominator
   
@@ -204,7 +205,7 @@ Rcpp::List verify_volatility_msh_cpp (
         }
       }
       
-      log_numerator_s(n,s)  = M * log(M) * dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
+      log_numerator_s(n,s)  = dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
       
     } // END n loop
   } // END s loop
@@ -242,6 +243,102 @@ Rcpp::List verify_volatility_msh_cpp (
     )
   );
 } // END verify_volatility_msh_cpp
+
+
+
+
+
+
+
+
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+Rcpp::List verify_volatility_hmsh_cpp (
+    const Rcpp::List&       posterior,  // a list of posteriors
+    const Rcpp::List&       prior,      // a list of priors - original dimensions
+    const arma::mat&        Y,          // NxT dependent variables
+    const arma::mat&        X           // KxT explanatory variables
+) {
+  
+  cube  posterior_sigma2    = as<cube>(posterior["sigma2"]);
+  cube  posterior_B         = as<cube>(posterior["B"]);
+  cube  posterior_A         = as<cube>(posterior["A"]);
+  field<cube> posterior_xi  = as<field<cube>>(posterior["xi_cpp"]);
+  
+  const int   M             = posterior_xi(0).n_rows;
+  const int   N             = posterior_B.n_rows;
+  const int   T             = Y.n_cols;
+  const int   S             = posterior_B.n_slices;
+  
+  rowvec      homoskedasticity_hypothesis(M, fill::value(1 / M));
+  
+  // compute denominator
+  
+  rowvec  prior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
+  rowvec  prior_s(M, fill::value(as<double>(prior["sigma_s"])));
+  
+  double  log_denominator = dig2dirichlet( homoskedasticity_hypothesis, prior_nu, prior_s );
+  
+  // compute numerator
+  mat     log_numerator_s(N, S);
+  for (int s = 0; s < S; s++) {
+    for (int n = 0; n < N; n++) {
+      mat post_xi           = posterior_xi(s).slice(n);
+      rowvec posterior_nu   = sum(post_xi, 1).t() + as<double>(prior["sigma_nu"]);
+      
+      mat posterior_s(N, M);
+      posterior_s.fill(prior["sigma_s"]);
+      
+      for (int m=0; m<M; m++) {
+        for (int t=0; t<T; t++) {
+          if (post_xi(m,t)==1) {
+            posterior_s.col(m) += square(posterior_B.slice(s) * (Y.col(t) - posterior_A.slice(s) * X.col(t)));
+          }
+        }
+      }
+      
+      log_numerator_s(n,s)  = dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
+      
+    } // END n loop
+  } // END s loop
+  
+  // compute the log of the mean numerator exp(log_numerator)
+  vec log_numerator           = log_mean(log_numerator_s);
+  
+  // NSE computations
+  int   nse_subsamples        = 30;
+  mat   se_components(N, nse_subsamples);
+  int   nn                    = floor(S/nse_subsamples);
+  uvec  seq_1S                = as<uvec>(wrap(seq_len(S) - 1));
+  
+  vec logSDDR_se(N);
+  
+  if ( S >= 60 ) {
+    for (int i=0; i<nse_subsamples; i++) {
+      // sub-sampling elements' indicators
+      uvec          indi        = seq_1S.subvec(i*nn, (i+1)*nn-1);
+      se_components.col(i)      = log_mean(log_numerator_s.cols(indi)) - log_denominator;
+    } // END i loop
+    
+    logSDDR_se              = stddev(se_components, 1, 1);
+  } // END if
+  
+  // compute the standard error 
+  return List::create(
+    _["logSDDR"]     = log_numerator - log_denominator,
+    _["logSDDR_se"]  = logSDDR_se,
+    _["components"]  = List::create(
+      _["log_denominator"]    = log_denominator,
+      _["log_numerator"]      = log_numerator,
+      _["log_numerator_s"]    = log_numerator_s,
+      _["se_components"]      = se_components
+    )
+  );
+} // END verify_volatility_hmsh_cpp
+
+
+
+
 
 
 // [[Rcpp::interfaces(cpp)]]
