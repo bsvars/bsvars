@@ -129,6 +129,7 @@ variances. The different models include:</p><ul><li><p>homoskedastic model with 
 <li><p>heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated</p></li>
 <li><p>heteroskedastic model with stationary heterogeneous Markov switching in the variances, where each shock volatility has its own Markov process</p></li>
 <li><p>heteroskedastic model with sparse heterogeneous Markov switching in the variances where the number of heteroskedastic components is estimated</p></li>
+<li><p>heteroskedastic model with exogenous heteroskedastic regime changes in the variances</p></li>
 <li><p>a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter</p></li>
 <li><p>non-normal model with a finite mixture of normal components and component-specific variances</p></li>
 <li><p>non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated</p></li>
@@ -199,11 +200,11 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># specify the model</span></span></span>
-<span class="r-in"><span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spec</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># run the burn-in</span></span></span>
-<span class="r-in"><span><span class="va">burn_in</span>        <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">burn</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">spec</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
@@ -216,7 +217,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate the model</span></span></span>
-<span class="r-in"><span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">post</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
@@ -229,15 +230,15 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute impulse responses one year ahead</span></span></span>
-<span class="r-in"><span><span class="va">irf</span>           <span class="op">=</span> <span class="fu"><a href="compute_impulse_responses.html">compute_impulse_responses</a></span><span class="op">(</span><span class="va">posterior</span>, horizon <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">irf</span>   <span class="op">=</span> <span class="fu"><a href="compute_impulse_responses.html">compute_impulse_responses</a></span><span class="op">(</span><span class="va">post</span>, horizon <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute forecast error variance decomposition one year ahead</span></span></span>
-<span class="r-in"><span><span class="va">fevd</span>           <span class="op">=</span> <span class="fu"><a href="compute_variance_decompositions.html">compute_variance_decompositions</a></span><span class="op">(</span><span class="va">posterior</span>, horizon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fevd</span>  <span class="op">=</span> <span class="fu"><a href="compute_variance_decompositions.html">compute_variance_decompositions</a></span><span class="op">(</span><span class="va">post</span>, horizon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># workflow with the pipe |&gt;</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="compute_variance_decompositions.html">compute_variance_decompositions</a></span><span class="op">(</span>horizon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">fevds</span></span></span>
@@ -266,9 +267,9 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-in"><span><span class="co"># conditional forecasting using a model with exogenous variables</span></span></span>
 <span class="r-in"><span><span class="co">############################################################</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">posterior</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">post</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
@@ -291,13 +292,13 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span> <span class="va">posterior</span> <span class="op">|&gt;</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">post</span> <span class="op">|&gt;</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    horizon <span class="op">=</span> <span class="fl">8</span>,</span></span>
 <span class="r-in"><span>    exogenous_forecast <span class="op">=</span> <span class="va">us_fiscal_ex_forecasts</span>,</span></span>
 <span class="r-in"><span>    conditional_forecast <span class="op">=</span> <span class="va">us_fiscal_cond_forecasts</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span> <span class="op">-&gt;</span> <span class="va">predictive</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pred</span></span></span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span>  <span class="va">predictive</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">pred</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
@@ -336,17 +337,17 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 -6.997833 0.036982789   -7.054506    -6.955022</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 -6.990241 0.030686309   -7.040281    -6.954311</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span>  <span class="va">predictive</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>probability <span class="op">=</span> <span class="fl">0.68</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">pred</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>probability <span class="op">=</span> <span class="fl">0.68</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bsvars-package-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># estimation of a model with exogeneity restrictions on the  autoregressive matrix</span></span></span>
-<span class="r-in"><span><span class="co">#############################################################' set.seed(123)</span></span></span>
+<span class="r-in"><span><span class="co">#############################################################</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">A</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="va">A</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">6</span><span class="op">]</span> <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="va">us_fiscal_lsuw</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span>, A <span class="op">=</span> <span class="va">A</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">posterior</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">post</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
@@ -368,7 +369,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-in"><span><span class="va">posterior</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">post</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
@@ -398,7 +399,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.01079518 0.07517436 -0.10739904   0.10219896</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.00000000 0.00000000  0.00000000   0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.19009102 0.10842426 -0.29920507  -0.02339306</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.08290319 0.07840665 -0.03293197   0.17455763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.08290319 0.07840665 -0.03293198   0.17455763</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.00000000 0.00000000  0.00000000   0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> const      1.29335160 0.22091919  1.05801206   1.65583041</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -406,9 +407,9 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd 5% quantile 95% quantile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.08079585 0.06157712  -0.1639466 -0.005912932</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1  1.32562528 0.04810601   1.2554261  1.395657225</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.02792873 0.14746302  -0.2366955  0.169167394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2 -0.02792873 0.14746302  -0.2366955  0.169167395</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.10556671 0.06359887  -0.1922593 -0.028166620</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.35150369 0.04537706  -0.4088457 -0.282082177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3 -0.35150369 0.04537706  -0.4088457 -0.282082178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.04192893 0.15250754  -0.1555828  0.268448060</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> const     -0.07764524 0.12123637  -0.2507233  0.062169690</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -416,10 +417,10 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  mean         sd  5% quantile 95% quantile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.16080159 0.04945300 -0.224462088  -0.09419038</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var1 -0.01974789 0.02487709 -0.050642494   0.02226621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.97136418 0.04945745  0.911779436   1.02906339</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag1_var2  0.97136418 0.04945745  0.911779437   1.02906339</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var2 -0.07420789 0.04713039 -0.137116046  -0.01310627</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.03813332 0.02410573 -0.003764332   0.06451397</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.02445496 0.04836261 -0.034274488   0.08471546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.03813332 0.02410573 -0.003764333   0.06451397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lag2_var3  0.02445496 0.04836261 -0.034274487   0.08471546</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> const      0.34018130 0.05793614  0.267311261   0.42804340</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -439,7 +440,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage       0.4077533 0.23847674   0.2611852    0.7767609</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage       0.1896373 0.05754023   0.1221834    0.2742914</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage       0.2081753 0.10506497   0.1155404    0.3765476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 3.9119189 0.65201364   3.1519602    4.6940409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A[1,]_shrinkage_scale 3.9119189 0.65201363   3.1519602    4.6940409</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A[2,]_shrinkage_scale 3.1114483 1.27400186   2.2555118    5.3782120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A[3,]_shrinkage_scale 2.9740477 1.14822406   1.7627029    4.9295659</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_global_scale        0.5032632 0.13970375   0.4030431    0.7621052</span>
