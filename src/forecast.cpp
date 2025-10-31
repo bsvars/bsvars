@@ -184,7 +184,7 @@ arma::cube forecast_lambda_t (
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-arma::cube forecast_bsvars (
+Rcpp::List forecast_bsvars (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     arma::cube&   forecast_sigma2,    // (N, horizon, S)
@@ -208,7 +208,11 @@ arma::cube forecast_bsvars (
   } // END if do_exog
   
   vec         Xt(K);
-  cube        forecasts(N, horizon, S);
+  
+  cube        out_forecast(N, horizon, S);
+  cube        out_forecast_mean(N, horizon, S);
+  field<cube> out_forecast_cov(S);
+  cube        SigmaT(N, N, horizon);
   
   for (int s=0; s<S; s++) {
     
@@ -223,28 +227,37 @@ arma::cube forecast_bsvars (
       mat   B_inv             = inv(posterior_B.slice(s));
       mat   s2_diag           = diagmat(forecast_sigma2.slice(s).col(h));
       mat   Sigma             = B_inv * s2_diag * B_inv.t();
-        
+      Sigma                   = 0.5 * (Sigma + Sigma.t());
+      SigmaT.slice(h) = Sigma;
       vec   cond_forecast_h   = trans(cond_forecast.row(h));
       uvec  nonf_el           = find_nonfinite( cond_forecast_h );
       int   nonf_no           = nonf_el.n_elem;
+      out_forecast_mean.slice(s).col(h) = posterior_A.slice(s) * Xt;
       
       if ( nonf_no == N ) {
-        forecasts.slice(s).col(h) = mvnrnd( posterior_A.slice(s) * Xt, Sigma );
+        out_forecast.slice(s).col(h) = mvnrnd( out_forecast_mean.slice(s).col(h), Sigma );
       } else {
-        forecasts.slice(s).col(h) = mvnrnd_cond( cond_forecast_h, posterior_A.slice(s) * Xt, Sigma );   // does not work if cond_fc_h is all nan
+        out_forecast.slice(s).col(h) = mvnrnd_cond( cond_forecast_h, out_forecast_mean.slice(s).col(h), Sigma );   // does not work if cond_fc_h is all nan
       } // END if nonf_no
       
       if ( h != horizon - 1 ) {
         if ( do_exog ) {
-          Xt          = join_cols( forecasts.slice(s).col(h), Xt.subvec(N, K - 1 - d), trans(exogenous_forecast.row(h + 1)) );
+          Xt          = join_cols( out_forecast.slice(s).col(h), Xt.subvec(N, K - 1 - d), trans(exogenous_forecast.row(h + 1)) );
         } else {
-          Xt          = join_cols( forecasts.slice(s).col(h), Xt.subvec(N, K - 1) );
+          Xt          = join_cols( out_forecast.slice(s).col(h), Xt.subvec(N, K - 1) );
         }
       } // END if h
       
     } // END h loop
+    
+    out_forecast_cov(s) = SigmaT;
+    
   } // END s loop
   
-  return forecasts;
+  return List::create(
+    _["forecasts"]       = out_forecast,
+    _["forecast_mean"]  = out_forecast_mean,
+    _["forecast_cov"]   = out_forecast_cov
+  );
 } // END forecast_bsvar
 
