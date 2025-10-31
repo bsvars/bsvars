@@ -78,12 +78,14 @@ deviations and data. The output elements include:</p>
 <dl><dt>forecasts</dt>
 <dd><p>an <code>NxTxS</code> array with the draws from predictive density</p></dd>
 
- <dt>forecasts_sigma</dt>
-<dd><p>provided only for heteroskedastic models, an <code>NxTxS</code> array with the draws
- from the predictive density of structural shocks conditional standard deviations</p></dd>
-
  <dt>Y</dt>
 <dd><p>an \(NxT\) matrix with the data on dependent variables</p></dd>
+
+ <dt>forecast_mean</dt>
+<dd><p>an <code>NxTxS</code> array with the mean of the predictive density</p></dd>
+
+ <dt>forecast_covariance</dt>
+<dd><p>an <code>NxTxS</code> array with the covariance of the predictive density</p></dd>
 
 
 </dl></div>

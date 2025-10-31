@@ -82,12 +82,20 @@ forecasted conditionally on the realisations provided as <code>numeric</code> va
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list of class <code>Forecasts</code> containing the
-draws from the predictive density and data. The output list includes element:</p>
+draws from the predictive density and for heteroskedastic models the draws
+from the predictive density of structural shocks conditional standard
+deviations and data. The output elements include:</p>
 <dl><dt>forecasts</dt>
 <dd><p>an <code>NxTxS</code> array with the draws from predictive density</p></dd>
 
  <dt>Y</dt>
 <dd><p>an \(NxT\) matrix with the data on dependent variables</p></dd>
+
+ <dt>forecast_mean</dt>
+<dd><p>an <code>NxTxS</code> array with the mean of the predictive density</p></dd>
+
+ <dt>forecast_covariance</dt>
+<dd><p>an <code>NxTxS</code> array with the covariance of the predictive density</p></dd>
 
 
 </dl></div>
