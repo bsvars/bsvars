@@ -71,26 +71,16 @@ and estimated equation-specific degrees-of-freedom parameter.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
-set.seed(123)
-
-# run the burn-in
+specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 4)
 burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10, thin = 2)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_t$new(p = 1) |>
+  specify_bsvar_t$new(p = 4) |>
   estimate(S = 5) |> 
-  estimate(S = 10, thin = 2) -> posterior
+  estimate(S = 5) -> posterior
 
 }
 \references{

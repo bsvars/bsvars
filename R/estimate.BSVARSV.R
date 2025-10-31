@@ -98,27 +98,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   specify_bsvar_sv$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) -> post
 #' 
 #' @export
 estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -160,27 +149,16 @@ estimate.BSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   specify_bsvar_sv$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) -> post
 #' 
 #' @export
 estimate.PosteriorBSVARSV <- function(specification, S, thin = 1, show_progress = TRUE) {

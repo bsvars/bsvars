@@ -83,27 +83,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
-#' 
-#' # run the burn-in
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_mix$new(p = 1, M = 2) |>
+#'   specify_bsvar_mix$new(M = 2) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10, thin = 2) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   estimate(S = 5) -> post
 #'   
 #' @export
 estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -150,27 +139,16 @@ estimate.BSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) 
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' set.seed(123)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20, thin = 2)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 2) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   specify_bsvar_mix$new(M = 2) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) -> post
 #'   
 #' @export
 estimate.PosteriorBSVARMIX <- function(specification, S, thin = 1, show_progress = TRUE) {

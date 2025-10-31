@@ -121,6 +121,7 @@
 #' @importFrom stochvol svsample_fast_cpp
 #' @importFrom stats quantile sd density
 #' @importFrom graphics polygon abline par mtext axis
+#' @importFrom generics forecast
 #' @importFrom utils tail
 #' @note This package is currently in active development. Your comments,
 #' suggestions and requests are warmly welcome!
@@ -150,17 +151,16 @@
 #' @keywords package models ts
 #' 
 #' @examples
-#' # specify the model
-#' spec  = specify_bsvar_sv$new(us_fiscal_lsuw, exogenous = us_fiscal_ex)
-#' 
-#' # run the burn-in
-#' burn  = estimate(spec, 5)
-#' 
-#' # estimate the model
-#' post  = estimate(burn, 10)
-#' 
-#' # compute impulse responses one year ahead
-#' irf   = compute_impulse_responses(post, horizon = 2)
+#' spec  = specify_bsvar_sv$new(         # specify the model
+#'           us_fiscal_lsuw, 
+#'           exogenous = us_fiscal_ex
+#'         )
+#' burn  = estimate(spec, 5)             # run the burn-in
+#' post  = estimate(burn, 10)            # estimate the model
+#' irf   = compute_impulse_responses(    # compute impulse responses
+#'           post, 
+#'           horizon = 2
+#'          )
 #' 
 #' # compute forecast error variance decomposition one year ahead
 #' fevd  = compute_variance_decompositions(post, horizon = 4)

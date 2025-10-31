@@ -15,7 +15,8 @@ Imports:
     RcppTN,
     GIGrvg,
     R6,
-    stochvol
+    stochvol,
+    generics
 Suggests: 
     knitr,
     tinytest

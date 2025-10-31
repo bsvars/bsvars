@@ -21,24 +21,17 @@ transformed into a draw from the posterior distribution of the structural
 shock conditional standard deviations.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
-
-# compute structural shocks' conditional standard deviations
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 csd     = compute_conditional_sd(posterior)
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_exh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 10) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_conditional_sd() -> csd
   
 }
