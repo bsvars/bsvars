@@ -13,6 +13,8 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 7.  ALL MODELS can have normal or Student-t distributed shocks. There's a new arguent in all `specify_*` functions `distribution = c("norm", "t")`. [#58](https://github.com/bsvars/bsvars/issues/58)
 8.  A NEW MODEL! A BSVAR with exogenous heteroskedastic regime changes. [#23](https://github.com/bsvars/bsvars/issues/23)
 9.  Updates CXX flags. [#125](https://github.com/bsvars/bsvars/issues/125)
+10. Simplified examples in documentation to better express the simplicity of workflows as suggested by [\@robjhyndman](https://github.com/robjhyndman). [#120](https://github.com/bsvars/bsvars/issues/120)
+11. Replaced forecast method with `generics::forecast` as suggested by [\@robjhyndman](https://github.com/robjhyndman). [#114](https://github.com/bsvars/bsvars/issues/114)
 
 # bsvars 3.2
 
