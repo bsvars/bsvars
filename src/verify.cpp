@@ -179,7 +179,7 @@ Rcpp::List verify_volatility_msh_cpp (
   const int   T             = Y.n_cols;
   const int   S             = posterior_B.n_slices;
   
-  rowvec      homoskedasticity_hypothesis(M, fill::ones);
+  rowvec      homoskedasticity_hypothesis(M, fill::value(1 / M));
   
   // compute denominator
   
@@ -205,7 +205,7 @@ Rcpp::List verify_volatility_msh_cpp (
         }
       }
       
-      log_numerator_s(n,s)  = M * log(M) * dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
+      log_numerator_s(n,s)  = dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
       
     } // END n loop
   } // END s loop
@@ -270,7 +270,7 @@ Rcpp::List verify_volatility_hmsh_cpp (
   const int   T             = Y.n_cols;
   const int   S             = posterior_B.n_slices;
   
-  rowvec      homoskedasticity_hypothesis(M, fill::ones);
+  rowvec      homoskedasticity_hypothesis(M, fill::value(1 / M));
   
   // compute denominator
   
@@ -297,7 +297,7 @@ Rcpp::List verify_volatility_hmsh_cpp (
         }
       }
       
-      log_numerator_s(n,s)  = M * log(M) * dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
+      log_numerator_s(n,s)  = dig2dirichlet( homoskedasticity_hypothesis, posterior_nu, posterior_s.row(n) );
       
     } // END n loop
   } // END s loop

@@ -43,7 +43,7 @@ arma::cube forecast_lambda_t (
 );
 
 
-arma::cube forecast_bsvars (
+Rcpp::List forecast_bsvars (
     arma::cube&   posterior_B,        // (N, N, S)
     arma::cube&   posterior_A,        // (N, K, S)
     arma::cube&   forecast_sigma2,    // (N, horizon, S)

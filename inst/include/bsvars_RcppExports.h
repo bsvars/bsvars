@@ -424,11 +424,11 @@ namespace bsvars {
         return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
-    inline arma::cube forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon) {
+    inline Rcpp::List forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon) {
         typedef SEXP(*Ptr_forecast_bsvars)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_forecast_bsvars p_forecast_bsvars = NULL;
         if (p_forecast_bsvars == NULL) {
-            validateSignature("arma::cube(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
+            validateSignature("Rcpp::List(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
             p_forecast_bsvars = (Ptr_forecast_bsvars)R_GetCCallable("bsvars", "_bsvars_forecast_bsvars");
         }
         RObject rcpp_result_gen;
@@ -442,7 +442,7 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<arma::cube >(rcpp_result_gen);
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
     inline arma::vec Ergodic_PR_TR(const arma::mat& PR_TR) {

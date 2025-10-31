@@ -752,7 +752,7 @@ RcppExport SEXP _bsvars_forecast_lambda_t(SEXP posterior_dfSEXP, SEXP horizonSEX
     return rcpp_result_gen;
 }
 // forecast_bsvars
-arma::cube forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon);
+Rcpp::List forecast_bsvars(arma::cube& posterior_B, arma::cube& posterior_A, arma::cube& forecast_sigma2, arma::vec& X_T, arma::mat& exogenous_forecast, arma::mat& cond_forecast, const int& horizon);
 static SEXP _bsvars_forecast_bsvars_try(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SEXP forecast_sigma2SEXP, SEXP X_TSEXP, SEXP exogenous_forecastSEXP, SEXP cond_forecastSEXP, SEXP horizonSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -2401,7 +2401,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*forecast_sigma2_hmsh)(arma::cube&,arma::field<arma::cube>&,arma::cube&,const int&)");
         signatures.insert("arma::cube(*forecast_sigma2_sv)(arma::mat&,arma::mat&,arma::mat&,const int&,const bool&)");
         signatures.insert("arma::cube(*forecast_lambda_t)(arma::mat&,const int&)");
-        signatures.insert("arma::cube(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
+        signatures.insert("Rcpp::List(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
         signatures.insert("arma::vec(*Ergodic_PR_TR)(const arma::mat&)");
         signatures.insert("arma::mat(*count_regime_transitions)(const arma::mat&)");
         signatures.insert("arma::rowvec(*rDirichlet1)(const arma::rowvec&)");
