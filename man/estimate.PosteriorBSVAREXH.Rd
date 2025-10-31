@@ -74,21 +74,16 @@ The model selection also with this respect is made using function \code{\link{sp
 \examples{
 # simple workflow
 ############################################################
-# specify the model
 spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
-
-# run the burn-in
 burn  = estimate(spec, 5)
-
-# estimate the model
-post  = estimate(burn, 10)
+post  = estimate(burn, 5)
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_exh$new() |>
   estimate(S = 5) |> 
-  estimate(S = 10)  -> post
+  estimate(S = 5)  -> post
 
 }
 \references{

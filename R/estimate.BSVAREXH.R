@@ -80,21 +80,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model
 #' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
 #' burn  = estimate(spec, 5)
-#' 
-#' # estimate the model
-#' post  = estimate(burn, 10)
+#' post  = estimate(burn, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_exh$new() |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> post
+#'   estimate(S = 5) -> post
 #' 
 #' @export
 estimate.BSVAREXH <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -135,21 +130,16 @@ estimate.BSVAREXH <- function(specification, S, thin = 1, show_progress = TRUE) 
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model
 #' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
 #' burn  = estimate(spec, 5)
-#' 
-#' # estimate the model
-#' post  = estimate(burn, 10)
+#' post  = estimate(burn, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_exh$new() |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10)  -> post
+#'   estimate(S = 5)  -> post
 #' 
 #' @export
 estimate.PosteriorBSVAREXH <- function(specification, S, thin = 1, show_progress = TRUE) {

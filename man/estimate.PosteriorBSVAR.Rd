@@ -55,18 +55,9 @@ the latter case the shock-specific degrees of freedom parameters are estimated.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-set.seed(123)
-
-# run the burn-in
+specification  = specify_bsvar$new(us_fiscal_lsuw)
 burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10, thin = 2)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
@@ -74,8 +65,7 @@ set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
   estimate(S = 5) |> 
-  estimate(S = 10, thin = 2) |> 
-  compute_impulse_responses(horizon = 4) -> irf
+  estimate(S = 5) -> post
 
 }
 \references{

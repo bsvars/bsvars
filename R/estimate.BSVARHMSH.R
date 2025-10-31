@@ -93,21 +93,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model and set seed
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new(M = 2) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> posterior
+#'   estimate(S = 5) -> posterior
 #' 
 #' @export
 estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -165,21 +160,16 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model and set seed
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new(M = 2) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> posterior
+#'   estimate(S = 5) -> posterior
 #' 
 #' @export
 estimate.PosteriorBSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE) {
