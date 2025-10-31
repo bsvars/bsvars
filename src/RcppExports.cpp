@@ -389,6 +389,49 @@ RcppExport SEXP _bsvars_bsvars_filter_forecast_smooth_hmsh(SEXP posteriorSEXP, S
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// bsvar_exh_cpp
+Rcpp::List bsvar_exh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& starting_values, const bool normal, const int thin, const bool show_progress);
+static SEXP _bsvars_bsvar_exh_cpp_try(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const int& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
+    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VA(VASEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
+    Rcpp::traits::input_parameter< const bool >::type normal(normalSEXP);
+    Rcpp::traits::input_parameter< const int >::type thin(thinSEXP);
+    Rcpp::traits::input_parameter< const bool >::type show_progress(show_progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvar_exh_cpp(S, Y, X, prior, VB, VA, starting_values, normal, thin, show_progress));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_bsvar_exh_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_bsvar_exh_cpp_try(SSEXP, YSEXP, XSEXP, priorSEXP, VBSEXP, VASEXP, starting_valuesSEXP, normalSEXP, thinSEXP, show_progressSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // bsvar_hmsh_cpp
 Rcpp::List bsvar_hmsh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& starting_values, const bool normal, const int thin, const bool finiteM, const bool MSnotMIX, const std::string name_model, const bool show_progress);
 static SEXP _bsvars_bsvar_hmsh_cpp_try(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP finiteMSEXP, SEXP MSnotMIXSEXP, SEXP name_modelSEXP, SEXP show_progressSEXP) {
@@ -2392,6 +2435,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_filter_forecast_smooth)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_filter_forecast_smooth_hmsh)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
+        signatures.insert("Rcpp::List(*bsvar_exh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool)");
         signatures.insert("Rcpp::List(*bsvar_hmsh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_msh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_sv_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool)");
@@ -2461,6 +2505,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_fitted_values", (DL_FUNC)_bsvars_bsvars_fitted_values_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_hmsh_try);
+    R_RegisterCCallable("bsvars", "_bsvars_bsvar_exh_cpp", (DL_FUNC)_bsvars_bsvar_exh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_hmsh_cpp", (DL_FUNC)_bsvars_bsvar_hmsh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_msh_cpp", (DL_FUNC)_bsvars_bsvar_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_sv_cpp", (DL_FUNC)_bsvars_bsvar_sv_cpp_try);
@@ -2529,6 +2574,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
     {"_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth, 5},
     {"_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth_hmsh, 5},
+    {"_bsvars_bsvar_exh_cpp", (DL_FUNC) &_bsvars_bsvar_exh_cpp, 10},
     {"_bsvars_bsvar_hmsh_cpp", (DL_FUNC) &_bsvars_bsvar_hmsh_cpp, 13},
     {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 13},
     {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 11},
