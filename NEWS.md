@@ -8,6 +8,10 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 2.  Updated C++ flags to the newest recommended setup as inspired by the PR [#103](https://github.com/bsvars/bsvars/pull/103) by [\@haansn08](https://github.com/haansn08)
 3.  Corrected C++ code for historical decompositions in PR [#108](https://github.com/bsvars/bsvars/pull/108) by [Adam Wang](https://github.com/adamwang15)
 4.  Upon popular request the package includes possibility of imposing exclusion restrictions on autoregressive parameters for all models [#106](https://github.com/bsvars/bsvars/issues/106)
+5.  Improved forecasting plots to accommodate those for `horizon = 1` [#121](https://github.com/bsvars/bsvars/issues/121)
+6.  A NEW MODEL! A BSVAR with heterogenous Markov switching heteroskedasticity [#58](https://github.com/bsvars/bsvars/issues/58)
+7.  ALL MODELS can have normal or Student-t distributed shocks. There's a new arguent in all `specify_*` functions `distribution = c("norm", "t")`. [#58](https://github.com/bsvars/bsvars/issues/58)
+8.  A NEW MODEL! A BSVAR with exogenous heteroskedastic regime changes. [#23](https://github.com/bsvars/bsvars/issues/23)
 
 # bsvars 3.2
 
