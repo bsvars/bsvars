@@ -80,7 +80,6 @@
 <url><loc>https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARMSH.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARSV.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/forecast.PosteriorBSVART.html</loc></url>
-<url><loc>https://bsvars.org/bsvars/reference/forecast.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/index.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/normalise_posterior.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot.Forecasts.html</loc></url>
@@ -92,6 +91,7 @@
 <url><loc>https://bsvars.org/bsvars/reference/plot.PosteriorShocks.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot.PosteriorSigma.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot_ribbon.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/reexports.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/specify_bsvar.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/specify_bsvar_exh.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/specify_bsvar_hmsh.html</loc></url>

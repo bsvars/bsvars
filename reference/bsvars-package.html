@@ -199,12 +199,12 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># specify the model</span></span></span>
-<span class="r-in"><span><span class="va">spec</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">spec</span>  <span class="op">=</span> <span class="va"><a href="specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>         <span class="co"># specify the model</span></span></span>
+<span class="r-in"><span>          <span class="va">us_fiscal_lsuw</span>, </span></span>
+<span class="r-in"><span>          exogenous <span class="op">=</span> <span class="va">us_fiscal_ex</span></span></span>
+<span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The identification is set to the default option of lower-triangular structural matrix.</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># run the burn-in</span></span></span>
-<span class="r-in"><span><span class="va">burn</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">spec</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">burn</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">spec</span>, <span class="fl">5</span><span class="op">)</span>             <span class="co"># run the burn-in</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
@@ -215,9 +215,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># estimate the model</span></span></span>
-<span class="r-in"><span><span class="va">post</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">post</span>  <span class="op">=</span> <span class="fu"><a href="estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn</span>, <span class="fl">10</span><span class="op">)</span>            <span class="co"># estimate the model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bsvars: Bayesian Structural Vector Autoregressions|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
@@ -228,9 +226,10 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># compute impulse responses one year ahead</span></span></span>
-<span class="r-in"><span><span class="va">irf</span>   <span class="op">=</span> <span class="fu"><a href="compute_impulse_responses.html">compute_impulse_responses</a></span><span class="op">(</span><span class="va">post</span>, horizon <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">irf</span>   <span class="op">=</span> <span class="fu"><a href="compute_impulse_responses.html">compute_impulse_responses</a></span><span class="op">(</span>    <span class="co"># compute impulse responses</span></span></span>
+<span class="r-in"><span>          <span class="va">post</span>, </span></span>
+<span class="r-in"><span>          horizon <span class="op">=</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span>         <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute forecast error variance decomposition one year ahead</span></span></span>
 <span class="r-in"><span><span class="va">fevd</span>  <span class="op">=</span> <span class="fu"><a href="compute_variance_decompositions.html">compute_variance_decompositions</a></span><span class="op">(</span><span class="va">post</span>, horizon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
@@ -292,7 +291,7 @@ In: <em>Oxford Research Encyclopedia of Economics and Finance</em>. Oxford Unive
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span> <span class="va">post</span> <span class="op">|&gt;</span> <span class="fu"><a href="forecast.html">forecast</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">post</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://generics.r-lib.org/reference/forecast.html" class="external-link">forecast</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    horizon <span class="op">=</span> <span class="fl">8</span>,</span></span>
 <span class="r-in"><span>    exogenous_forecast <span class="op">=</span> <span class="va">us_fiscal_ex_forecasts</span>,</span></span>
 <span class="r-in"><span>    conditional_forecast <span class="op">=</span> <span class="va">us_fiscal_cond_forecasts</span></span></span>
