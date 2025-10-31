@@ -2,17 +2,18 @@
 % Please edit documentation in R/forecast.R
 \name{forecast.PosteriorBSVARHMSH}
 \alias{forecast.PosteriorBSVARHMSH}
-\title{Forecasting using Structural Vector Autoregression}
+\title{Forecasting using Bayesian Structural Vector Autoregression}
 \usage{
 \method{forecast}{PosteriorBSVARHMSH}(
-  posterior,
+  object,
   horizon = 1,
   exogenous_forecast = NULL,
-  conditional_forecast = NULL
+  conditional_forecast = NULL,
+  ...
 )
 }
 \arguments{
-\item{posterior}{posterior estimation outcome - an object of class 
+\item{object}{posterior estimation outcome - an object of class 
 \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.}
 
 \item{horizon}{a positive integer, specifying the forecasting horizon.}
@@ -24,6 +25,8 @@ forecasted values of the exogenous variables.}
 for selected variables. It should only contain \code{numeric} or \code{NA} 
 values. The entries with \code{NA} values correspond to the values that are 
 forecasted conditionally on the realisations provided as \code{numeric} values.}
+
+\item{...}{not used}
 }
 \value{
 A list of class \code{Forecasts} containing the
@@ -40,21 +43,13 @@ deviations and data. The output elements include:
 }
 \description{
 Samples from the joint predictive density of all of the dependent 
-variables for models from packages \pkg{bsvars}, \pkg{bsvarSIGNs} or 
-\pkg{bvarPANELs} at forecast horizons from 1 to \code{horizon} specified as 
+variables for models at forecast horizons from 1 to \code{horizon} specified as 
 an argument of the function.
 }
 \examples{
-# specify the model and set seed
-specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
-
-# run the burn-in
+specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
 burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
-
-# sample from predictive density 1 year ahead
+posterior      = estimate(burn_in, 5)
 predictive     = forecast(posterior, 4)
 
 # workflow with the pipe |>
@@ -62,14 +57,14 @@ predictive     = forecast(posterior, 4)
 us_fiscal_lsuw |>
   specify_bsvar_hmsh$new(M = 2) |>
   estimate(S = 5) |> 
-  estimate(S = 10) |> 
+  estimate(S = 5) |> 
   forecast(horizon = 4) -> predictive
   
 # forecasting using a model with exogenous variables
 ############################################################
 specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2, exogenous = us_fiscal_ex)
 burn_in        = estimate(specification, 5)
-posterior      = estimate(burn_in, 10)
+posterior      = estimate(burn_in, 5)
 
 # forecast 2 years ahead
 predictive     = forecast(
@@ -84,7 +79,7 @@ summary(predictive)
 us_fiscal_lsuw |>
   specify_bsvar_hmsh$new(M = 2, exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
-  estimate(S = 10) |> 
+  estimate(S = 5) |> 
   forecast(
     horizon = 8,
     exogenous_forecast = us_fiscal_ex_forecasts
