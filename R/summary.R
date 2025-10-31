@@ -285,6 +285,143 @@ summary.PosteriorBSVARSV = function(
 
 
 
+#' @title Provides posterior summary of heteroskedastic Structural VAR estimation
+#'
+#' @description Provides posterior mean, standard deviations, as well as 5 and 95 
+#' percentiles of the parameters: the structural matrix \eqn{B}, autoregressive 
+#' parameters \eqn{A}, and hyper parameters.
+#' 
+#' @param object an object of class PosteriorBSVAREXH obtained using the
+#' \code{estimate()} function applied to heteroskedastic Bayesian Structural VAR
+#' model specification set by function \code{specify_bsvar_exh$new()} containing 
+#' draws from the  posterior distribution of the parameters. 
+#' @param ... additional arguments affecting the summary produced.
+#' 
+#' @return A list reporting the posterior mean, standard deviations, as well as 5 and 95 
+#' percentiles of the parameters: the structural matrix \eqn{B}, autoregressive 
+#' parameters \eqn{A}, and hyper-parameters.
+#' 
+#' @method summary PosteriorBSVAREXH
+#' 
+#' @seealso \code{\link{estimate}}, \code{\link{specify_bsvar_exh}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # specify the model and set seed
+#' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn  = estimate(spec, 10)
+#' 
+#' # estimate the model
+#' post  = estimate(burn, 10)
+#' summary(post)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 10) |> 
+#'   summary()
+#' 
+#' @export
+summary.PosteriorBSVAREXH = function(
+    object,
+    ...
+) {
+  
+  cat(
+    " **************************************************|\n",
+    "bsvars: Bayesian Structural Vector Autoregressions|\n",
+    "**************************************************|\n",
+    "  Posterior summary of the parameters             |\n",
+    "**************************************************|\n"
+  )
+  
+  N         = dim(object$posterior$A)[1]
+  p         = object$last_draw$p
+  K         = dim(object$last_draw$data_matrices$X)[1]
+  d         = K - N * p
+  
+  out       = list()
+  out$B     = list()
+  out$A     = list()
+  out$hyper = list()
+  
+  param     = c("B", "A")
+  
+  for (n in 1:N) {
+    which_par = which(colSums(object$last_draw$identification$VB[[n]]) == 1)
+    out$B[[n]] = matrix(
+      cbind(
+        apply(object$posterior$B[n,,], 1, mean),
+        apply(object$posterior$B[n,,], 1, sd),
+        apply(object$posterior$B[n,,], 1, quantile, probs = 0.05),
+        apply(object$posterior$B[n,,], 1, quantile, probs = 0.95)
+      )[which_par,],
+      ncol = 4
+    )
+    colnames(out$B[[n]]) = c("mean", "sd", "5% quantile", "95% quantile")
+    rownames(out$B[[n]]) = paste0("B[", n, ",", which_par, "]")  
+    
+    out$A[[n]] = cbind(
+      apply(object$posterior$A[n,,], 1, mean),
+      apply(object$posterior$A[n,,], 1, sd),
+      apply(object$posterior$A[n,,], 1, quantile, probs = 0.05),
+      apply(object$posterior$A[n,,], 1, quantile, probs = 0.95)
+    )
+    colnames(out$A[[n]]) = c("mean", "sd", "5% quantile", "95% quantile")
+    
+    Anames  = c(
+      paste0(
+        rep("lag", p * N),
+        kronecker((1:p), rep(1, N)),
+        rep("_var", p * N),
+        kronecker((1:N), rep(1, p))
+      ),
+      "const"
+    )
+    if (d > 1) {
+      Anames = c(Anames, paste0("exo", 1:(d - 1)))
+    }
+    rownames(out$A[[n]]) = Anames
+  } # END n loop
+  
+  names(out$B) = paste0("equation", 1:N)
+  names(out$A) = paste0("equation", 1:N)
+  
+  for (i in 1:2) {
+    out$hyper[[i]] = cbind(
+      apply(object$posterior$hyper[,i,], 1, mean),
+      apply(object$posterior$hyper[,i,], 1, sd),
+      apply(object$posterior$hyper[,i,], 1, quantile, probs = 0.05),
+      apply(object$posterior$hyper[,i,], 1, quantile, probs = 0.95)
+    )
+    
+    colnames(out$hyper[[i]]) = c("mean", "sd", "5% quantile", "95% quantile")
+    rownames(out$hyper[[i]]) = c(
+      paste0(
+        rep(param[i], N),
+        "[",
+        kronecker(rep(1, 2), (1:N)),
+        c(rep(",]_shrinkage", N), rep(",]_shrinkage_scale", N))
+      ),
+      paste0(param[i], "_global_scale")
+    )
+  } # END i loop
+  names(out$hyper) = param
+  
+  return(out)
+} # END summary.PosteriorBSVAREXH
+
+
+
+
+
+
+
 
 #' @title Provides posterior summary of heteroskedastic Structural VAR estimation
 #'

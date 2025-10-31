@@ -84,6 +84,54 @@ compute_impulse_responses.PosteriorBSVAR <- function(posterior, horizon, standar
 
 
 
+#' @inherit compute_impulse_responses
+#' @method compute_impulse_responses PosteriorBSVAREXH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # compute impulse responses
+#' irfs            = compute_impulse_responses(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 20) |> 
+#'   compute_impulse_responses(horizon = 4) -> irfs
+#'   
+#' @export
+compute_impulse_responses.PosteriorBSVAREXH <- function(posterior, horizon, standardise = FALSE) {
+  
+  Y               = posterior$last_draw$data_matrices$Y
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+  
+  qqq             = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, standardise)
+  
+  irfs            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
+  for (s in 1:S) irfs[,,,s] = qqq[s][[1]]
+  class(irfs)     = "PosteriorIR"
+  
+  return(irfs)
+}
+
+
+
+
 
 #' @inherit compute_impulse_responses
 #' @method compute_impulse_responses PosteriorBSVARMSH

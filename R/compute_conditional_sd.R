@@ -106,6 +106,62 @@ compute_conditional_sd.PosteriorBSVAR <- function(posterior) {
 
 
 
+#' @method compute_conditional_sd PosteriorBSVAREXH
+#' 
+#' @title Computes posterior draws of structural shock conditional standard deviations
+#'
+#' @description Each of the draws from the posterior estimation of models is 
+#' transformed into a draw from the posterior distribution of the structural 
+#' shock conditional standard deviations. 
+#' 
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
+#' 
+#' @return An object of class \code{PosteriorSigma}, that is, an \code{NxTxS} 
+#' array with attribute \code{PosteriorSigma} containing \code{S} draws of the 
+#' structural shock conditional standard deviations.
+#'
+#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#'
+#' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # compute structural shocks' conditional standard deviations
+#' csd     = compute_conditional_sd(posterior)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 10) |> 
+#'   compute_conditional_sd() -> csd
+#'   
+#' @export
+compute_conditional_sd.PosteriorBSVAREXH <- function(posterior) {
+  
+  Y                         = posterior$last_draw$data_matrices$Y
+  posterior_sigma           = posterior$posterior$sigma
+  S                         = dim(posterior_sigma)[3]
+  class(posterior_sigma)    = "PosteriorSigma"
+  dimnames(posterior_sigma) = list(rownames(Y), colnames(Y), 1:S)
+  
+  return(posterior_sigma)
+}
+
+
+
+
+
 #' @method compute_conditional_sd PosteriorBSVARMSH
 #' 
 #' @title Computes posterior draws of structural shock conditional standard deviations

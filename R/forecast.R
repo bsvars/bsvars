@@ -255,6 +255,158 @@ forecast.PosteriorBSVAR = function(
 
 
 
+#' @inherit forecast
+#' @method forecast PosteriorBSVAREXH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
+#' @param exogenous_forecast a matrix of dimension \code{horizon x d} containing 
+#' forecasted values of the exogenous variables.
+#' @param conditional_forecast a \code{horizon x N} matrix with forecasted values 
+#' for selected variables. It should only contain \code{numeric} or \code{NA} 
+#' values. The entries with \code{NA} values correspond to the values that are 
+#' forecasted conditionally on the realisations provided as \code{numeric} values.
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 5)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # sample from predictive density 1 year ahead
+#' predictive     = forecast(posterior, 4)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) |> 
+#'   forecast(horizon = 4) -> predictive
+#'   
+#' # conditional forecasting using a model with exogenous variables
+#' ############################################################
+#' specification  = specify_bsvar_exh$new(us_fiscal_lsuw, exogenous = us_fiscal_ex)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # forecast 2 years ahead
+#' predictive     = forecast(
+#'                     posterior, 
+#'                     horizon = 8,
+#'                     exogenous_forecast = us_fiscal_ex_forecasts,
+#'                     conditional_forecast = us_fiscal_cond_forecasts
+#'                   )
+#' summary(predictive)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new(exogenous = us_fiscal_ex) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 10) |> 
+#'   forecast(
+#'     horizon = 8,
+#'     exogenous_forecast = us_fiscal_ex_forecasts,
+#'     conditional_forecast = us_fiscal_cond_forecasts
+#'   ) |> plot()
+#'   
+#' @export
+forecast.PosteriorBSVAREXH = function(
+    posterior, 
+    horizon = 1, 
+    exogenous_forecast = NULL,
+    conditional_forecast = NULL
+) {
+  
+  posterior_B       = posterior$posterior$B
+  posterior_A       = posterior$posterior$A
+  posterior_sigma2  = posterior$posterior$sigma2
+  T                 = ncol(posterior$last_draw$data_matrices$X)
+  X_T               = posterior$last_draw$data_matrices$X[,T]
+  Y                 = posterior$last_draw$data_matrices$Y
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
+  N               = nrow(posterior_B)
+  K               = length(X_T)
+  d               = K - N * posterior$last_draw$p - 1
+  S               = dim(posterior_B)[3]
+  
+  # prepare forecasting with exogenous variables
+  if (d == 0 ) {
+    exogenous_forecast = matrix(NA, horizon, 1)
+  } else {
+    stopifnot("Forecasted values of exogenous variables are missing." = (d > 0) & !is.null(exogenous_forecast))
+    stopifnot("The matrix of exogenous_forecast does not have a correct number of columns." = ncol(exogenous_forecast) == d)
+    stopifnot("Provide exogenous_forecast for all forecast periods specified by argument horizon." = nrow(exogenous_forecast) == horizon)
+    stopifnot("Argument exogenous has to be a matrix." = is.matrix(exogenous_forecast) & is.numeric(exogenous_forecast))
+    stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
+  }
+  
+  # prepare forecasting with conditional forecasts
+  if ( is.null(conditional_forecast) ) {
+    # this will not be used for forecasting, but needs to be provided
+    conditional_forecast = matrix(NA, horizon, N)
+  } else {
+    stopifnot("Argument conditional_forecast must be a matrix with numeric values."
+              = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
+    )
+    stopifnot("Argument conditional_forecast must have the number of rows equal to 
+              the value of argument horizon."
+              = nrow(conditional_forecast) == horizon
+    )
+    stopifnot("Argument conditional_forecast must have the number of columns 
+              equal to the number of columns in the used data."
+              = ncol(conditional_forecast) == N
+    )
+  }
+  
+  # forecast volatility
+  forecast_sigma2   = array(NA, c(N, horizon, S))
+  for (h in 1:horizon) {
+    forecast_sigma2[,h,]   = sigma2_T
+  }
+  
+  # for Student-t shocks
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, 
+                            posterior_df,
+                            horizon
+    ) # END .Call
+    forecast_sigma2 = forecast_sigma2 * forecast_lambda
+  }
+  
+  # perform forecasting
+  output       = .Call(`_bsvars_forecast_bsvars`, 
+                       posterior_B,
+                       posterior_A,
+                       forecast_sigma2,    # (N, horizon, S)
+                       X_T,
+                       exogenous_forecast,
+                       conditional_forecast,
+                       horizon
+  ) # END .Call
+  
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
+  
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
+} # END forecast.PosteriorBSVAREXH
+
+
+
+
+
+
 
 #' @inherit forecast
 #' @method forecast PosteriorBSVARHMSH
@@ -408,6 +560,7 @@ forecast.PosteriorBSVARHMSH = function(
   
   return(output)
 } # END forecast.PosteriorBSVARHMSH
+
 
 
 

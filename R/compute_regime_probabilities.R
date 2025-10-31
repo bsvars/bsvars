@@ -56,6 +56,41 @@ compute_regime_probabilities <- function(posterior, type = c("realized", "filter
 
 
 
+
+
+
+
+#' @inherit compute_regime_probabilities
+#' @method compute_regime_probabilities PosteriorBSVAREXH
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
+#' 
+#' @export
+compute_regime_probabilities.PosteriorBSVAREXH <- function(posterior, type = "realized") {
+  
+  type          = match.arg(type)
+  
+  posteriors    = posterior$posterior
+  Y             = posterior$last_draw$data_matrices$Y
+  X             = posterior$last_draw$data_matrices$X
+  probs         = posteriors$xi
+  
+  class(probs)  = "PosteriorRegimePr"
+  M                 = dim(posterior$posterior$xi)[1]
+  S                 = dim(posterior$posterior$xi)[3]
+  dimnames(probs)   = list(1:M, colnames(Y), 1:S)
+  
+  return(probs)
+}
+
+
+
+
+
+
+
+
+
 #' @inherit compute_regime_probabilities
 #' @method compute_regime_probabilities PosteriorBSVARMSH
 #' @param posterior posterior estimation outcome - an object of class 
