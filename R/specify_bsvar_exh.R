@@ -364,6 +364,11 @@ specify_bsvar_exh = R6::R6Class(
       
       if (is.null(variance_regimes)) {
         variance_regimes = rep(1, T)
+      } else {
+        stopifnot("Argument variance_regimes has to be of the same length as the data." = 
+                    length(variance_regimes) == TT
+        )
+        variance_regimes = tail(variance_regimes, T)
       }
       
       if (distribution == "t") {
