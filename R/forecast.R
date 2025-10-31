@@ -19,9 +19,9 @@
 #' 
 #' \describe{
 #'  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
-#'  \item{forecasts_sigma}{provided only for heteroskedastic models, an \code{NxTxS} array with the draws 
-#'  from the predictive density of structural shocks conditional standard deviations}
 #'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
+#'  \item{forecast_mean}{an \code{NxTxS} array with the mean of the predictive density}
+#'  \item{forecast_covariance}{an \code{NxTxS} array with the covariance of the predictive density}
 #' }
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
@@ -107,14 +107,6 @@ forecast <- function(
 #' for selected variables. It should only contain \code{numeric} or \code{NA} 
 #' values. The entries with \code{NA} values correspond to the values that are 
 #' forecasted conditionally on the realisations provided as \code{numeric} values.
-#' 
-#' @return A list of class \code{Forecasts} containing the
-#' draws from the predictive density and data. The output list includes element:
-#' 
-#' \describe{
-#'  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
-#'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
-#' }
 #' 
 #' @examples
 #' # upload data
@@ -235,7 +227,7 @@ forecast.PosteriorBSVAR = function(
   }
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output      = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -245,13 +237,15 @@ forecast.PosteriorBSVAR = function(
                       horizon
                 ) # END .Call
   
-  fore            = list()
-  fore$forecasts  = for_y
-  fore$forecasts_sigma = forecast_sigma2
-  fore$Y          = Y
-  class(fore)     = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  # output$forecasts_sigma = forecast_sigma2
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVAR
 
 
@@ -395,7 +389,7 @@ forecast.PosteriorBSVARHMSH = function(
   }
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -405,13 +399,14 @@ forecast.PosteriorBSVARHMSH = function(
                       horizon
   ) # END .Call
   
-  fore                  = list()
-  fore$forecasts        = for_y
-  fore$forecasts_sigma  = forecast_sigma2
-  fore$Y                = Y
-  class(fore)           = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVARHMSH
 
 
@@ -562,7 +557,7 @@ forecast.PosteriorBSVARMSH = function(
   }
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -572,13 +567,14 @@ forecast.PosteriorBSVARMSH = function(
                       horizon
                   ) # END .Call
   
-  fore                  = list()
-  fore$forecasts        = for_y
-  fore$forecasts_sigma  = forecast_sigma2
-  fore$Y                = Y
-  class(fore)           = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVARMSH
 
 
@@ -723,7 +719,7 @@ forecast.PosteriorBSVARMIX = function(
   }
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -733,13 +729,14 @@ forecast.PosteriorBSVARMIX = function(
                       horizon
   ) # END .Call
   
-  fore                  = list()
-  fore$forecasts        = for_y
-  fore$forecasts_sigma  = forecast_sigma2
-  fore$Y                = Y
-  class(fore)           = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVARMIX
 
 
@@ -887,7 +884,7 @@ forecast.PosteriorBSVARSV = function(
   }
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -897,13 +894,14 @@ forecast.PosteriorBSVARSV = function(
                       horizon
                 ) # END .Call
   
-  fore                  = list()
-  fore$forecasts        = for_y
-  fore$forecasts_sigma  = forecast_sigma2
-  fore$Y                = Y
-  class(fore)           = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVARSV
 
 
@@ -920,14 +918,6 @@ forecast.PosteriorBSVARSV = function(
 #' for selected variables. It should only contain \code{numeric} or \code{NA} 
 #' values. The entries with \code{NA} values correspond to the values that are 
 #' forecasted conditionally on the realisations provided as \code{numeric} values.
-#' 
-#' @return A list of class \code{Forecasts} containing the
-#' draws from the predictive density and data. The output list includes element:
-#' 
-#' \describe{
-#'  \item{forecasts}{an \code{NxTxS} array with the draws from predictive density}
-#'  \item{Y}{an \eqn{NxT} matrix with the data on dependent variables}
-#' }
 #' 
 #' @examples
 #' # upload data
@@ -1043,7 +1033,7 @@ forecast.PosteriorBSVART = function(
                         ) # END .Call
   
   # perform forecasting
-  for_y       = .Call(`_bsvars_forecast_bsvars`, 
+  output       = .Call(`_bsvars_forecast_bsvars`, 
                       posterior_B,
                       posterior_A,
                       forecast_sigma2,    # (N, horizon, S)
@@ -1053,11 +1043,12 @@ forecast.PosteriorBSVART = function(
                       horizon
                 ) # END .Call
   
-  fore                  = list()
-  fore$forecasts        = for_y
-  fore$forecasts_sigma  = forecast_sigma2
-  fore$Y                = Y
-  class(fore)           = "Forecasts"
+  forecast_covariance         = array(NA, c(N, N, horizon, S))
+  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
+  output$forecast_covariance  = forecast_covariance
   
-  return(fore)
+  output$Y          = Y
+  class(output)     = "Forecasts"
+  
+  return(output)
 } # END forecast.PosteriorBSVART
