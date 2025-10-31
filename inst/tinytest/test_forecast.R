@@ -442,3 +442,36 @@ expect_identical(
   info = "conditonal forecast: hmsh: forecast_mean identical for normal and pipe workflow."
 )
 
+
+
+
+
+
+
+# for bsvar_exh
+set.seed(1)
+suppressMessages(
+  specification_no1 <- specify_bsvar_exh$new(us_fiscal_lsuw)
+)
+run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
+ff                  <- forecast(run_no1, horizon = 2)
+
+set.seed(1)
+suppressMessages(
+  ff2              <- us_fiscal_lsuw |>
+    specify_bsvar_exh$new() |>
+    estimate(S = 3, thin = 1, show_progress = FALSE) |>
+    forecast(horizon = 2)
+)
+
+
+expect_identical(
+  ff$forecasts[1,1,1], ff2$forecasts[1,1,1],
+  info = "conditonal forecast: hmsh: forecast identical for normal and pipe workflow."
+)
+
+expect_identical(
+  ff$forecast_mean[1,1,1], ff2$forecast_mean[1,1,1],
+  info = "conditonal forecast: hmsh: forecast_mean identical for normal and pipe workflow."
+)
+
