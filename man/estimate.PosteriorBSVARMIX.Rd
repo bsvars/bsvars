@@ -101,7 +101,7 @@ Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autore
 Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \seealso{
-\code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

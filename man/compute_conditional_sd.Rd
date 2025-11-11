@@ -9,7 +9,7 @@ compute_conditional_sd(posterior)
 \arguments{
 \item{posterior}{posterior estimation outcome obtained by running the 
 \code{estimate} function. The interpretation depends on the normalisation of 
-the shocks using function \code{normalise_posterior()}. Verify if the default 
+the shocks using function \code{normalise()}. Verify if the default 
 settings are appropriate.}
 }
 \value{
@@ -38,7 +38,7 @@ us_fiscal_lsuw |>
 
 }
 \seealso{
-\code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+\code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

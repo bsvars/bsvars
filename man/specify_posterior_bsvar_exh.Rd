@@ -55,7 +55,7 @@ post$is_normalised()
 # normalise the posterior
 BB            = post$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag((-1) * sign(diag(BB))) \%*\% BB    # set negative diagonal elements
-normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+post          = normalise(post, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 post$is_normalised()
@@ -65,7 +65,7 @@ post$is_normalised()
 ## Method `specify_posterior_bsvar_exh$set_normalised`
 ## ------------------------------------------------
 
-# This is an internal function that is run while executing normalise_posterior()
+# This is an internal function that is run while executing normalise()
 # Observe its working by analysing the workflow:
 
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -77,7 +77,7 @@ post$is_normalised()
 # normalise the posterior
 BB            = post$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag(sign(diag(BB))) \%*\% BB           # set positive diagonal elements
-normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+post          = normalise(post, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 post$is_normalised()
@@ -184,7 +184,7 @@ post   = estimate(burn, 10, thin = 2)
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-is_normalised"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-is_normalised}{}}}
 \subsection{Method \code{is_normalised()}}{
-Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+Returns \code{TRUE} if the posterior has been normalised using \code{normalise()} and \code{FALSE} otherwise.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$is_normalised()}\if{html}{\out{</div>}}
 }
@@ -203,7 +203,7 @@ post$is_normalised()
 # normalise the posterior
 BB            = post$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag((-1) * sign(diag(BB))) \%*\% BB    # set negative diagonal elements
-normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+post          = normalise(post, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 post$is_normalised()
@@ -232,7 +232,7 @@ Sets the private indicator \code{normalised} to TRUE.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# This is an internal function that is run while executing normalise_posterior()
+\preformatted{# This is an internal function that is run while executing normalise()
 # Observe its working by analysing the workflow:
 
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -244,7 +244,7 @@ post$is_normalised()
 # normalise the posterior
 BB            = post$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag(sign(diag(BB))) \%*\% BB           # set positive diagonal elements
-normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+post          = normalise(post, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 post$is_normalised()

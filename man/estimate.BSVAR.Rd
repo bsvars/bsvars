@@ -76,7 +76,7 @@ Partial identification of structural vector autoregressions with non-centred sto
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 }
 \seealso{
-\code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}
