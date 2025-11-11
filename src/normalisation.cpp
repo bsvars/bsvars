@@ -35,7 +35,7 @@ arma::rowvec normalisation_wz2003_s (
 
 // [[Rcpp::interfaces(cpp)]]
 // [[Rcpp::export]]
-void normalisation_wz2003 (
+arma::cube normalisation_wz2003 (
     arma::cube&       posterior_B,            // NxNxS
     const arma::mat&  B_hat              // NxN
 ) {
@@ -62,5 +62,7 @@ void normalisation_wz2003 (
     mat B_norm            = diagmat(sss) * posterior_B.slice(s);
     posterior_B.slice(s)   = B_norm;
   }
+  
+  return posterior_B;
 } // END normalisation_wz2003
 

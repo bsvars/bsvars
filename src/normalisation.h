@@ -12,9 +12,9 @@ arma::rowvec normalisation_wz2003_s (
 );
 
 
-void normalisation_wz2003 (
-    arma::cube& posterior_B,            // NxNxS
-    const arma::mat& B_hat              // NxN
+arma::cube normalisation_wz2003 (
+    arma::cube&       posterior_B,            // NxNxS
+    const arma::mat&  B_hat              // NxN
 );
 
 #endif  // _NORMALISATION_H_
