@@ -439,7 +439,7 @@ specify_posterior_bsvar_hmsh = R6::R6Class(
     
     #' @description
     #' Returns \code{TRUE} if the posterior has been normalised using 
-    #' \code{normalise_posterior()} and \code{FALSE} otherwise.
+    #' \code{normalise()} and \code{FALSE} otherwise.
     #' 
     #' @examples
     #' # specify the model and set seed
@@ -454,7 +454,7 @@ specify_posterior_bsvar_hmsh = R6::R6Class(
     #' # normalise the posterior
     #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
     #' B_hat         = diag((-1) * sign(diag(BB))) %*% BB         # set negative diagonal elements
-    #' normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+    #' posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' posterior$is_normalised()
@@ -468,7 +468,7 @@ specify_posterior_bsvar_hmsh = R6::R6Class(
     #' @param value (optional) a logical value to be passed to indicator \code{normalised}.
     #' 
     #' @examples
-    #' # This is an internal function that is run while executing normalise_posterior()
+    #' # This is an internal function that is run while executing normalise()
     #' # Observe its working by analysing the workflow:
     #' 
     #' # specify the model and set seed
@@ -484,7 +484,7 @@ specify_posterior_bsvar_hmsh = R6::R6Class(
     #' # normalise the posterior
     #' BB            = posterior$last_draw$starting_values$B      # get the last draw of B
     #' B_hat         = diag(sign(diag(BB))) %*% BB                # set positive diagonal elements
-    #' normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+    #' posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' posterior$is_normalised()

@@ -522,7 +522,7 @@ specify_posterior_bsvar_exh = R6::R6Class(
     }, # END get_last_draw
     
     #' @description
-    #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+    #' Returns \code{TRUE} if the posterior has been normalised using \code{normalise()} and \code{FALSE} otherwise.
     #' 
     #' @examples
     #' # specify the model
@@ -537,7 +537,7 @@ specify_posterior_bsvar_exh = R6::R6Class(
     #' # normalise the posterior
     #' BB            = post$last_draw$starting_values$B      # get the last draw of B
     #' B_hat         = diag((-1) * sign(diag(BB))) %*% BB    # set negative diagonal elements
-    #' normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+    #' post          = normalise(post, B_hat)                # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' post$is_normalised()
@@ -551,7 +551,7 @@ specify_posterior_bsvar_exh = R6::R6Class(
     #' @param value (optional) a logical value to be passed to indicator \code{normalised}.
     #' 
     #' @examples
-    #' # This is an internal function that is run while executing normalise_posterior()
+    #' # This is an internal function that is run while executing normalise()
     #' # Observe its working by analysing the workflow:
     #' 
     #' spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -563,7 +563,7 @@ specify_posterior_bsvar_exh = R6::R6Class(
     #' # normalise the posterior
     #' BB            = post$last_draw$starting_values$B      # get the last draw of B
     #' B_hat         = diag(sign(diag(BB))) %*% BB           # set positive diagonal elements
-    #' normalise_posterior(post, B_hat)                      # draws in posterior are normalised
+    #' post          = normalise(post, B_hat)                # draws in posterior are normalised
     #' 
     #' # check normalisation status afterwards
     #' post$is_normalised()
