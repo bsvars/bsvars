@@ -81,7 +81,14 @@
 <url><loc>https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARSV.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/forecast.PosteriorBSVART.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/index.html</loc></url>
-<url><loc>https://bsvars.org/bsvars/reference/normalise_posterior.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVAR.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVAREXH.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARHMSH.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARMIX.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARMSH.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARSV.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.PosteriorBSVART.html</loc></url>
+<url><loc>https://bsvars.org/bsvars/reference/normalise.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot.Forecasts.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot.PosteriorFEVD.html</loc></url>
 <url><loc>https://bsvars.org/bsvars/reference/plot.PosteriorFitted.html</loc></url>

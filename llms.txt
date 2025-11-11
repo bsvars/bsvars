@@ -1,0 +1,777 @@
+# bsvars
+
+An **R** package for Bayesian Estimation of Structural Vector
+Autoregressive Models
+
+Provides fast and efficient procedures for Bayesian analysis of
+Structural Vector Autoregressions. This package estimates a wide range
+of models, including homo-, heteroskedastic, and non-normal
+specifications. Structural models can be identified by adjustable
+exclusion restrictions, time-varying volatility, or non-normality, and
+include exclusion restrictions on autoregressive parameters. They all
+include a flexible three-level equation-specific local-global
+hierarchical prior distribution for the estimated level of shrinkage for
+autoregressive and structural parameters. Additionally, the package
+facilitates predictive and structural analyses such as impulse
+responses, forecast error variance and historical decompositions,
+forecasting, verification of heteroskedasticity, non-normality, and
+hypotheses on autoregressive parameters, as well as analyses of
+structural shocks, volatilities, and fitted values. Beautiful plots,
+informative summary functions, and extensive documentation including the
+vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+complement all this. The implemented techniques align closely with those
+presented in [Lütkepohl, Shang, Uzeda, & Woźniak
+(2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
+Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
+The **bsvars** package is aligned regarding objects, workflows, and code
+structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
+(2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
+constitute an integrated toolset.
+
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg)](https://bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:contact@bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/bsvars/bsvars)
+[![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@bsvars)
+
+[![bsvars.org
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org/bsvars.org.png)](https://bsvars.org/)
+[![bsvars
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars/bsvars.png)](https://bsvars.org/bsvars/)
+[![bsvarSIGNs
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvarSIGNs/bsvarSIGNs.png)](https://bsvars.org/bsvarSIGNs/)
+
+## Features
+
+#### Structural Vector Autoregressions
+
+- All the models in the **bsvars** package consist of the Vector
+  Autoregressive equation, with autoregressive parameters `A` and error
+  terms `E`, and the structural equation with a structural matrix `B`
+  and shocks `U`
+
+``` R
+    Y = AX + E           (VAR equation)
+   BE = U                (structural equation)
+```
+
+- The models are identified via exclusion restrictions,
+  heteroskedasticity, or non-normality
+- The autoregressive parameters `A` and the structural matrix `B` may
+  include exclusion restrictions and feature a three-level local-global
+  hierarchical prior that estimates the equation-specific level of
+  shrinkage
+- In **five models** the structural shocks are conditionally normal with
+  zero mean and diagonal covariance matrix with variances that are:
+  - equal to one, that is, time invariant
+  - time-varying following non-centred **Stochastic Volatility**
+  - time-varying following centred **Stochastic Volatility**
+  - time-varying with stationary **Markov Switching**
+  - time-varying with **sparse Markov Switching** where the number of
+    volatility regimes is estimated
+- In **three more models** non-normal structural shocks follow
+  - a joint **Student-t** distribution with estimated equation-specific
+    degrees-of-freedom parameter
+  - a finite **mixture of normal** components and component-specific
+    variances
+  - a **sparse mixture of normal** components and component-specific
+    variances where the number of states is estimated
+
+#### Simple workflows
+
+- Specify the models using `specify_bsvar_*` functions, for instance,
+  `specify_bsvar_sv$new()`
+- Estimate the models using the
+  [`estimate()`](https://bsvars.org/bsvars/reference/estimate.md) method
+- Predict the future using the
+  [`forecast()`](https://generics.r-lib.org/reference/forecast.html)
+  method
+- Provide structural analyses using **impulse responses**, forecast
+  error variance decompositions, historical decompositions, and
+  structural shocks using functions
+  [`compute_impulse_responses()`](https://bsvars.org/bsvars/reference/compute_impulse_responses.md),
+  [`compute_variance_decompositions()`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.md),
+  [`compute_historical_decompositions()`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.md),
+  and
+  [`compute_structural_shocks()`](https://bsvars.org/bsvars/reference/compute_structural_shocks.md)
+  respectively
+- Analyse the fitted values, time-varying volatility, and volatility
+  regimes using functions
+  [`compute_fitted_values()`](https://bsvars.org/bsvars/reference/compute_fitted_values.md),
+  [`compute_conditional_sd()`](https://bsvars.org/bsvars/reference/compute_conditional_sd.md),
+  and
+  [`compute_regime_probabilities()`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.md)
+  respectively
+- Use [`plot()`](https://rdrr.io/r/graphics/plot.default.html) and
+  [`summary()`](https://rdrr.io/r/base/summary.html) methods to gain the
+  insights into the core of the empirical problem.
+- Verify identification through heteroskedasticity, non-normality, and
+  hypotheses on autoregressive parameters using functions
+  [`verify_identification()`](https://bsvars.org/bsvars/reference/verify_identification.md)
+  and
+  [`verify_autoregression()`](https://bsvars.org/bsvars/reference/verify_autoregression.md)
+
+#### Fast and efficient computations
+
+- Extraordinary computational speed is obtained by combining
+  - the application of frontier econometric and numerical techniques,
+    and
+  - the implementation using compiled code written in **cpp**
+- It combines the best of two worlds: the ease of data analysis with
+  **R** and fast **cpp** algorithms
+- The algorithms used here are very fast. But still, Bayesian estimation
+  might take a little time. Look at our beautiful **progress bar** in
+  the meantime:
+
+``` R
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 1000 draws
+    Every 10th draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*************************************
+```
+
+#### The hexagonal logo
+
+This beautiful logo can be reproduced in R using [this
+file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
+
+[![bsvars
+website](reference/figures/logo.png)](https://bsvars.org/bsvars/)
+
+## Resources
+
+- a vignette by [Woźniak
+  (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+- a [reference manual](https://cran.r-project.org/package=bsvars)
+- a website of the family of packages [bsvars.org](https://bsvars.org/)
+- **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
+- presentations:
+  - for students at [Szkoła Główna Handlowa](https://www.sgh.waw.pl/)
+    given in Warsaw in December 2024 [featuring **bsvars** 3.2 and
+    **bsvarSIGNs** 1.0.1](https://bsvars.org/2024-12-sgh/)\]
+  - at [Uniwersytet Warszawski](https://www.wne.uw.edu.pl/) given in
+    Warsaw in December 2024 [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uwwne/)
+  - for students and researchers at [Uniwersytet Ekonomiczny w
+    Krakowie](https://uek.krakow.pl/) given in Kraków in December 2024
+    [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uek/)
+  - for Bayesian Econometrics students at the University of Melbourne
+    given in October 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-10-be24-bsvars/)
+  - for the [QuantEcon](https://quantecon.org/) lab at the Australian
+    National University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-08-bsvars-QuantEcon/)
+  - at Monash University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs** 1.0](https://bsvars.org/2024-08-bsvars-monash/)
+  - for [Workshops for
+    Ukraine](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine)
+    given in August 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-08-bsvars-w4UKR/)
+  - for Macroeconometrics students at the University of Melbourne given
+    in May 2024 [featuring **bsvars**
+    2.1.0](https://bsvars.org/2024-05-bsvars-mcxs/)
+
+## Start your Bayesian analysis of data
+
+The beginnings are as easy as ABC:
+
+``` r
+library(bsvars)                               # upload the package
+data(us_fiscal_lsuw)                          # upload data
+spec      = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)   # specify the model
+burn_in   = estimate(spec, 1000)              # run the burn-in
+out       = estimate(burn_in, 50000)          # estimate the model
+
+fore      = forecast(out, horizon = 8)        # forecast 2 years ahead
+plot(fore)                                    # plot the forecast
+
+irfs      = compute_impulse_responses(out, 8) # compute impulse responses  
+plot(irfs)                                    # plot the impulse responses
+```
+
+The **bsvars** package supports a simplified workflow using the `|>`
+pipe:
+
+``` r
+library(bsvars)                               # upload the package
+data(us_fiscal_lsuw)                          # upload data
+us_fiscal_lsuw |>
+  specify_bsvar_sv$new(p = 4) |>              # specify the model
+  estimate(S = 1000) |>                       # run the burn-in
+  estimate(S = 50000) -> out                  # estimate the model
+
+out |> forecast(horizon = 8) |> plot()        # compute and plot forecasts
+out |> compute_impulse_responses(8) |> plot() # compute and plot impulse responses
+```
+
+Now, you’re ready to analyse your model!
+
+## Installation
+
+#### The first time you install the package
+
+You must have a **cpp** compiler. Follow the instructions from [Section
+1.3. by Eddelbuettel & François
+(2023)](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
+In short, for **Windows:** install
+[RTools](https://CRAN.R-project.org/bin/windows/Rtools/), for **macOS:**
+install [Xcode Command Line
+Tools](https://www.freecodecamp.org/news/install-xcode-command-line-tools/),
+and for **Linux:** install the standard development packages.
+
+#### Once that’s done:
+
+Just open your **R** and type:
+
+``` R
+install.packages("bsvars")
+```
+
+The developer’s version of the package with the newest features can be
+installed by typing:
+
+``` R
+devtools::install_github("bsvars/bsvars")
+```
+
+## Development
+
+The package is under intensive development. Your help is most welcome!
+Please, have a look at the
+[roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
+bug](https://github.com/bsvars/bsvars/issues). Thank you!
+
+## About the author
+
+**Tomasz** is a Bayesian econometrician and a Senior Lecturer at the
+University of Melbourne. He develops methodology for empirical
+macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
+
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:twozniak@unimelb.edu.au)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/donotdespair)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg)](https://orcid.org/0000-0003-2212-2378)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg)](https://www.linkedin.com/in/tomaszwwozniak)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg)](http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/arxiv-square.svg)](https://arxiv.org/a/wozniak_t_1)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@tomaszwozniak)
+[![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/tomaszwozniak.bsky.social)
+
+# Package index
+
+## bsvars: Bayesian Estimation of Structural Vector Autoregressive Models
+
+Browse package information
+
+- [`bsvars-package`](https://bsvars.org/bsvars/reference/bsvars-package.md)
+  [`bsvars`](https://bsvars.org/bsvars/reference/bsvars-package.md) :
+  Bayesian Estimation of Structural Vector Autoregressive Models
+
+## Data
+
+Upload sample data set
+
+- [`us_fiscal_lsuw`](https://bsvars.org/bsvars/reference/us_fiscal_lsuw.md)
+  : A 3-variable US fiscal system for the period 1948 Q1 – 2024 Q2
+- [`us_fiscal_ex`](https://bsvars.org/bsvars/reference/us_fiscal_ex.md)
+  : A 3-variable system of exogenous variables for the US fiscal model
+  for the period 1948 Q1 – 2024 Q2
+
+## Model specification
+
+Choose a model to work with
+
+- [`specify_bsvar`](https://bsvars.org/bsvars/reference/specify_bsvar.md)
+  : R6 Class representing the specification of the homoskedastic BSVAR
+  model
+- [`specify_bsvar_exh`](https://bsvars.org/bsvars/reference/specify_bsvar_exh.md)
+  : R6 Class representing the specification of the BSVAREXH model with
+  exogenous heteroskedastic regime change.
+- [`specify_bsvar_hmsh`](https://bsvars.org/bsvars/reference/specify_bsvar_hmsh.md)
+  : R6 Class representing the specification of the BSVARHMSH model with
+  Heterogeneous Markov Switching Heteroskedasticity.
+- [`specify_bsvar_mix`](https://bsvars.org/bsvars/reference/specify_bsvar_mix.md)
+  : R6 Class representing the specification of the BSVAR model with a
+  zero-mean mixture of normals model for structural shocks.
+- [`specify_bsvar_msh`](https://bsvars.org/bsvars/reference/specify_bsvar_msh.md)
+  : R6 Class representing the specification of the BSVAR model with
+  Markov Switching Heteroskedasticity.
+- [`specify_bsvar_sv`](https://bsvars.org/bsvars/reference/specify_bsvar_sv.md)
+  : R6 Class representing the specification of the BSVAR model with
+  Stochastic Volatility heteroskedasticity.
+- [`specify_bsvar_t`](https://bsvars.org/bsvars/reference/specify_bsvar_t.md)
+  : R6 Class representing the specification of the BSVAR model with
+  t-distributed structural shocks.
+
+## More detailed model specification
+
+Adjust or inspect the specified model
+
+- [`specify_data_matrices`](https://bsvars.org/bsvars/reference/specify_data_matrices.md)
+  : R6 Class Representing DataMatricesBSVAR
+- [`specify_identification_bsvars`](https://bsvars.org/bsvars/reference/specify_identification_bsvars.md)
+  : R6 Class Representing IdentificationBSVARs
+- [`specify_prior_bsvar`](https://bsvars.org/bsvars/reference/specify_prior_bsvar.md)
+  : R6 Class Representing PriorBSVAR
+- [`specify_prior_bsvar_exh`](https://bsvars.org/bsvars/reference/specify_prior_bsvar_exh.md)
+  : R6 Class Representing PriorBSVAREXH
+- [`specify_prior_bsvar_mix`](https://bsvars.org/bsvars/reference/specify_prior_bsvar_mix.md)
+  : R6 Class Representing PriorBSVARMIX
+- [`specify_prior_bsvar_msh`](https://bsvars.org/bsvars/reference/specify_prior_bsvar_msh.md)
+  : R6 Class Representing PriorBSVARMSH
+- [`specify_prior_bsvar_sv`](https://bsvars.org/bsvars/reference/specify_prior_bsvar_sv.md)
+  : R6 Class Representing PriorBSVARSV
+- [`specify_prior_bsvar_t`](https://bsvars.org/bsvars/reference/specify_prior_bsvar_t.md)
+  : R6 Class Representing PriorBSVART
+- [`specify_starting_values_bsvar`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar.md)
+  : R6 Class Representing StartingValuesBSVAR
+- [`specify_starting_values_bsvar_exh`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar_exh.md)
+  : R6 Class Representing StartingValuesBSVAREXH
+- [`specify_starting_values_bsvar_hmsh`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar_hmsh.md)
+  : R6 Class Representing StartingValuesBSVAHMSH
+- [`specify_starting_values_bsvar_mix`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar_mix.md)
+  : R6 Class Representing StartingValuesBSVARMIX
+- [`specify_starting_values_bsvar_msh`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar_msh.md)
+  : R6 Class Representing StartingValuesBSVARMSH
+- [`specify_starting_values_bsvar_sv`](https://bsvars.org/bsvars/reference/specify_starting_values_bsvar_sv.md)
+  : R6 Class Representing StartingValuesBSVARSV
+
+## Estimation
+
+Run Bayesian estimation of your model and inspect the outputs
+
+- [`estimate(`*`<BSVAR>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVAR.md)
+  : Bayesian estimation of a homoskedastic Structural Vector
+  Autoregression via Gibbs sampler
+- [`estimate(`*`<BSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVAREXH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  exogenous heteroskedastic regime changes via Gibbs sampler
+- [`estimate(`*`<BSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVARHMSH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Heterogeneous Markov-switching heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<BSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVARMIX.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  shocks following a finite mixture of normal components via Gibbs
+  sampler
+- [`estimate(`*`<BSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVARMSH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Markov-switching heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<BSVARSV>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVARSV.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Stochastic Volatility heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<BSVART>`*`)`](https://bsvars.org/bsvars/reference/estimate.BSVART.md)
+  : Bayesian estimation of a homoskedastic Structural Vector
+  Autoregression with t-distributed structural shocks via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVAR.md)
+  : Bayesian estimation of a homoskedastic Structural Vector
+  Autoregression via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVAREXH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  exogenous heteroskedastic regime changes via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVARHMSH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Heterogeneous Markov-switching heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVARMIX.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  shocks following a finite mixture of normal components via Gibbs
+  sampler
+- [`estimate(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVARMSH.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Markov-switching heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVARSV.md)
+  : Bayesian estimation of a Structural Vector Autoregression with
+  Stochastic Volatility heteroskedasticity via Gibbs sampler
+- [`estimate(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/estimate.PosteriorBSVART.md)
+  : Bayesian estimation of a homoskedastic Structural Vector
+  Autoregression with t-distributed structural shocks via Gibbs sampler
+- [`estimate()`](https://bsvars.org/bsvars/reference/estimate.md) :
+  Bayesian estimation of Structural Vector Autoregressions via Gibbs
+  sampler
+- [`normalise(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVAR.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVAREXH.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARHMSH.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARMIX.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARMSH.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVARSV.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/normalise.PosteriorBSVART.md)
+  : Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`normalise()`](https://bsvars.org/bsvars/reference/normalise.md) :
+  Waggoner & Zha (2003) row signs normalisation of the posterior draws
+  for the structural matrix \\B\\
+- [`specify_posterior_bsvar`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar.md)
+  : R6 Class Representing PosteriorBSVAR
+- [`specify_posterior_bsvar_exh`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_exh.md)
+  : R6 Class Representing PosteriorBSVAREXH
+- [`specify_posterior_bsvar_hmsh`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_hmsh.md)
+  : R6 Class Representing PosteriorBSVARHMSH
+- [`specify_posterior_bsvar_mix`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_mix.md)
+  : R6 Class Representing PosteriorBSVARMIX
+- [`specify_posterior_bsvar_msh`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_msh.md)
+  : R6 Class Representing PosteriorBSVARMSH
+- [`specify_posterior_bsvar_sv`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_sv.md)
+  : R6 Class Representing PosteriorBSVARSV
+- [`specify_posterior_bsvar_t`](https://bsvars.org/bsvars/reference/specify_posterior_bsvar_t.md)
+  : R6 Class Representing PosteriorBSVART
+
+## Posterior summaries
+
+Analyse the posterior summaries of the posterior estimation outcomes
+
+- [`summary(`*`<Forecasts>`*`)`](https://bsvars.org/bsvars/reference/summary.Forecasts.md)
+  : Provides posterior summary of Forecasts
+- [`summary(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVAR.md)
+  : Provides posterior summary of homoskedastic Structural VAR
+  estimation
+- [`summary(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVAREXH.md)
+  : Provides posterior summary of heteroskedastic Structural VAR
+  estimation
+- [`summary(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVARHMSH.md)
+  : Provides posterior summary of heteroskedastic Structural VAR
+  estimation
+- [`summary(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVARMIX.md)
+  : Provides posterior summary of non-normal Structural VAR estimation
+- [`summary(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVARMSH.md)
+  : Provides posterior summary of heteroskedastic Structural VAR
+  estimation
+- [`summary(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVARSV.md)
+  : Provides posterior summary of heteroskedastic Structural VAR
+  estimation
+- [`summary(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorBSVART.md)
+  : Provides posterior summary of Structural VAR with t-distributed
+  shocks estimation
+- [`summary(`*`<PosteriorFEVD>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorFEVD.md)
+  : Provides posterior summary of forecast error variance decompositions
+- [`summary(`*`<PosteriorFitted>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorFitted.md)
+  : Provides posterior summary of variables' fitted values
+- [`summary(`*`<PosteriorHD>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorHD.md)
+  : Provides posterior summary of historical decompositions
+- [`summary(`*`<PosteriorIR>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorIR.md)
+  : Provides posterior summary of impulse responses
+- [`summary(`*`<PosteriorRegimePr>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorRegimePr.md)
+  : Provides posterior summary of regime probabilities
+- [`summary(`*`<PosteriorShocks>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorShocks.md)
+  : Provides posterior summary of structural shocks
+- [`summary(`*`<PosteriorSigma>`*`)`](https://bsvars.org/bsvars/reference/summary.PosteriorSigma.md)
+  : Provides posterior summary of structural shocks' conditional
+  standard deviations
+- [`summary(`*`<SDDRautoregression>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRautoregression.md)
+  : Provides summary of verifying hypotheses about autoregressive
+  parameters
+- [`summary(`*`<SDDRidMIX>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRidMIX.md)
+  : Provides summary of verifying shocks' normality
+- [`summary(`*`<SDDRidMSH>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRidMSH.md)
+  : Provides summary of verifying homoskedasticity
+- [`summary(`*`<SDDRidSV>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRidSV.md)
+  : Provides summary of verifying homoskedasticity
+- [`summary(`*`<SDDRidT>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRidT.md)
+  : Provides summary of verifying shocks' normality
+- [`summary(`*`<SDDRvolatility>`*`)`](https://bsvars.org/bsvars/reference/summary.SDDRvolatility.md)
+  : Provides summary of verifying homoskedasticity
+
+## Forecasting
+
+Predict future values of your variables
+
+- [`forecast(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVAR.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVAREXH.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARHMSH.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARMIX.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARMSH.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVARSV.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`forecast(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVART.md)
+  : Forecasting using Bayesian Structural Vector Autoregression
+
+- [`us_fiscal_cond_forecasts`](https://bsvars.org/bsvars/reference/us_fiscal_cond_forecasts.md)
+  :
+
+  A matrix to be used in a conditional forecasting example including the
+  projected values of total tax revenue that are projected to increase
+  at an average quarterly sample growth rate. The other two columns are
+  filled with `NA` values, which implies that the future values of the
+  corresponding endogenous variables, namely government spending and
+  GDP, will be forecasted given the provided projected values of total
+  tax revenue. The matrix includes future values for the forecast
+  horizon of two years for the US fiscal model for the period 2024 Q3 –
+  2026 Q2.
+
+- [`us_fiscal_ex_forecasts`](https://bsvars.org/bsvars/reference/us_fiscal_ex_forecasts.md)
+  : A 3-variable system of exogenous variables' future values for the
+  forecast horizon of two years for the US fiscal model for the period
+  2024 Q3 – 2026 Q2
+
+## Structural analyses
+
+Compute interpretable outcomes
+
+- [`compute_conditional_sd(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVAR.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVAREXH.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVARMIX.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVARMSH.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVARSV.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_conditional_sd.PosteriorBSVART.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_conditional_sd()`](https://bsvars.org/bsvars/reference/compute_conditional_sd.md)
+  : Computes posterior draws of structural shock conditional standard
+  deviations
+- [`compute_fitted_values(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVAR.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVAREXH.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVARHMSH.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVARMIX.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVARMSH.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVARSV.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_fitted_values.PosteriorBSVART.md)
+  : Computes posterior draws from data predictive density
+- [`compute_fitted_values()`](https://bsvars.org/bsvars/reference/compute_fitted_values.md)
+  : Computes posterior draws from data predictive density
+- [`compute_historical_decompositions(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVAR.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVAREXH.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVARMIX.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVARMSH.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVARSV.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.PosteriorBSVART.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_historical_decompositions()`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.md)
+  : Computes posterior draws of historical decompositions
+- [`compute_impulse_responses(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVAR.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVAREXH.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVARMIX.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVARMSH.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVARSV.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_impulse_responses.PosteriorBSVART.md)
+  : Computes posterior draws of impulse responses
+- [`compute_impulse_responses()`](https://bsvars.org/bsvars/reference/compute_impulse_responses.md)
+  : Computes posterior draws of impulse responses
+- [`compute_regime_probabilities(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.PosteriorBSVAREXH.md)
+  : Computes posterior draws of regime probabilities
+- [`compute_regime_probabilities(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of regime probabilities
+- [`compute_regime_probabilities(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.PosteriorBSVARMIX.md)
+  : Computes posterior draws of regime probabilities
+- [`compute_regime_probabilities(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.PosteriorBSVARMSH.md)
+  : Computes posterior draws of regime probabilities
+- [`compute_regime_probabilities()`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.md)
+  : Computes posterior draws of regime probabilities
+- [`compute_structural_shocks(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVAR.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVAREXH.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVARMIX.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVARMSH.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVARSV.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_structural_shocks.PosteriorBSVART.md)
+  : Computes posterior draws of structural shocks
+- [`compute_structural_shocks()`](https://bsvars.org/bsvars/reference/compute_structural_shocks.md)
+  : Computes posterior draws of structural shocks
+- [`compute_variance_decompositions(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVAR.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVAREXH.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVARHMSH.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVARMIX.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVARMSH.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVARSV.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.PosteriorBSVART.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+- [`compute_variance_decompositions()`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.md)
+  : Computes posterior draws of the forecast error variance
+  decomposition
+
+## Model diagnostics
+
+Verify heteroskedasticity and autoregressive parameters (in preparation:
+structural identification)
+
+- [`verify_autoregression(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVAR.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVAREXH.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVARHMSH.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVARMIX.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVARMSH.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVARSV.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/verify_autoregression.PosteriorBSVART.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_autoregression()`](https://bsvars.org/bsvars/reference/verify_autoregression.md)
+  : Verifies hypotheses involving autoregressive parameters
+- [`verify_identification(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVAR.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVAREXH.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVARHMSH.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVARMIX.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVARMSH.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVARSV.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/verify_identification.PosteriorBSVART.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_identification()`](https://bsvars.org/bsvars/reference/verify_identification.md)
+  : Verifies identification through heteroskedasticity or non-normality
+  of of structural shocks
+- [`verify_normality(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/verify_normality.PosteriorBSVAREXH.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_normality(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_normality.PosteriorBSVARHMSH.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_normality(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/verify_normality.PosteriorBSVARMIX.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_normality(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_normality.PosteriorBSVARMSH.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_normality(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/verify_normality.PosteriorBSVARSV.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_normality()`](https://bsvars.org/bsvars/reference/verify_normality.md)
+  : Verifies normality of structural shocks equation by equation
+- [`verify_volatility(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVAR.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility(`*`<PosteriorBSVAREXH>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVAREXH.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility(`*`<PosteriorBSVARHMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVARHMSH.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility(`*`<PosteriorBSVARMIX>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVARMIX.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility(`*`<PosteriorBSVARMSH>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVARMSH.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility(`*`<PosteriorBSVARSV>`*`)`](https://bsvars.org/bsvars/reference/verify_volatility.PosteriorBSVARSV.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+- [`verify_volatility()`](https://bsvars.org/bsvars/reference/verify_volatility.md)
+  : Verifies heteroskedasticity of structural shocks equation by
+  equation
+
+## Plot your results
+
+Prepare beautiful and informative plots for your analyses
+
+- [`plot(`*`<Forecasts>`*`)`](https://bsvars.org/bsvars/reference/plot.Forecasts.md)
+  : Plots fitted values of dependent variables
+
+- [`plot(`*`<PosteriorFEVD>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorFEVD.md)
+  : Plots forecast error variance decompositions
+
+- [`plot(`*`<PosteriorFitted>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorFitted.md)
+  : Plots fitted values of dependent variables
+
+- [`plot(`*`<PosteriorHD>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorHD.md)
+  : Plots historical decompositions
+
+- [`plot(`*`<PosteriorIR>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorIR.md)
+  : Plots impulse responses
+
+- [`plot(`*`<PosteriorRegimePr>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorRegimePr.md)
+  : Plots estimated regime probabilities
+
+- [`plot(`*`<PosteriorShocks>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorShocks.md)
+  : Plots structural shocks
+
+- [`plot(`*`<PosteriorSigma>`*`)`](https://bsvars.org/bsvars/reference/plot.PosteriorSigma.md)
+  : Plots structural shocks' conditional standard deviations
+
+- [`plot_ribbon()`](https://bsvars.org/bsvars/reference/plot_ribbon.md)
+  :
+
+  Plots the median and an interval between two specified percentiles for
+  a sequence of `K` random variables
+

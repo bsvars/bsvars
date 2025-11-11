@@ -1,0 +1,269 @@
+# bsvars
+
+An **R** package for Bayesian Estimation of Structural Vector
+Autoregressive Models
+
+Provides fast and efficient procedures for Bayesian analysis of
+Structural Vector Autoregressions. This package estimates a wide range
+of models, including homo-, heteroskedastic, and non-normal
+specifications. Structural models can be identified by adjustable
+exclusion restrictions, time-varying volatility, or non-normality, and
+include exclusion restrictions on autoregressive parameters. They all
+include a flexible three-level equation-specific local-global
+hierarchical prior distribution for the estimated level of shrinkage for
+autoregressive and structural parameters. Additionally, the package
+facilitates predictive and structural analyses such as impulse
+responses, forecast error variance and historical decompositions,
+forecasting, verification of heteroskedasticity, non-normality, and
+hypotheses on autoregressive parameters, as well as analyses of
+structural shocks, volatilities, and fitted values. Beautiful plots,
+informative summary functions, and extensive documentation including the
+vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+complement all this. The implemented techniques align closely with those
+presented in [Lütkepohl, Shang, Uzeda, & Woźniak
+(2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
+Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
+The **bsvars** package is aligned regarding objects, workflows, and code
+structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
+(2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
+constitute an integrated toolset.
+
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg)](https://bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:contact@bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/bsvars/bsvars)
+[![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/bsvars.org)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@bsvars)
+
+[![bsvars.org
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org/bsvars.org.png)](https://bsvars.org/)
+[![bsvars
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars/bsvars.png)](https://bsvars.org/bsvars/)
+[![bsvarSIGNs
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvarSIGNs/bsvarSIGNs.png)](https://bsvars.org/bsvarSIGNs/)
+
+## Features
+
+#### Structural Vector Autoregressions
+
+- All the models in the **bsvars** package consist of the Vector
+  Autoregressive equation, with autoregressive parameters `A` and error
+  terms `E`, and the structural equation with a structural matrix `B`
+  and shocks `U`
+
+``` R
+    Y = AX + E           (VAR equation)
+   BE = U                (structural equation)
+```
+
+- The models are identified via exclusion restrictions,
+  heteroskedasticity, or non-normality
+- The autoregressive parameters `A` and the structural matrix `B` may
+  include exclusion restrictions and feature a three-level local-global
+  hierarchical prior that estimates the equation-specific level of
+  shrinkage
+- In **five models** the structural shocks are conditionally normal with
+  zero mean and diagonal covariance matrix with variances that are:
+  - equal to one, that is, time invariant
+  - time-varying following non-centred **Stochastic Volatility**
+  - time-varying following centred **Stochastic Volatility**
+  - time-varying with stationary **Markov Switching**
+  - time-varying with **sparse Markov Switching** where the number of
+    volatility regimes is estimated
+- In **three more models** non-normal structural shocks follow
+  - a joint **Student-t** distribution with estimated equation-specific
+    degrees-of-freedom parameter
+  - a finite **mixture of normal** components and component-specific
+    variances
+  - a **sparse mixture of normal** components and component-specific
+    variances where the number of states is estimated
+
+#### Simple workflows
+
+- Specify the models using `specify_bsvar_*` functions, for instance,
+  `specify_bsvar_sv$new()`
+- Estimate the models using the
+  [`estimate()`](https://bsvars.org/bsvars/reference/estimate.md) method
+- Predict the future using the
+  [`forecast()`](https://generics.r-lib.org/reference/forecast.html)
+  method
+- Provide structural analyses using **impulse responses**, forecast
+  error variance decompositions, historical decompositions, and
+  structural shocks using functions
+  [`compute_impulse_responses()`](https://bsvars.org/bsvars/reference/compute_impulse_responses.md),
+  [`compute_variance_decompositions()`](https://bsvars.org/bsvars/reference/compute_variance_decompositions.md),
+  [`compute_historical_decompositions()`](https://bsvars.org/bsvars/reference/compute_historical_decompositions.md),
+  and
+  [`compute_structural_shocks()`](https://bsvars.org/bsvars/reference/compute_structural_shocks.md)
+  respectively
+- Analyse the fitted values, time-varying volatility, and volatility
+  regimes using functions
+  [`compute_fitted_values()`](https://bsvars.org/bsvars/reference/compute_fitted_values.md),
+  [`compute_conditional_sd()`](https://bsvars.org/bsvars/reference/compute_conditional_sd.md),
+  and
+  [`compute_regime_probabilities()`](https://bsvars.org/bsvars/reference/compute_regime_probabilities.md)
+  respectively
+- Use [`plot()`](https://rdrr.io/r/graphics/plot.default.html) and
+  [`summary()`](https://rdrr.io/r/base/summary.html) methods to gain the
+  insights into the core of the empirical problem.
+- Verify identification through heteroskedasticity, non-normality, and
+  hypotheses on autoregressive parameters using functions
+  [`verify_identification()`](https://bsvars.org/bsvars/reference/verify_identification.md)
+  and
+  [`verify_autoregression()`](https://bsvars.org/bsvars/reference/verify_autoregression.md)
+
+#### Fast and efficient computations
+
+- Extraordinary computational speed is obtained by combining
+  - the application of frontier econometric and numerical techniques,
+    and
+  - the implementation using compiled code written in **cpp**
+- It combines the best of two worlds: the ease of data analysis with
+  **R** and fast **cpp** algorithms
+- The algorithms used here are very fast. But still, Bayesian estimation
+  might take a little time. Look at our beautiful **progress bar** in
+  the meantime:
+
+``` R
+**************************************************|
+bsvars: Bayesian Structural Vector Autoregressions|
+**************************************************|
+ Gibbs sampler for the SVAR-SV model              |
+   Non-centred SV model is estimated              |
+**************************************************|
+ Progress of the MCMC simulation for 1000 draws
+    Every 10th draw is saved via MCMC thinning
+ Press Esc to interrupt the computations
+**************************************************|
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*************************************
+```
+
+#### The hexagonal logo
+
+This beautiful logo can be reproduced in R using [this
+file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
+
+[![bsvars
+website](reference/figures/logo.png)](https://bsvars.org/bsvars/)
+
+## Resources
+
+- a vignette by [Woźniak
+  (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+- a [reference manual](https://cran.r-project.org/package=bsvars)
+- a website of the family of packages [bsvars.org](https://bsvars.org/)
+- **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
+- presentations:
+  - for students at [Szkoła Główna Handlowa](https://www.sgh.waw.pl/)
+    given in Warsaw in December 2024 [featuring **bsvars** 3.2 and
+    **bsvarSIGNs** 1.0.1](https://bsvars.org/2024-12-sgh/)\]
+  - at [Uniwersytet Warszawski](https://www.wne.uw.edu.pl/) given in
+    Warsaw in December 2024 [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uwwne/)
+  - for students and researchers at [Uniwersytet Ekonomiczny w
+    Krakowie](https://uek.krakow.pl/) given in Kraków in December 2024
+    [featuring **bsvars** 3.2 and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-12-uek/)
+  - for Bayesian Econometrics students at the University of Melbourne
+    given in October 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-10-be24-bsvars/)
+  - for the [QuantEcon](https://quantecon.org/) lab at the Australian
+    National University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs**
+    1.0.1](https://bsvars.org/2024-08-bsvars-QuantEcon/)
+  - at Monash University given in August 2024 [featuring **bsvars** 3.1
+    and **bsvarSIGNs** 1.0](https://bsvars.org/2024-08-bsvars-monash/)
+  - for [Workshops for
+    Ukraine](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine)
+    given in August 2024 [featuring **bsvars**
+    3.1](https://bsvars.org/2024-08-bsvars-w4UKR/)
+  - for Macroeconometrics students at the University of Melbourne given
+    in May 2024 [featuring **bsvars**
+    2.1.0](https://bsvars.org/2024-05-bsvars-mcxs/)
+
+## Start your Bayesian analysis of data
+
+The beginnings are as easy as ABC:
+
+``` r
+library(bsvars)                               # upload the package
+data(us_fiscal_lsuw)                          # upload data
+spec      = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)   # specify the model
+burn_in   = estimate(spec, 1000)              # run the burn-in
+out       = estimate(burn_in, 50000)          # estimate the model
+
+fore      = forecast(out, horizon = 8)        # forecast 2 years ahead
+plot(fore)                                    # plot the forecast
+
+irfs      = compute_impulse_responses(out, 8) # compute impulse responses  
+plot(irfs)                                    # plot the impulse responses
+```
+
+The **bsvars** package supports a simplified workflow using the `|>`
+pipe:
+
+``` r
+library(bsvars)                               # upload the package
+data(us_fiscal_lsuw)                          # upload data
+us_fiscal_lsuw |>
+  specify_bsvar_sv$new(p = 4) |>              # specify the model
+  estimate(S = 1000) |>                       # run the burn-in
+  estimate(S = 50000) -> out                  # estimate the model
+
+out |> forecast(horizon = 8) |> plot()        # compute and plot forecasts
+out |> compute_impulse_responses(8) |> plot() # compute and plot impulse responses
+```
+
+Now, you’re ready to analyse your model!
+
+## Installation
+
+#### The first time you install the package
+
+You must have a **cpp** compiler. Follow the instructions from [Section
+1.3. by Eddelbuettel & François
+(2023)](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
+In short, for **Windows:** install
+[RTools](https://CRAN.R-project.org/bin/windows/Rtools/), for **macOS:**
+install [Xcode Command Line
+Tools](https://www.freecodecamp.org/news/install-xcode-command-line-tools/),
+and for **Linux:** install the standard development packages.
+
+#### Once that’s done:
+
+Just open your **R** and type:
+
+``` R
+install.packages("bsvars")
+```
+
+The developer’s version of the package with the newest features can be
+installed by typing:
+
+``` R
+devtools::install_github("bsvars/bsvars")
+```
+
+## Development
+
+The package is under intensive development. Your help is most welcome!
+Please, have a look at the
+[roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
+bug](https://github.com/bsvars/bsvars/issues). Thank you!
+
+## About the author
+
+**Tomasz** is a Bayesian econometrician and a Senior Lecturer at the
+University of Melbourne. He develops methodology for empirical
+macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
+
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:twozniak@unimelb.edu.au)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/donotdespair)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg)](https://orcid.org/0000-0003-2212-2378)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg)](https://www.linkedin.com/in/tomaszwwozniak)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg)](http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/arxiv-square.svg)](https://arxiv.org/a/wozniak_t_1)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@tomaszwozniak)
+[![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/tomaszwozniak.bsky.social)
