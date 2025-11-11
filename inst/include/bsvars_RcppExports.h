@@ -718,11 +718,11 @@ namespace bsvars {
         return Rcpp::as<arma::rowvec >(rcpp_result_gen);
     }
 
-    inline void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
+    inline arma::cube normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
         typedef SEXP(*Ptr_normalisation_wz2003)(SEXP,SEXP);
         static Ptr_normalisation_wz2003 p_normalisation_wz2003 = NULL;
         if (p_normalisation_wz2003 == NULL) {
-            validateSignature("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
+            validateSignature("arma::cube(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
             p_normalisation_wz2003 = (Ptr_normalisation_wz2003)R_GetCCallable("bsvars", "_bsvars_normalisation_wz2003");
         }
         RObject rcpp_result_gen;
@@ -736,6 +736,7 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
     inline int csample_num1(Rcpp::NumericVector x, Rcpp::NumericVector prob = NumericVector::create()) {
