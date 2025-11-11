@@ -10,7 +10,7 @@
 #' 
 #' @param posterior posterior estimation outcome obtained by running the \code{estimate} 
 #' function. The interpretation depends on the normalisation of the shocks
-#' using function \code{normalise_posterior()}. Verify if the default settings 
+#' using function \code{normalise()}. Verify if the default settings 
 #' are appropriate.
 #' @param show_progress a logical value, if \code{TRUE} the estimation progress bar is visible
 #' 
@@ -18,7 +18,7 @@
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me} and Xiaolei Wang \email{adamwang15@gmail.com}
 #' 
@@ -77,7 +77,7 @@ compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -154,7 +154,7 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -231,7 +231,7 @@ compute_historical_decompositions.PosteriorBSVAREXH <- function(posterior, show_
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -307,7 +307,7 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior, show_
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -383,7 +383,7 @@ compute_historical_decompositions.PosteriorBSVARHMSH <- function(posterior, show
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -459,7 +459,7 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -537,7 +537,7 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
 #' with attribute \code{PosteriorHD} containing \code{S} draws of the historical 
 #' decompositions.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 

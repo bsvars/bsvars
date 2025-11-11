@@ -7,12 +7,12 @@
 #' 
 #' @param posterior posterior estimation outcome obtained by running the \code{estimate} function. 
 #' The interpretation depends on the normalisation of the shocks
-#' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
+#' using function \code{normalise()}. Verify if the default settings are appropriate.
 #' 
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -60,7 +60,7 @@ compute_structural_shocks <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -119,7 +119,7 @@ compute_structural_shocks.PosteriorBSVAR <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -180,7 +180,7 @@ compute_structural_shocks.PosteriorBSVAREXH <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -243,7 +243,7 @@ compute_structural_shocks.PosteriorBSVARMSH <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -305,7 +305,7 @@ compute_structural_shocks.PosteriorBSVARHMSH <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -364,7 +364,7 @@ compute_structural_shocks.PosteriorBSVARMIX <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array with attribute PosteriorShocks 
 #' containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -422,7 +422,7 @@ compute_structural_shocks.PosteriorBSVARSV <- function(posterior) {
 #' @return An object of class PosteriorShocks, that is, an \code{NxTxS} array 
 #' with attribute PosteriorShocks containing \code{S} draws of the structural shocks.
 #'
-#' @seealso \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
