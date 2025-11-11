@@ -56,7 +56,7 @@
 #' MCMC run as the starting value to be passed to the continuation of the MCMC 
 #' estimation using \code{estimate()}. 
 #'
-#' @seealso \code{\link{specify_bsvar_t}}, \code{\link{specify_posterior_bsvar_t}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{specify_bsvar_t}}, \code{\link{specify_posterior_bsvar_t}}, \code{\link{normalise}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -106,9 +106,7 @@ estimate.BSVART <- function(specification, S, thin = 1, show_progress = TRUE) {
   output              = specify_posterior_bsvar_t$new(specification, qqq$posterior)
    
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
     
   return(output)
 }
@@ -154,9 +152,7 @@ estimate.PosteriorBSVART <- function(specification, S, thin = 1, show_progress =
   output              = specify_posterior_bsvar_t$new(specification$last_draw, qqq$posterior)
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }

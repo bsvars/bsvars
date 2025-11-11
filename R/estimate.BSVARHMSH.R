@@ -70,7 +70,7 @@
 #' MCMC run as the starting value to be passed to the continuation of the MCMC 
 #' estimation using \code{estimate()}. 
 #' 
-#' @seealso \code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -138,9 +138,7 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
   output$posterior$xi    = xi
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }
@@ -205,9 +203,7 @@ estimate.PosteriorBSVARHMSH <- function(specification, S, thin = 1, show_progres
   output$posterior$xi    = xi
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }
