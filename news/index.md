@@ -51,8 +51,6 @@ Have a question, or suggestion, or wanna get in touch? Email us at
 
 ## bsvars 3.2
 
-CRAN release: 2024-10-24
-
 1.  The package includes the first version of the vignette
     [5](https://github.com/bsvars/bsvars/issues/5)
 2.  Updates on the website <https://bsvars.org/bsvars/>
@@ -66,8 +64,6 @@ CRAN release: 2024-10-24
     [96](https://github.com/bsvars/bsvars/issues/96)
 
 ## bsvars 3.1
-
-CRAN release: 2024-07-14
 
 1.  A NEW MODEL! An SVAR with t-distributed structural shocks
     facilitating identification through non-normality is now included in
@@ -85,8 +81,6 @@ CRAN release: 2024-07-14
 
 ## bsvars 3.0.1
 
-CRAN release: 2024-06-28
-
 1.  Fixed the bugs that started coming up in the new tested version of
     **Armadillo** and **RcppArmadillo**
     [\#82](https://github.com/bsvars/bsvars/issues/82) and
@@ -95,8 +89,6 @@ CRAN release: 2024-06-28
     [\#82](https://github.com/bsvars/bsvars/issues/82)
 
 ## bsvars 3.0
-
-CRAN release: 2024-06-19
 
 1.  The package has a logo! And it’s beautiful!
     [\#37](https://github.com/bsvars/bsvars/issues/37)
@@ -137,8 +129,6 @@ CRAN release: 2024-06-19
 
 ## bsvars 2.1.0
 
-CRAN release: 2023-12-11
-
 Published on 11 December 2023
 
 1.  Included Bayesian procedure for verifying structural shocks’
@@ -161,8 +151,6 @@ Published on 11 December 2023
     [\#38](https://github.com/bsvars/bsvars/issues/38)
 
 ## bsvars 2.0.0
-
-CRAN release: 2023-10-24
 
 Published on 23 October 2023
 
@@ -207,8 +195,6 @@ Published on 23 October 2023
     progress bar [\#27](https://github.com/bsvars/bsvars/issues/27)
 
 ## bsvars 1.0.0
-
-CRAN release: 2022-09-01
 
 Published on 1 September 2022
 
