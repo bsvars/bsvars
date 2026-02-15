@@ -30,7 +30,16 @@ arma::vec mvnrnd_cond (
   vec   mu_cond     = mu1 + Sigma12 * Sigma22_inv * (x2 - mu2);
   mat   Sigma_cond  = Sigma11 - Sigma12 * Sigma22_inv * Sigma12.t();
   
-  vec   draw = mvnrnd( mu_cond, Sigma_cond);
+  vec   draw(N);
+  try {
+    draw = mvnrnd( mu_cond, Sigma_cond);
+  } 
+  catch (std::logic_error &e) {
+    throw std::runtime_error("Error: sampling the draw was unsuccesful.");
+  }
+  catch (std::runtime_error &e) {
+    throw std::runtime_error("Error: sampling the draw was unsuccesful.");
+  }
   
   vec   out = aj.cols(ind_nan) * draw + aj.cols(ind) * x2;
   return out;
@@ -213,6 +222,7 @@ Rcpp::List forecast_bsvars (
   cube        out_forecast_mean(N, horizon, S);
   field<cube> out_forecast_cov(S);
   cube        SigmaT(N, N, horizon);
+  vec         draw(N);
   
   for (int s=0; s<S; s++) {
     
@@ -235,10 +245,20 @@ Rcpp::List forecast_bsvars (
       out_forecast_mean.slice(s).col(h) = posterior_A.slice(s) * Xt;
       
       if ( nonf_no == N ) {
-        out_forecast.slice(s).col(h) = mvnrnd( out_forecast_mean.slice(s).col(h), Sigma );
+        try {
+          draw        = mvnrnd( out_forecast_mean.slice(s).col(h), Sigma );
+        } 
+        catch (std::logic_error &e) {break;}
+        catch (std::runtime_error &e) {break;}
       } else {
-        out_forecast.slice(s).col(h) = mvnrnd_cond( cond_forecast_h, out_forecast_mean.slice(s).col(h), Sigma );   // does not work if cond_fc_h is all nan
+        try {
+          draw        = mvnrnd_cond( cond_forecast_h, out_forecast_mean.slice(s).col(h), Sigma );   // does not work if cond_fc_h is all nan
+        } 
+        catch (std::logic_error &e) {break;}
+        catch (std::runtime_error &e) {break;}
       } // END if nonf_no
+      out_forecast.slice(s).col(h) = draw;
+      
       
       if ( h != horizon - 1 ) {
         if ( do_exog ) {
