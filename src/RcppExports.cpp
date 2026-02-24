@@ -52,7 +52,7 @@ RcppExport SEXP _bsvars_bsvar_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBSEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -90,7 +90,7 @@ RcppExport SEXP _bsvars_bsvars_ir1(SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP horizonS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -128,7 +128,7 @@ RcppExport SEXP _bsvars_bsvars_ir(SEXP posterior_BSEXP, SEXP posterior_ASEXP, SE
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -162,7 +162,7 @@ RcppExport SEXP _bsvars_bsvars_fevd_homosk(SEXP posterior_irfSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -198,7 +198,7 @@ RcppExport SEXP _bsvars_bsvars_fevd_heterosk(SEXP posterior_irfSEXP, SEXP foreca
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -235,7 +235,7 @@ RcppExport SEXP _bsvars_bsvars_structural_shocks(SEXP posterior_BSEXP, SEXP post
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -271,7 +271,7 @@ RcppExport SEXP _bsvars_bsvars_hd(SEXP posterior_irf_TSEXP, SEXP structural_shoc
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -308,7 +308,7 @@ RcppExport SEXP _bsvars_bsvars_fitted_values(SEXP posterior_ASEXP, SEXP posterio
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -346,7 +346,7 @@ RcppExport SEXP _bsvars_bsvars_filter_forecast_smooth(SEXP posteriorSEXP, SEXP Y
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -384,7 +384,50 @@ RcppExport SEXP _bsvars_bsvars_filter_forecast_smooth_hmsh(SEXP posteriorSEXP, S
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// bsvar_exh_cpp
+Rcpp::List bsvar_exh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& starting_values, const bool normal, const int thin, const bool show_progress);
+static SEXP _bsvars_bsvar_exh_cpp_try(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const int& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type prior(priorSEXP);
+    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VB(VBSEXP);
+    Rcpp::traits::input_parameter< const arma::field<arma::mat>& >::type VA(VASEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type starting_values(starting_valuesSEXP);
+    Rcpp::traits::input_parameter< const bool >::type normal(normalSEXP);
+    Rcpp::traits::input_parameter< const int >::type thin(thinSEXP);
+    Rcpp::traits::input_parameter< const bool >::type show_progress(show_progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvar_exh_cpp(S, Y, X, prior, VB, VA, starting_values, normal, thin, show_progress));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_bsvar_exh_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP priorSEXP, SEXP VBSEXP, SEXP VASEXP, SEXP starting_valuesSEXP, SEXP normalSEXP, SEXP thinSEXP, SEXP show_progressSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_bsvar_exh_cpp_try(SSEXP, YSEXP, XSEXP, priorSEXP, VBSEXP, VASEXP, starting_valuesSEXP, normalSEXP, thinSEXP, show_progressSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -430,7 +473,7 @@ RcppExport SEXP _bsvars_bsvar_hmsh_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -476,7 +519,7 @@ RcppExport SEXP _bsvars_bsvar_msh_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP p
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -520,7 +563,7 @@ RcppExport SEXP _bsvars_bsvar_sv_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP pr
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -563,7 +606,7 @@ RcppExport SEXP _bsvars_bsvar_t_cpp(SEXP SSEXP, SEXP YSEXP, SEXP XSEXP, SEXP VBS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -599,7 +642,7 @@ RcppExport SEXP _bsvars_mvnrnd_cond(SEXP xSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -636,7 +679,7 @@ RcppExport SEXP _bsvars_forecast_sigma2_msh(SEXP posterior_sigma2SEXP, SEXP post
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -673,7 +716,7 @@ RcppExport SEXP _bsvars_forecast_sigma2_hmsh(SEXP posterior_sigma2SEXP, SEXP pos
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -711,7 +754,7 @@ RcppExport SEXP _bsvars_forecast_sigma2_sv(SEXP posterior_h_TSEXP, SEXP posterio
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -746,7 +789,7 @@ RcppExport SEXP _bsvars_forecast_lambda_t(SEXP posterior_dfSEXP, SEXP horizonSEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -786,7 +829,7 @@ RcppExport SEXP _bsvars_forecast_bsvars(SEXP posterior_BSEXP, SEXP posterior_ASE
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -820,7 +863,7 @@ RcppExport SEXP _bsvars_Ergodic_PR_TR(SEXP PR_TRSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -854,7 +897,7 @@ RcppExport SEXP _bsvars_count_regime_transitions(SEXP xiSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -888,7 +931,7 @@ RcppExport SEXP _bsvars_rDirichlet1(SEXP alphaSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -923,7 +966,7 @@ RcppExport SEXP _bsvars_rIG2_Dirichlet1(SEXP sSEXP, SEXP nuSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -960,7 +1003,7 @@ RcppExport SEXP _bsvars_filtering_msh(SEXP USEXP, SEXP sigmaSEXP, SEXP PR_TRSEXP
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -996,7 +1039,7 @@ RcppExport SEXP _bsvars_smoothing_msh(SEXP USEXP, SEXP PR_TRSEXP, SEXP filteredS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1035,7 +1078,7 @@ RcppExport SEXP _bsvars_sample_Markov_process_msh(SEXP aux_xiSEXP, SEXP USEXP, S
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1074,7 +1117,7 @@ RcppExport SEXP _bsvars_sample_Markov_process_hmsh(SEXP aux_xiSEXP, SEXP USEXP, 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1112,7 +1155,7 @@ RcppExport SEXP _bsvars_sample_transition_probabilities(SEXP aux_PR_TRSEXP, SEXP
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1149,7 +1192,7 @@ RcppExport SEXP _bsvars_sample_variances_msh(SEXP aux_sigma2SEXP, SEXP USEXP, SE
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1186,7 +1229,7 @@ RcppExport SEXP _bsvars_sample_variances_hmsh(SEXP aux_sigma2SEXP, SEXP USEXP, S
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1223,19 +1266,20 @@ RcppExport SEXP _bsvars_normalisation_wz2003_s(SEXP BSEXP, SEXP B_hat_invSEXP, S
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
 }
 // normalisation_wz2003
-void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat);
+arma::cube normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat);
 static SEXP _bsvars_normalisation_wz2003_try(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type B_hat(B_hatSEXP);
-    normalisation_wz2003(posterior_B, B_hat);
-    return R_NilValue;
+    rcpp_result_gen = Rcpp::wrap(normalisation_wz2003(posterior_B, B_hat));
+    return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
 RcppExport SEXP _bsvars_normalisation_wz2003(SEXP posterior_BSEXP, SEXP B_hatSEXP) {
@@ -1257,7 +1301,7 @@ RcppExport SEXP _bsvars_normalisation_wz2003(SEXP posterior_BSEXP, SEXP B_hatSEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1292,7 +1336,7 @@ RcppExport SEXP _bsvars_csample_num1(SEXP xSEXP, SEXP probSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1332,7 +1376,7 @@ RcppExport SEXP _bsvars_sample_A_homosk1(SEXP aux_ASEXP, SEXP aux_BSEXP, SEXP au
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1373,7 +1417,7 @@ RcppExport SEXP _bsvars_sample_A_heterosk1(SEXP aux_ASEXP, SEXP aux_BSEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1413,7 +1457,7 @@ RcppExport SEXP _bsvars_sample_B_homosk1(SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP au
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1454,7 +1498,7 @@ RcppExport SEXP _bsvars_sample_B_heterosk1(SEXP aux_BSEXP, SEXP aux_ASEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1493,7 +1537,7 @@ RcppExport SEXP _bsvars_sample_hyperparameters(SEXP aux_hyperSEXP, SEXP aux_BSEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1528,7 +1572,7 @@ RcppExport SEXP _bsvars_sample_lambda(SEXP aux_dfSEXP, SEXP USEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1563,7 +1607,7 @@ RcppExport SEXP _bsvars_log_kernel_df(SEXP aux_dfSEXP, SEXP aux_lambdaSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1601,7 +1645,7 @@ RcppExport SEXP _bsvars_sample_df(SEXP aux_dfSEXP, SEXP adaptive_scaleSEXP, SEXP
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1637,7 +1681,7 @@ RcppExport SEXP _bsvars_do_rgig1(SEXP lambdaSEXP, SEXP chiSEXP, SEXP psiSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1672,7 +1716,7 @@ RcppExport SEXP _bsvars_cholesky_tridiagonal(SEXP omega_diagSEXP, SEXP omega_off
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1708,7 +1752,7 @@ RcppExport SEXP _bsvars_forward_algorithm(SEXP chol_diagSEXP, SEXP chol_offdiagS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1744,7 +1788,7 @@ RcppExport SEXP _bsvars_backward_algorithm(SEXP chol_diagSEXP, SEXP chol_offdiag
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1780,7 +1824,7 @@ RcppExport SEXP _bsvars_precision_sampler_ar1(SEXP precision_diagSEXP, SEXP prec
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1815,7 +1859,7 @@ RcppExport SEXP _bsvars_inverse_transform_sampling(SEXP mixprobSEXP, SEXP TSEXP)
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1849,7 +1893,7 @@ RcppExport SEXP _bsvars_find_mixture_indicator_cdf(SEXP datanormSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1892,7 +1936,7 @@ RcppExport SEXP _bsvars_svar_nc1(SEXP aux_h_nSEXP, SEXP aux_rho_nSEXP, SEXP aux_
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1935,7 +1979,7 @@ RcppExport SEXP _bsvars_svar_ce1(SEXP aux_h_nSEXP, SEXP aux_rho_nSEXP, SEXP aux_
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -1969,7 +2013,7 @@ RcppExport SEXP _bsvars_orthogonal_complement_matrix_TW(SEXP xSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2003,7 +2047,7 @@ RcppExport SEXP _bsvars_log_mean(SEXP log_densitySEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2037,7 +2081,7 @@ RcppExport SEXP _bsvars_ordinal(SEXP nSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2075,7 +2119,7 @@ RcppExport SEXP _bsvars_verify_volatility_sv_cpp(SEXP posteriorSEXP, SEXP priorS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2112,7 +2156,7 @@ RcppExport SEXP _bsvars_dig2dirichlet(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP l
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2148,7 +2192,7 @@ RcppExport SEXP _bsvars_ddirichlet(SEXP xSEXP, SEXP aSEXP, SEXP logarithmSEXP) {
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2185,7 +2229,7 @@ RcppExport SEXP _bsvars_verify_volatility_msh_cpp(SEXP posteriorSEXP, SEXP prior
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2222,7 +2266,7 @@ RcppExport SEXP _bsvars_verify_volatility_hmsh_cpp(SEXP posteriorSEXP, SEXP prio
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2259,7 +2303,7 @@ RcppExport SEXP _bsvars_dmvnorm_chol_precision(SEXP xSEXP, SEXP locationSEXP, SE
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2296,7 +2340,7 @@ RcppExport SEXP _bsvars_dmvnorm_mean_var(SEXP xSEXP, SEXP meanSEXP, SEXP varSEXP
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2334,7 +2378,7 @@ RcppExport SEXP _bsvars_verify_autoregressive_heterosk_cpp(SEXP hypothesisSEXP, 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2372,7 +2416,7 @@ RcppExport SEXP _bsvars_verify_autoregressive_homosk_cpp(SEXP hypothesisSEXP, SE
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -2392,6 +2436,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
         signatures.insert("arma::cube(*bsvars_filter_forecast_smooth)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_filter_forecast_smooth_hmsh)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
+        signatures.insert("Rcpp::List(*bsvar_exh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool)");
         signatures.insert("Rcpp::List(*bsvar_hmsh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_msh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool,const std::string,const bool)");
         signatures.insert("Rcpp::List(*bsvar_sv_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool,const bool)");
@@ -2414,7 +2459,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::mat(*sample_variances_msh)(arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&)");
         signatures.insert("arma::mat(*sample_variances_hmsh)(arma::mat&,const arma::mat&,const arma::cube&,const Rcpp::List&)");
         signatures.insert("arma::rowvec(*normalisation_wz2003_s)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&)");
-        signatures.insert("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
+        signatures.insert("arma::cube(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
         signatures.insert("int(*csample_num1)(Rcpp::NumericVector,Rcpp::NumericVector)");
         signatures.insert("arma::mat(*sample_A_homosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
         signatures.insert("arma::mat(*sample_A_heterosk1)(arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&)");
@@ -2461,6 +2506,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_fitted_values", (DL_FUNC)_bsvars_bsvars_fitted_values_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_hmsh_try);
+    R_RegisterCCallable("bsvars", "_bsvars_bsvar_exh_cpp", (DL_FUNC)_bsvars_bsvar_exh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_hmsh_cpp", (DL_FUNC)_bsvars_bsvar_hmsh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_msh_cpp", (DL_FUNC)_bsvars_bsvar_msh_cpp_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_sv_cpp", (DL_FUNC)_bsvars_bsvar_sv_cpp_try);
@@ -2529,6 +2575,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
     {"_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth, 5},
     {"_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth_hmsh, 5},
+    {"_bsvars_bsvar_exh_cpp", (DL_FUNC) &_bsvars_bsvar_exh_cpp, 10},
     {"_bsvars_bsvar_hmsh_cpp", (DL_FUNC) &_bsvars_bsvar_hmsh_cpp, 13},
     {"_bsvars_bsvar_msh_cpp", (DL_FUNC) &_bsvars_bsvar_msh_cpp, 13},
     {"_bsvars_bsvar_sv_cpp", (DL_FUNC) &_bsvars_bsvar_sv_cpp, 11},

@@ -235,6 +235,27 @@ namespace bsvars {
         return Rcpp::as<arma::field<arma::cube> >(rcpp_result_gen);
     }
 
+    inline Rcpp::List bsvar_exh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& starting_values, const bool normal = true, const int thin = 100, const bool show_progress = true) {
+        typedef SEXP(*Ptr_bsvar_exh_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_bsvar_exh_cpp p_bsvar_exh_cpp = NULL;
+        if (p_bsvar_exh_cpp == NULL) {
+            validateSignature("Rcpp::List(*bsvar_exh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool)");
+            p_bsvar_exh_cpp = (Ptr_bsvar_exh_cpp)R_GetCCallable("bsvars", "_bsvars_bsvar_exh_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_bsvar_exh_cpp(Shield<SEXP>(Rcpp::wrap(S)), Shield<SEXP>(Rcpp::wrap(Y)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(prior)), Shield<SEXP>(Rcpp::wrap(VB)), Shield<SEXP>(Rcpp::wrap(VA)), Shield<SEXP>(Rcpp::wrap(starting_values)), Shield<SEXP>(Rcpp::wrap(normal)), Shield<SEXP>(Rcpp::wrap(thin)), Shield<SEXP>(Rcpp::wrap(show_progress)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
     inline Rcpp::List bsvar_hmsh_cpp(const int& S, const arma::mat& Y, const arma::mat& X, const Rcpp::List& prior, const arma::field<arma::mat>& VB, const arma::field<arma::mat>& VA, const Rcpp::List& starting_values, const bool normal = true, const int thin = 100, const bool finiteM = true, const bool MSnotMIX = true, const std::string name_model = "", const bool show_progress = true) {
         typedef SEXP(*Ptr_bsvar_hmsh_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvar_hmsh_cpp p_bsvar_hmsh_cpp = NULL;
@@ -697,11 +718,11 @@ namespace bsvars {
         return Rcpp::as<arma::rowvec >(rcpp_result_gen);
     }
 
-    inline void normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
+    inline arma::cube normalisation_wz2003(arma::cube& posterior_B, const arma::mat& B_hat) {
         typedef SEXP(*Ptr_normalisation_wz2003)(SEXP,SEXP);
         static Ptr_normalisation_wz2003 p_normalisation_wz2003 = NULL;
         if (p_normalisation_wz2003 == NULL) {
-            validateSignature("void(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
+            validateSignature("arma::cube(*normalisation_wz2003)(arma::cube&,const arma::mat&)");
             p_normalisation_wz2003 = (Ptr_normalisation_wz2003)R_GetCCallable("bsvars", "_bsvars_normalisation_wz2003");
         }
         RObject rcpp_result_gen;
@@ -715,6 +736,7 @@ namespace bsvars {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
     inline int csample_num1(Rcpp::NumericVector x, Rcpp::NumericVector prob = NumericVector::create()) {

@@ -90,27 +90,16 @@ with variance \eqn{s_{v.n}^2}.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-set.seed(123)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
+specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1) |>
-  estimate(S = 10) |> 
-  estimate(S = 10) |> 
-  compute_impulse_responses(horizon = 4) -> irf
+  specify_bsvar_sv$new() |>
+  estimate(S = 5) |> 
+  estimate(S = 5) -> post
 
 }
 \references{
@@ -127,7 +116,7 @@ Partial identification of structural vector autoregressions with non-centred sto
 Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autoregressions. \emph{Journal of Economic Dynamics and Control}, \bold{28}, 349--366, \doi{10.1016/S0165-1889(02)00168-9}.
 }
 \seealso{
-\code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar_sv}}, \code{\link{specify_posterior_bsvar_sv}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

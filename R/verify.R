@@ -236,6 +236,70 @@ verify_volatility.PosteriorBSVARMIX <- function(posterior) {
 
 
 
+
+#' @inherit verify_volatility
+#' @method verify_volatility PosteriorBSVAREXH
+#' @inheritParams verify_volatility
+#'
+#' @description This function will be deprecated starting from version 4.0. 
+#' It is replaced by \code{\link{verify_identification}} function.
+#' 
+#' Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
+#' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
+#' The hypothesis of homoskedasticity is represented by restriction:
+#' \deqn{H_0: \sigma^2_{n.1} = ... = \sigma^2_{n.M} = 1}
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate at the restriction 
+#' less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(\omega_n = 0 | data) - log p(\omega_n = 0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' homoskedasticity of the structural shock. The estimation of both elements of the difference requires 
+#' numerical integration.
+#' 
+#' @seealso \code{\link{specify_bsvar_exh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # estimate the model
+#' post  = estimate(spec, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr           = verify_volatility(post)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   verify_volatility() -> sddr
+#'   
+#' @export
+verify_volatility.PosteriorBSVAREXH <- function(posterior) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDRvolatility"
+  return(sddr)
+}
+
+
+
+
+
+
+
+
 #' @inherit verify_volatility
 #' @method verify_volatility PosteriorBSVARMSH
 #' @inheritParams verify_volatility
@@ -507,6 +571,60 @@ verify_normality.PosteriorBSVARSV <- function(posterior) {
 #'   
 #' @export
 verify_normality.PosteriorBSVARMIX <- function(posterior) {
+  
+  normal          = posterior$last_draw$get_normal()
+  stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
+  
+  N               = dim(posterior$posterior$df)[1]
+  sddr_numerator  = rep(NA, N)
+  
+  for (n in 1:N) {
+    # get the inputs to estimation
+    posterior_df    = posterior$posterior$df[n,]
+    eta             = (posterior_df - 2) / (posterior_df - 1)
+    
+    # estimate the SDDR
+    sddr_numerator[n]  = tail(stats::density(eta, to = 1, n = 1100)$y, 1)
+  }
+  
+  out             = list()
+  out$logSDDR     = log(sddr_numerator)
+  out$SDDR        = sddr_numerator
+  class(out)     = "SDDRnormality"
+  return(out)
+}
+
+
+
+
+
+#' @inherit verify_normality
+#' @method verify_normality PosteriorBSVAREXH
+#' @inheritParams verify_normality
+#'
+#' @seealso \code{\link{specify_bsvar_exh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' spec  = specify_bsvar_exh$new(us_fiscal_lsuw, distribution = "t")
+#' 
+#' # estimate the model
+#' post  = estimate(spec, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr  = verify_normality(post)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new(distribution = "t") |>
+#'   estimate(S = 10) |> 
+#'   verify_normality() -> sddr
+#'   
+#' @export
+verify_normality.PosteriorBSVAREXH <- function(posterior) {
   
   normal          = posterior$last_draw$get_normal()
   stopifnot("The estimated model is assumed normal. Normality verification not needed." = normal == FALSE)
@@ -857,6 +975,59 @@ verify_autoregression.PosteriorBSVARMIX <- function(posterior, hypothesis) {
   class(sddr)     = "SDDRautoregression"
   return(sddr)
 }
+
+
+
+
+#' @inherit verify_autoregression
+#' @method verify_autoregression PosteriorBSVAREXH
+#' @inheritParams verify_autoregression
+#' 
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # estimate the model
+#' post  = estimate(spec, 10)
+#' 
+#' # verify autoregression
+#' H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
+#' H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
+#' sddr           = verify_autoregression(post, H0)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   verify_autoregression(hypothesis = H0) -> sddr
+#' 
+#' @export
+verify_autoregression.PosteriorBSVAREXH <- function(posterior, hypothesis) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  hypothesis_cpp  = hypothesis
+  hypothesis_cpp[is.na(hypothesis_cpp)] = 999
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_autoregressive_heterosk_cpp`, hypothesis_cpp, just_posterior, prior, Y, X)
+  
+  class(sddr)     = "SDDRautoregression"
+  return(sddr)
+}
+
+
+
+
+
+
 
 
 #' @inherit verify_autoregression
@@ -1238,6 +1409,67 @@ verify_identification.PosteriorBSVARMIX <- function(posterior) {
   class(out)     = "SDDRidMIX"
   return(out)
 }
+
+
+
+
+
+#' @inherit verify_identification
+#' @method verify_identification PosteriorBSVAREXH
+#' @inheritParams verify_identification
+#'
+#' @description Computes the logarithm of Bayes factor for the homoskedasticity hypothesis 
+#' for each of the structural shocks via Savage-Dickey Density Ration (SDDR).
+#' The hypothesis of homoskedasticity is represented by restriction:
+#' \deqn{H_0: \sigma^2_{n.1} = ... = \sigma^2_{n.M} = 1}
+#' The logarithm of Bayes factor for this hypothesis can be computed using the SDDR 
+#' as the difference of logarithms of the marginal posterior distribution ordinate 
+#' at the restriction less the marginal prior distribution ordinate at the same point:
+#' \deqn{log p(H_0 | data) - log p(H_0)}
+#' Therefore, a negative value of the difference is the evidence against 
+#' homoskedasticity of the structural shock. The estimation of both elements of 
+#' the difference requires numerical integration.
+#' 
+#' @seealso \code{\link{specify_bsvar_exh}}, \code{\link{estimate}}
+#'
+#' @examples
+#' # simple workflow
+#' ############################################################
+#' # specify the model
+#' spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # estimate the model
+#' post  = estimate(spec, 10)
+#' 
+#' # verify heteroskedasticity
+#' sddr  = verify_identification(post)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   verify_identification() -> sddr
+#'   
+#' @export
+verify_identification.PosteriorBSVAREXH <- function(posterior) {
+  
+  # get the inputs to estimation
+  just_posterior  = posterior$posterior
+  prior           = posterior$last_draw$prior$get_prior()
+  Y               = posterior$last_draw$data_matrices$Y
+  X               = posterior$last_draw$data_matrices$X
+  
+  # estimate the SDDR
+  sddr            = .Call(`_bsvars_verify_volatility_msh_cpp`, just_posterior, prior, Y, X)
+  
+  out             = list()
+  out$logSDDR     = sddr$logSDDR
+  out$logSDDR_se  = sddr$logSDDR_se
+  class(out)     = "SDDRidMSH"
+  return(out)
+}
+
 
 
 

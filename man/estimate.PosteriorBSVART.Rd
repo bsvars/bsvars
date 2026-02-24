@@ -71,26 +71,16 @@ and estimated equation-specific degrees-of-freedom parameter.
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
-set.seed(123)
-
-# run the burn-in
+specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 4)
 burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10, thin = 2)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_t$new(p = 1) |>
+  specify_bsvar_t$new(p = 4) |>
   estimate(S = 5) |> 
-  estimate(S = 10, thin = 2) -> posterior
+  estimate(S = 5) -> posterior
 
 }
 \references{
@@ -105,7 +95,7 @@ Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autore
 Vihola, M. (2012) Robust adaptive Metropolis algorithm with coerced acceptance rate. \emph{Statistics & Computing}, 22, 997--1008, \doi{10.1007/s11222-011-9269-5}.
 }
 \seealso{
-\code{\link{specify_bsvar_t}}, \code{\link{specify_posterior_bsvar_t}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar_t}}, \code{\link{specify_posterior_bsvar_t}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

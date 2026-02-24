@@ -77,27 +77,16 @@ These model selection also with this respect is made using function \code{\link{
 \examples{
 # simple workflow
 ############################################################
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-set.seed(123)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20, thin = 2)
+specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
-  specify_bsvar_mix$new(p = 1, M = 2) |>
-  estimate(S = 10) |> 
-  estimate(S = 20, thin = 2) |> 
-  compute_impulse_responses(horizon = 4) -> irf
+  specify_bsvar_mix$new(M = 2) |>
+  estimate(S = 5) |> 
+  estimate(S = 5) -> post
   
 }
 \references{
@@ -112,7 +101,7 @@ Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autore
 Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \seealso{
-\code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar_mix}}, \code{\link{specify_posterior_bsvar_mix}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

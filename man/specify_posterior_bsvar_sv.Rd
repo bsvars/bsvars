@@ -66,7 +66,7 @@ posterior$is_normalised()
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag((-1) * sign(diag(BB))) \%*\% BB         # set negative diagonal elements
-normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 posterior$is_normalised()
@@ -76,7 +76,7 @@ posterior$is_normalised()
 ## Method `specify_posterior_bsvar_sv$set_normalised`
 ## ------------------------------------------------
 
-# This is an internal function that is run while executing normalise_posterior()
+# This is an internal function that is run while executing normalise()
 # Observe its working by analysing the workflow:
 
 # upload data
@@ -95,7 +95,7 @@ posterior$is_normalised()
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
-normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 posterior$is_normalised()
@@ -205,7 +205,7 @@ posterior      = estimate(burn_in, 5, thin = 1)
 \if{html}{\out{<a id="method-PosteriorBSVARSV-is_normalised"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVARSV-is_normalised}{}}}
 \subsection{Method \code{is_normalised()}}{
-Returns \code{TRUE} if the posterior has been normalised using \code{normalise_posterior()} and \code{FALSE} otherwise.
+Returns \code{TRUE} if the posterior has been normalised using \code{normalise()} and \code{FALSE} otherwise.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_sv$is_normalised()}\if{html}{\out{</div>}}
 }
@@ -228,7 +228,7 @@ posterior$is_normalised()
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag((-1) * sign(diag(BB))) \%*\% BB         # set negative diagonal elements
-normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 posterior$is_normalised()
@@ -257,7 +257,7 @@ Sets the private indicator \code{normalised} to TRUE.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{# This is an internal function that is run while executing normalise_posterior()
+\preformatted{# This is an internal function that is run while executing normalise()
 # Observe its working by analysing the workflow:
 
 # upload data
@@ -276,7 +276,7 @@ posterior$is_normalised()
 # normalise the posterior
 BB            = posterior$last_draw$starting_values$B      # get the last draw of B
 B_hat         = diag(sign(diag(BB))) \%*\% BB                # set positive diagonal elements
-normalise_posterior(posterior, B_hat)                      # draws in posterior are normalised
+posterior     = normalise(posterior, B_hat)                # draws in posterior are normalised
 
 # check normalisation status afterwards
 posterior$is_normalised()

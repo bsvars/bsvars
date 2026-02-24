@@ -84,21 +84,16 @@ Each of the Markov processes \eqn{s_{n.t}} is either:
 \examples{
 # simple workflow
 ############################################################
-# specify the model and set seed
 specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
-
-# run the burn-in
 burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
+posterior      = estimate(burn_in, 5)
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_hmsh$new(M = 2) |>
   estimate(S = 5) |> 
-  estimate(S = 10) -> posterior
+  estimate(S = 5) -> posterior
 
 }
 \references{
@@ -115,7 +110,7 @@ Waggoner, D.F., and Zha, T., (2003) A Gibbs sampler for structural vector autore
 Woźniak, T., and Droumaguet, M., (2024) Bayesian Assessment of Identifying Restrictions for Heteroskedastic Structural VARs
 }
 \seealso{
-\code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise_posterior}}
+\code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise}}
 }
 \author{
 Tomasz Woźniak \email{wozniak.tom@pm.me}

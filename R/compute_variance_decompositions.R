@@ -7,14 +7,14 @@
 #' 
 #' @param posterior posterior estimation outcome obtained by running the \code{estimate} function. 
 #' The interpretation depends on the normalisation of the shocks
-#' using function \code{normalise_posterior()}. Verify if the default settings are appropriate.
+#' using function \code{normalise()}. Verify if the default settings are appropriate.
 #' @param horizon a positive integer number denoting the forecast horizon for 
 #' the forecast error variance decomposition computations.
 #' 
 #' @return An object of class PosteriorFEVD, that is, an \code{NxNx(horizon+1)xS} array with attribute PosteriorFEVD 
 #' containing \code{S} draws of the forecast error variance decomposition.
 #'
-#' @seealso \code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise_posterior}}, \code{\link{summary}}
+#' @seealso \code{\link{compute_impulse_responses}}, \code{\link{estimate}}, \code{\link{normalise}}, \code{\link{summary}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -84,6 +84,77 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
   for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
   class(fevd)     = "PosteriorFEVD"
 
+  return(fevd)
+}
+
+
+
+
+
+#' @inherit compute_variance_decompositions
+#' @method compute_variance_decompositions PosteriorBSVAREXH
+#' @description Each of the draws from the posterior estimation of the model
+#' is transformed into a draw from the posterior distribution of the forecast 
+#' error variance decomposition. In this heteroskedastic model the forecast error 
+#' variance decompositions are computed for the forecasts with the origin at the
+#' last observation in sample data and using the conditional variance forecasts.
+#' @param posterior posterior estimation outcome - an object of class 
+#' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
+#' 
+#' @examples
+#' # specify the model
+#' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
+#' 
+#' # run the burn-in
+#' burn_in        = estimate(specification, 10)
+#' 
+#' # estimate the model
+#' posterior      = estimate(burn_in, 10)
+#' 
+#' # compute forecast error variance decomposition 2 years ahead
+#' fevd           = compute_variance_decompositions(posterior, horizon = 8)
+#' 
+#' # workflow with the pipe |>
+#' ############################################################
+#' us_fiscal_lsuw |>
+#'   specify_bsvar_exh$new() |>
+#'   estimate(S = 10) |> 
+#'   estimate(S = 10) |> 
+#'   compute_variance_decompositions(horizon = 8) -> fevd
+#' 
+#' @export
+compute_variance_decompositions.PosteriorBSVAREXH <- function(posterior, horizon) {
+  
+  posterior_B     = posterior$posterior$B
+  posterior_A     = posterior$posterior$A
+  N               = dim(posterior_A)[1]
+  p               = posterior$last_draw$p
+  S               = dim(posterior_A)[3]
+  T               = dim(posterior$posterior$xi)[2]
+  posterior_sigma2 = posterior$posterior$sigma2
+  sigma2_T        = posterior$posterior$sigma[,T,]^2
+  Y               = posterior$last_draw$data_matrices$Y
+  posterior_df    = posterior$posterior$df
+  normal          = posterior$last_draw$get_normal()
+  
+  posterior_irf   = .Call(`_bsvars_bsvars_ir`, posterior_B, posterior_A, horizon, p, TRUE)
+
+  sigma2          = array(NA, c(N, horizon, S))
+  for (h in 1:horizon) {
+    sigma2[,h,]   = sigma2_T
+  }
+  
+  if (!normal) {
+    forecast_lambda = .Call(`_bsvars_forecast_lambda_t`, posterior_df, horizon) # END .Call
+    sigma2          = sigma2 * forecast_lambda
+  }
+  
+  qqq             = .Call(`_bsvars_bsvars_fevd_heterosk`, posterior_irf, sigma2, sigma2_T)
+  
+  fevd            = array(NA, c(N, N, horizon + 1, S), dimnames = list(rownames(Y), rownames(Y), 0:horizon, 1:S))
+  for (s in 1:S) fevd[,,,s] = qqq[s][[1]]
+  class(fevd)     = "PosteriorFEVD"
+  
   return(fevd)
 }
 

@@ -70,7 +70,7 @@
 #' MCMC run as the starting value to be passed to the continuation of the MCMC 
 #' estimation using \code{estimate()}. 
 #' 
-#' @seealso \code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{specify_bsvar_hmsh}}, \code{\link{specify_posterior_bsvar_hmsh}}, \code{\link{normalise}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -93,21 +93,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model and set seed
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new(M = 2) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> posterior
+#'   estimate(S = 5) -> posterior
 #' 
 #' @export
 estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -135,7 +130,8 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
   # reshape some of the outputs
   PR_TR               = array(NA, c(dim(starting_values$PR_TR), S))
   xi                  = array(NA, c(dim(starting_values$xi), S))
-  for (s in 1:S) {
+  SS                  = dim(qqq$posterior$PR_TR)[1]
+  for (s in 1:SS) {
     PR_TR[,,,s]       = qqq$posterior$PR_TR[s,1][[1]]
     xi[,,,s]          = qqq$posterior$xi[s,1][[1]]
   }
@@ -143,9 +139,7 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
   output$posterior$xi    = xi
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }
@@ -165,21 +159,16 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model and set seed
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw, M = 2)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new(M = 2) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> posterior
+#'   estimate(S = 5) -> posterior
 #' 
 #' @export
 estimate.PosteriorBSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -215,9 +204,7 @@ estimate.PosteriorBSVARHMSH <- function(specification, S, thin = 1, show_progres
   output$posterior$xi    = xi
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }

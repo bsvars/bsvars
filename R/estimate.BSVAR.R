@@ -40,7 +40,7 @@
 #' 
 #' \code{last_draw} an object of class BSVAR with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}. 
 #'
-#' @seealso \code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise_posterior}}
+#' @seealso \code{\link{specify_bsvar}}, \code{\link{specify_posterior_bsvar}}, \code{\link{normalise}}
 #'
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
@@ -61,22 +61,16 @@
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 4)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10, thin = 2) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   estimate(S = 5) -> post
 #' 
 #' @export
 estimate.BSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -96,9 +90,7 @@ estimate.BSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
   output              = specify_posterior_bsvar$new(specification, qqq$posterior)
    
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
     
   return(output)
 }
@@ -114,18 +106,9 @@ estimate.BSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
 #' @examples
 #' # simple workflow
 #' ############################################################
-#' # upload data
-#' data(us_fiscal_lsuw)
-#' 
-#' # specify the model and set seed
-#' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' set.seed(123)
-#' 
-#' # run the burn-in
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10, thin = 2)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -133,8 +116,7 @@ estimate.BSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10, thin = 2) |> 
-#'   compute_impulse_responses(horizon = 4) -> irf
+#'   estimate(S = 5) -> post
 #' 
 #' @export
 estimate.PosteriorBSVAR <- function(specification, S, thin = 1, show_progress = TRUE) {
@@ -154,9 +136,7 @@ estimate.PosteriorBSVAR <- function(specification, S, thin = 1, show_progress = 
   output              = specify_posterior_bsvar$new(specification$last_draw, qqq$posterior)
   
   # normalise output
-  BB                  = qqq$last_draw$B
-  BB                  = diag(sign(diag(BB))) %*% BB
-  normalise_posterior(output, BB)
+  output              = normalise(output)
   
   return(output)
 }

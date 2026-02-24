@@ -60,6 +60,7 @@ variances. The different models include:
   \item heteroskedastic model with sparse Markov switching in the variances where the number of heteroskedastic components is estimated
   \item heteroskedastic model with stationary heterogeneous Markov switching in the variances, where each shock volatility has its own Markov process
   \item heteroskedastic model with sparse heterogeneous Markov switching in the variances where the number of heteroskedastic components is estimated
+  \item heteroskedastic model with exogenous heteroskedastic regime changes in the variances
   \item a model with Student-t distributed structural shocks with estimated equation-specific degrees-of-freedom parameter
   \item non-normal model with a finite mixture of normal components and component-specific variances
   \item non-normal model with a sparse mixture of normal components and component-specific variances where the number of heteroskedastic components is estimated
@@ -97,25 +98,24 @@ This package is currently in active development. Your comments,
 suggestions and requests are warmly welcome!
 }
 \examples{
-# specify the model
-specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1, exogenous = us_fiscal_ex)
-
-# run the burn-in
-burn_in        = estimate(specification, 5)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
-
-# compute impulse responses one year ahead
-irf           = compute_impulse_responses(posterior, horizon = 2)
+spec  = specify_bsvar_sv$new(         # specify the model
+          us_fiscal_lsuw, 
+          exogenous = us_fiscal_ex
+        )
+burn  = estimate(spec, 5)             # run the burn-in
+post  = estimate(burn, 10)            # estimate the model
+irf   = compute_impulse_responses(    # compute impulse responses
+          post, 
+          horizon = 2
+         )
 
 # compute forecast error variance decomposition one year ahead
-fevd           = compute_variance_decompositions(posterior, horizon = 4)
+fevd  = compute_variance_decompositions(post, horizon = 4)
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
+  specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
   estimate(S = 10) |> 
   compute_variance_decompositions(horizon = 4) -> fevds
@@ -123,28 +123,28 @@ us_fiscal_lsuw |>
 # conditional forecasting using a model with exogenous variables
 ############################################################
 us_fiscal_lsuw |>
-  specify_bsvar_sv$new(p = 1, exogenous = us_fiscal_ex) |>
+  specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
-  estimate(S = 10) -> posterior
+  estimate(S = 10) -> post
   
- posterior |> forecast(
+ post |> forecast(
     horizon = 8,
     exogenous_forecast = us_fiscal_ex_forecasts,
     conditional_forecast = us_fiscal_cond_forecasts
-  ) -> predictive
+  ) -> pred
   
-  predictive |> summary()
-  predictive |> plot(probability = 0.68)
+  pred |> summary()
+  pred |> plot(probability = 0.68)
   
 # estimation of a model with exogeneity restrictions on the  autoregressive matrix
-#############################################################' set.seed(123)
+#############################################################
 A = matrix(TRUE, 3, 7)
 A[1,3] = A[1,6] = FALSE
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 2, A = A) |>
   estimate(S = 5) |> 
-  estimate(S = 10) -> posterior
-posterior |> summary()
+  estimate(S = 10) -> post
+post |> summary()
 
 }
 \references{
