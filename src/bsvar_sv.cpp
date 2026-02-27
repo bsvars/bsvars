@@ -134,7 +134,7 @@ Rcpp::List bsvar_sv_cpp (
     }
     
     // sample aux_hyper
-    // aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, VA, prior);
+    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, VA, prior);
     
     // sample aux_B
     aux_B           = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
