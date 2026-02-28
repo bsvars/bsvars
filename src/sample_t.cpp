@@ -59,32 +59,29 @@ Rcpp::List sample_df (
     const int&        s,                  // MCMC iteration
     const arma::vec&  adptive_alpha_gamma // 2x1 vector with target acceptance rate and step size
 ) {
-  // int N = aux_df.n_elem;
-  // vec aux_df_star(N);
-  // vec alpha(N, fill::ones);
-  // 
-  // // by sampling from truncated normal it is assumed that the asymmetry from truncation 
-  // // is negligible for alpha computation
-  // for (int n = 0; n < N; n++){
-  //   aux_df_star(n)        = RcppTN::rtn1( aux_df(n), adaptive_scale(n), 2, R_PosInf );
-  //   double lk_nu_star     = log_kernel_df(aux_df_star(n), aux_lambda.row(n));
-  //   double lk_nu_old      = log_kernel_df(aux_df(n), aux_lambda.row(n));
-  //   double cgd_ratio      = RcppTN::dtn1( aux_df_star(n), aux_df(n), adaptive_scale(n), 2, R_PosInf ) / 
-  //     RcppTN::dtn1( aux_df(n), aux_df_star(n), adaptive_scale(n), 2, R_PosInf );
-  // 
-  //   double kernel_ratio   = exp(lk_nu_star - lk_nu_old) * cgd_ratio;
-  //   if ( kernel_ratio < 1 ) alpha(n) = kernel_ratio;
-  //   if ( R::runif(0, 1) < alpha(n) ) {
-  //     aux_df(n)           = aux_df_star(n);
-  //   }
-  // 
-  //   if (s > 1) {
-  //     adaptive_scale(n)   = exp( log(adaptive_scale(n)) + 0.5 * log( 1 + pow(s, - adptive_alpha_gamma(1)) * (alpha(n) - adptive_alpha_gamma(0))) );
-  //   }
-  // } // END n loop
-  
-  aux_df.fill(5.7);
-  adaptive_scale.fill(1.0);
+  int N = aux_df.n_elem;
+  vec aux_df_star(N);
+  vec alpha(N, fill::ones);
+
+  // by sampling from truncated normal it is assumed that the asymmetry from truncation
+  // is negligible for alpha computation
+  for (int n = 0; n < N; n++){
+    aux_df_star(n)        = RcppTN::rtn1( aux_df(n), adaptive_scale(n), 2, R_PosInf );
+    double lk_nu_star     = log_kernel_df(aux_df_star(n), aux_lambda.row(n));
+    double lk_nu_old      = log_kernel_df(aux_df(n), aux_lambda.row(n));
+    double cgd_ratio      = RcppTN::dtn1( aux_df_star(n), aux_df(n), adaptive_scale(n), 2, R_PosInf ) /
+      RcppTN::dtn1( aux_df(n), aux_df_star(n), adaptive_scale(n), 2, R_PosInf );
+
+    double kernel_ratio   = exp(lk_nu_star - lk_nu_old) * cgd_ratio;
+    if ( kernel_ratio < 1 ) alpha(n) = kernel_ratio;
+    if ( R::runif(0, 1) < alpha(n) ) {
+      aux_df(n)           = aux_df_star(n);
+    }
+
+    if (s > 1) {
+      adaptive_scale(n)   = exp( log(adaptive_scale(n)) + 0.5 * log( 1 + pow(s, - adptive_alpha_gamma(1)) * (alpha(n) - adptive_alpha_gamma(0))) );
+    }
+  } // END n loop
   
   return List::create(
     _["aux_df"] = aux_df,
