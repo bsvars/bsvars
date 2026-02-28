@@ -108,9 +108,9 @@ Rcpp::List bsvar_hmsh_cpp (
     
     // sample aux_df and aux_lambda
     if ( !normal ) {
-      List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
-      aux_df          = as<vec>(df_tmp["aux_df"]);
-      adaptive_scale  = as<vec>(df_tmp["adaptive_scale"]);
+      // List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
+      // aux_df          = as<vec>(df_tmp["aux_df"]);
+      // adaptive_scale  = as<vec>(df_tmp["adaptive_scale"]);
       
       U               = aux_B * (Y - aux_A * X) / aux_sigma;
       aux_lambda      = sample_lambda ( aux_df, U );
@@ -119,7 +119,7 @@ Rcpp::List bsvar_hmsh_cpp (
     }
     
     // sample aux_hyper
-    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
+    // aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
     
     // sample aux_B
     aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
