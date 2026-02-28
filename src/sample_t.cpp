@@ -15,13 +15,16 @@ arma::mat sample_lambda (
   const int N           = U.n_rows;
   const int T           = U.n_cols;
   
+  mat       s_lambda    = square(U);
+  vec       E_s_lambda  = mean(s_lambda, 1);
+  s_lambda              = diagmat(1/ E_s_lambda) * s_lambda;
+  s_lambda.each_col()  += aux_df - 2.0;
   vec       nu_lambda   = aux_df + 1;
-  vec       s_lambda    = nu_lambda - 2;
   
   mat       aux_lambda(N, T);
   for (int n=0; n<N; n++) {
     vec draw            = chi2rnd(nu_lambda(n), T);
-    aux_lambda.row(n)   = s_lambda(n) / draw.t();
+    aux_lambda.row(n)   = s_lambda.row(n) / draw.t();
   }
   
   return aux_lambda; // NxT
