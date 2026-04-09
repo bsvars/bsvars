@@ -9,6 +9,10 @@
   [](https://orcid.org/0009-0005-6192-9061)  
   corrected C++ code for historical decompositions
 
+- **Bruno Cavalcante**. Contributor.
+  [](https://orcid.org/0009-0005-7252-7658)  
+  corrected R code for HMSH forecasting
+
 ## Citation
 
 Source:
