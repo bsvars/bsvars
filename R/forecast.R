@@ -398,7 +398,7 @@ forecast.PosteriorBSVARHMSH = function(
   
   S_T             = array(NA, c(M,N,S))
   for (s in 1:S) {
-    S_T[,,s]      = object$posterior$xi_cpp[S,1][[1]][,T,]
+    S_T[,,s]      = object$posterior$xi_cpp[s,1][[1]][,T,]
   }
     
   # prepare forecasting with exogenous variables

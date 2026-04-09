@@ -16,6 +16,7 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 10. Simplified examples in documentation to better express the simplicity of workflows as suggested by [\@robjhyndman](https://github.com/robjhyndman). [#120](https://github.com/bsvars/bsvars/issues/120)
 11. Replaced forecast method with `generics::forecast` as suggested by [\@robjhyndman](https://github.com/robjhyndman). [#114](https://github.com/bsvars/bsvars/issues/114)
 12. Normalisation is now made through the generic and methods `normalise` [131](https://github.com/bsvars/bsvars/issues/131)
+13. Corrected R code for forecasting with HMSH models in PR [#136](https://github.com/bsvars/bsvars/pull/136) by [Bruno Cavalcante](https://github.com/brunolbcavalcante)
 
 # bsvars 3.2
 
