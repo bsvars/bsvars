@@ -16,3 +16,5 @@ cran-comments.md
 ^vignettes/paper/bsvars\.Rmd$
 ^vignettes/paper/bsvars\.knit\.md$
 ^revdep$
+^\.positai$
+^\.claude$
