@@ -133,15 +133,6 @@ Rcpp::List bsvar_sv_cpp (
       aux_hetero      = aux_sigma % aux_lambda_sqrt;
     }
     
-    // sample aux_hyper
-    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, VA, prior);
-    
-    // sample aux_B
-    aux_B           = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
-    
-    // sample aux_A
-    aux_A           = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_hetero, Y, X, prior, VA);
-    
     // sample aux_h, aux_omega and aux_S, aux_sigma2_omega
     U               = aux_B * (Y - aux_A * X) / aux_lambda_sqrt;
     
@@ -176,8 +167,16 @@ Rcpp::List bsvar_sv_cpp (
         aux_sigma.row(n)  = exp(0.5 * aux_omega(n) * aux_h.row(n));
       }
     }
-    
     aux_hetero      = aux_sigma % aux_lambda_sqrt;
+    
+    // sample aux_hyper
+    aux_hyper       = sample_hyperparameters( aux_hyper, aux_B, aux_A, VB, VA, prior);
+    
+    // sample aux_B
+    aux_B           = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
+    
+    // sample aux_A
+    aux_A           = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_hetero, Y, X, prior, VA);
     
     if (s % thin == 0) {
       posterior_B.slice(ss)          = aux_B;

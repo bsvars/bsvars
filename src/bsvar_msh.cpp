@@ -104,7 +104,6 @@ Rcpp::List bsvar_msh_cpp (
     // Check for user interrupts
     if (s % 200 == 0) checkUserInterrupt();
     
-    
     if ( !normal ) {
       List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
       aux_df          = as<vec>(df_tmp["aux_df"]);
@@ -116,15 +115,6 @@ Rcpp::List bsvar_msh_cpp (
       aux_hetero      = aux_sigma % aux_lambda_sqrt;
     }
     
-    // sample aux_hyper
-    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
-    
-    // sample aux_B
-    aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
-    
-    // sample aux_A
-    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_hetero, Y, X, prior, VA);
-      
     // sample aux_xi
     U                 = aux_B * (Y - aux_A * X) / aux_sigma;
     aux_xi            = sample_Markov_process_msh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM);
@@ -142,6 +132,16 @@ Rcpp::List bsvar_msh_cpp (
       aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
     }
     aux_hetero      = aux_sigma % aux_lambda_sqrt;
+    
+    // sample aux_hyper
+    aux_hyper         = sample_hyperparameters(aux_hyper, aux_B, aux_A, VB, VA, prior);
+    
+    // sample aux_B
+    aux_B             = sample_B_heterosk1(aux_B, aux_A, aux_hyper, aux_hetero, Y, X, prior, VB);
+    
+    // sample aux_A
+    aux_A             = sample_A_heterosk1(aux_A, aux_B, aux_hyper, aux_hetero, Y, X, prior, VA);
+    U                 = aux_B * (Y - aux_A * X) / aux_sigma;
     
     if (s % thin == 0) {
       posterior_B.slice(ss)      = aux_B;
