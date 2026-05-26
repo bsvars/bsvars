@@ -188,6 +188,7 @@ website](reference/figures/logo.png)](https://bsvars.org/bsvars/)
 The beginnings are as easy as ABC:
 
 ``` r
+
 library(bsvars)                               # upload the package
 data(us_fiscal_lsuw)                          # upload data
 spec      = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)   # specify the model
@@ -205,6 +206,7 @@ The **bsvars** package supports a simplified workflow using the `|>`
 pipe:
 
 ``` r
+
 library(bsvars)                               # upload the package
 data(us_fiscal_lsuw)                          # upload data
 us_fiscal_lsuw |>
