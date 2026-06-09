@@ -285,10 +285,10 @@ Browse package information
 Upload sample data set
 
 - [`us_fiscal_lsuw`](https://bsvars.org/bsvars/reference/us_fiscal_lsuw.md)
-  : A 3-variable US fiscal system for the period 1948 Q1 – 2024 Q2
+  : A 3-variable US fiscal system for the period 1948 Q1 – 2026 Q1
 - [`us_fiscal_ex`](https://bsvars.org/bsvars/reference/us_fiscal_ex.md)
   : A 3-variable system of exogenous variables for the US fiscal model
-  for the period 1948 Q1 – 2024 Q2
+  for the period 1948 Q1 – 2026 Q1
 
 ## Model specification
 
@@ -530,12 +530,12 @@ Predict future values of your variables
   GDP, will be forecasted given the provided projected values of total
   tax revenue. The matrix includes future values for the forecast
   horizon of two years for the US fiscal model for the period 2024 Q3 –
-  2026 Q2.
+  2026 Q1.
 
 - [`us_fiscal_ex_forecasts`](https://bsvars.org/bsvars/reference/us_fiscal_ex_forecasts.md)
   : A 3-variable system of exogenous variables' future values for the
   forecast horizon of two years for the US fiscal model for the period
-  2024 Q3 – 2026 Q2
+  2026 Q2 – 2028 Q1
 
 ## Structural analyses
 

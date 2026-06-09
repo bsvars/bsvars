@@ -73,8 +73,8 @@ summary(sddr)
 #>    Summary of hypothesis verification              |
 #>       for autoregressive parameters                |
 #>  **************************************************|
-#>   log(SDDR) NSE Pr[H0|data] Pr[H1|data]
-#>  -0.2097152   0   0.4477625   0.5522375
+#>  log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
+#>  -25.01558   0 1.367322e-11           1
 
 # workflow with the pipe |>
 ############################################################

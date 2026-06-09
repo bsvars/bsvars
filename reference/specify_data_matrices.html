@@ -129,8 +129,8 @@ This matrix should not include a constant term.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">YX</span> <span class="op">=</span> <span class="va">specify_data_matrices</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">YX</span><span class="op">$</span><span class="va">X</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   3 309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  13 309</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
@@ -310,21 +310,25 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.911461 -9.914936 -9.910995 -9.914694 -9.902684 -9.893343 -9.888448</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.184270 -7.178286 -7.174767 -7.169207 -7.160283 -7.156063 -7.152791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        2018.5   2018.75      2019   2019.25    2019.5   2019.75      2020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.030414 -9.026476 -9.005020 -9.009724 -9.006693 -8.995138 -8.983302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.877155 -9.871851 -9.853621 -9.857194 -9.849224 -9.845507 -9.835249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.148940 -7.149990 -7.142553 -7.136072 -7.126624 -7.122079 -7.134618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.030414 -9.026476 -9.005020 -9.009724 -9.006693 -8.995138 -8.983821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.877155 -9.871851 -9.853621 -9.857194 -9.849224 -9.845507 -9.834878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.148940 -7.149990 -7.142553 -7.136072 -7.126624 -7.122079 -7.133851</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       2020.25    2020.5   2020.75      2021   2021.25    2021.5   2021.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.060113 -9.014055 -8.975719 -8.942774 -8.918010 -8.902217 -8.888065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.761519 -9.798814 -9.799692 -9.764213 -9.790668 -9.814893 -9.813773</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.218631 -7.145189 -7.136400 -7.122097 -7.107639 -7.100679 -7.084368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.060006 -9.014392 -8.975615 -8.941892 -8.916904 -8.901979 -8.888324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.761538 -9.797800 -9.797613 -9.762105 -9.790686 -9.815136 -9.813156</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.217502 -7.144702 -7.135435 -7.120977 -7.105221 -7.098526 -7.083078</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          2022   2022.25    2022.5   2022.75      2023   2023.25    2023.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.819168 -8.836019 -8.835510 -8.852429 -8.939142 -8.941745 -8.942994</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.845291 -9.859459 -9.860699 -9.840169 -9.832747 -9.833321 -9.821229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.091890 -7.092581 -7.087744 -7.081433 -7.079885 -7.075736 -7.067297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       2023.75      2024   2024.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.940362 -8.922181 -8.919554</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.818777 -9.818013 -9.808819</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.061695 -7.057257 -7.051908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.819117 -8.836060 -8.835948 -8.853521 -8.940771 -8.943073 -8.942480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.843797 -9.859125 -9.861882 -9.841941 -9.835307 -9.835997 -9.820454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.090572 -7.090407 -7.085082 -7.080138 -7.078278 -7.073912 -7.064664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       2023.75      2024   2024.25    2024.5   2024.75      2025   2025.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.937814 -8.925301 -8.918360 -8.909704 -8.903485 -8.899314 -8.861784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.811349 -9.806541 -9.796970 -9.776826 -9.768450 -9.789973 -9.793756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.058522 -7.056021 -7.049219 -7.043270 -7.040926 -7.055049 -7.047604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        2025.5   2025.75      2026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.844575 -8.841124 -8.865380</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.788299 -9.807909 -9.810099</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.039139 -7.039331 -7.036696</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $X</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]       [,3]       [,4]       [,5]       [,6]</span>
@@ -944,46 +948,60 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.169207 -7.160283 -7.156063 -7.152791 -7.148940 -7.149990 -7.142553</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        [,286]    [,287]    [,288]    [,289]    [,290]    [,291]    [,292]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.983302 -9.060113 -9.014055 -8.975719 -8.942774 -8.918010 -8.902217</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.835249 -9.761519 -9.798814 -9.799692 -9.764213 -9.790668 -9.814893</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.134618 -7.218631 -7.145189 -7.136400 -7.122097 -7.107639 -7.100679</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.995138 -8.983302 -9.060113 -9.014055 -8.975719 -8.942774 -8.918010</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.845507 -9.835249 -9.761519 -9.798814 -9.799692 -9.764213 -9.790668</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.122079 -7.134618 -7.218631 -7.145189 -7.136400 -7.122097 -7.107639</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.006693 -8.995138 -8.983302 -9.060113 -9.014055 -8.975719 -8.942774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.849224 -9.845507 -9.835249 -9.761519 -9.798814 -9.799692 -9.764213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.126624 -7.122079 -7.134618 -7.218631 -7.145189 -7.136400 -7.122097</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.009724 -9.006693 -8.995138 -8.983302 -9.060113 -9.014055 -8.975719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.857194 -9.849224 -9.845507 -9.835249 -9.761519 -9.798814 -9.799692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.136072 -7.126624 -7.122079 -7.134618 -7.218631 -7.145189 -7.136400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.983821 -9.060006 -9.014392 -8.975615 -8.941892 -8.916904 -8.901979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.834878 -9.761538 -9.797800 -9.797613 -9.762105 -9.790686 -9.815136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.133851 -7.217502 -7.144702 -7.135435 -7.120977 -7.105221 -7.098526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.995138 -8.983821 -9.060006 -9.014392 -8.975615 -8.941892 -8.916904</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.845507 -9.834878 -9.761538 -9.797800 -9.797613 -9.762105 -9.790686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.122079 -7.133851 -7.217502 -7.144702 -7.135435 -7.120977 -7.105221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.006693 -8.995138 -8.983821 -9.060006 -9.014392 -8.975615 -8.941892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.849224 -9.845507 -9.834878 -9.761538 -9.797800 -9.797613 -9.762105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.126624 -7.122079 -7.133851 -7.217502 -7.144702 -7.135435 -7.120977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -9.009724 -9.006693 -8.995138 -8.983821 -9.060006 -9.014392 -8.975615</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.857194 -9.849224 -9.845507 -9.834878 -9.761538 -9.797800 -9.797613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.136072 -7.126624 -7.122079 -7.133851 -7.217502 -7.144702 -7.135435</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        [,293]    [,294]    [,295]    [,296]    [,297]    [,298]    [,299]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.888065 -8.819168 -8.836019 -8.835510 -8.852429 -8.939142 -8.941745</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.813773 -9.845291 -9.859459 -9.860699 -9.840169 -9.832747 -9.833321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.084368 -7.091890 -7.092581 -7.087744 -7.081433 -7.079885 -7.075736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.902217 -8.888065 -8.819168 -8.836019 -8.835510 -8.852429 -8.939142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.814893 -9.813773 -9.845291 -9.859459 -9.860699 -9.840169 -9.832747</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.100679 -7.084368 -7.091890 -7.092581 -7.087744 -7.081433 -7.079885</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.918010 -8.902217 -8.888065 -8.819168 -8.836019 -8.835510 -8.852429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.790668 -9.814893 -9.813773 -9.845291 -9.859459 -9.860699 -9.840169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.107639 -7.100679 -7.084368 -7.091890 -7.092581 -7.087744 -7.081433</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.942774 -8.918010 -8.902217 -8.888065 -8.819168 -8.836019 -8.835510</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.764213 -9.790668 -9.814893 -9.813773 -9.845291 -9.859459 -9.860699</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.122097 -7.107639 -7.100679 -7.084368 -7.091890 -7.092581 -7.087744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.888324 -8.819117 -8.836060 -8.835948 -8.853521 -8.940771 -8.943073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.813156 -9.843797 -9.859125 -9.861882 -9.841941 -9.835307 -9.835997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.083078 -7.090572 -7.090407 -7.085082 -7.080138 -7.078278 -7.073912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.901979 -8.888324 -8.819117 -8.836060 -8.835948 -8.853521 -8.940771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.815136 -9.813156 -9.843797 -9.859125 -9.861882 -9.841941 -9.835307</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.098526 -7.083078 -7.090572 -7.090407 -7.085082 -7.080138 -7.078278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.916904 -8.901979 -8.888324 -8.819117 -8.836060 -8.835948 -8.853521</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.790686 -9.815136 -9.813156 -9.843797 -9.859125 -9.861882 -9.841941</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.105221 -7.098526 -7.083078 -7.090572 -7.090407 -7.085082 -7.080138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.941892 -8.916904 -8.901979 -8.888324 -8.819117 -8.836060 -8.835948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.762105 -9.790686 -9.815136 -9.813156 -9.843797 -9.859125 -9.861882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.120977 -7.105221 -7.098526 -7.083078 -7.090572 -7.090407 -7.085082</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]    [,301]    [,302]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.942994 -8.940362 -8.922181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.821229 -9.818777 -9.818013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.067297 -7.061695 -7.057257</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.941745 -8.942994 -8.940362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.833321 -9.821229 -9.818777</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.075736 -7.067297 -7.061695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.939142 -8.941745 -8.942994</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.832747 -9.833321 -9.821229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.079885 -7.075736 -7.067297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.852429 -8.939142 -8.941745</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.840169 -9.832747 -9.833321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.081433 -7.079885 -7.075736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,300]    [,301]    [,302]    [,303]    [,304]    [,305]    [,306]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.942480 -8.937814 -8.925301 -8.918360 -8.909704 -8.903485 -8.899314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.820454 -9.811349 -9.806541 -9.796970 -9.776826 -9.768450 -9.789973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.064664 -7.058522 -7.056021 -7.049219 -7.043270 -7.040926 -7.055049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.943073 -8.942480 -8.937814 -8.925301 -8.918360 -8.909704 -8.903485</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.835997 -9.820454 -9.811349 -9.806541 -9.796970 -9.776826 -9.768450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.073912 -7.064664 -7.058522 -7.056021 -7.049219 -7.043270 -7.040926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.940771 -8.943073 -8.942480 -8.937814 -8.925301 -8.918360 -8.909704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.835307 -9.835997 -9.820454 -9.811349 -9.806541 -9.796970 -9.776826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.078278 -7.073912 -7.064664 -7.058522 -7.056021 -7.049219 -7.043270</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.853521 -8.940771 -8.943073 -8.942480 -8.937814 -8.925301 -8.918360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.841941 -9.835307 -9.835997 -9.820454 -9.811349 -9.806541 -9.796970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.080138 -7.078278 -7.073912 -7.064664 -7.058522 -7.056021 -7.049219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000  1.000000  1.000000  1.000000  1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        [,307]    [,308]    [,309]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.861784 -8.844575 -8.841124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.793756 -9.788299 -9.807909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.047604 -7.039139 -7.039331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.899314 -8.861784 -8.844575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.789973 -9.793756 -9.788299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.055049 -7.047604 -7.039139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.903485 -8.899314 -8.861784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.768450 -9.789973 -9.793756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.040926 -7.055049 -7.047604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ttr -8.909704 -8.903485 -8.899314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gs  -9.776826 -9.768450 -9.789973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gdp -7.043270 -7.040926 -7.055049</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1.000000  1.000000  1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>

@@ -1,8 +1,8 @@
-# A matrix to be used in a conditional forecasting example including the projected values of total tax revenue that are projected to increase at an average quarterly sample growth rate. The other two columns are filled with `NA` values, which implies that the future values of the corresponding endogenous variables, namely government spending and GDP, will be forecasted given the provided projected values of total tax revenue. The matrix includes future values for the forecast horizon of two years for the US fiscal model for the period 2024 Q3 – 2026 Q2.
+# A matrix to be used in a conditional forecasting example including the projected values of total tax revenue that are projected to increase at an average quarterly sample growth rate. The other two columns are filled with `NA` values, which implies that the future values of the corresponding endogenous variables, namely government spending and GDP, will be forecasted given the provided projected values of total tax revenue. The matrix includes future values for the forecast horizon of two years for the US fiscal model for the period 2024 Q3 – 2026 Q1.
 
 Conditional projections variables to be used in conditional forecasting
 of government spending and GDP given the provided projected values of
-total tax revenue. Last data update was implemented on 2024-10-22.
+total tax revenue. Last data update was implemented on 2026-06-09.
 
 ## Usage
 

@@ -83,10 +83,10 @@ summary(sddr)
 #>    H0: s^2_nm  = 1 for all m  [homoskedasticity]   |
 #>    H1: s^2_nm != 1 for some m [heteroskedasticity] |
 #>  **************************************************|
-#>         log(SDDR) NSE Pr[H0|data] Pr[H1|data]
-#> shock 1  2.028488   0  0.88375586   0.1162441
-#> shock 2 -2.063253   0  0.11272010   0.8872799
-#> shock 3 -4.512571   0  0.01085118   0.9891488
+#>          log(SDDR) NSE Pr[H0|data] Pr[H1|data]
+#> shock 1  2.0583710   0   0.8867907   0.1132093
+#> shock 2 -0.5667604   0   0.3619847   0.6380153
+#> shock 3 -0.2320996   0   0.4422342   0.5577658
 
 # workflow with the pipe |>
 ############################################################
