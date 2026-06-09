@@ -58,6 +58,7 @@ log_mean    = function(x) {log(mean(x))}
 pop_tmp     = fredr::fredr("CNP16OV")
 pop         = xts::apply.quarterly(xts::xts(pop_tmp$value, pop_tmp$date), log_mean)
 pop         = xts::xts(pop, zoo::as.yearqtr(zoo::index(pop)))
+# pop[312] = mean(pop[c(311,313)])
 
 # GDP Deflator data
 # GDP deflator in line 1 from Table 1.1.9
@@ -111,7 +112,7 @@ colnames(us_fiscal_lsuw_tmp)  = c("ttr", "gs", "gdp")
 us_fiscal_lsuw        = ts(as.matrix(us_fiscal_lsuw_tmp), start = c(1948, 1), frequency = 4)
 save(us_fiscal_lsuw, file = "data/us_fiscal_lsuw.rda")
 
-start_fore = c(2024, 3)
+start_fore = c(2026, 2)
 
 # Exogenous terms
 ############################################################
@@ -149,7 +150,7 @@ save(us_fiscal_ex_forecasts, file = "data/us_fiscal_ex_forecasts.rda")
 ############################################################
 us_fiscal_cond_forecasts = ts(
   cbind(
-    tail(us_fiscal_lsuw[,1], 1) + (1:8) * mean(diff(us_fiscal_lsuw[,1])),
+    as.numeric(tail(us_fiscal_lsuw[,1], 1)) + (1:8) * mean(diff(us_fiscal_lsuw[,1])),
     matrix(NA, 8, 2)
   ),
   start     = start_fore,

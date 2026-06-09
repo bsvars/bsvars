@@ -1,10 +1,11 @@
 
 #' @title A 3-variable system of exogenous variables' future values for the 
 #' forecast horizon of two years for the US fiscal model for the period 
-#' 2024 Q3 -- 2026 Q2
+#' 2026 Q2 -- 2028 Q1
 #'
 #' @description Exogenous variables to be used in forecasting of the US fiscal 
-#' policy shocks. Last data update was implemented on 2024-10-22.
+#' policy shocks. 
+#' Last data update was implemented on 2026-06-09.
 #'
 #' @usage data(us_fiscal_ex_forecasts)
 #' 
