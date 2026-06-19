@@ -171,6 +171,11 @@ burn_in        = estimate(specification, 5)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 
 # estimate the model
 posterior      = estimate(burn_in, 10, thin = 2)
@@ -183,6 +188,16 @@ posterior      = estimate(burn_in, 10, thin = 2)
 #>     Every 2nd draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # workflow with the pipe |>
 ############################################################
@@ -201,6 +216,11 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
@@ -210,4 +230,14 @@ us_fiscal_lsuw |>
 #>     Every 2nd draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 ```

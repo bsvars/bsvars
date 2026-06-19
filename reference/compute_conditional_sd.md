@@ -51,6 +51,11 @@ burn_in        = estimate(specification, 5)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 posterior      = estimate(burn_in, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -61,6 +66,11 @@ posterior      = estimate(burn_in, 5)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 sigma          = compute_conditional_sd(posterior)
 #> The model is homoskedastic. Returning an NxTxS matrix of conditional sd all equal to 1.
 
@@ -81,6 +91,11 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
@@ -90,5 +105,10 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 #> The model is homoskedastic. Returning an NxTxS matrix of conditional sd all equal to 1.
 ```

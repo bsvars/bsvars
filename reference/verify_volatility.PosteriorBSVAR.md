@@ -63,6 +63,16 @@ posterior      = estimate(specification, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # verify heteroskedasticity
 sddr           = verify_volatility(posterior)
@@ -84,6 +94,16 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 #> The model is homoskedastic.
   
 ```

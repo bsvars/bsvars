@@ -62,6 +62,16 @@ burn_in        = estimate(specification, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # estimate the model
 posterior      = estimate(burn_in, 20)
@@ -74,6 +84,26 @@ posterior      = estimate(burn_in, 20)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
+#>  s: 10
+#>  s: 11
+#>  s: 12
+#>  s: 13
+#>  s: 14
+#>  s: 15
+#>  s: 16
+#>  s: 17
+#>  s: 18
+#>  s: 19
 summary(posterior)
 #>  **************************************************|
 #>  bsvars: Bayesian Structural Vector Autoregressions|
@@ -137,7 +167,7 @@ summary(posterior)
 #> A[2,]_shrinkage       0.2848364 0.16713385  0.11335237    0.5611669
 #> A[3,]_shrinkage       0.3237228 0.26792304  0.07360823    0.5715186
 #> A[1,]_shrinkage_scale 3.9576003 1.46323260  1.56941879    5.8459596
-#> A[2,]_shrinkage_scale 3.3051021 1.47918569  1.90384497    6.4437421
+#> A[2,]_shrinkage_scale 3.3051021 1.47918570  1.90384497    6.4437421
 #> A[3,]_shrinkage_scale 3.5180074 1.92050729  1.26113427    6.8988395
 #> A_global_scale        0.4550062 0.07662271  0.33770816    0.5882126
 #> 
@@ -161,6 +191,16 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
@@ -170,6 +210,26 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
+#>  s: 10
+#>  s: 11
+#>  s: 12
+#>  s: 13
+#>  s: 14
+#>  s: 15
+#>  s: 16
+#>  s: 17
+#>  s: 18
+#>  s: 19
 #>  **************************************************|
 #>  bsvars: Bayesian Structural Vector Autoregressions|
 #>  **************************************************|
@@ -232,7 +292,7 @@ us_fiscal_lsuw |>
 #> A[2,]_shrinkage       0.2848364 0.16713385  0.11335237    0.5611669
 #> A[3,]_shrinkage       0.3237228 0.26792304  0.07360823    0.5715186
 #> A[1,]_shrinkage_scale 3.9576003 1.46323260  1.56941879    5.8459596
-#> A[2,]_shrinkage_scale 3.3051021 1.47918569  1.90384497    6.4437421
+#> A[2,]_shrinkage_scale 3.3051021 1.47918570  1.90384497    6.4437421
 #> A[3,]_shrinkage_scale 3.5180074 1.92050729  1.26113427    6.8988395
 #> A_global_scale        0.4550062 0.07662271  0.33770816    0.5882126
 #> 

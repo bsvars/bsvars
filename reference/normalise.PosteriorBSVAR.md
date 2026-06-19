@@ -68,6 +68,11 @@ burn_in        = estimate(specification, 5)               # run the burn-in
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 posterior      = estimate(burn_in, 5)                     # estimate the model
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -78,6 +83,11 @@ posterior      = estimate(burn_in, 5)                     # estimate the model
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
 
 # normalise the posterior
 BB             = posterior$last_draw$starting_values$B    # get the last draw of B

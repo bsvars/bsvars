@@ -225,6 +225,56 @@ estimate       = estimate(specification, 50)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
+#>  s: 10
+#>  s: 11
+#>  s: 12
+#>  s: 13
+#>  s: 14
+#>  s: 15
+#>  s: 16
+#>  s: 17
+#>  s: 18
+#>  s: 19
+#>  s: 20
+#>  s: 21
+#>  s: 22
+#>  s: 23
+#>  s: 24
+#>  s: 25
+#>  s: 26
+#>  s: 27
+#>  s: 28
+#>  s: 29
+#>  s: 30
+#>  s: 31
+#>  s: 32
+#>  s: 33
+#>  s: 34
+#>  s: 35
+#>  s: 36
+#>  s: 37
+#>  s: 38
+#>  s: 39
+#>  s: 40
+#>  s: 41
+#>  s: 42
+#>  s: 43
+#>  s: 44
+#>  s: 45
+#>  s: 46
+#>  s: 47
+#>  s: 48
+#>  s: 49
 class(estimate)
 #> [1] "PosteriorBSVAR" "R6"            
 
@@ -247,6 +297,56 @@ estimate       = estimate(specification, 50)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
+#>  s: 10
+#>  s: 11
+#>  s: 12
+#>  s: 13
+#>  s: 14
+#>  s: 15
+#>  s: 16
+#>  s: 17
+#>  s: 18
+#>  s: 19
+#>  s: 20
+#>  s: 21
+#>  s: 22
+#>  s: 23
+#>  s: 24
+#>  s: 25
+#>  s: 26
+#>  s: 27
+#>  s: 28
+#>  s: 29
+#>  s: 30
+#>  s: 31
+#>  s: 32
+#>  s: 33
+#>  s: 34
+#>  s: 35
+#>  s: 36
+#>  s: 37
+#>  s: 38
+#>  s: 39
+#>  s: 40
+#>  s: 41
+#>  s: 42
+#>  s: 43
+#>  s: 44
+#>  s: 45
+#>  s: 46
+#>  s: 47
+#>  s: 48
+#>  s: 49
 estimate$get_posterior()
 #> $B
 #> , , 1
@@ -576,7 +676,7 @@ estimate$get_posterior()
 #>            [,1]       [,2]     [,3]
 #> [1,]  37.402875  0.0000000  0.00000
 #> [2,]  -2.050744 38.5485929  0.00000
-#> [3,] -15.215625 -0.9815597 93.76194
+#> [3,] -15.215625 -0.9815598 93.76194
 #> 
 #> , , 48
 #> 
@@ -723,7 +823,7 @@ estimate$get_posterior()
 #> , , 18
 #> 
 #>              [,1]          [,2]       [,3]        [,4]
-#> [1,]  0.939612432 -0.0002818328 0.07333721 -0.01587923
+#> [1,]  0.939612432 -0.0002818328 0.07333721 -0.01587922
 #> [2,] -0.007173939  0.9517264606 0.02129644 -0.38647473
 #> [3,] -0.003993713 -0.0019132347 1.00148543 -0.04193495
 #> 
@@ -767,7 +867,7 @@ estimate$get_posterior()
 #>             [,1]        [,2]        [,3]         [,4]
 #> [1,]  0.91064377 0.006725915  0.10384301  0.009833109
 #> [2,]  0.02666842 0.955862981 -0.02884273 -0.402971640
-#> [3,] -0.01666580 0.007645916  1.01388726  0.027821739
+#> [3,] -0.01666580 0.007645916  1.01388726  0.027821738
 #> 
 #> , , 25
 #> 
@@ -871,7 +971,7 @@ estimate$get_posterior()
 #> 
 #>             [,1]         [,2]       [,3]        [,4]
 #> [1,]  0.92135302  0.018420512 0.08736504  0.10450729
-#> [2,] -0.02947499  0.954355174 0.04466158 -0.39190813
+#> [2,] -0.02947499  0.954355175 0.04466158 -0.39190813
 #> [3,] -0.01736194 -0.004388723 1.01813890 -0.06772989
 #> 
 #> , , 40
@@ -7698,6 +7798,16 @@ burn_in        = estimate(specification, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # estimate the model
 posterior      = estimate(burn_in, 10)
@@ -7710,6 +7820,16 @@ posterior      = estimate(burn_in, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 
 ## ------------------------------------------------
@@ -7735,6 +7855,16 @@ posterior      = estimate(specification, 10, thin = 1)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -7776,6 +7906,16 @@ posterior      = estimate(specification, 10, thin = 1)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#>  s: 0
+#>  s: 1
+#>  s: 2
+#>  s: 3
+#>  s: 4
+#>  s: 5
+#>  s: 6
+#>  s: 7
+#>  s: 8
+#>  s: 9
 
 # check normalisation status beforehand
 posterior$is_normalised()
