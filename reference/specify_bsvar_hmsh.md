@@ -41,30 +41,30 @@ with Heterogeneous Markov Switching Heteroskedasticity.
 
 ### Public methods
 
-- [`specify_bsvar_hmsh$new()`](#method-BSVARHMSH-new)
+- [`BSVARHMSH$new()`](#method-BSVARHMSH-initialize)
 
-- [`specify_bsvar_hmsh$get_normal()`](#method-BSVARHMSH-get_normal)
+- [`BSVARHMSH$get_normal()`](#method-BSVARHMSH-get_normal)
 
-- [`specify_bsvar_hmsh$get_data_matrices()`](#method-BSVARHMSH-get_data_matrices)
+- [`BSVARHMSH$get_data_matrices()`](#method-BSVARHMSH-get_data_matrices)
 
-- [`specify_bsvar_hmsh$get_identification()`](#method-BSVARHMSH-get_identification)
+- [`BSVARHMSH$get_identification()`](#method-BSVARHMSH-get_identification)
 
-- [`specify_bsvar_hmsh$get_prior()`](#method-BSVARHMSH-get_prior)
+- [`BSVARHMSH$get_prior()`](#method-BSVARHMSH-get_prior)
 
-- [`specify_bsvar_hmsh$get_starting_values()`](#method-BSVARHMSH-get_starting_values)
+- [`BSVARHMSH$get_starting_values()`](#method-BSVARHMSH-get_starting_values)
 
-- [`specify_bsvar_hmsh$clone()`](#method-BSVARHMSH-clone)
+- [`BSVARHMSH$clone()`](#method-BSVARHMSH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `BSVARHMSH$new()`
 
 Create a new specification of the BSVAR model with Heterogeneous Markov
 Switching Heteroskedasticity, BSVARHMSH.
 
 #### Usage
 
-    specify_bsvar_hmsh$new(
+    BSVARHMSH$new(
       data,
       p = 1L,
       M = 2L,
@@ -132,14 +132,14 @@ Markov Switching Heteroskedasticity, BSVARHMSH.
 
 ------------------------------------------------------------------------
 
-### Method `get_normal()`
+### `BSVARHMSH$get_normal()`
 
 Returns the logical value of whether the conditional shock distribution
 is normal.
 
 #### Usage
 
-    specify_bsvar_hmsh$get_normal()
+    BSVARHMSH$get_normal()
 
 #### Examples
 
@@ -148,13 +148,13 @@ is normal.
 
 ------------------------------------------------------------------------
 
-### Method `get_data_matrices()`
+### `BSVARHMSH$get_data_matrices()`
 
 Returns the data matrices as the DataMatricesBSVAR object.
 
 #### Usage
 
-    specify_bsvar_hmsh$get_data_matrices()
+    BSVARHMSH$get_data_matrices()
 
 #### Examples
 
@@ -167,13 +167,13 @@ Returns the data matrices as the DataMatricesBSVAR object.
 
 ------------------------------------------------------------------------
 
-### Method `get_identification()`
+### `BSVARHMSH$get_identification()`
 
 Returns the identifying restrictions as the IdentificationBSVARs object.
 
 #### Usage
 
-    specify_bsvar_hmsh$get_identification()
+    BSVARHMSH$get_identification()
 
 #### Examples
 
@@ -186,13 +186,13 @@ Returns the identifying restrictions as the IdentificationBSVARs object.
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `BSVARHMSH$get_prior()`
 
 Returns the prior specification as the PriorBSVARMSH object.
 
 #### Usage
 
-    specify_bsvar_hmsh$get_prior()
+    BSVARHMSH$get_prior()
 
 #### Examples
 
@@ -205,13 +205,13 @@ Returns the prior specification as the PriorBSVARMSH object.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `BSVARHMSH$get_starting_values()`
 
 Returns the starting values as the StartingValuesBSVARHMSH object.
 
 #### Usage
 
-    specify_bsvar_hmsh$get_starting_values()
+    BSVARHMSH$get_starting_values()
 
 #### Examples
 
@@ -224,13 +224,13 @@ Returns the starting values as the StartingValuesBSVARHMSH object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `BSVARHMSH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_bsvar_hmsh$clone(deep = FALSE)
+    BSVARHMSH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -250,7 +250,7 @@ spec = specify_bsvar_hmsh$new(
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_hmsh$get_normal`
+## Method `BSVARHMSH$get_normal()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_hmsh$new(us_fiscal_lsuw)
@@ -260,7 +260,7 @@ spec$get_normal()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_hmsh$get_data_matrices`
+## Method `BSVARHMSH$get_data_matrices()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_hmsh$new(
@@ -280,7 +280,7 @@ spec$get_data_matrices()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_hmsh$get_identification`
+## Method `BSVARHMSH$get_identification()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_hmsh$new(
@@ -301,7 +301,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_hmsh$get_prior`
+## Method `BSVARHMSH$get_prior()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_hmsh$new(
@@ -335,7 +335,7 @@ spec$get_prior()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_hmsh$get_starting_values`
+## Method `BSVARHMSH$get_starting_values()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_hmsh$new(

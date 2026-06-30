@@ -5,7 +5,7 @@ model with a zero-mean mixture of normals model for structural shocks.
 
 ## Super classes
 
-`bsvars::StartingValuesBSVAR` -\> `bsvars::StartingValuesBSVARMSH` -\>
+`StartingValuesBSVAR` -\> `StartingValuesBSVARMSH` -\>
 `StartingValuesBSVARMIX`
 
 ## Public fields
@@ -58,24 +58,24 @@ model with a zero-mean mixture of normals model for structural shocks.
 
 ### Public methods
 
-- [`specify_starting_values_bsvar_mix$new()`](#method-StartingValuesBSVARMIX-new)
+- [`StartingValuesBSVARMIX$new()`](#method-StartingValuesBSVARMIX-initialize)
 
-- [`specify_starting_values_bsvar_mix$clone()`](#method-StartingValuesBSVARMIX-clone)
+- [`StartingValuesBSVARMIX$clone()`](#method-StartingValuesBSVARMIX-clone)
 
 Inherited methods
 
-- [`bsvars::StartingValuesBSVARMSH$get_starting_values()`](https://bsvars.org/bsvars/reference/StartingValuesBSVARMSH.html#method-get_starting_values)
-- [`bsvars::StartingValuesBSVARMSH$set_starting_values()`](https://bsvars.org/bsvars/reference/StartingValuesBSVARMSH.html#method-set_starting_values)
+- `StartingValuesBSVARMSH$get_starting_values()`
+- `StartingValuesBSVARMSH$set_starting_values()`
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `StartingValuesBSVARMIX$new()`
 
 Create new starting values StartingValuesBSVARMIX.
 
 #### Usage
 
-    specify_starting_values_bsvar_mix$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)
+    StartingValuesBSVARMIX$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)
 
 #### Arguments
 
@@ -125,13 +125,13 @@ Starting values StartingValuesBSVARMIX.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `StartingValuesBSVARMIX$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_starting_values_bsvar_mix$clone(deep = FALSE)
+    StartingValuesBSVARMIX$clone(deep = FALSE)
 
 #### Arguments
 

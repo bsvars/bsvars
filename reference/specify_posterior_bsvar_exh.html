@@ -56,7 +56,7 @@ MCMC run as the starting value to be passed to the continuation of the MCMC
 estimation using <code><a href="estimate.html">estimate()</a></code>.</p></dd>
 
 
-<dt><code>posterior</code></dt>
+    <dt><code>posterior</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
@@ -67,64 +67,57 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PosteriorBSVAREXH-new"><code>specify_posterior_bsvar_exh$new()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVAREXH-get_posterior"><code>specify_posterior_bsvar_exh$get_posterior()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVAREXH-get_last_draw"><code>specify_posterior_bsvar_exh$get_last_draw()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVAREXH-is_normalised"><code>specify_posterior_bsvar_exh$is_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVAREXH-set_normalised"><code>specify_posterior_bsvar_exh$set_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVAREXH-clone"><code>specify_posterior_bsvar_exh$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-PosteriorBSVAREXH-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-PosteriorBSVAREXH-initialize"><code>PosteriorBSVAREXH$new()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVAREXH-get_posterior"><code>PosteriorBSVAREXH$get_posterior()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVAREXH-get_last_draw"><code>PosteriorBSVAREXH$get_last_draw()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVAREXH-is_normalised"><code>PosteriorBSVAREXH$is_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVAREXH-set_normalised"><code>PosteriorBSVAREXH$set_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVAREXH-clone"><code>PosteriorBSVAREXH$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-PosteriorBSVAREXH-initialize"></a><div class="section">
+<h3 id="posteriorbsvarexh-new-"><code>PosteriorBSVAREXH$new()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-new-"></a></h3>
 <p>Create a new posterior output PosteriorBSVAREXH</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_posterior_bsvar_exh.html">specify_posterior_bsvar_exh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>specification_bsvar</code></dt>
 <dd><p>an object of class BSVAREXH with the last draw
 of the current MCMC run as the starting value.</p></dd>
 
-
-<dt><code>posterior_bsvar</code></dt>
+      <dt><code>posterior_bsvar</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A posterior output PosteriorBSVAREXH</p>
 </div>
 
-</div><p></p><hr><a id="method-PosteriorBSVAREXH-get_posterior"></a><div class="section">
-<h3 id="method-get-posterior-">Method <code>get_posterior()</code><a class="anchor" aria-label="anchor" href="#method-get-posterior-"></a></h3>
-<p>Returns a list containing Bayesian estimation output.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_exh</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-PosteriorBSVAREXH-get_posterior"></a><div class="section">
+<h3 id="posteriorbsvarexh-get-posterior-"><code>PosteriorBSVAREXH$get_posterior()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-get-posterior-"></a></h3>
+<p>Returns a list containing Bayesian estimation output.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span>   <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_exh.html">specify_bsvar_exh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">post</span>   <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">spec</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">post</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">post</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVAREXH-get_last_draw"></a><div class="section">
-<h3 id="method-get-last-draw-">Method <code>get_last_draw()</code><a class="anchor" aria-label="anchor" href="#method-get-last-draw-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVAREXH-get_last_draw"></a><div class="section">
+<h3 id="posteriorbsvarexh-get-last-draw-"><code>PosteriorBSVAREXH$get_last_draw()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-get-last-draw-"></a></h3>
 <p>Returns an object of class BSVAREXH with the last draw of the current MCMC
 run as the starting value to be passed to the continuation of the MCMC
 estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_exh</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># specify the model</span></span>
 <span><span class="va">spec</span>   <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_exh.html">specify_bsvar_exh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
@@ -133,19 +126,17 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span><span class="va">burn</span>   <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">spec</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># estimate the model</span></span>
-<span><span class="va">post</span>   <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">post</span>   <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVAREXH-is_normalised"></a><div class="section">
-<h3 id="method-is-normalised-">Method <code>is_normalised()</code><a class="anchor" aria-label="anchor" href="#method-is-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVAREXH-is_normalised"></a><div class="section">
+<h3 id="posteriorbsvarexh-is-normalised-"><code>PosteriorBSVAREXH$is_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-is-normalised-"></a></h3>
 <p>Returns <code>TRUE</code> if the posterior has been normalised using <code><a href="normalise.html">normalise()</a></code> and <code>FALSE</code> otherwise.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_exh</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># specify the model</span></span>
 <span><span class="va">spec</span>   <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_exh.html">specify_bsvar_exh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
@@ -162,27 +153,24 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span><span class="va">post</span>          <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">post</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">post</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">post</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVAREXH-set_normalised"></a><div class="section">
-<h3 id="method-set-normalised-">Method <code>set_normalised()</code><a class="anchor" aria-label="anchor" href="#method-set-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVAREXH-set_normalised"></a><div class="section">
+<h3 id="posteriorbsvarexh-set-normalised-"><code>PosteriorBSVAREXH$set_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-set-normalised-"></a></h3>
 <p>Sets the private indicator <code>normalised</code> to TRUE.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_exh</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>value</code></dt>
 <dd><p>(optional) a logical value to be passed to indicator <code>normalised</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># This is an internal function that is run while executing normalise()</span></span>
 <span><span class="co"># Observe its working by analysing the workflow:</span></span>
@@ -199,19 +187,17 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span><span class="va">post</span>          <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">post</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">post</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">post</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVAREXH-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVAREXH-clone"></a><div class="section">
+<h3 id="posteriorbsvarexh-clone-"><code>PosteriorBSVAREXH$clone()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarexh-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_exh</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVAREXH</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -221,6 +207,7 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 </div>
 
 </div>
+
 
     </div>
 
@@ -244,7 +231,7 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_exh$get_posterior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVAREXH$get_posterior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span>   <span class="op">=</span> <span class="va"><a href="specify_bsvar_exh.html">specify_bsvar_exh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -3693,7 +3680,7 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_exh$get_last_draw`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVAREXH$get_last_draw()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># specify the model</span></span></span>
@@ -3726,7 +3713,7 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_exh$is_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVAREXH$is_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># specify the model</span></span></span>
@@ -3760,7 +3747,7 @@ estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div cl
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_exh$set_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVAREXH$set_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This is an internal function that is run while executing normalise()</span></span></span>

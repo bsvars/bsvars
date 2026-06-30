@@ -5,7 +5,7 @@ model with Stochastic Volatility heteroskedasticity.
 
 ## Super class
 
-`bsvars::StartingValuesBSVAR` -\> `StartingValuesBSVARSV`
+`StartingValuesBSVAR` -\> `StartingValuesBSVARSV`
 
 ## Public fields
 
@@ -69,23 +69,23 @@ model with Stochastic Volatility heteroskedasticity.
 
 ### Public methods
 
-- [`specify_starting_values_bsvar_sv$new()`](#method-StartingValuesBSVARSV-new)
+- [`StartingValuesBSVARSV$new()`](#method-StartingValuesBSVARSV-initialize)
 
-- [`specify_starting_values_bsvar_sv$get_starting_values()`](#method-StartingValuesBSVARSV-get_starting_values)
+- [`StartingValuesBSVARSV$get_starting_values()`](#method-StartingValuesBSVARSV-get_starting_values)
 
-- [`specify_starting_values_bsvar_sv$set_starting_values()`](#method-StartingValuesBSVARSV-set_starting_values)
+- [`StartingValuesBSVARSV$set_starting_values()`](#method-StartingValuesBSVARSV-set_starting_values)
 
-- [`specify_starting_values_bsvar_sv$clone()`](#method-StartingValuesBSVARSV-clone)
+- [`StartingValuesBSVARSV$clone()`](#method-StartingValuesBSVARSV-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `StartingValuesBSVARSV$new()`
 
 Create new starting values StartingValuesBSVARSV.
 
 #### Usage
 
-    specify_starting_values_bsvar_sv$new(A, B, N, p, T, d = 0)
+    StartingValuesBSVARSV$new(A, B, N, p, T, d = 0)
 
 #### Arguments
 
@@ -124,14 +124,14 @@ Starting values StartingValuesBSVARSV.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `StartingValuesBSVARSV$get_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVARSV as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_sv$get_starting_values()
+    StartingValuesBSVARSV$get_starting_values()
 
 #### Examples
 
@@ -143,14 +143,14 @@ Returns the elements of the starting values StartingValuesBSVARSV as a
 
 ------------------------------------------------------------------------
 
-### Method `set_starting_values()`
+### `StartingValuesBSVARSV$set_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVAR_SV as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_sv$set_starting_values(last_draw)
+    StartingValuesBSVARSV$set_starting_values(last_draw)
 
 #### Arguments
 
@@ -179,13 +179,13 @@ the MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `StartingValuesBSVARSV$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_starting_values_bsvar_sv$clone(deep = FALSE)
+    StartingValuesBSVARSV$clone(deep = FALSE)
 
 #### Arguments
 
@@ -203,7 +203,7 @@ sv = specify_starting_values_bsvar_sv$new(A = A, B = B, N = 3, p = 1, T = 100)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_sv$get_starting_values`
+## Method `StartingValuesBSVARSV$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system
@@ -412,7 +412,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_sv$set_starting_values`
+## Method `StartingValuesBSVARSV$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system

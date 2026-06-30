@@ -37,7 +37,7 @@
 
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
-    <p><code>bsvars::StartingValuesBSVAR</code> -&gt; <code>bsvars::StartingValuesBSVARMSH</code> -&gt; <code>StartingValuesBSVARMIX</code></p>
+    <p><code>StartingValuesBSVAR</code> -&gt; <code>StartingValuesBSVARMSH</code> -&gt; <code>StartingValuesBSVARMIX</code></p>
     </div>
     <div class="section level2">
     <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
@@ -45,36 +45,36 @@
 <dd><p>an <code>NxK</code> matrix of starting values for the parameter \(A\).</p></dd>
 
 
-<dt><code>B</code></dt>
+    <dt><code>B</code></dt>
 <dd><p>an <code>NxN</code> matrix of starting values for the parameter \(B\).</p></dd>
 
 
-<dt><code>hyper</code></dt>
+    <dt><code>hyper</code></dt>
 <dd><p>a <code>(2*N+1)x2</code> matrix of starting values for the shrinkage hyper-parameters of the
 hierarchical prior distribution.</p></dd>
 
 
-<dt><code>sigma2</code></dt>
+    <dt><code>sigma2</code></dt>
 <dd><p>an <code>NxM</code> matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value <code>M</code> over the rows.</p></dd>
 
 
-<dt><code>PR_TR</code></dt>
+    <dt><code>PR_TR</code></dt>
 <dd><p>an <code>MxM</code> matrix of starting values for the probability matrix of the Markov process. Its rows must be identical and the elements of each row sum to 1 over the rows.</p></dd>
 
 
-<dt><code>xi</code></dt>
+    <dt><code>xi</code></dt>
 <dd><p>an <code>MxT</code> matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order <code>M</code>.</p></dd>
 
 
-<dt><code>pi_0</code></dt>
+    <dt><code>pi_0</code></dt>
 <dd><p>an <code>M</code>-vector of starting values for mixture components state probabilities. Its elements sum to 1.</p></dd>
 
 
-<dt><code>lambda</code></dt>
+    <dt><code>lambda</code></dt>
 <dd><p>a <code>NxT</code> matrix of starting values for latent variables.</p></dd>
 
 
-<dt><code>df</code></dt>
+    <dt><code>df</code></dt>
 <dd><p>an <code>Nx1</code> vector of positive numbers with starting values
 for the equation-specific degrees of freedom parameters of the Student-t
 conditional distribution of structural shocks.</p></dd>
@@ -87,71 +87,60 @@ conditional distribution of structural shocks.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-StartingValuesBSVARMIX-new"><code>specify_starting_values_bsvar_mix$new()</code></a></p></li>
-<li><p><a href="#method-StartingValuesBSVARMIX-clone"><code>specify_starting_values_bsvar_mix$clone()</code></a></p></li>
-</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="get_starting_values"><a href="StartingValuesBSVARMSH.html#method-get_starting_values"><code>bsvars::StartingValuesBSVARMSH$get_starting_values()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="set_starting_values"><a href="StartingValuesBSVARMSH.html#method-set_starting_values"><code>bsvars::StartingValuesBSVARMSH$set_starting_values()</code></a></span></li>
-</ul></details></p><hr><a id="method-StartingValuesBSVARMIX-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-StartingValuesBSVARMIX-initialize"><code>StartingValuesBSVARMIX$new()</code></a></p></li>
+<li><p><a href="#method-StartingValuesBSVARMIX-clone"><code>StartingValuesBSVARMIX$clone()</code></a></p></li>
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><code>StartingValuesBSVARMSH$get_starting_values()</code></li>
+  <li><code>StartingValuesBSVARMSH$set_starting_values()</code></li>
+</ul></details></p><hr><a id="method-StartingValuesBSVARMIX-initialize"></a><div class="section">
+<h3 id="startingvaluesbsvarmix-new-"><code>StartingValuesBSVARMIX$new()</code><a class="anchor" aria-label="anchor" href="#startingvaluesbsvarmix-new-"></a></h3>
 <p>Create new starting values StartingValuesBSVARMIX.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_starting_values_bsvar_mix.html">specify_starting_values_bsvar_mix</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="va">M</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span>, finiteM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">StartingValuesBSVARMIX</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, <span class="va">N</span>, <span class="va">p</span>, <span class="va">M</span>, <span class="cn">T</span>, d <span class="op">=</span> <span class="fl">0</span>, finiteM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>B</code></dt>
+      <dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
 the staructural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>N</code></dt>
+      <dt><code>N</code></dt>
 <dd><p>a positive integer - the number of dependent variables in the model.</p></dd>
 
-
-<dt><code>p</code></dt>
+      <dt><code>p</code></dt>
 <dd><p>a positive integer - the autoregressive lag order of the SVAR model.</p></dd>
 
-
-<dt><code>M</code></dt>
+      <dt><code>M</code></dt>
 <dd><p>an integer greater than 1 - the number of components of the mixture of normals.</p></dd>
 
-
-<dt><code>T</code></dt>
+      <dt><code>T</code></dt>
 <dd><p>a positive integer - the the time series dimension of the dependent variable matrix \(Y\).</p></dd>
 
-
-<dt><code>d</code></dt>
+      <dt><code>d</code></dt>
 <dd><p>a positive integer - the number of <code>exogenous</code> variables in the model.</p></dd>
 
-
-<dt><code>finiteM</code></dt>
+      <dt><code>finiteM</code></dt>
 <dd><p>a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which <code>M=20</code> and the number of visited states is estimated.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>Starting values StartingValuesBSVARMIX.</p>
 </div>
 
-</div><p></p><hr><a id="method-StartingValuesBSVARMIX-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_starting_values_bsvar_mix</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-StartingValuesBSVARMIX-clone"></a><div class="section">
+<h3 id="startingvaluesbsvarmix-clone-"><code>StartingValuesBSVARMIX$clone()</code><a class="anchor" aria-label="anchor" href="#startingvaluesbsvarmix-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">StartingValuesBSVARMIX</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -161,6 +150,7 @@ to be set to zero.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 

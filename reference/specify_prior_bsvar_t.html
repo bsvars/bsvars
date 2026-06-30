@@ -40,7 +40,7 @@ t-distributed structural shocks.</p>
 
     <div class="section level2">
     <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
-    <p><code>bsvars::PriorBSVAR</code> -&gt; <code>PriorBSVART</code></p>
+    <p><code>PriorBSVAR</code> -&gt; <code>PriorBSVART</code></p>
     </div>
     <div class="section level2">
     <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
@@ -49,60 +49,60 @@ t-distributed structural shocks.</p>
 for the parameter matrix \(A\).</p></dd>
 
 
-<dt><code>A_V_inv</code></dt>
+    <dt><code>A_V_inv</code></dt>
 <dd><p>a <code>KxK</code> precision matrix of the normal prior
 distribution for each of the row of the parameter matrix \(A\). This
 precision matrix is equation invariant.</p></dd>
 
 
-<dt><code>B_V_inv</code></dt>
+    <dt><code>B_V_inv</code></dt>
 <dd><p>an <code>NxN</code> precision matrix of the generalised-normal
 prior distribution for the structural matrix \(B\). This precision
 matrix is equation invariant.</p></dd>
 
 
-<dt><code>B_nu</code></dt>
+    <dt><code>B_nu</code></dt>
 <dd><p>a positive integer greater of equal than <code>N</code>, a shape
 parameter of the generalised-normal prior distribution for the structural
  matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_B</code></dt>
+    <dt><code>hyper_nu_B</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_a_B</code></dt>
+    <dt><code>hyper_a_B</code></dt>
 <dd><p>a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_s_BB</code></dt>
+    <dt><code>hyper_s_BB</code></dt>
 <dd><p>a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_BB</code></dt>
+    <dt><code>hyper_nu_BB</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_A</code></dt>
+    <dt><code>hyper_nu_A</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_a_A</code></dt>
+    <dt><code>hyper_a_A</code></dt>
 <dd><p>a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_s_AA</code></dt>
+    <dt><code>hyper_s_AA</code></dt>
 <dd><p>a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_nu_AA</code></dt>
+    <dt><code>hyper_nu_AA</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\).</p></dd>
 
@@ -114,18 +114,15 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PriorBSVART-clone"><code>specify_prior_bsvar_t$clone()</code></a></p></li>
-</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVAR" data-id="get_prior"><a href="PriorBSVAR.html#method-get_prior"><code>bsvars::PriorBSVAR$get_prior()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVAR" data-id="initialize"><a href="PriorBSVAR.html#method-initialize"><code>bsvars::PriorBSVAR$initialize()</code></a></span></li>
+<p></p><ul><li><p><a href="#method-PriorBSVART-clone"><code>PriorBSVART$clone()</code></a></p></li>
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><code>PriorBSVAR$get_prior()</code></li>
+  <li><code>PriorBSVAR$initialize()</code></li>
 </ul></details></p><hr><a id="method-PriorBSVART-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<h3 id="priorbsvart-clone-"><code>PriorBSVART$clone()</code><a class="anchor" aria-label="anchor" href="#priorbsvart-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_prior_bsvar_t</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PriorBSVART</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -135,6 +132,7 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\
 </div>
 
 </div>
+
 
     </div>
 

@@ -5,7 +5,7 @@ model with a zero-mean mixture of normals model for structural shocks.
 
 ## Super classes
 
-`bsvars::PriorBSVAR` -\> `bsvars::PriorBSVARMSH` -\> `PriorBSVARMIX`
+`PriorBSVAR` -\> `PriorBSVARMSH` -\> `PriorBSVARMIX`
 
 ## Public fields
 
@@ -99,22 +99,22 @@ model with a zero-mean mixture of normals model for structural shocks.
 
 ### Public methods
 
-- [`specify_prior_bsvar_mix$clone()`](#method-PriorBSVARMIX-clone)
+- [`PriorBSVARMIX$clone()`](#method-PriorBSVARMIX-clone)
 
 Inherited methods
 
-- [`bsvars::PriorBSVARMSH$get_prior()`](https://bsvars.org/bsvars/reference/PriorBSVARMSH.html#method-get_prior)
-- [`bsvars::PriorBSVARMSH$initialize()`](https://bsvars.org/bsvars/reference/PriorBSVARMSH.html#method-initialize)
+- `PriorBSVARMSH$get_prior()`
+- `PriorBSVARMSH$initialize()`
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PriorBSVARMIX$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_prior_bsvar_mix$clone(deep = FALSE)
+    PriorBSVARMIX$clone(deep = FALSE)
 
 #### Arguments
 

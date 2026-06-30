@@ -5,7 +5,7 @@ model with Markov Switching Heteroskedasticity.
 
 ## Super class
 
-`bsvars::PriorBSVAR` -\> `PriorBSVARMSH`
+`PriorBSVAR` -\> `PriorBSVARMSH`
 
 ## Public fields
 
@@ -99,21 +99,21 @@ model with Markov Switching Heteroskedasticity.
 
 ### Public methods
 
-- [`specify_prior_bsvar_msh$new()`](#method-PriorBSVARMSH-new)
+- [`PriorBSVARMSH$new()`](#method-PriorBSVARMSH-initialize)
 
-- [`specify_prior_bsvar_msh$get_prior()`](#method-PriorBSVARMSH-get_prior)
+- [`PriorBSVARMSH$get_prior()`](#method-PriorBSVARMSH-get_prior)
 
-- [`specify_prior_bsvar_msh$clone()`](#method-PriorBSVARMSH-clone)
+- [`PriorBSVARMSH$clone()`](#method-PriorBSVARMSH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PriorBSVARMSH$new()`
 
 Create a new prior specification PriorBSVARMSH.
 
 #### Usage
 
-    specify_prior_bsvar_msh$new(N, p, d = 0, M, stationary = rep(FALSE, N))
+    PriorBSVARMSH$new(N, p, d = 0, M, stationary = rep(FALSE, N))
 
 #### Arguments
 
@@ -146,14 +146,14 @@ A new prior specification PriorBSVARMSH.
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `PriorBSVARMSH$get_prior()`
 
 Returns the elements of the prior specification PriorBSVARMSH as a
 `list`.
 
 #### Usage
 
-    specify_prior_bsvar_msh$get_prior()
+    PriorBSVARMSH$get_prior()
 
 #### Examples
 
@@ -163,13 +163,13 @@ Returns the elements of the prior specification PriorBSVARMSH as a
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PriorBSVARMSH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_prior_bsvar_msh$clone(deep = FALSE)
+    PriorBSVARMSH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -189,7 +189,7 @@ prior$A                                        # show autoregressive prior mean
 
 
 ## ------------------------------------------------
-## Method `specify_prior_bsvar_msh$get_prior`
+## Method `PriorBSVARMSH$get_prior()`
 ## ------------------------------------------------
 
 # a prior for 3-variable example with four lags and two regimes

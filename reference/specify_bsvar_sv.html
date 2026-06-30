@@ -45,23 +45,23 @@
 <dd><p>a non-negative integer specifying the autoregressive lag order of the model.</p></dd>
 
 
-<dt><code>identification</code></dt>
+    <dt><code>identification</code></dt>
 <dd><p>an object IdentificationBSVARs with the identifying restrictions.</p></dd>
 
 
-<dt><code>prior</code></dt>
+    <dt><code>prior</code></dt>
 <dd><p>an object PriorBSVARSV with the prior specification.</p></dd>
 
 
-<dt><code>data_matrices</code></dt>
+    <dt><code>data_matrices</code></dt>
 <dd><p>an object DataMatricesBSVAR with the data matrices.</p></dd>
 
 
-<dt><code>starting_values</code></dt>
+    <dt><code>starting_values</code></dt>
 <dd><p>an object StartingValuesBSVARSV with the starting values.</p></dd>
 
 
-<dt><code>centred_sv</code></dt>
+    <dt><code>centred_sv</code></dt>
 <dd><p>a logical value - if true a centred parameterisation of the Stochastic Volatility process is estimated. Otherwise, its non-centred parameterisation is estimated. See Lütkepohl, Shang, Uzeda, Woźniak (2022) for more info.</p></dd>
 
 
@@ -72,19 +72,18 @@
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-BSVARSV-new"><code>specify_bsvar_sv$new()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-get_normal"><code>specify_bsvar_sv$get_normal()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-get_data_matrices"><code>specify_bsvar_sv$get_data_matrices()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-get_identification"><code>specify_bsvar_sv$get_identification()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-get_prior"><code>specify_bsvar_sv$get_prior()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-get_starting_values"><code>specify_bsvar_sv$get_starting_values()</code></a></p></li>
-<li><p><a href="#method-BSVARSV-clone"><code>specify_bsvar_sv$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-BSVARSV-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-BSVARSV-initialize"><code>BSVARSV$new()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-get_normal"><code>BSVARSV$get_normal()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-get_data_matrices"><code>BSVARSV$get_data_matrices()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-get_identification"><code>BSVARSV$get_identification()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-get_prior"><code>BSVARSV$get_prior()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-get_starting_values"><code>BSVARSV$get_starting_values()</code></a></p></li>
+<li><p><a href="#method-BSVARSV-clone"><code>BSVARSV$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-BSVARSV-initialize"></a><div class="section">
+<h3 id="bsvarsv-new-"><code>BSVARSV$new()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-new-"></a></h3>
 <p>Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  p <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  <span class="va">B</span>,</span>
@@ -94,152 +93,132 @@
 <span>  centred_sv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>a <code>(T+p)xN</code> matrix with time series data.</p></dd>
 
-
-<dt><code>p</code></dt>
+      <dt><code>p</code></dt>
 <dd><p>a positive integer providing model's autoregressive lag order.</p></dd>
 
-
-<dt><code>B</code></dt>
+      <dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of the structural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions to be set to zero.</p></dd>
 
-
-<dt><code>A</code></dt>
+      <dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>distribution</code></dt>
+      <dt><code>distribution</code></dt>
 <dd><p>a character string specifying the conditional distribution
 of structural shocks. Value <code>"norm"</code> sets it to the normal distribution,
 while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 
-
-<dt><code>exogenous</code></dt>
+      <dt><code>exogenous</code></dt>
 <dd><p>a <code>(T+p)xd</code> matrix of exogenous variables.</p></dd>
 
-
-<dt><code>centred_sv</code></dt>
+      <dt><code>centred_sv</code></dt>
 <dd><p>a logical value. If <code>FALSE</code> a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.</p></dd>
 
-
-<dt><code>stationary</code></dt>
+      <dt><code>stationary</code></dt>
 <dd><p>an <code>N</code> logical vector - its element set to <code>FALSE</code> sets the prior mean for the autoregressive parameters of the <code>N</code>th equation to the white noise process, otherwise to random walk.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.</p>
 </div>
 
-</div><p></p><hr><a id="method-BSVARSV-get_normal"></a><div class="section">
-<h3 id="method-get-normal-">Method <code>get_normal()</code><a class="anchor" aria-label="anchor" href="#method-get-normal-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-BSVARSV-get_normal"></a><div class="section">
+<h3 id="bsvarsv-get-normal-"><code>BSVARSV$get_normal()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-get-normal-"></a></h3>
 <p>Returns the logical value of whether the conditional shock distribution is normal.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARSV-get_data_matrices"></a><div class="section">
-<h3 id="method-get-data-matrices-">Method <code>get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#method-get-data-matrices-"></a></h3>
+<p></p><hr><a id="method-BSVARSV-get_data_matrices"></a><div class="section">
+<h3 id="bsvarsv-get-data-matrices-"><code>BSVARSV$get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-get-data-matrices-"></a></h3>
 <p>Returns the data matrices as the DataMatricesBSVAR object.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARSV-get_identification"></a><div class="section">
-<h3 id="method-get-identification-">Method <code>get_identification()</code><a class="anchor" aria-label="anchor" href="#method-get-identification-"></a></h3>
+<p></p><hr><a id="method-BSVARSV-get_identification"></a><div class="section">
+<h3 id="bsvarsv-get-identification-"><code>BSVARSV$get_identification()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-get-identification-"></a></h3>
 <p>Returns the identifying restrictions as the IdentificationBSVARs object.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARSV-get_prior"></a><div class="section">
-<h3 id="method-get-prior-">Method <code>get_prior()</code><a class="anchor" aria-label="anchor" href="#method-get-prior-"></a></h3>
+<p></p><hr><a id="method-BSVARSV-get_prior"></a><div class="section">
+<h3 id="bsvarsv-get-prior-"><code>BSVARSV$get_prior()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-get-prior-"></a></h3>
 <p>Returns the prior specification as the PriorBSVARSV object.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARSV-get_starting_values"></a><div class="section">
-<h3 id="method-get-starting-values-">Method <code>get_starting_values()</code><a class="anchor" aria-label="anchor" href="#method-get-starting-values-"></a></h3>
+<p></p><hr><a id="method-BSVARSV-get_starting_values"></a><div class="section">
+<h3 id="bsvarsv-get-starting-values-"><code>BSVARSV$get_starting_values()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-get-starting-values-"></a></h3>
 <p>Returns the starting values as the StartingValuesBSVARSV object.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARSV-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-BSVARSV-clone"></a><div class="section">
+<h3 id="bsvarsv-clone-"><code>BSVARSV$clone()</code><a class="anchor" aria-label="anchor" href="#bsvarsv-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARSV</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -249,6 +228,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
@@ -263,7 +243,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_sv$get_normal`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARSV$get_normal()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_sv</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -273,7 +253,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_sv$get_data_matrices`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARSV$get_data_matrices()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -293,7 +273,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_sv$get_identification`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARSV$get_identification()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -314,7 +294,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_sv$get_prior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARSV$get_prior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -347,7 +327,7 @@ while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_sv$get_starting_values`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARSV$get_starting_values()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>

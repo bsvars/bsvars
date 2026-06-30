@@ -5,7 +5,7 @@ model with Exogenous regime change Heteroskedasticity.
 
 ## Super class
 
-`bsvars::PriorBSVAR` -\> `PriorBSVAREXH`
+`PriorBSVAR` -\> `PriorBSVAREXH`
 
 ## Public fields
 
@@ -93,21 +93,21 @@ model with Exogenous regime change Heteroskedasticity.
 
 ### Public methods
 
-- [`specify_prior_bsvar_exh$new()`](#method-PriorBSVAREXH-new)
+- [`PriorBSVAREXH$new()`](#method-PriorBSVAREXH-initialize)
 
-- [`specify_prior_bsvar_exh$get_prior()`](#method-PriorBSVAREXH-get_prior)
+- [`PriorBSVAREXH$get_prior()`](#method-PriorBSVAREXH-get_prior)
 
-- [`specify_prior_bsvar_exh$clone()`](#method-PriorBSVAREXH-clone)
+- [`PriorBSVAREXH$clone()`](#method-PriorBSVAREXH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PriorBSVAREXH$new()`
 
 Create a new prior specification PriorBSVAREXH
 
 #### Usage
 
-    specify_prior_bsvar_exh$new(N, p, d = 0, stationary = rep(FALSE, N))
+    PriorBSVAREXH$new(N, p, d = 0, stationary = rep(FALSE, N))
 
 #### Arguments
 
@@ -135,14 +135,14 @@ A new prior specification PriorBSVAREXH
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `PriorBSVAREXH$get_prior()`
 
 Returns the elements of the prior specification PriorBSVAREXH as a
 `list`.
 
 #### Usage
 
-    specify_prior_bsvar_exh$get_prior()
+    PriorBSVAREXH$get_prior()
 
 #### Examples
 
@@ -152,13 +152,13 @@ Returns the elements of the prior specification PriorBSVAREXH as a
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PriorBSVAREXH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_prior_bsvar_exh$clone(deep = FALSE)
+    PriorBSVAREXH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -178,7 +178,7 @@ prior$A                                        # show autoregressive prior mean
 
 
 ## ------------------------------------------------
-## Method `specify_prior_bsvar_exh$get_prior`
+## Method `PriorBSVAREXH$get_prior()`
 ## ------------------------------------------------
 
 # a prior for 3-variable example with four lags and two regimes

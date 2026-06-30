@@ -28,27 +28,27 @@ be equal to the last draw provided in element `posterior`.
 
 ### Public methods
 
-- [`specify_posterior_bsvar_sv$new()`](#method-PosteriorBSVARSV-new)
+- [`PosteriorBSVARSV$new()`](#method-PosteriorBSVARSV-initialize)
 
-- [`specify_posterior_bsvar_sv$get_posterior()`](#method-PosteriorBSVARSV-get_posterior)
+- [`PosteriorBSVARSV$get_posterior()`](#method-PosteriorBSVARSV-get_posterior)
 
-- [`specify_posterior_bsvar_sv$get_last_draw()`](#method-PosteriorBSVARSV-get_last_draw)
+- [`PosteriorBSVARSV$get_last_draw()`](#method-PosteriorBSVARSV-get_last_draw)
 
-- [`specify_posterior_bsvar_sv$is_normalised()`](#method-PosteriorBSVARSV-is_normalised)
+- [`PosteriorBSVARSV$is_normalised()`](#method-PosteriorBSVARSV-is_normalised)
 
-- [`specify_posterior_bsvar_sv$set_normalised()`](#method-PosteriorBSVARSV-set_normalised)
+- [`PosteriorBSVARSV$set_normalised()`](#method-PosteriorBSVARSV-set_normalised)
 
-- [`specify_posterior_bsvar_sv$clone()`](#method-PosteriorBSVARSV-clone)
+- [`PosteriorBSVARSV$clone()`](#method-PosteriorBSVARSV-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PosteriorBSVARSV$new()`
 
 Create a new posterior output PosteriorBSVARSV.
 
 #### Usage
 
-    specify_posterior_bsvar_sv$new(specification_bsvar, posterior_bsvar)
+    PosteriorBSVARSV$new(specification_bsvar, posterior_bsvar)
 
 #### Arguments
 
@@ -67,13 +67,13 @@ A posterior output PosteriorBSVARSV.
 
 ------------------------------------------------------------------------
 
-### Method `get_posterior()`
+### `PosteriorBSVARSV$get_posterior()`
 
 Returns a list containing Bayesian estimation.
 
 #### Usage
 
-    specify_posterior_bsvar_sv$get_posterior()
+    PosteriorBSVARSV$get_posterior()
 
 #### Examples
 
@@ -85,7 +85,7 @@ Returns a list containing Bayesian estimation.
 
 ------------------------------------------------------------------------
 
-### Method `get_last_draw()`
+### `PosteriorBSVARSV$get_last_draw()`
 
 Returns an object of class BSVARSV with the last draw of the current
 MCMC run as the starting value to be passed to the continuation of the
@@ -94,7 +94,7 @@ MCMC estimation using
 
 #### Usage
 
-    specify_posterior_bsvar_sv$get_last_draw()
+    PosteriorBSVARSV$get_last_draw()
 
 #### Examples
 
@@ -112,7 +112,7 @@ MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `is_normalised()`
+### `PosteriorBSVARSV$is_normalised()`
 
 Returns `TRUE` if the posterior has been normalised using
 [`normalise()`](https://bsvars.org/bsvars/reference/normalise.md) and
@@ -120,7 +120,7 @@ Returns `TRUE` if the posterior has been normalised using
 
 #### Usage
 
-    specify_posterior_bsvar_sv$is_normalised()
+    PosteriorBSVARSV$is_normalised()
 
 #### Examples
 
@@ -147,13 +147,13 @@ Returns `TRUE` if the posterior has been normalised using
 
 ------------------------------------------------------------------------
 
-### Method `set_normalised()`
+### `PosteriorBSVARSV$set_normalised()`
 
 Sets the private indicator `normalised` to TRUE.
 
 #### Usage
 
-    specify_posterior_bsvar_sv$set_normalised(value)
+    PosteriorBSVARSV$set_normalised(value)
 
 #### Arguments
 
@@ -189,13 +189,13 @@ Sets the private indicator `normalised` to TRUE.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PosteriorBSVARSV$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_posterior_bsvar_sv$clone(deep = FALSE)
+    PosteriorBSVARSV$clone(deep = FALSE)
 
 #### Arguments
 
@@ -227,7 +227,7 @@ class(estimate)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_sv$get_posterior`
+## Method `PosteriorBSVARSV$get_posterior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -315,8 +315,8 @@ estimate$get_posterior()
 #> , , 5
 #> 
 #>             [,1]          [,2]       [,3]         [,4]
-#> [1,]  1.19034758 -0.5801275945 -0.1772260 -0.071276750
-#> [2,]  0.38624199 -0.0067995203 -0.3931712 -0.398793560
+#> [1,]  1.19034758 -0.5801275945 -0.1772260 -0.071276751
+#> [2,]  0.38624199 -0.0067995203 -0.3931712 -0.398793561
 #> [3,] -0.01607288 -0.0006564911  1.0172580 -0.009288524
 #> 
 #> 
@@ -913,7 +913,7 @@ estimate$get_posterior()
 #>          [,175]     [,176]        [,177]      [,178]     [,179]     [,180]
 #> [1,]  0.7584924 -2.3143282 -1.0563226056 -0.02934862 -0.4672465  1.0779083
 #> [2,] -1.2525021  0.2359636 -0.5369456405 -1.43345846 -0.2613545 -1.8349543
-#> [3,]  2.7060213  1.2847273  0.0004062721  0.42608506 -0.2541864 -0.5332853
+#> [3,]  2.7060213  1.2847273  0.0004062722  0.42608506 -0.2541864 -0.5332853
 #>            [,181]    [,182]      [,183]     [,184]    [,185]     [,186]
 #> [1,]  0.363562274 1.0333212  0.77885711 -0.1606482 0.6270100 -0.4521069
 #> [2,] -0.004150447 0.4868325  1.06778286  1.2504202 1.2402010  0.9911588
@@ -933,7 +933,7 @@ estimate$get_posterior()
 #>           [,206]     [,207]      [,208]     [,209]     [,210]    [,211]
 #> [1,] 0.008744075  0.4450218 -1.48133090 -1.8442174 -0.1273926 1.3347131
 #> [2,] 2.107295261  1.3081001 -0.01946441 -0.8018761 -0.6652097 0.4590549
-#> [3,] 1.397144020 -0.5257322 -1.10195550 -1.0065021 -0.1201085 1.1497139
+#> [3,] 1.397144018 -0.5257322 -1.10195550 -1.0065021 -0.1201085 1.1497139
 #>          [,212]    [,213]     [,214]     [,215]     [,216]     [,217]
 #> [1,]  0.5390522 0.4189879  0.8041420  0.8368381  0.3544076 -0.9095668
 #> [2,]  1.2962257 1.0541176  0.8207554  0.9078800  0.7347857  0.5910773
@@ -985,7 +985,7 @@ estimate$get_posterior()
 #>          [,287]       [,288]    [,289]    [,290]     [,291]     [,292]
 #> [1,]  0.9776930 -0.424195088 0.7798505 2.8433770  1.0226392 0.14085602
 #> [2,] -0.8801163  0.813914277 1.5004455 0.2012707  1.1536930 0.09006529
-#> [3,]  0.9288410  0.009163925 3.1354396 2.4260243 -0.8103793 0.34582390
+#> [3,]  0.9288410  0.009163924 3.1354396 2.4260243 -0.8103793 0.34582390
 #>          [,293]    [,294]     [,295]     [,296]     [,297]     [,298]
 #> [1,]  0.4914127  1.662960 -0.1409060 -1.4375152 -0.8026619 -0.4649995
 #> [2,] -0.4168475  0.790580  0.1095455  0.5105168  1.6481806 -0.5621801
@@ -1124,7 +1124,7 @@ estimate$get_posterior()
 #>          [,178]     [,179]     [,180]      [,181]       [,182]    [,183]
 #> [1,]  0.3503770  1.4819569 -0.2457072 1.125350540  0.752910113 0.3918478
 #> [2,] -0.4688599 -0.6356094  1.7028126 1.095220029  2.756774505 1.9577729
-#> [3,]  0.0267941  2.1604981 -1.4245563 0.001385731 -0.008139296 1.0612084
+#> [3,]  0.0267941  2.1604981 -1.4245563 0.001385732 -0.008139296 1.0612084
 #>         [,184]     [,185]     [,186]      [,187]     [,188]      [,189]
 #> [1,]  1.357979  1.1527725  0.8691809 -0.11945972  0.5521707 2.409798921
 #> [2,]  1.055506 -0.4553788 -0.6970231 -0.21756336 -1.5726239 0.002758594
@@ -1364,10 +1364,10 @@ estimate$get_posterior()
 #> [1,] -1.0429490  1.0582378 0.9194267 -0.1030038 -1.3076454 0.2552872
 #> [2,]  1.5978530 -0.3272703 1.8428161 -0.5275659 -0.5115801 0.7970212
 #> [3,]  0.9452949 -0.2064603 0.5292687 -0.7202202  1.8707986 0.6303144
-#>           [,228]     [,229]    [,230]     [,231]       [,232]     [,233]
-#> [1,]  0.46485997 -0.1959056 -1.648343 -0.8952598  1.467114617  1.1027392
-#> [2,] -0.03820357  0.6342192 -0.515149 -0.1116923 -0.135643719 -0.6362018
-#> [3,]  0.72030613  0.9114770 -1.013878 -0.4972291 -0.000567446 -1.0341109
+#>           [,228]     [,229]    [,230]     [,231]        [,232]     [,233]
+#> [1,]  0.46485997 -0.1959056 -1.648343 -0.8952598  1.4671146167  1.1027392
+#> [2,] -0.03820357  0.6342192 -0.515149 -0.1116923 -0.1356437194 -0.6362018
+#> [3,]  0.72030613  0.9114770 -1.013878 -0.4972291 -0.0005674459 -1.0341109
 #>          [,234]      [,235]     [,236]     [,237]      [,238]     [,239]
 #> [1,]  1.0827908  0.94247170 -1.1068304  0.5350637 -1.24331255 -0.9992462
 #> [2,] -1.0889290 -0.02309651 -1.4869725  1.4016010 -0.08277187 -0.3218849
@@ -3608,7 +3608,7 @@ estimate$get_posterior()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_sv$get_last_draw`
+## Method `PosteriorBSVARSV$get_last_draw()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -3646,7 +3646,7 @@ posterior      = estimate(burn_in, 5, thin = 1)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_sv$is_normalised`
+## Method `PosteriorBSVARSV$is_normalised()`
 ## ------------------------------------------------
 
 # upload data
@@ -3685,7 +3685,7 @@ posterior$is_normalised()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_sv$set_normalised`
+## Method `PosteriorBSVARSV$set_normalised()`
 ## ------------------------------------------------
 
 # This is an internal function that is run while executing normalise()

@@ -41,7 +41,7 @@
 <dd><p>a list of <code>N</code> matrices determining the unrestricted elements of matrix \(B\).</p></dd>
 
 
-<dt><code>VA</code></dt>
+    <dt><code>VA</code></dt>
 <dd><p>a list of <code>N</code> matrices determining the unrestricted elements of matrix \(A\).</p></dd>
 
 
@@ -52,95 +52,82 @@
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-IdentificationBSVARs-new"><code>specify_identification_bsvars$new()</code></a></p></li>
-<li><p><a href="#method-IdentificationBSVARs-get_identification"><code>specify_identification_bsvars$get_identification()</code></a></p></li>
-<li><p><a href="#method-IdentificationBSVARs-set_identification"><code>specify_identification_bsvars$set_identification()</code></a></p></li>
-<li><p><a href="#method-IdentificationBSVARs-clone"><code>specify_identification_bsvars$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-IdentificationBSVARs-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-IdentificationBSVARs-initialize"><code>IdentificationBSVARs$new()</code></a></p></li>
+<li><p><a href="#method-IdentificationBSVARs-get_identification"><code>IdentificationBSVARs$get_identification()</code></a></p></li>
+<li><p><a href="#method-IdentificationBSVARs-set_identification"><code>IdentificationBSVARs$set_identification()</code></a></p></li>
+<li><p><a href="#method-IdentificationBSVARs-clone"><code>IdentificationBSVARs$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-IdentificationBSVARs-initialize"></a><div class="section">
+<h3 id="identificationbsvars-new-"><code>IdentificationBSVARs$new()</code><a class="anchor" aria-label="anchor" href="#identificationbsvars-new-"></a></h3>
 <p>Create new identifying restrictions IdentificationBSVARs.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_identification_bsvars.html">specify_identification_bsvars</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">B</span>, <span class="va">A</span>, <span class="va">N</span>, <span class="va">K</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">IdentificationBSVARs</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">B</span>, <span class="va">A</span>, <span class="va">N</span>, <span class="va">K</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
 the structural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>A</code></dt>
+      <dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>N</code></dt>
+      <dt><code>N</code></dt>
 <dd><p>a positive integer - the number of dependent variables in the model.</p></dd>
 
-
-<dt><code>K</code></dt>
+      <dt><code>K</code></dt>
 <dd><p>a positive integer - the number of parameters in a row of autoregressive matrix.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>Identifying restrictions IdentificationBSVARs.</p>
 </div>
 
-</div><p></p><hr><a id="method-IdentificationBSVARs-get_identification"></a><div class="section">
-<h3 id="method-get-identification-">Method <code>get_identification()</code><a class="anchor" aria-label="anchor" href="#method-get-identification-"></a></h3>
-<p>Returns the elements of the identification pattern IdentificationBSVARs as a <code>list</code>.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_identification_bsvars</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-IdentificationBSVARs-get_identification"></a><div class="section">
+<h3 id="identificationbsvars-get-identification-"><code>IdentificationBSVARs$get_identification()</code><a class="anchor" aria-label="anchor" href="#identificationbsvars-get-identification-"></a></h3>
+<p>Returns the elements of the identification pattern IdentificationBSVARs as a <code>list</code>.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">IdentificationBSVARs</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">B</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>; <span class="va">B</span></span>
 <span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_identification_bsvars.html">specify_identification_bsvars</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="fl">3</span>, K <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-IdentificationBSVARs-set_identification"></a><div class="section">
-<h3 id="method-set-identification-">Method <code>set_identification()</code><a class="anchor" aria-label="anchor" href="#method-set-identification-"></a></h3>
+<p></p><hr><a id="method-IdentificationBSVARs-set_identification"></a><div class="section">
+<h3 id="identificationbsvars-set-identification-"><code>IdentificationBSVARs$set_identification()</code><a class="anchor" aria-label="anchor" href="#identificationbsvars-set-identification-"></a></h3>
 <p>Set new starting values StartingValuesBSVAR.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_identification_bsvars</span><span class="op">$</span><span class="fu">set_identification</span><span class="op">(</span><span class="va">B</span>, <span class="va">A</span>, <span class="va">N</span>, <span class="va">K</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">IdentificationBSVARs</span><span class="op">$</span><span class="fu">set_identification</span><span class="op">(</span><span class="va">B</span>, <span class="va">A</span>, <span class="va">N</span>, <span class="va">K</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the elements of
 the structural matrix \(B\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>A</code></dt>
+      <dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>N</code></dt>
+      <dt><code>N</code></dt>
 <dd><p>a positive integer - the number of dependent variables in the model.</p></dd>
 
-
-<dt><code>K</code></dt>
+      <dt><code>K</code></dt>
 <dd><p>a positive integer - the number of parameters in a row of autoregressive matrix.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_identification_bsvars.html">specify_identification_bsvars</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>N <span class="op">=</span> <span class="fl">3</span>, K <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="co"># specify a model with the default option</span></span>
 <span><span class="va">B</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>; <span class="va">B</span></span>
@@ -148,15 +135,14 @@ to be set to zero.</p></dd>
 <span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span>              <span class="co"># check the outcome</span></span></code></pre></div><p></p></div>
 </div>
 
-
-</div><p></p><hr><a id="method-IdentificationBSVARs-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_identification_bsvars</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-IdentificationBSVARs-clone"></a><div class="section">
+<h3 id="identificationbsvars-clone-"><code>IdentificationBSVARs$clone()</code><a class="anchor" aria-label="anchor" href="#identificationbsvars-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">IdentificationBSVARs</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -166,6 +152,7 @@ to be set to zero.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
@@ -198,7 +185,7 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_identification_bsvars$get_identification`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `IdentificationBSVARs$get_identification()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">B</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>; <span class="va">B</span></span></span>
@@ -251,7 +238,7 @@ to be set to zero.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_identification_bsvars$set_identification`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `IdentificationBSVARs$set_identification()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_identification_bsvars</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>N <span class="op">=</span> <span class="fl">3</span>, K <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="co"># specify a model with the default option</span></span></span>

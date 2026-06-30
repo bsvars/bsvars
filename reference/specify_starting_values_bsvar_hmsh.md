@@ -5,7 +5,7 @@ model with Heterogeneous Markov Switching Heteroskedasticity.
 
 ## Super class
 
-`bsvars::StartingValuesBSVAR` -\> `StartingValuesBSVARHMSH`
+`StartingValuesBSVAR` -\> `StartingValuesBSVARHMSH`
 
 ## Public fields
 
@@ -56,23 +56,23 @@ model with Heterogeneous Markov Switching Heteroskedasticity.
 
 ### Public methods
 
-- [`specify_starting_values_bsvar_hmsh$new()`](#method-StartingValuesBSVARHMSH-new)
+- [`StartingValuesBSVARHMSH$new()`](#method-StartingValuesBSVARHMSH-initialize)
 
-- [`specify_starting_values_bsvar_hmsh$get_starting_values()`](#method-StartingValuesBSVARHMSH-get_starting_values)
+- [`StartingValuesBSVARHMSH$get_starting_values()`](#method-StartingValuesBSVARHMSH-get_starting_values)
 
-- [`specify_starting_values_bsvar_hmsh$set_starting_values()`](#method-StartingValuesBSVARHMSH-set_starting_values)
+- [`StartingValuesBSVARHMSH$set_starting_values()`](#method-StartingValuesBSVARHMSH-set_starting_values)
 
-- [`specify_starting_values_bsvar_hmsh$clone()`](#method-StartingValuesBSVARHMSH-clone)
+- [`StartingValuesBSVARHMSH$clone()`](#method-StartingValuesBSVARHMSH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `StartingValuesBSVARHMSH$new()`
 
 Create new starting values StartingValuesBSVARHMSH.
 
 #### Usage
 
-    specify_starting_values_bsvar_hmsh$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)
+    StartingValuesBSVARHMSH$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)
 
 #### Arguments
 
@@ -122,14 +122,14 @@ Starting values StartingValuesBSVARHMSH.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `StartingValuesBSVARHMSH$get_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVARHMSH as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_hmsh$get_starting_values()
+    StartingValuesBSVARHMSH$get_starting_values()
 
 #### Examples
 
@@ -141,14 +141,14 @@ Returns the elements of the starting values StartingValuesBSVARHMSH as a
 
 ------------------------------------------------------------------------
 
-### Method `set_starting_values()`
+### `StartingValuesBSVARHMSH$set_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVARHMSH as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_hmsh$set_starting_values(last_draw)
+    StartingValuesBSVARHMSH$set_starting_values(last_draw)
 
 #### Arguments
 
@@ -177,13 +177,13 @@ of the MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `StartingValuesBSVARHMSH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_starting_values_bsvar_hmsh$clone(deep = FALSE)
+    StartingValuesBSVARHMSH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -201,7 +201,7 @@ sv = specify_starting_values_bsvar_hmsh$new(A = A, B = B, N = 3, p = 1, M = 2, T
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_hmsh$get_starting_values`
+## Method `StartingValuesBSVARHMSH$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -398,7 +398,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_hmsh$set_starting_values`
+## Method `StartingValuesBSVARHMSH$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system

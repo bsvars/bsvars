@@ -28,27 +28,27 @@ to the last draw provided in element `posterior`.
 
 ### Public methods
 
-- [`specify_posterior_bsvar_t$new()`](#method-PosteriorBSVART-new)
+- [`PosteriorBSVART$new()`](#method-PosteriorBSVART-initialize)
 
-- [`specify_posterior_bsvar_t$get_posterior()`](#method-PosteriorBSVART-get_posterior)
+- [`PosteriorBSVART$get_posterior()`](#method-PosteriorBSVART-get_posterior)
 
-- [`specify_posterior_bsvar_t$get_last_draw()`](#method-PosteriorBSVART-get_last_draw)
+- [`PosteriorBSVART$get_last_draw()`](#method-PosteriorBSVART-get_last_draw)
 
-- [`specify_posterior_bsvar_t$is_normalised()`](#method-PosteriorBSVART-is_normalised)
+- [`PosteriorBSVART$is_normalised()`](#method-PosteriorBSVART-is_normalised)
 
-- [`specify_posterior_bsvar_t$set_normalised()`](#method-PosteriorBSVART-set_normalised)
+- [`PosteriorBSVART$set_normalised()`](#method-PosteriorBSVART-set_normalised)
 
-- [`specify_posterior_bsvar_t$clone()`](#method-PosteriorBSVART-clone)
+- [`PosteriorBSVART$clone()`](#method-PosteriorBSVART-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PosteriorBSVART$new()`
 
 Create a new posterior output PosteriorBSVART.
 
 #### Usage
 
-    specify_posterior_bsvar_t$new(specification_bsvar, posterior_bsvar)
+    PosteriorBSVART$new(specification_bsvar, posterior_bsvar)
 
 #### Arguments
 
@@ -67,13 +67,13 @@ A posterior output PosteriorBSVART.
 
 ------------------------------------------------------------------------
 
-### Method `get_posterior()`
+### `PosteriorBSVART$get_posterior()`
 
 Returns a list containing Bayesian estimation output.
 
 #### Usage
 
-    specify_posterior_bsvar_t$get_posterior()
+    PosteriorBSVART$get_posterior()
 
 #### Examples
 
@@ -85,7 +85,7 @@ Returns a list containing Bayesian estimation output.
 
 ------------------------------------------------------------------------
 
-### Method `get_last_draw()`
+### `PosteriorBSVART$get_last_draw()`
 
 Returns an object of class BSVART with the last draw of the current MCMC
 run as the starting value to be passed to the continuation of the MCMC
@@ -94,7 +94,7 @@ estimation using
 
 #### Usage
 
-    specify_posterior_bsvar_t$get_last_draw()
+    PosteriorBSVART$get_last_draw()
 
 #### Examples
 
@@ -112,7 +112,7 @@ estimation using
 
 ------------------------------------------------------------------------
 
-### Method `is_normalised()`
+### `PosteriorBSVART$is_normalised()`
 
 Returns `TRUE` if the posterior has been normalised using
 [`normalise()`](https://bsvars.org/bsvars/reference/normalise.md) and
@@ -120,7 +120,7 @@ Returns `TRUE` if the posterior has been normalised using
 
 #### Usage
 
-    specify_posterior_bsvar_t$is_normalised()
+    PosteriorBSVART$is_normalised()
 
 #### Examples
 
@@ -147,13 +147,13 @@ Returns `TRUE` if the posterior has been normalised using
 
 ------------------------------------------------------------------------
 
-### Method `set_normalised()`
+### `PosteriorBSVART$set_normalised()`
 
 Sets the private indicator `normalised` to TRUE.
 
 #### Usage
 
-    specify_posterior_bsvar_t$set_normalised(value)
+    PosteriorBSVART$set_normalised(value)
 
 #### Arguments
 
@@ -189,13 +189,13 @@ Sets the private indicator `normalised` to TRUE.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PosteriorBSVART$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_posterior_bsvar_t$clone(deep = FALSE)
+    PosteriorBSVART$clone(deep = FALSE)
 
 #### Arguments
 
@@ -227,7 +227,7 @@ class(estimate)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_t$get_posterior`
+## Method `PosteriorBSVART$get_posterior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -351,7 +351,7 @@ estimate$get_posterior()
 #> 
 #>              [,1]        [,2]       [,3]        [,4]
 #> [1,]  0.965518749 -0.01635806 0.04549672 -0.14016394
-#> [2,] -0.019086902  0.97553209 0.02387693 -0.24232148
+#> [2,] -0.019086901  0.97553209 0.02387693 -0.24232148
 #> [3,] -0.006953111 -0.00311680 1.00638048 -0.04463224
 #> 
 #> , , 6
@@ -1244,7 +1244,7 @@ estimate$get_posterior()
 #>           [,8]      [,9]     [,10]     [,11]    [,12]      [,13]     [,14]
 #> [1,] 0.6501119 0.4688719 2.1206267 1.2717555 3.673756  0.6328932 0.3339609
 #> [2,] 1.0101141 0.8621537 5.4732674 2.4866568 6.480196 31.3046678 5.6354427
-#> [3,] 6.7537259 1.3047490 0.6619448 0.2492812 1.299803  0.1452766 0.2795536
+#> [3,] 6.7537260 1.3047490 0.6619448 0.2492812 1.299803  0.1452766 0.2795536
 #>         [,15]     [,16]     [,17]      [,18]     [,19]     [,20]     [,21]
 #> [1,] 0.182489 2.1321104 0.7965618 0.22604982 0.4886200 0.2186974 1.4311628
 #> [2,] 4.133176 1.1696317 0.6177565 0.16367301 0.2826651 0.2990727 1.2328739
@@ -2155,7 +2155,7 @@ estimate$get_posterior()
 #>           [,1]       [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
 #> [1,] 5.6960161 14.3076407 1.3428374 0.5330446 0.9933440 1.1244668 3.1684502
 #> [2,] 0.1559563  0.1052984 0.2962268 0.7366150 0.2353905 1.4735595 0.2971675
-#> [3,] 0.6248567  0.3304017 1.5716176 1.0819532 1.5111519 0.1827786 0.3355247
+#> [3,] 0.6248567  0.3304017 1.5716176 1.0819532 1.5111520 0.1827786 0.3355247
 #>           [,8]      [,9]     [,10]     [,11]    [,12]      [,13]     [,14]
 #> [1,] 0.8060976 2.0381293 0.9998056 1.6330250 2.079889  0.2179887 0.2611300
 #> [2,] 3.6100015 0.4032107 0.4524261 3.6470508 6.854960 11.4622771 6.2164388
@@ -2343,7 +2343,7 @@ estimate$get_posterior()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_t$get_last_draw`
+## Method `PosteriorBSVART$get_last_draw()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -2381,7 +2381,7 @@ posterior      = estimate(burn_in, 10)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_t$is_normalised`
+## Method `PosteriorBSVART$is_normalised()`
 ## ------------------------------------------------
 
 # upload data
@@ -2420,7 +2420,7 @@ posterior$is_normalised()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_t$set_normalised`
+## Method `PosteriorBSVART$set_normalised()`
 ## ------------------------------------------------
 
 # This is an internal function that is run while executing normalise()

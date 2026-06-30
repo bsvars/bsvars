@@ -42,30 +42,30 @@ with Stochastic Volatility heteroskedasticity.
 
 ### Public methods
 
-- [`specify_bsvar_sv$new()`](#method-BSVARSV-new)
+- [`BSVARSV$new()`](#method-BSVARSV-initialize)
 
-- [`specify_bsvar_sv$get_normal()`](#method-BSVARSV-get_normal)
+- [`BSVARSV$get_normal()`](#method-BSVARSV-get_normal)
 
-- [`specify_bsvar_sv$get_data_matrices()`](#method-BSVARSV-get_data_matrices)
+- [`BSVARSV$get_data_matrices()`](#method-BSVARSV-get_data_matrices)
 
-- [`specify_bsvar_sv$get_identification()`](#method-BSVARSV-get_identification)
+- [`BSVARSV$get_identification()`](#method-BSVARSV-get_identification)
 
-- [`specify_bsvar_sv$get_prior()`](#method-BSVARSV-get_prior)
+- [`BSVARSV$get_prior()`](#method-BSVARSV-get_prior)
 
-- [`specify_bsvar_sv$get_starting_values()`](#method-BSVARSV-get_starting_values)
+- [`BSVARSV$get_starting_values()`](#method-BSVARSV-get_starting_values)
 
-- [`specify_bsvar_sv$clone()`](#method-BSVARSV-clone)
+- [`BSVARSV$clone()`](#method-BSVARSV-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `BSVARSV$new()`
 
 Create a new specification of the BSVAR model with Stochastic Volatility
 heteroskedasticity, BSVARSV.
 
 #### Usage
 
-    specify_bsvar_sv$new(
+    BSVARSV$new(
       data,
       p = 1L,
       B,
@@ -127,14 +127,14 @@ Volatility heteroskedasticity, BSVARSV.
 
 ------------------------------------------------------------------------
 
-### Method `get_normal()`
+### `BSVARSV$get_normal()`
 
 Returns the logical value of whether the conditional shock distribution
 is normal.
 
 #### Usage
 
-    specify_bsvar_sv$get_normal()
+    BSVARSV$get_normal()
 
 #### Examples
 
@@ -143,13 +143,13 @@ is normal.
 
 ------------------------------------------------------------------------
 
-### Method `get_data_matrices()`
+### `BSVARSV$get_data_matrices()`
 
 Returns the data matrices as the DataMatricesBSVAR object.
 
 #### Usage
 
-    specify_bsvar_sv$get_data_matrices()
+    BSVARSV$get_data_matrices()
 
 #### Examples
 
@@ -162,13 +162,13 @@ Returns the data matrices as the DataMatricesBSVAR object.
 
 ------------------------------------------------------------------------
 
-### Method `get_identification()`
+### `BSVARSV$get_identification()`
 
 Returns the identifying restrictions as the IdentificationBSVARs object.
 
 #### Usage
 
-    specify_bsvar_sv$get_identification()
+    BSVARSV$get_identification()
 
 #### Examples
 
@@ -181,13 +181,13 @@ Returns the identifying restrictions as the IdentificationBSVARs object.
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `BSVARSV$get_prior()`
 
 Returns the prior specification as the PriorBSVARSV object.
 
 #### Usage
 
-    specify_bsvar_sv$get_prior()
+    BSVARSV$get_prior()
 
 #### Examples
 
@@ -200,13 +200,13 @@ Returns the prior specification as the PriorBSVARSV object.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `BSVARSV$get_starting_values()`
 
 Returns the starting values as the StartingValuesBSVARSV object.
 
 #### Usage
 
-    specify_bsvar_sv$get_starting_values()
+    BSVARSV$get_starting_values()
 
 #### Examples
 
@@ -219,13 +219,13 @@ Returns the starting values as the StartingValuesBSVARSV object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `BSVARSV$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_bsvar_sv$clone(deep = FALSE)
+    BSVARSV$clone(deep = FALSE)
 
 #### Arguments
 
@@ -245,7 +245,7 @@ spec = specify_bsvar_sv$new(
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_normal`
+## Method `BSVARSV$get_normal()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_sv$new(us_fiscal_lsuw)
@@ -255,7 +255,7 @@ spec$get_normal()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_data_matrices`
+## Method `BSVARSV$get_data_matrices()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -275,7 +275,7 @@ spec$get_data_matrices()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_identification`
+## Method `BSVARSV$get_identification()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -296,7 +296,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_prior`
+## Method `BSVARSV$get_prior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -329,7 +329,7 @@ spec$get_prior()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_starting_values`
+## Method `BSVARSV$get_starting_values()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)

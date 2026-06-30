@@ -19,23 +19,23 @@ the bsvar models.
 
 ### Public methods
 
-- [`specify_identification_bsvars$new()`](#method-IdentificationBSVARs-new)
+- [`IdentificationBSVARs$new()`](#method-IdentificationBSVARs-initialize)
 
-- [`specify_identification_bsvars$get_identification()`](#method-IdentificationBSVARs-get_identification)
+- [`IdentificationBSVARs$get_identification()`](#method-IdentificationBSVARs-get_identification)
 
-- [`specify_identification_bsvars$set_identification()`](#method-IdentificationBSVARs-set_identification)
+- [`IdentificationBSVARs$set_identification()`](#method-IdentificationBSVARs-set_identification)
 
-- [`specify_identification_bsvars$clone()`](#method-IdentificationBSVARs-clone)
+- [`IdentificationBSVARs$clone()`](#method-IdentificationBSVARs-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `IdentificationBSVARs$new()`
 
 Create new identifying restrictions IdentificationBSVARs.
 
 #### Usage
 
-    specify_identification_bsvars$new(B, A, N, K)
+    IdentificationBSVARs$new(B, A, N, K)
 
 #### Arguments
 
@@ -66,14 +66,14 @@ Identifying restrictions IdentificationBSVARs.
 
 ------------------------------------------------------------------------
 
-### Method `get_identification()`
+### `IdentificationBSVARs$get_identification()`
 
 Returns the elements of the identification pattern IdentificationBSVARs
 as a `list`.
 
 #### Usage
 
-    specify_identification_bsvars$get_identification()
+    IdentificationBSVARs$get_identification()
 
 #### Examples
 
@@ -83,13 +83,13 @@ as a `list`.
 
 ------------------------------------------------------------------------
 
-### Method `set_identification()`
+### `IdentificationBSVARs$set_identification()`
 
 Set new starting values StartingValuesBSVAR.
 
 #### Usage
 
-    specify_identification_bsvars$set_identification(B, A, N, K)
+    IdentificationBSVARs$set_identification(B, A, N, K)
 
 #### Arguments
 
@@ -123,13 +123,13 @@ Set new starting values StartingValuesBSVAR.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `IdentificationBSVARs$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_identification_bsvars$clone(deep = FALSE)
+    IdentificationBSVARs$clone(deep = FALSE)
 
 #### Arguments
 
@@ -167,7 +167,7 @@ specify_identification_bsvars$new(B = B, N = 3, K = 4) # an alternative identifi
 
 
 ## ------------------------------------------------
-## Method `specify_identification_bsvars$get_identification`
+## Method `IdentificationBSVARs$get_identification()`
 ## ------------------------------------------------
 
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
@@ -220,7 +220,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_identification_bsvars$set_identification`
+## Method `IdentificationBSVARs$set_identification()`
 ## ------------------------------------------------
 
 spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option

@@ -10,7 +10,7 @@ with t-distributed structural shocks.
 
 ## Super class
 
-`bsvars::BSVAR` -\> `BSVART`
+`BSVAR` -\> `BSVART`
 
 ## Public fields
 
@@ -44,28 +44,28 @@ with t-distributed structural shocks.
 
 ### Public methods
 
-- [`specify_bsvar_t$new()`](#method-BSVART-new)
+- [`BSVART$new()`](#method-BSVART-initialize)
 
-- [`specify_bsvar_t$clone()`](#method-BSVART-clone)
+- [`BSVART$clone()`](#method-BSVART-clone)
 
 Inherited methods
 
-- [`bsvars::BSVAR$get_data_matrices()`](https://bsvars.org/bsvars/reference/BSVAR.html#method-get_data_matrices)
-- [`bsvars::BSVAR$get_identification()`](https://bsvars.org/bsvars/reference/BSVAR.html#method-get_identification)
-- [`bsvars::BSVAR$get_normal()`](https://bsvars.org/bsvars/reference/BSVAR.html#method-get_normal)
-- [`bsvars::BSVAR$get_prior()`](https://bsvars.org/bsvars/reference/BSVAR.html#method-get_prior)
-- [`bsvars::BSVAR$get_starting_values()`](https://bsvars.org/bsvars/reference/BSVAR.html#method-get_starting_values)
+- `BSVAR$get_data_matrices()`
+- `BSVAR$get_identification()`
+- `BSVAR$get_normal()`
+- `BSVAR$get_prior()`
+- `BSVAR$get_starting_values()`
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `BSVART$new()`
 
 Create a new specification of the BSVAR model with t-distributed
 structural shocks, BSVART.
 
 #### Usage
 
-    specify_bsvar_t$new(
+    BSVART$new(
       data,
       p = 1L,
       B,
@@ -113,13 +113,13 @@ structural shocks, BSVART.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `BSVART$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_bsvar_t$clone(deep = FALSE)
+    BSVART$clone(deep = FALSE)
 
 #### Arguments
 

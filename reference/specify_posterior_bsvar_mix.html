@@ -54,7 +54,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <dd><p>an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using <code><a href="estimate.html">estimate()</a></code>.</p></dd>
 
 
-<dt><code>posterior</code></dt>
+    <dt><code>posterior</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
@@ -65,63 +65,56 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PosteriorBSVARMIX-new"><code>specify_posterior_bsvar_mix$new()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARMIX-get_posterior"><code>specify_posterior_bsvar_mix$get_posterior()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARMIX-get_last_draw"><code>specify_posterior_bsvar_mix$get_last_draw()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARMIX-is_normalised"><code>specify_posterior_bsvar_mix$is_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARMIX-set_normalised"><code>specify_posterior_bsvar_mix$set_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARMIX-clone"><code>specify_posterior_bsvar_mix$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-PosteriorBSVARMIX-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-PosteriorBSVARMIX-initialize"><code>PosteriorBSVARMIX$new()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARMIX-get_posterior"><code>PosteriorBSVARMIX$get_posterior()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARMIX-get_last_draw"><code>PosteriorBSVARMIX$get_last_draw()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARMIX-is_normalised"><code>PosteriorBSVARMIX$is_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARMIX-set_normalised"><code>PosteriorBSVARMIX$set_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARMIX-clone"><code>PosteriorBSVARMIX$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-PosteriorBSVARMIX-initialize"></a><div class="section">
+<h3 id="posteriorbsvarmix-new-"><code>PosteriorBSVARMIX$new()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-new-"></a></h3>
 <p>Create a new posterior output PosteriorBSVARMIX.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_posterior_bsvar_mix.html">specify_posterior_bsvar_mix</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>specification_bsvar</code></dt>
 <dd><p>an object of class BSVARMIX with the last draw of the current MCMC run as the starting value.</p></dd>
 
-
-<dt><code>posterior_bsvar</code></dt>
+      <dt><code>posterior_bsvar</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A posterior output PosteriorBSVARMIX.</p>
 </div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARMIX-get_posterior"></a><div class="section">
-<h3 id="method-get-posterior-">Method <code>get_posterior()</code><a class="anchor" aria-label="anchor" href="#method-get-posterior-"></a></h3>
-<p>Returns a list containing Bayesian estimation output.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_mix</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-PosteriorBSVARMIX-get_posterior"></a><div class="section">
+<h3 id="posteriorbsvarmix-get-posterior-"><code>PosteriorBSVARMIX$get_posterior()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-get-posterior-"></a></h3>
+<p>Returns a list containing Bayesian estimation output.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_mix.html">specify_bsvar_mix</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span>, M <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">estimate</span>       <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">estimate</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">estimate</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARMIX-get_last_draw"></a><div class="section">
-<h3 id="method-get-last-draw-">Method <code>get_last_draw()</code><a class="anchor" aria-label="anchor" href="#method-get-last-draw-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARMIX-get_last_draw"></a><div class="section">
+<h3 id="posteriorbsvarmix-get-last-draw-"><code>PosteriorBSVARMIX$get_last_draw()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-get-last-draw-"></a></h3>
 <p>Returns an object of class BSVARMIX with the last draw of the current MCMC run as the starting value to be passed to the continuation of the MCMC estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_mix</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span></span>
@@ -133,19 +126,17 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span><span class="va">burn_in</span>        <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># estimate the model</span></span>
-<span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">10</span>, thin <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARMIX-is_normalised"></a><div class="section">
-<h3 id="method-is-normalised-">Method <code>is_normalised()</code><a class="anchor" aria-label="anchor" href="#method-is-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARMIX-is_normalised"></a><div class="section">
+<h3 id="posteriorbsvarmix-is-normalised-"><code>PosteriorBSVARMIX$is_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-is-normalised-"></a></h3>
 <p>Returns <code>TRUE</code> if the posterior has been normalised using <code><a href="normalise.html">normalise()</a></code> and <code>FALSE</code> otherwise.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_mix</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># upload data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
@@ -166,27 +157,24 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span><span class="va">posterior</span>     <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARMIX-set_normalised"></a><div class="section">
-<h3 id="method-set-normalised-">Method <code>set_normalised()</code><a class="anchor" aria-label="anchor" href="#method-set-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARMIX-set_normalised"></a><div class="section">
+<h3 id="posteriorbsvarmix-set-normalised-"><code>PosteriorBSVARMIX$set_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-set-normalised-"></a></h3>
 <p>Sets the private indicator <code>normalised</code> to TRUE.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_mix</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>value</code></dt>
 <dd><p>(optional) a logical value to be passed to indicator <code>normalised</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># This is an internal function that is run while executing normalise()</span></span>
 <span><span class="co"># Observe its working by analysing the workflow:</span></span>
@@ -210,19 +198,17 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span><span class="va">posterior</span>     <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARMIX-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARMIX-clone"></a><div class="section">
+<h3 id="posteriorbsvarmix-clone-"><code>PosteriorBSVARMIX$clone()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarmix-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_mix</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARMIX</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -232,6 +218,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 </div>
 
 </div>
+
 
     </div>
 
@@ -257,7 +244,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_mix$get_posterior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARMIX$get_posterior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -380,7 +367,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]       [,3]       [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.94939779 -0.48071270 -0.2014118 0.42830319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.02740435  0.41721054 -0.2687157 0.27379666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.02740436  0.41721054 -0.2687157 0.27379666</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.01023612 -0.03265355  0.9924530 0.02089596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 6</span>
@@ -4638,7 +4625,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_mix$get_last_draw`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARMIX$get_last_draw()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -4674,7 +4661,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_mix$is_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARMIX$is_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># upload data</span></span></span>
@@ -4712,7 +4699,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_mix$set_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARMIX$set_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This is an internal function that is run while executing normalise()</span></span></span>

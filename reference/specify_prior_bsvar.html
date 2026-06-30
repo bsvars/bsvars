@@ -41,57 +41,57 @@
 <dd><p>an <code>NxK</code> matrix, the mean of the normal prior distribution for the parameter matrix \(A\).</p></dd>
 
 
-<dt><code>A_V_inv</code></dt>
+    <dt><code>A_V_inv</code></dt>
 <dd><p>a <code>KxK</code> precision matrix of the normal prior distribution for each of
 the row of the parameter matrix \(A\). This precision matrix is equation invariant.</p></dd>
 
 
-<dt><code>B_V_inv</code></dt>
+    <dt><code>B_V_inv</code></dt>
 <dd><p>an <code>NxN</code> precision matrix of the generalised-normal prior distribution
 for the structural matrix \(B\). This precision matrix is equation invariant.</p></dd>
 
 
-<dt><code>B_nu</code></dt>
+    <dt><code>B_nu</code></dt>
 <dd><p>a positive integer greater of equal than <code>N</code>, a shape parameter of
 the generalised-normal prior distribution for the structural matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_B</code></dt>
+    <dt><code>hyper_nu_B</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_a_B</code></dt>
+    <dt><code>hyper_a_B</code></dt>
 <dd><p>a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_s_BB</code></dt>
+    <dt><code>hyper_s_BB</code></dt>
 <dd><p>a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_BB</code></dt>
+    <dt><code>hyper_nu_BB</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(B\).</p></dd>
 
 
-<dt><code>hyper_nu_A</code></dt>
+    <dt><code>hyper_nu_A</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_a_A</code></dt>
+    <dt><code>hyper_a_A</code></dt>
 <dd><p>a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_s_AA</code></dt>
+    <dt><code>hyper_s_AA</code></dt>
 <dd><p>a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\).</p></dd>
 
 
-<dt><code>hyper_nu_AA</code></dt>
+    <dt><code>hyper_nu_AA</code></dt>
 <dd><p>a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\).</p></dd>
 
@@ -103,76 +103,64 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \(A\
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PriorBSVAR-new"><code>specify_prior_bsvar$new()</code></a></p></li>
-<li><p><a href="#method-PriorBSVAR-get_prior"><code>specify_prior_bsvar$get_prior()</code></a></p></li>
-<li><p><a href="#method-PriorBSVAR-clone"><code>specify_prior_bsvar$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-PriorBSVAR-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-PriorBSVAR-initialize"><code>PriorBSVAR$new()</code></a></p></li>
+<li><p><a href="#method-PriorBSVAR-get_prior"><code>PriorBSVAR$get_prior()</code></a></p></li>
+<li><p><a href="#method-PriorBSVAR-clone"><code>PriorBSVAR$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-PriorBSVAR-initialize"></a><div class="section">
+<h3 id="priorbsvar-new-"><code>PriorBSVAR$new()</code><a class="anchor" aria-label="anchor" href="#priorbsvar-new-"></a></h3>
 <p>Create a new prior specification PriorBSVAR.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_prior_bsvar.html">specify_prior_bsvar</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">N</span>, <span class="va">p</span>, d <span class="op">=</span> <span class="fl">0</span>, stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="va">N</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PriorBSVAR</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">N</span>, <span class="va">p</span>, d <span class="op">=</span> <span class="fl">0</span>, stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="va">N</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>N</code></dt>
 <dd><p>a positive integer - the number of dependent variables in the model.</p></dd>
 
-
-<dt><code>p</code></dt>
+      <dt><code>p</code></dt>
 <dd><p>a positive integer - the autoregressive lag order of the SVAR model.</p></dd>
 
-
-<dt><code>d</code></dt>
+      <dt><code>d</code></dt>
 <dd><p>a positive integer - the number of <code>exogenous</code> variables in the model.</p></dd>
 
-
-<dt><code>stationary</code></dt>
+      <dt><code>stationary</code></dt>
 <dd><p>an <code>N</code> logical vector - its element set to <code>FALSE</code> sets
 the prior mean for the autoregressive parameters of the <code>N</code>th equation to the white noise process,
 otherwise to random walk.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A new prior specification PriorBSVAR.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># a prior for 3-variable example with one lag and stationary data</span></span>
 <span><span class="va">prior</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_prior_bsvar.html">specify_prior_bsvar</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">1</span>, stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">prior</span><span class="op">$</span><span class="va">A</span> <span class="co"># show autoregressive prior mean</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">prior</span><span class="op">$</span><span class="va">A</span> <span class="co"># show autoregressive prior mean</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PriorBSVAR-get_prior"></a><div class="section">
-<h3 id="method-get-prior-">Method <code>get_prior()</code><a class="anchor" aria-label="anchor" href="#method-get-prior-"></a></h3>
+<p></p><hr><a id="method-PriorBSVAR-get_prior"></a><div class="section">
+<h3 id="priorbsvar-get-prior-"><code>PriorBSVAR$get_prior()</code><a class="anchor" aria-label="anchor" href="#priorbsvar-get-prior-"></a></h3>
 <p>Returns the elements of the prior specification PriorBSVAR as a <code>list</code>.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_prior_bsvar</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PriorBSVAR</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># a prior for 3-variable example with four lags</span></span>
 <span><span class="va">prior</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_prior_bsvar.html">specify_prior_bsvar</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>N <span class="op">=</span> <span class="fl">3</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">prior</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span> <span class="co"># show the prior as list</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">prior</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span> <span class="co"># show the prior as list</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PriorBSVAR-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-PriorBSVAR-clone"></a><div class="section">
+<h3 id="priorbsvar-clone-"><code>PriorBSVAR$clone()</code><a class="anchor" aria-label="anchor" href="#priorbsvar-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_prior_bsvar</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PriorBSVAR</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -182,6 +170,7 @@ otherwise to random walk.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
@@ -196,7 +185,7 @@ otherwise to random walk.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_prior_bsvar$new`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PriorBSVAR$new()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a prior for 3-variable example with one lag and stationary data</span></span></span>
@@ -209,7 +198,7 @@ otherwise to random walk.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_prior_bsvar$get_prior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PriorBSVAR$get_prior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a prior for 3-variable example with four lags</span></span></span>

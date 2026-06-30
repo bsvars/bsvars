@@ -10,7 +10,7 @@ with a zero-mean mixture of normals model for structural shocks.
 
 ## Super class
 
-`bsvars::BSVARMSH` -\> `BSVARMIX`
+`BSVARMSH` -\> `BSVARMIX`
 
 ## Public fields
 
@@ -45,28 +45,28 @@ with a zero-mean mixture of normals model for structural shocks.
 
 ### Public methods
 
-- [`specify_bsvar_mix$new()`](#method-BSVARMIX-new)
+- [`BSVARMIX$new()`](#method-BSVARMIX-initialize)
 
-- [`specify_bsvar_mix$clone()`](#method-BSVARMIX-clone)
+- [`BSVARMIX$clone()`](#method-BSVARMIX-clone)
 
 Inherited methods
 
-- [`bsvars::BSVARMSH$get_data_matrices()`](https://bsvars.org/bsvars/reference/BSVARMSH.html#method-get_data_matrices)
-- [`bsvars::BSVARMSH$get_identification()`](https://bsvars.org/bsvars/reference/BSVARMSH.html#method-get_identification)
-- [`bsvars::BSVARMSH$get_normal()`](https://bsvars.org/bsvars/reference/BSVARMSH.html#method-get_normal)
-- [`bsvars::BSVARMSH$get_prior()`](https://bsvars.org/bsvars/reference/BSVARMSH.html#method-get_prior)
-- [`bsvars::BSVARMSH$get_starting_values()`](https://bsvars.org/bsvars/reference/BSVARMSH.html#method-get_starting_values)
+- `BSVARMSH$get_data_matrices()`
+- `BSVARMSH$get_identification()`
+- `BSVARMSH$get_normal()`
+- `BSVARMSH$get_prior()`
+- `BSVARMSH$get_starting_values()`
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `BSVARMIX$new()`
 
 Create a new specification of the BSVAR model with a zero-mean mixture
 of normals model for structural shocks, BSVARMIX.
 
 #### Usage
 
-    specify_bsvar_mix$new(
+    BSVARMIX$new(
       data,
       p = 1L,
       M = 2L,
@@ -134,13 +134,13 @@ mixture of normals model for structural shocks, BSVARMIX.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `BSVARMIX$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_bsvar_mix$clone(deep = FALSE)
+    BSVARMIX$clone(deep = FALSE)
 
 #### Arguments
 

@@ -48,23 +48,23 @@ Heterogeneous Markov Switching Heteroskedasticity.</p>
 <dd><p>a non-negative integer specifying the autoregressive lag order of the model.</p></dd>
 
 
-<dt><code>identification</code></dt>
+    <dt><code>identification</code></dt>
 <dd><p>an object IdentificationBSVARs with the identifying restrictions.</p></dd>
 
 
-<dt><code>prior</code></dt>
+    <dt><code>prior</code></dt>
 <dd><p>an object PriorBSVARMSH with the prior specification.</p></dd>
 
 
-<dt><code>data_matrices</code></dt>
+    <dt><code>data_matrices</code></dt>
 <dd><p>an object DataMatricesBSVAR with the data matrices.</p></dd>
 
 
-<dt><code>starting_values</code></dt>
+    <dt><code>starting_values</code></dt>
 <dd><p>an object StartingValuesBSVARHMSH with the starting values.</p></dd>
 
 
-<dt><code>finiteM</code></dt>
+    <dt><code>finiteM</code></dt>
 <dd><p>a logical value - if true a stationary Markov switching model
 is estimated. Otherwise, a sparse Markov switching model is estimated in
 which <code>M=20</code> and the number of visited states is estimated.</p></dd>
@@ -77,20 +77,19 @@ which <code>M=20</code> and the number of visited states is estimated.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-BSVARHMSH-new"><code>specify_bsvar_hmsh$new()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-get_normal"><code>specify_bsvar_hmsh$get_normal()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-get_data_matrices"><code>specify_bsvar_hmsh$get_data_matrices()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-get_identification"><code>specify_bsvar_hmsh$get_identification()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-get_prior"><code>specify_bsvar_hmsh$get_prior()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-get_starting_values"><code>specify_bsvar_hmsh$get_starting_values()</code></a></p></li>
-<li><p><a href="#method-BSVARHMSH-clone"><code>specify_bsvar_hmsh$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-BSVARHMSH-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-BSVARHMSH-initialize"><code>BSVARHMSH$new()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-get_normal"><code>BSVARHMSH$get_normal()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-get_data_matrices"><code>BSVARHMSH$get_data_matrices()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-get_identification"><code>BSVARHMSH$get_identification()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-get_prior"><code>BSVARHMSH$get_prior()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-get_starting_values"><code>BSVARHMSH$get_starting_values()</code></a></p></li>
+<li><p><a href="#method-BSVARHMSH-clone"><code>BSVARHMSH$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-BSVARHMSH-initialize"></a><div class="section">
+<h3 id="bsvarhmsh-new-"><code>BSVARHMSH$new()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-new-"></a></h3>
 <p>Create a new specification of the BSVAR model with Heterogeneous Markov
 Switching Heteroskedasticity, BSVARHMSH.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  p <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  M <span class="op">=</span> <span class="fl">2L</span>,</span>
@@ -101,163 +100,142 @@ Switching Heteroskedasticity, BSVARHMSH.</p><div class="section">
 <span>  stationary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  finiteM <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>a <code>(T+p)xN</code> matrix with time series data.</p></dd>
 
-
-<dt><code>p</code></dt>
+      <dt><code>p</code></dt>
 <dd><p>a positive integer providing model's autoregressive lag order.</p></dd>
 
-
-<dt><code>M</code></dt>
+      <dt><code>M</code></dt>
 <dd><p>an integer greater than 1 - the number of Markov process' heteroskedastic regimes.</p></dd>
 
-
-<dt><code>B</code></dt>
+      <dt><code>B</code></dt>
 <dd><p>a logical <code>NxN</code> matrix containing value <code>TRUE</code> for the
 elements of the structural matrix \(B\) to be estimated and value <code>FALSE</code>
 for exclusion restrictions to be set to zero.</p></dd>
 
-
-<dt><code>A</code></dt>
+      <dt><code>A</code></dt>
 <dd><p>a logical <code>NxK</code> matrix containing value <code>TRUE</code> for the elements of
 the autoregressive matrix \(A\) to be estimated and value <code>FALSE</code> for exclusion restrictions
 to be set to zero.</p></dd>
 
-
-<dt><code>distribution</code></dt>
+      <dt><code>distribution</code></dt>
 <dd><p>a character string specifying the conditional distribution
 of structural shocks. Value <code>"norm"</code> sets it to the normal distribution,
 while value <code>"t"</code> sets the Student-t distribution.</p></dd>
 
-
-<dt><code>exogenous</code></dt>
+      <dt><code>exogenous</code></dt>
 <dd><p>a <code>(T+p)xd</code> matrix of exogenous variables.</p></dd>
 
-
-<dt><code>stationary</code></dt>
+      <dt><code>stationary</code></dt>
 <dd><p>an <code>N</code> logical vector - its element set to <code>FALSE</code>
 sets the prior mean for the autoregressive parameters of the <code>N</code>th equation
 to the white noise process, otherwise to random walk.</p></dd>
 
-
-<dt><code>finiteM</code></dt>
+      <dt><code>finiteM</code></dt>
 <dd><p>a logical value - if true a stationary Markov switching model
 is estimated. Otherwise, a sparse Markov switching model is estimated in which
 <code>M=20</code> and the number of visited states is estimated.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A new complete specification for the bsvar model with Heterogeneous
 Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 </div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-get_normal"></a><div class="section">
-<h3 id="method-get-normal-">Method <code>get_normal()</code><a class="anchor" aria-label="anchor" href="#method-get-normal-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-BSVARHMSH-get_normal"></a><div class="section">
+<h3 id="bsvarhmsh-get-normal-"><code>BSVARHMSH$get_normal()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-get-normal-"></a></h3>
 <p>Returns the logical value of whether the conditional shock distribution is normal.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_normal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-get_data_matrices"></a><div class="section">
-<h3 id="method-get-data-matrices-">Method <code>get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#method-get-data-matrices-"></a></h3>
+<p></p><hr><a id="method-BSVARHMSH-get_data_matrices"></a><div class="section">
+<h3 id="bsvarhmsh-get-data-matrices-"><code>BSVARHMSH$get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-get-data-matrices-"></a></h3>
 <p>Returns the data matrices as the DataMatricesBSVAR object.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>   M <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-get_identification"></a><div class="section">
-<h3 id="method-get-identification-">Method <code>get_identification()</code><a class="anchor" aria-label="anchor" href="#method-get-identification-"></a></h3>
+<p></p><hr><a id="method-BSVARHMSH-get_identification"></a><div class="section">
+<h3 id="bsvarhmsh-get-identification-"><code>BSVARHMSH$get_identification()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-get-identification-"></a></h3>
 <p>Returns the identifying restrictions as the IdentificationBSVARs object.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>   M <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_identification</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-get_prior"></a><div class="section">
-<h3 id="method-get-prior-">Method <code>get_prior()</code><a class="anchor" aria-label="anchor" href="#method-get-prior-"></a></h3>
+<p></p><hr><a id="method-BSVARHMSH-get_prior"></a><div class="section">
+<h3 id="bsvarhmsh-get-prior-"><code>BSVARHMSH$get_prior()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-get-prior-"></a></h3>
 <p>Returns the prior specification as the PriorBSVARMSH object.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>   M <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_prior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-get_starting_values"></a><div class="section">
-<h3 id="method-get-starting-values-">Method <code>get_starting_values()</code><a class="anchor" aria-label="anchor" href="#method-get-starting-values-"></a></h3>
+<p></p><hr><a id="method-BSVARHMSH-get_starting_values"></a><div class="section">
+<h3 id="bsvarhmsh-get-starting-values-"><code>BSVARHMSH$get_starting_values()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-get-starting-values-"></a></h3>
 <p>Returns the starting values as the StartingValuesBSVARHMSH object.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">spec</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_hmsh.html">specify_bsvar_hmsh</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>   data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>,</span>
 <span>   p <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>   M <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">spec</span><span class="op">$</span><span class="fu">get_starting_values</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-BSVARHMSH-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-BSVARHMSH-clone"></a><div class="section">
+<h3 id="bsvarhmsh-clone-"><code>BSVARHMSH$clone()</code><a class="anchor" aria-label="anchor" href="#bsvarhmsh-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">BSVARHMSH</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -267,6 +245,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 </div>
 
 </div>
+
 
     </div>
 
@@ -281,7 +260,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_hmsh$get_normal`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARHMSH$get_normal()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -291,7 +270,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_hmsh$get_data_matrices`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARHMSH$get_data_matrices()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
@@ -311,7 +290,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_hmsh$get_identification`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARHMSH$get_identification()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
@@ -332,7 +311,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_hmsh$get_prior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARHMSH$get_prior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
@@ -366,7 +345,7 @@ Markov Switching Heteroskedasticity, BSVARHMSH.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_bsvar_hmsh$get_starting_values`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `BSVARHMSH$get_starting_values()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">spec</span> <span class="op">=</span> <span class="va">specify_bsvar_hmsh</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>

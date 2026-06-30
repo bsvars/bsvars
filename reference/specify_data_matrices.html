@@ -44,7 +44,7 @@ and regressors, \(X\), for the homoskedastic bsvar model.</p>
 <dd><p>an <code>NxT</code> matrix of dependent variables, \(Y\).</p></dd>
 
 
-<dt><code>X</code></dt>
+    <dt><code>X</code></dt>
 <dd><p>an <code>KxT</code> matrix of regressors, \(X\).</p></dd>
 
 
@@ -55,63 +55,55 @@ and regressors, \(X\), for the homoskedastic bsvar model.</p>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-DataMatricesBSVAR-new"><code>specify_data_matrices$new()</code></a></p></li>
-<li><p><a href="#method-DataMatricesBSVAR-get_data_matrices"><code>specify_data_matrices$get_data_matrices()</code></a></p></li>
-<li><p><a href="#method-DataMatricesBSVAR-clone"><code>specify_data_matrices$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-DataMatricesBSVAR-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-DataMatricesBSVAR-initialize"><code>DataMatricesBSVAR$new()</code></a></p></li>
+<li><p><a href="#method-DataMatricesBSVAR-get_data_matrices"><code>DataMatricesBSVAR$get_data_matrices()</code></a></p></li>
+<li><p><a href="#method-DataMatricesBSVAR-clone"><code>DataMatricesBSVAR$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-DataMatricesBSVAR-initialize"></a><div class="section">
+<h3 id="datamatricesbsvar-new-"><code>DataMatricesBSVAR$new()</code><a class="anchor" aria-label="anchor" href="#datamatricesbsvar-new-"></a></h3>
 <p>Create new data matrices DataMatricesBSVAR.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_data_matrices.html">specify_data_matrices</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">data</span>, p <span class="op">=</span> <span class="fl">1L</span>, exogenous <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataMatricesBSVAR</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">data</span>, p <span class="op">=</span> <span class="fl">1L</span>, exogenous <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>a <code>(T+p)xN</code> matrix with time series data.</p></dd>
 
-
-<dt><code>p</code></dt>
+      <dt><code>p</code></dt>
 <dd><p>a positive integer providing model's autoregressive lag order.</p></dd>
 
-
-<dt><code>exogenous</code></dt>
+      <dt><code>exogenous</code></dt>
 <dd><p>a <code>(T+p)xd</code> matrix of exogenous variables.
 This matrix should not include a constant term.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>New data matrices DataMatricesBSVAR.</p>
 </div>
 
-</div><p></p><hr><a id="method-DataMatricesBSVAR-get_data_matrices"></a><div class="section">
-<h3 id="method-get-data-matrices-">Method <code>get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#method-get-data-matrices-"></a></h3>
-<p>Returns the data matrices DataMatricesBSVAR as a <code>list</code>.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_data_matrices</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-DataMatricesBSVAR-get_data_matrices"></a><div class="section">
+<h3 id="datamatricesbsvar-get-data-matrices-"><code>DataMatricesBSVAR$get_data_matrices()</code><a class="anchor" aria-label="anchor" href="#datamatricesbsvar-get-data-matrices-"></a></h3>
+<p>Returns the data matrices DataMatricesBSVAR as a <code>list</code>.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataMatricesBSVAR</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">YX</span> <span class="op">=</span> <span class="va"><a href="../reference/specify_data_matrices.html">specify_data_matrices</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data <span class="op">=</span> <span class="va">us_fiscal_lsuw</span>, p <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">YX</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">YX</span><span class="op">$</span><span class="fu">get_data_matrices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-DataMatricesBSVAR-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-DataMatricesBSVAR-clone"></a><div class="section">
+<h3 id="datamatricesbsvar-clone-"><code>DataMatricesBSVAR$clone()</code><a class="anchor" aria-label="anchor" href="#datamatricesbsvar-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_data_matrices</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataMatricesBSVAR</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -121,6 +113,7 @@ This matrix should not include a constant term.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
@@ -134,7 +127,7 @@ This matrix should not include a constant term.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_data_matrices$get_data_matrices`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `DataMatricesBSVAR$get_data_matrices()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>

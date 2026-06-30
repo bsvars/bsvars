@@ -29,27 +29,27 @@ to the thinning of the MCMC output the starting value in element
 
 ### Public methods
 
-- [`specify_posterior_bsvar_mix$new()`](#method-PosteriorBSVARMIX-new)
+- [`PosteriorBSVARMIX$new()`](#method-PosteriorBSVARMIX-initialize)
 
-- [`specify_posterior_bsvar_mix$get_posterior()`](#method-PosteriorBSVARMIX-get_posterior)
+- [`PosteriorBSVARMIX$get_posterior()`](#method-PosteriorBSVARMIX-get_posterior)
 
-- [`specify_posterior_bsvar_mix$get_last_draw()`](#method-PosteriorBSVARMIX-get_last_draw)
+- [`PosteriorBSVARMIX$get_last_draw()`](#method-PosteriorBSVARMIX-get_last_draw)
 
-- [`specify_posterior_bsvar_mix$is_normalised()`](#method-PosteriorBSVARMIX-is_normalised)
+- [`PosteriorBSVARMIX$is_normalised()`](#method-PosteriorBSVARMIX-is_normalised)
 
-- [`specify_posterior_bsvar_mix$set_normalised()`](#method-PosteriorBSVARMIX-set_normalised)
+- [`PosteriorBSVARMIX$set_normalised()`](#method-PosteriorBSVARMIX-set_normalised)
 
-- [`specify_posterior_bsvar_mix$clone()`](#method-PosteriorBSVARMIX-clone)
+- [`PosteriorBSVARMIX$clone()`](#method-PosteriorBSVARMIX-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PosteriorBSVARMIX$new()`
 
 Create a new posterior output PosteriorBSVARMIX.
 
 #### Usage
 
-    specify_posterior_bsvar_mix$new(specification_bsvar, posterior_bsvar)
+    PosteriorBSVARMIX$new(specification_bsvar, posterior_bsvar)
 
 #### Arguments
 
@@ -68,13 +68,13 @@ A posterior output PosteriorBSVARMIX.
 
 ------------------------------------------------------------------------
 
-### Method `get_posterior()`
+### `PosteriorBSVARMIX$get_posterior()`
 
 Returns a list containing Bayesian estimation output.
 
 #### Usage
 
-    specify_posterior_bsvar_mix$get_posterior()
+    PosteriorBSVARMIX$get_posterior()
 
 #### Examples
 
@@ -86,7 +86,7 @@ Returns a list containing Bayesian estimation output.
 
 ------------------------------------------------------------------------
 
-### Method `get_last_draw()`
+### `PosteriorBSVARMIX$get_last_draw()`
 
 Returns an object of class BSVARMIX with the last draw of the current
 MCMC run as the starting value to be passed to the continuation of the
@@ -95,7 +95,7 @@ MCMC estimation using
 
 #### Usage
 
-    specify_posterior_bsvar_mix$get_last_draw()
+    PosteriorBSVARMIX$get_last_draw()
 
 #### Examples
 
@@ -113,7 +113,7 @@ MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `is_normalised()`
+### `PosteriorBSVARMIX$is_normalised()`
 
 Returns `TRUE` if the posterior has been normalised using
 [`normalise()`](https://bsvars.org/bsvars/reference/normalise.md) and
@@ -121,7 +121,7 @@ Returns `TRUE` if the posterior has been normalised using
 
 #### Usage
 
-    specify_posterior_bsvar_mix$is_normalised()
+    PosteriorBSVARMIX$is_normalised()
 
 #### Examples
 
@@ -148,13 +148,13 @@ Returns `TRUE` if the posterior has been normalised using
 
 ------------------------------------------------------------------------
 
-### Method `set_normalised()`
+### `PosteriorBSVARMIX$set_normalised()`
 
 Sets the private indicator `normalised` to TRUE.
 
 #### Usage
 
-    specify_posterior_bsvar_mix$set_normalised(value)
+    PosteriorBSVARMIX$set_normalised(value)
 
 #### Arguments
 
@@ -190,13 +190,13 @@ Sets the private indicator `normalised` to TRUE.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PosteriorBSVARMIX$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_posterior_bsvar_mix$clone(deep = FALSE)
+    PosteriorBSVARMIX$clone(deep = FALSE)
 
 #### Arguments
 
@@ -227,7 +227,7 @@ class(estimate)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_mix$get_posterior`
+## Method `PosteriorBSVARMIX$get_posterior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -350,7 +350,7 @@ estimate$get_posterior()
 #> 
 #>             [,1]        [,2]       [,3]       [,4]
 #> [1,]  0.94939779 -0.48071270 -0.2014118 0.42830319
-#> [2,] -0.02740435  0.41721054 -0.2687157 0.27379666
+#> [2,] -0.02740436  0.41721054 -0.2687157 0.27379666
 #> [3,] -0.01023612 -0.03265355  0.9924530 0.02089596
 #> 
 #> , , 6
@@ -4608,7 +4608,7 @@ estimate$get_posterior()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_mix$get_last_draw`
+## Method `PosteriorBSVARMIX$get_last_draw()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -4644,7 +4644,7 @@ posterior      = estimate(burn_in, 10, thin = 2)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_mix$is_normalised`
+## Method `PosteriorBSVARMIX$is_normalised()`
 ## ------------------------------------------------
 
 # upload data
@@ -4682,7 +4682,7 @@ posterior$is_normalised()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_mix$set_normalised`
+## Method `PosteriorBSVARMIX$set_normalised()`
 ## ------------------------------------------------
 
 # This is an internal function that is run while executing normalise()

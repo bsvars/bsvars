@@ -5,4 +5,4 @@ to see their documentation.
 
 - generics:
 
-  [`forecast`](https://generics.r-lib.org/reference/forecast.html)
+  [`forecast()`](https://generics.r-lib.org/reference/forecast.html)

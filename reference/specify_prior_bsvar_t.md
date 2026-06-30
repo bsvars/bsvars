@@ -5,7 +5,7 @@ with t-distributed structural shocks.
 
 ## Super class
 
-`bsvars::PriorBSVAR` -\> `PriorBSVART`
+`PriorBSVAR` -\> `PriorBSVART`
 
 ## Public fields
 
@@ -81,22 +81,22 @@ with t-distributed structural shocks.
 
 ### Public methods
 
-- [`specify_prior_bsvar_t$clone()`](#method-PriorBSVART-clone)
+- [`PriorBSVART$clone()`](#method-PriorBSVART-clone)
 
 Inherited methods
 
-- [`bsvars::PriorBSVAR$get_prior()`](https://bsvars.org/bsvars/reference/PriorBSVAR.html#method-get_prior)
-- [`bsvars::PriorBSVAR$initialize()`](https://bsvars.org/bsvars/reference/PriorBSVAR.html#method-initialize)
+- `PriorBSVAR$get_prior()`
+- `PriorBSVAR$initialize()`
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PriorBSVART$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_prior_bsvar_t$clone(deep = FALSE)
+    PriorBSVART$clone(deep = FALSE)
 
 #### Arguments
 

@@ -55,7 +55,7 @@ might not be equal to the last draw provided in element <code>posterior</code>.<
 as the starting value to be passed to the continuation of the MCMC estimation using <code><a href="estimate.html">estimate()</a></code>.</p></dd>
 
 
-<dt><code>posterior</code></dt>
+    <dt><code>posterior</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
@@ -66,65 +66,58 @@ as the starting value to be passed to the continuation of the MCMC estimation us
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PosteriorBSVARSV-new"><code>specify_posterior_bsvar_sv$new()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARSV-get_posterior"><code>specify_posterior_bsvar_sv$get_posterior()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARSV-get_last_draw"><code>specify_posterior_bsvar_sv$get_last_draw()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARSV-is_normalised"><code>specify_posterior_bsvar_sv$is_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARSV-set_normalised"><code>specify_posterior_bsvar_sv$set_normalised()</code></a></p></li>
-<li><p><a href="#method-PosteriorBSVARSV-clone"><code>specify_posterior_bsvar_sv$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-PosteriorBSVARSV-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p></p><ul><li><p><a href="#method-PosteriorBSVARSV-initialize"><code>PosteriorBSVARSV$new()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARSV-get_posterior"><code>PosteriorBSVARSV$get_posterior()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARSV-get_last_draw"><code>PosteriorBSVARSV$get_last_draw()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARSV-is_normalised"><code>PosteriorBSVARSV$is_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARSV-set_normalised"><code>PosteriorBSVARSV$set_normalised()</code></a></p></li>
+<li><p><a href="#method-PosteriorBSVARSV-clone"><code>PosteriorBSVARSV$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-PosteriorBSVARSV-initialize"></a><div class="section">
+<h3 id="posteriorbsvarsv-new-"><code>PosteriorBSVARSV$new()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-new-"></a></h3>
 <p>Create a new posterior output PosteriorBSVARSV.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/specify_posterior_bsvar_sv.html">specify_posterior_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">specification_bsvar</span>, <span class="va">posterior_bsvar</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>specification_bsvar</code></dt>
 <dd><p>an object of class BSVARSV with the last draw of the current MCMC
 run as the starting value.</p></dd>
 
-
-<dt><code>posterior_bsvar</code></dt>
+      <dt><code>posterior_bsvar</code></dt>
 <dd><p>a list containing Bayesian estimation output.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A posterior output PosteriorBSVARSV.</p>
 </div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARSV-get_posterior"></a><div class="section">
-<h3 id="method-get-posterior-">Method <code>get_posterior()</code><a class="anchor" aria-label="anchor" href="#method-get-posterior-"></a></h3>
-<p>Returns a list containing Bayesian estimation.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_sv</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
+<p></p><hr><a id="method-PosteriorBSVARSV-get_posterior"></a><div class="section">
+<h3 id="posteriorbsvarsv-get-posterior-"><code>PosteriorBSVARSV$get_posterior()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-get-posterior-"></a></h3>
+<p>Returns a list containing Bayesian estimation.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="va">specification</span>  <span class="op">=</span> <span class="va"><a href="../reference/specify_bsvar_sv.html">specify_bsvar_sv</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">estimate</span>       <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">5</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">estimate</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">estimate</span><span class="op">$</span><span class="fu">get_posterior</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARSV-get_last_draw"></a><div class="section">
-<h3 id="method-get-last-draw-">Method <code>get_last_draw()</code><a class="anchor" aria-label="anchor" href="#method-get-last-draw-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARSV-get_last_draw"></a><div class="section">
+<h3 id="posteriorbsvarsv-get-last-draw-"><code>PosteriorBSVARSV$get_last_draw()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-get-last-draw-"></a></h3>
 <p>Returns an object of class BSVARSV with the last draw of the current MCMC run as
 the starting value to be passed to the continuation of the MCMC estimation using <code><a href="estimate.html">estimate()</a></code>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_sv</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">get_last_draw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
 <span></span>
@@ -136,19 +129,17 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span><span class="va">burn_in</span>        <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">specification</span>, <span class="fl">5</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># estimate the model</span></span>
-<span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">5</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span>      <span class="op">=</span> <span class="fu"><a href="../reference/estimate.html">estimate</a></span><span class="op">(</span><span class="va">burn_in</span>, <span class="fl">5</span>, thin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARSV-is_normalised"></a><div class="section">
-<h3 id="method-is-normalised-">Method <code>is_normalised()</code><a class="anchor" aria-label="anchor" href="#method-is-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARSV-is_normalised"></a><div class="section">
+<h3 id="posteriorbsvarsv-is-normalised-"><code>PosteriorBSVARSV$is_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-is-normalised-"></a></h3>
 <p>Returns <code>TRUE</code> if the posterior has been normalised using <code><a href="normalise.html">normalise()</a></code> and <code>FALSE</code> otherwise.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_sv</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># upload data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span>
@@ -169,27 +160,24 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span><span class="va">posterior</span>     <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARSV-set_normalised"></a><div class="section">
-<h3 id="method-set-normalised-">Method <code>set_normalised()</code><a class="anchor" aria-label="anchor" href="#method-set-normalised-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARSV-set_normalised"></a><div class="section">
+<h3 id="posteriorbsvarsv-set-normalised-"><code>PosteriorBSVARSV$set_normalised()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-set-normalised-"></a></h3>
 <p>Sets the private indicator <code>normalised</code> to TRUE.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_sv</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">set_normalised</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>value</code></dt>
 <dd><p>(optional) a logical value to be passed to indicator <code>normalised</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="co"># This is an internal function that is run while executing normalise()</span></span>
 <span><span class="co"># Observe its working by analysing the workflow:</span></span>
@@ -213,19 +201,17 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span><span class="va">posterior</span>     <span class="op">=</span> <span class="fu"><a href="../reference/normalise.html">normalise</a></span><span class="op">(</span><span class="va">posterior</span>, <span class="va">B_hat</span><span class="op">)</span>                <span class="co"># draws in posterior are normalised</span></span>
 <span></span>
 <span><span class="co"># check normalisation status afterwards</span></span>
-<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span>
-<span></span></code></pre></div><p></p></div>
+<span><span class="va">posterior</span><span class="op">$</span><span class="fu">is_normalised</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-PosteriorBSVARSV-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p></p><hr><a id="method-PosteriorBSVARSV-clone"></a><div class="section">
+<h3 id="posteriorbsvarsv-clone-"><code>PosteriorBSVARSV$clone()</code><a class="anchor" aria-label="anchor" href="#posteriorbsvarsv-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">specify_posterior_bsvar_sv</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PosteriorBSVARSV</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -235,6 +221,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 </div>
 
 </div>
+
 
     </div>
 
@@ -261,7 +248,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_sv$get_posterior`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARSV$get_posterior()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -349,8 +336,8 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]          [,2]       [,3]         [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.19034758 -0.5801275945 -0.1772260 -0.071276750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.38624199 -0.0067995203 -0.3931712 -0.398793560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.19034758 -0.5801275945 -0.1772260 -0.071276751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.38624199 -0.0067995203 -0.3931712 -0.398793561</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.01607288 -0.0006564911  1.0172580 -0.009288524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -947,7 +934,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,175]     [,176]        [,177]      [,178]     [,179]     [,180]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.7584924 -2.3143282 -1.0563226056 -0.02934862 -0.4672465  1.0779083</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.2525021  0.2359636 -0.5369456405 -1.43345846 -0.2613545 -1.8349543</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  2.7060213  1.2847273  0.0004062721  0.42608506 -0.2541864 -0.5332853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  2.7060213  1.2847273  0.0004062722  0.42608506 -0.2541864 -0.5332853</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,181]    [,182]      [,183]     [,184]    [,185]     [,186]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.363562274 1.0333212  0.77885711 -0.1606482 0.6270100 -0.4521069</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.004150447 0.4868325  1.06778286  1.2504202 1.2402010  0.9911588</span>
@@ -967,7 +954,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,206]     [,207]      [,208]     [,209]     [,210]    [,211]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.008744075  0.4450218 -1.48133090 -1.8442174 -0.1273926 1.3347131</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.107295261  1.3081001 -0.01946441 -0.8018761 -0.6652097 0.4590549</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 1.397144020 -0.5257322 -1.10195550 -1.0065021 -0.1201085 1.1497139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 1.397144018 -0.5257322 -1.10195550 -1.0065021 -0.1201085 1.1497139</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,212]    [,213]     [,214]     [,215]     [,216]     [,217]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.5390522 0.4189879  0.8041420  0.8368381  0.3544076 -0.9095668</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  1.2962257 1.0541176  0.8207554  0.9078800  0.7347857  0.5910773</span>
@@ -1019,7 +1006,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,287]       [,288]    [,289]    [,290]     [,291]     [,292]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.9776930 -0.424195088 0.7798505 2.8433770  1.0226392 0.14085602</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.8801163  0.813914277 1.5004455 0.2012707  1.1536930 0.09006529</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.9288410  0.009163925 3.1354396 2.4260243 -0.8103793 0.34582390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.9288410  0.009163924 3.1354396 2.4260243 -0.8103793 0.34582390</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,293]    [,294]     [,295]     [,296]     [,297]     [,298]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.4914127  1.662960 -0.1409060 -1.4375152 -0.8026619 -0.4649995</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.4168475  0.790580  0.1095455  0.5105168  1.6481806 -0.5621801</span>
@@ -1158,7 +1145,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,178]     [,179]     [,180]      [,181]       [,182]    [,183]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.3503770  1.4819569 -0.2457072 1.125350540  0.752910113 0.3918478</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.4688599 -0.6356094  1.7028126 1.095220029  2.756774505 1.9577729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0267941  2.1604981 -1.4245563 0.001385731 -0.008139296 1.0612084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0267941  2.1604981 -1.4245563 0.001385732 -0.008139296 1.0612084</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         [,184]     [,185]     [,186]      [,187]     [,188]      [,189]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.357979  1.1527725  0.8691809 -0.11945972  0.5521707 2.409798921</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  1.055506 -0.4553788 -0.6970231 -0.21756336 -1.5726239 0.002758594</span>
@@ -1398,10 +1385,10 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1.0429490  1.0582378 0.9194267 -0.1030038 -1.3076454 0.2552872</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  1.5978530 -0.3272703 1.8428161 -0.5275659 -0.5115801 0.7970212</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.9452949 -0.2064603 0.5292687 -0.7202202  1.8707986 0.6303144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,228]     [,229]    [,230]     [,231]       [,232]     [,233]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.46485997 -0.1959056 -1.648343 -0.8952598  1.467114617  1.1027392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.03820357  0.6342192 -0.515149 -0.1116923 -0.135643719 -0.6362018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.72030613  0.9114770 -1.013878 -0.4972291 -0.000567446 -1.0341109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,228]     [,229]    [,230]     [,231]        [,232]     [,233]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.46485997 -0.1959056 -1.648343 -0.8952598  1.4671146167  1.1027392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.03820357  0.6342192 -0.515149 -0.1116923 -0.1356437194 -0.6362018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.72030613  0.9114770 -1.013878 -0.4972291 -0.0005674459 -1.0341109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,234]      [,235]     [,236]     [,237]      [,238]     [,239]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.0827908  0.94247170 -1.1068304  0.5350637 -1.24331255 -0.9992462</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.0889290 -0.02309651 -1.4869725  1.4016010 -0.08277187 -0.3218849</span>
@@ -3642,7 +3629,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_sv$get_last_draw`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARSV$get_last_draw()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">us_fiscal_lsuw</span><span class="op">)</span></span></span>
@@ -3680,7 +3667,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_sv$is_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARSV$is_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># upload data</span></span></span>
@@ -3719,7 +3706,7 @@ the starting value to be passed to the continuation of the MCMC estimation using
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `specify_posterior_bsvar_sv$set_normalised`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `PosteriorBSVARSV$set_normalised()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This is an internal function that is run while executing normalise()</span></span></span>

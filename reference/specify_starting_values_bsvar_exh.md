@@ -5,7 +5,7 @@ model with exogenous regime change Heteroskedasticity.
 
 ## Super class
 
-`bsvars::StartingValuesBSVAR` -\> `StartingValuesBSVAREXH`
+`StartingValuesBSVAR` -\> `StartingValuesBSVAREXH`
 
 ## Public fields
 
@@ -46,31 +46,23 @@ model with exogenous regime change Heteroskedasticity.
 
 ### Public methods
 
-- [`specify_starting_values_bsvar_exh$new()`](#method-StartingValuesBSVAREXH-new)
+- [`StartingValuesBSVAREXH$new()`](#method-StartingValuesBSVAREXH-initialize)
 
-- [`specify_starting_values_bsvar_exh$get_starting_values()`](#method-StartingValuesBSVAREXH-get_starting_values)
+- [`StartingValuesBSVAREXH$get_starting_values()`](#method-StartingValuesBSVAREXH-get_starting_values)
 
-- [`specify_starting_values_bsvar_exh$set_starting_values()`](#method-StartingValuesBSVAREXH-set_starting_values)
+- [`StartingValuesBSVAREXH$set_starting_values()`](#method-StartingValuesBSVAREXH-set_starting_values)
 
-- [`specify_starting_values_bsvar_exh$clone()`](#method-StartingValuesBSVAREXH-clone)
+- [`StartingValuesBSVAREXH$clone()`](#method-StartingValuesBSVAREXH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `StartingValuesBSVAREXH$new()`
 
 Create new starting values StartingValuesBSVAREXH.
 
 #### Usage
 
-    specify_starting_values_bsvar_exh$new(
-      A,
-      B,
-      N,
-      p,
-      T,
-      d = 0,
-      variance_regimes = rep(1, T)
-    )
+    StartingValuesBSVAREXH$new(A, B, N, p, T, d = 0, variance_regimes = rep(1, T))
 
 #### Arguments
 
@@ -114,14 +106,14 @@ Starting values StartingValuesBSVAREXH.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `StartingValuesBSVAREXH$get_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVAR-MS as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_exh$get_starting_values()
+    StartingValuesBSVAREXH$get_starting_values()
 
 #### Examples
 
@@ -133,14 +125,14 @@ Returns the elements of the starting values StartingValuesBSVAR-MS as a
 
 ------------------------------------------------------------------------
 
-### Method `set_starting_values()`
+### `StartingValuesBSVAREXH$set_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVAREXH as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar_exh$set_starting_values(last_draw)
+    StartingValuesBSVAREXH$set_starting_values(last_draw)
 
 #### Arguments
 
@@ -169,13 +161,13 @@ the MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `StartingValuesBSVAREXH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_starting_values_bsvar_exh$clone(deep = FALSE)
+    StartingValuesBSVAREXH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -193,7 +185,7 @@ sv = specify_starting_values_bsvar_exh$new(A = A, B = B, N = 3, p = 1, T = 100)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_exh$get_starting_values`
+## Method `StartingValuesBSVAREXH$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -293,7 +285,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_exh$set_starting_values`
+## Method `StartingValuesBSVAREXH$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system

@@ -32,23 +32,23 @@ homoskedastic bsvar model.
 
 ### Public methods
 
-- [`specify_starting_values_bsvar$new()`](#method-StartingValuesBSVAR-new)
+- [`StartingValuesBSVAR$new()`](#method-StartingValuesBSVAR-initialize)
 
-- [`specify_starting_values_bsvar$get_starting_values()`](#method-StartingValuesBSVAR-get_starting_values)
+- [`StartingValuesBSVAR$get_starting_values()`](#method-StartingValuesBSVAR-get_starting_values)
 
-- [`specify_starting_values_bsvar$set_starting_values()`](#method-StartingValuesBSVAR-set_starting_values)
+- [`StartingValuesBSVAR$set_starting_values()`](#method-StartingValuesBSVAR-set_starting_values)
 
-- [`specify_starting_values_bsvar$clone()`](#method-StartingValuesBSVAR-clone)
+- [`StartingValuesBSVAR$clone()`](#method-StartingValuesBSVAR-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `StartingValuesBSVAR$new()`
 
 Create new starting values StartingValuesBSVAR.
 
 #### Usage
 
-    specify_starting_values_bsvar$new(A, B, N, T, p, d = 0)
+    StartingValuesBSVAR$new(A, B, N, T, p, d = 0)
 
 #### Arguments
 
@@ -93,14 +93,14 @@ Starting values StartingValuesBSVAR.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `StartingValuesBSVAR$get_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVAR as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar$get_starting_values()
+    StartingValuesBSVAR$get_starting_values()
 
 #### Examples
 
@@ -112,14 +112,14 @@ Returns the elements of the starting values StartingValuesBSVAR as a
 
 ------------------------------------------------------------------------
 
-### Method `set_starting_values()`
+### `StartingValuesBSVAR$set_starting_values()`
 
 Returns the elements of the starting values StartingValuesBSVAR as a
 `list`.
 
 #### Usage
 
-    specify_starting_values_bsvar$set_starting_values(last_draw)
+    StartingValuesBSVAR$set_starting_values(last_draw)
 
 #### Arguments
 
@@ -150,13 +150,13 @@ the MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `StartingValuesBSVAR$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_starting_values_bsvar$clone(deep = FALSE)
+    StartingValuesBSVAR$clone(deep = FALSE)
 
 #### Arguments
 
@@ -174,7 +174,7 @@ sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$new`
+## Method `StartingValuesBSVAR$new()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
@@ -184,7 +184,7 @@ sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$get_starting_values`
+## Method `StartingValuesBSVAR$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -266,7 +266,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$set_starting_values`
+## Method `StartingValuesBSVAR$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system

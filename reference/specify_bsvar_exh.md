@@ -40,30 +40,30 @@ with exogenous heteroskedastic regime change.
 
 ### Public methods
 
-- [`specify_bsvar_exh$new()`](#method-BSVAREXH-new)
+- [`BSVAREXH$new()`](#method-BSVAREXH-initialize)
 
-- [`specify_bsvar_exh$get_normal()`](#method-BSVAREXH-get_normal)
+- [`BSVAREXH$get_normal()`](#method-BSVAREXH-get_normal)
 
-- [`specify_bsvar_exh$get_data_matrices()`](#method-BSVAREXH-get_data_matrices)
+- [`BSVAREXH$get_data_matrices()`](#method-BSVAREXH-get_data_matrices)
 
-- [`specify_bsvar_exh$get_identification()`](#method-BSVAREXH-get_identification)
+- [`BSVAREXH$get_identification()`](#method-BSVAREXH-get_identification)
 
-- [`specify_bsvar_exh$get_prior()`](#method-BSVAREXH-get_prior)
+- [`BSVAREXH$get_prior()`](#method-BSVAREXH-get_prior)
 
-- [`specify_bsvar_exh$get_starting_values()`](#method-BSVAREXH-get_starting_values)
+- [`BSVAREXH$get_starting_values()`](#method-BSVAREXH-get_starting_values)
 
-- [`specify_bsvar_exh$clone()`](#method-BSVAREXH-clone)
+- [`BSVAREXH$clone()`](#method-BSVAREXH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `BSVAREXH$new()`
 
 Create a new specification of the BSVAR model with Markov Switching
 Heteroskedasticity, BSVAREXH.
 
 #### Usage
 
-    specify_bsvar_exh$new(
+    BSVAREXH$new(
       data,
       p = 1L,
       B,
@@ -124,14 +124,14 @@ heteroskedastic regime change, BSVAREXH.
 
 ------------------------------------------------------------------------
 
-### Method `get_normal()`
+### `BSVAREXH$get_normal()`
 
 Returns the logical value of whether the conditional shock distribution
 is normal.
 
 #### Usage
 
-    specify_bsvar_exh$get_normal()
+    BSVAREXH$get_normal()
 
 #### Examples
 
@@ -140,13 +140,13 @@ is normal.
 
 ------------------------------------------------------------------------
 
-### Method `get_data_matrices()`
+### `BSVAREXH$get_data_matrices()`
 
 Returns the data matrices as the DataMatricesBSVAR object.
 
 #### Usage
 
-    specify_bsvar_exh$get_data_matrices()
+    BSVAREXH$get_data_matrices()
 
 #### Examples
 
@@ -155,13 +155,13 @@ Returns the data matrices as the DataMatricesBSVAR object.
 
 ------------------------------------------------------------------------
 
-### Method `get_identification()`
+### `BSVAREXH$get_identification()`
 
 Returns the identifying restrictions as the IdentificationBSVARs object.
 
 #### Usage
 
-    specify_bsvar_exh$get_identification()
+    BSVAREXH$get_identification()
 
 #### Examples
 
@@ -170,13 +170,13 @@ Returns the identifying restrictions as the IdentificationBSVARs object.
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `BSVAREXH$get_prior()`
 
 Returns the prior specification as the PriorBSVAREXH object.
 
 #### Usage
 
-    specify_bsvar_exh$get_prior()
+    BSVAREXH$get_prior()
 
 #### Examples
 
@@ -185,13 +185,13 @@ Returns the prior specification as the PriorBSVAREXH object.
 
 ------------------------------------------------------------------------
 
-### Method `get_starting_values()`
+### `BSVAREXH$get_starting_values()`
 
 Returns the starting values as the StartingValuesBSVAREXH object.
 
 #### Usage
 
-    specify_bsvar_exh$get_starting_values()
+    BSVAREXH$get_starting_values()
 
 #### Examples
 
@@ -200,13 +200,13 @@ Returns the starting values as the StartingValuesBSVAREXH object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `BSVAREXH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_bsvar_exh$clone(deep = FALSE)
+    BSVAREXH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -222,7 +222,7 @@ spec = specify_bsvar_exh$new(us_fiscal_lsuw)
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_exh$get_normal`
+## Method `BSVAREXH$get_normal()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -232,7 +232,7 @@ spec$get_normal()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_exh$get_data_matrices`
+## Method `BSVAREXH$get_data_matrices()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -248,7 +248,7 @@ spec$get_data_matrices()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_exh$get_identification`
+## Method `BSVAREXH$get_identification()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -265,7 +265,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_exh$get_prior`
+## Method `BSVAREXH$get_prior()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -294,7 +294,7 @@ spec$get_prior()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_exh$get_starting_values`
+## Method `BSVAREXH$get_starting_values()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_exh$new(us_fiscal_lsuw)

@@ -5,7 +5,7 @@ model with Stochastic Volatility heteroskedasticity.
 
 ## Super class
 
-`bsvars::PriorBSVAR` -\> `PriorBSVARSV`
+`PriorBSVAR` -\> `PriorBSVARSV`
 
 ## Public fields
 
@@ -91,21 +91,21 @@ model with Stochastic Volatility heteroskedasticity.
 
 ### Public methods
 
-- [`specify_prior_bsvar_sv$new()`](#method-PriorBSVARSV-new)
+- [`PriorBSVARSV$new()`](#method-PriorBSVARSV-initialize)
 
-- [`specify_prior_bsvar_sv$get_prior()`](#method-PriorBSVARSV-get_prior)
+- [`PriorBSVARSV$get_prior()`](#method-PriorBSVARSV-get_prior)
 
-- [`specify_prior_bsvar_sv$clone()`](#method-PriorBSVARSV-clone)
+- [`PriorBSVARSV$clone()`](#method-PriorBSVARSV-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PriorBSVARSV$new()`
 
 Create a new prior specification PriorBSVARSV.
 
 #### Usage
 
-    specify_prior_bsvar_sv$new(N, p, d = 0, stationary = rep(FALSE, N))
+    PriorBSVARSV$new(N, p, d = 0, stationary = rep(FALSE, N))
 
 #### Arguments
 
@@ -133,14 +133,14 @@ A new prior specification PriorBSVARSV.
 
 ------------------------------------------------------------------------
 
-### Method `get_prior()`
+### `PriorBSVARSV$get_prior()`
 
 Returns the elements of the prior specification PriorBSVARSV as a
 `list`.
 
 #### Usage
 
-    specify_prior_bsvar_sv$get_prior()
+    PriorBSVARSV$get_prior()
 
 #### Examples
 
@@ -150,13 +150,13 @@ Returns the elements of the prior specification PriorBSVARSV as a
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PriorBSVARSV$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_prior_bsvar_sv$clone(deep = FALSE)
+    PriorBSVARSV$clone(deep = FALSE)
 
 #### Arguments
 
@@ -176,7 +176,7 @@ prior$A                                          # show autoregressive prior mea
 
 
 ## ------------------------------------------------
-## Method `specify_prior_bsvar_sv$get_prior`
+## Method `PriorBSVARSV$get_prior()`
 ## ------------------------------------------------
 
 # a prior for 3-variable example with four lags

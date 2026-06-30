@@ -28,27 +28,27 @@ be equal to the last draw provided in element `posterior`.
 
 ### Public methods
 
-- [`specify_posterior_bsvar_exh$new()`](#method-PosteriorBSVAREXH-new)
+- [`PosteriorBSVAREXH$new()`](#method-PosteriorBSVAREXH-initialize)
 
-- [`specify_posterior_bsvar_exh$get_posterior()`](#method-PosteriorBSVAREXH-get_posterior)
+- [`PosteriorBSVAREXH$get_posterior()`](#method-PosteriorBSVAREXH-get_posterior)
 
-- [`specify_posterior_bsvar_exh$get_last_draw()`](#method-PosteriorBSVAREXH-get_last_draw)
+- [`PosteriorBSVAREXH$get_last_draw()`](#method-PosteriorBSVAREXH-get_last_draw)
 
-- [`specify_posterior_bsvar_exh$is_normalised()`](#method-PosteriorBSVAREXH-is_normalised)
+- [`PosteriorBSVAREXH$is_normalised()`](#method-PosteriorBSVAREXH-is_normalised)
 
-- [`specify_posterior_bsvar_exh$set_normalised()`](#method-PosteriorBSVAREXH-set_normalised)
+- [`PosteriorBSVAREXH$set_normalised()`](#method-PosteriorBSVAREXH-set_normalised)
 
-- [`specify_posterior_bsvar_exh$clone()`](#method-PosteriorBSVAREXH-clone)
+- [`PosteriorBSVAREXH$clone()`](#method-PosteriorBSVAREXH-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PosteriorBSVAREXH$new()`
 
 Create a new posterior output PosteriorBSVAREXH
 
 #### Usage
 
-    specify_posterior_bsvar_exh$new(specification_bsvar, posterior_bsvar)
+    PosteriorBSVAREXH$new(specification_bsvar, posterior_bsvar)
 
 #### Arguments
 
@@ -67,13 +67,13 @@ A posterior output PosteriorBSVAREXH
 
 ------------------------------------------------------------------------
 
-### Method `get_posterior()`
+### `PosteriorBSVAREXH$get_posterior()`
 
 Returns a list containing Bayesian estimation output.
 
 #### Usage
 
-    specify_posterior_bsvar_exh$get_posterior()
+    PosteriorBSVAREXH$get_posterior()
 
 #### Examples
 
@@ -83,7 +83,7 @@ Returns a list containing Bayesian estimation output.
 
 ------------------------------------------------------------------------
 
-### Method `get_last_draw()`
+### `PosteriorBSVAREXH$get_last_draw()`
 
 Returns an object of class BSVAREXH with the last draw of the current
 MCMC run as the starting value to be passed to the continuation of the
@@ -92,7 +92,7 @@ MCMC estimation using
 
 #### Usage
 
-    specify_posterior_bsvar_exh$get_last_draw()
+    PosteriorBSVAREXH$get_last_draw()
 
 #### Examples
 
@@ -107,7 +107,7 @@ MCMC estimation using
 
 ------------------------------------------------------------------------
 
-### Method `is_normalised()`
+### `PosteriorBSVAREXH$is_normalised()`
 
 Returns `TRUE` if the posterior has been normalised using
 [`normalise()`](https://bsvars.org/bsvars/reference/normalise.md) and
@@ -115,7 +115,7 @@ Returns `TRUE` if the posterior has been normalised using
 
 #### Usage
 
-    specify_posterior_bsvar_exh$is_normalised()
+    PosteriorBSVAREXH$is_normalised()
 
 #### Examples
 
@@ -138,13 +138,13 @@ Returns `TRUE` if the posterior has been normalised using
 
 ------------------------------------------------------------------------
 
-### Method `set_normalised()`
+### `PosteriorBSVAREXH$set_normalised()`
 
 Sets the private indicator `normalised` to TRUE.
 
 #### Usage
 
-    specify_posterior_bsvar_exh$set_normalised(value)
+    PosteriorBSVAREXH$set_normalised(value)
 
 #### Arguments
 
@@ -173,13 +173,13 @@ Sets the private indicator `normalised` to TRUE.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PosteriorBSVAREXH$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_posterior_bsvar_exh$clone(deep = FALSE)
+    PosteriorBSVAREXH$clone(deep = FALSE)
 
 #### Arguments
 
@@ -208,7 +208,7 @@ class(post)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$get_posterior`
+## Method `PosteriorBSVAREXH$get_posterior()`
 ## ------------------------------------------------
 
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -3657,7 +3657,7 @@ post$get_posterior()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$get_last_draw`
+## Method `PosteriorBSVAREXH$get_last_draw()`
 ## ------------------------------------------------
 
 # specify the model
@@ -3690,7 +3690,7 @@ post   = estimate(burn, 10, thin = 2)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$is_normalised`
+## Method `PosteriorBSVAREXH$is_normalised()`
 ## ------------------------------------------------
 
 # specify the model
@@ -3724,7 +3724,7 @@ post$is_normalised()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$set_normalised`
+## Method `PosteriorBSVAREXH$set_normalised()`
 ## ------------------------------------------------
 
 # This is an internal function that is run while executing normalise()

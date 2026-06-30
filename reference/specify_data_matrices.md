@@ -18,21 +18,21 @@ model.
 
 ### Public methods
 
-- [`specify_data_matrices$new()`](#method-DataMatricesBSVAR-new)
+- [`DataMatricesBSVAR$new()`](#method-DataMatricesBSVAR-initialize)
 
-- [`specify_data_matrices$get_data_matrices()`](#method-DataMatricesBSVAR-get_data_matrices)
+- [`DataMatricesBSVAR$get_data_matrices()`](#method-DataMatricesBSVAR-get_data_matrices)
 
-- [`specify_data_matrices$clone()`](#method-DataMatricesBSVAR-clone)
+- [`DataMatricesBSVAR$clone()`](#method-DataMatricesBSVAR-clone)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `DataMatricesBSVAR$new()`
 
 Create new data matrices DataMatricesBSVAR.
 
 #### Usage
 
-    specify_data_matrices$new(data, p = 1L, exogenous = NULL)
+    DataMatricesBSVAR$new(data, p = 1L, exogenous = NULL)
 
 #### Arguments
 
@@ -55,13 +55,13 @@ New data matrices DataMatricesBSVAR.
 
 ------------------------------------------------------------------------
 
-### Method `get_data_matrices()`
+### `DataMatricesBSVAR$get_data_matrices()`
 
 Returns the data matrices DataMatricesBSVAR as a `list`.
 
 #### Usage
 
-    specify_data_matrices$get_data_matrices()
+    DataMatricesBSVAR$get_data_matrices()
 
 #### Examples
 
@@ -71,13 +71,13 @@ Returns the data matrices DataMatricesBSVAR as a `list`.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `DataMatricesBSVAR$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    specify_data_matrices$clone(deep = FALSE)
+    DataMatricesBSVAR$clone(deep = FALSE)
 
 #### Arguments
 
@@ -96,7 +96,7 @@ dim(YX$Y); dim(YX$X)
 
 
 ## ------------------------------------------------
-## Method `specify_data_matrices$get_data_matrices`
+## Method `DataMatricesBSVAR$get_data_matrices()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
