@@ -14,7 +14,7 @@ sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$new`
+## Method `StartingValuesBSVAR$new()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
@@ -24,7 +24,7 @@ sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$get_starting_values`
+## Method `StartingValuesBSVAR$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -35,7 +35,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar$set_starting_values`
+## Method `StartingValuesBSVAR$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -50,125 +50,119 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
 
-\item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
+    \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
+    \item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
 
-\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+    \item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
 
-\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+    \item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
 for the equation-specific degrees of freedom parameters of the Student-t 
 conditional distribution of structural shocks.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-StartingValuesBSVAR-new}{\code{specify_starting_values_bsvar$new()}}
-\item \href{#method-StartingValuesBSVAR-get_starting_values}{\code{specify_starting_values_bsvar$get_starting_values()}}
-\item \href{#method-StartingValuesBSVAR-set_starting_values}{\code{specify_starting_values_bsvar$set_starting_values()}}
-\item \href{#method-StartingValuesBSVAR-clone}{\code{specify_starting_values_bsvar$clone()}}
-}
+  \itemize{
+    \item \href{#method-StartingValuesBSVAR-initialize}{\code{StartingValuesBSVAR$new()}}
+    \item \href{#method-StartingValuesBSVAR-get_starting_values}{\code{StartingValuesBSVAR$get_starting_values()}}
+    \item \href{#method-StartingValuesBSVAR-set_starting_values}{\code{StartingValuesBSVAR$set_starting_values()}}
+    \item \href{#method-StartingValuesBSVAR-clone}{\code{StartingValuesBSVAR$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVAR-new"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-new}{}}}
-\subsection{Method \code{new()}}{
-Create new starting values StartingValuesBSVAR.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$new(A, B, N, T, p, d = 0)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+\if{html}{\out{<a id="method-StartingValuesBSVAR-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-initialize}{}}}
+\subsection{\code{StartingValuesBSVAR$new()}}{
+  Create new starting values StartingValuesBSVAR.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVAR$new(A, B, N, T, p, d = 0)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{T}}{a positive integer - the number of time periods in the data.}
-
-\item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
-
-\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Starting values StartingValuesBSVAR.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{T}}{a positive integer - the number of time periods in the data.}
+      \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+      \item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Starting values StartingValuesBSVAR.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# starting values for a homoskedastic bsvar with 4 lags for a 3-variable system
 A = matrix(TRUE, 3, 13)
 B = matrix(TRUE, 3, 3)
 sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 4)
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-get_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-get_starting_values}{}}}
-\subsection{Method \code{get_starting_values()}}{
-Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$get_starting_values()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+\subsection{\code{StartingValuesBSVAR$get_starting_values()}}{
+  Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVAR$get_starting_values()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
 B = matrix(TRUE, 3, 3)
 sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 sv$get_starting_values()   # show starting values as list
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-set_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-set_starting_values}{}}}
-\subsection{Method \code{set_starting_values()}}{
-Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$set_starting_values(last_draw)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
+\subsection{\code{StartingValuesBSVAR$set_starting_values()}}{
+  Returns the elements of the starting values StartingValuesBSVAR as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVAR$set_starting_values(last_draw)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{last_draw}}{a list containing the last draw of elements \code{B} - an \code{NxN} matrix, 
 \code{A} - an \code{NxK} matrix, and \code{hyper} - a vector of 5 positive real numbers.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class StartingValuesBSVAR including the last draw of the current MCMC 
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class StartingValuesBSVAR including the last draw of the current MCMC 
 as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
 B = matrix(TRUE, 3, 3)
 sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
@@ -177,28 +171,28 @@ sv = specify_starting_values_bsvar$new(A = A, B = B, N = 3, T = 120, p = 1)
 sv_list = sv$get_starting_values()   # getting them as list
 sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
 sv$set_starting_values(sv_list)      # providing to the class object
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVAR-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVAR-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{StartingValuesBSVAR$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVAR$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

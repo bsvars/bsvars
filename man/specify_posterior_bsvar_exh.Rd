@@ -17,7 +17,7 @@ class(post)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$get_posterior`
+## Method `PosteriorBSVAREXH$get_posterior()`
 ## ------------------------------------------------
 
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -26,7 +26,7 @@ post$get_posterior()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$get_last_draw`
+## Method `PosteriorBSVAREXH$get_last_draw()`
 ## ------------------------------------------------
 
 # specify the model
@@ -40,7 +40,7 @@ post   = estimate(burn, 10, thin = 2)
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$is_normalised`
+## Method `PosteriorBSVAREXH$is_normalised()`
 ## ------------------------------------------------
 
 # specify the model
@@ -62,7 +62,7 @@ post$is_normalised()
 
 
 ## ------------------------------------------------
-## Method `specify_posterior_bsvar_exh$set_normalised`
+## Method `PosteriorBSVAREXH$set_normalised()`
 ## ------------------------------------------------
 
 # This is an internal function that is run while executing normalise()
@@ -87,85 +87,86 @@ post$is_normalised()
 \code{\link{estimate}}, \code{\link{specify_bsvar_exh}}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{last_draw}}{an object of class BSVAREXH with the last draw of the current 
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{last_draw}}{an object of class BSVAREXH with the last draw of the current 
 MCMC run as the starting value to be passed to the continuation of the MCMC 
 estimation using \code{estimate()}.}
 
-\item{\code{posterior}}{a list containing Bayesian estimation output.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{posterior}}{a list containing Bayesian estimation output.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-PosteriorBSVAREXH-new}{\code{specify_posterior_bsvar_exh$new()}}
-\item \href{#method-PosteriorBSVAREXH-get_posterior}{\code{specify_posterior_bsvar_exh$get_posterior()}}
-\item \href{#method-PosteriorBSVAREXH-get_last_draw}{\code{specify_posterior_bsvar_exh$get_last_draw()}}
-\item \href{#method-PosteriorBSVAREXH-is_normalised}{\code{specify_posterior_bsvar_exh$is_normalised()}}
-\item \href{#method-PosteriorBSVAREXH-set_normalised}{\code{specify_posterior_bsvar_exh$set_normalised()}}
-\item \href{#method-PosteriorBSVAREXH-clone}{\code{specify_posterior_bsvar_exh$clone()}}
-}
+  \itemize{
+    \item \href{#method-PosteriorBSVAREXH-initialize}{\code{PosteriorBSVAREXH$new()}}
+    \item \href{#method-PosteriorBSVAREXH-get_posterior}{\code{PosteriorBSVAREXH$get_posterior()}}
+    \item \href{#method-PosteriorBSVAREXH-get_last_draw}{\code{PosteriorBSVAREXH$get_last_draw()}}
+    \item \href{#method-PosteriorBSVAREXH-is_normalised}{\code{PosteriorBSVAREXH$is_normalised()}}
+    \item \href{#method-PosteriorBSVAREXH-set_normalised}{\code{PosteriorBSVAREXH$set_normalised()}}
+    \item \href{#method-PosteriorBSVAREXH-clone}{\code{PosteriorBSVAREXH$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PosteriorBSVAREXH-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new posterior output PosteriorBSVAREXH
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$new(specification_bsvar, posterior_bsvar)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{specification_bsvar}}{an object of class BSVAREXH with the last draw 
+\if{html}{\out{<a id="method-PosteriorBSVAREXH-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-initialize}{}}}
+\subsection{\code{PosteriorBSVAREXH$new()}}{
+  Create a new posterior output PosteriorBSVAREXH
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$new(specification_bsvar, posterior_bsvar)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{specification_bsvar}}{an object of class BSVAREXH with the last draw 
 of the current MCMC run as the starting value.}
+      \item{\code{posterior_bsvar}}{a list containing Bayesian estimation output.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A posterior output PosteriorBSVAREXH
+  }
+}
 
-\item{\code{posterior_bsvar}}{a list containing Bayesian estimation output.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A posterior output PosteriorBSVAREXH
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-get_posterior"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-get_posterior}{}}}
-\subsection{Method \code{get_posterior()}}{
-Returns a list containing Bayesian estimation output.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$get_posterior()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
+\subsection{\code{PosteriorBSVAREXH$get_posterior()}}{
+  Returns a list containing Bayesian estimation output.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$get_posterior()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
 post   = estimate(spec, 10, thin = 1)
 post$get_posterior()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-get_last_draw"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-get_last_draw}{}}}
-\subsection{Method \code{get_last_draw()}}{
-Returns an object of class BSVAREXH with the last draw of the current MCMC 
+\subsection{\code{PosteriorBSVAREXH$get_last_draw()}}{
+  Returns an object of class BSVAREXH with the last draw of the current MCMC 
 run as the starting value to be passed to the continuation of the MCMC 
 estimation using \code{estimate()}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$get_last_draw()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# specify the model
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$get_last_draw()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# specify the model
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
 
 # run the burn-in
@@ -173,25 +174,24 @@ burn   = estimate(spec, 10, thin = 2)
 
 # estimate the model
 post   = estimate(burn, 10, thin = 2)
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-is_normalised"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-is_normalised}{}}}
-\subsection{Method \code{is_normalised()}}{
-Returns \code{TRUE} if the posterior has been normalised using \code{normalise()} and \code{FALSE} otherwise.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$is_normalised()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# specify the model
+\subsection{\code{PosteriorBSVAREXH$is_normalised()}}{
+  Returns \code{TRUE} if the posterior has been normalised using \code{normalise()} and \code{FALSE} otherwise.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$is_normalised()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# specify the model
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
 
 # estimate the model
@@ -207,32 +207,31 @@ post          = normalise(post, B_hat)                # draws in posterior are n
 
 # check normalisation status afterwards
 post$is_normalised()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-set_normalised"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-set_normalised}{}}}
-\subsection{Method \code{set_normalised()}}{
-Sets the private indicator \code{normalised} to TRUE.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$set_normalised(value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{(optional) a logical value to be passed to indicator \code{normalised}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# This is an internal function that is run while executing normalise()
+\subsection{\code{PosteriorBSVAREXH$set_normalised()}}{
+  Sets the private indicator \code{normalised} to TRUE.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$set_normalised(value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{(optional) a logical value to be passed to indicator \code{normalised}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# This is an internal function that is run while executing normalise()
 # Observe its working by analysing the workflow:
 
 spec   = specify_bsvar_exh$new(us_fiscal_lsuw)
@@ -248,28 +247,28 @@ post          = normalise(post, B_hat)                # draws in posterior are n
 
 # check normalisation status afterwards
 post$is_normalised()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PosteriorBSVAREXH-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-PosteriorBSVAREXH-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_posterior_bsvar_exh$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{PosteriorBSVAREXH$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PosteriorBSVAREXH$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

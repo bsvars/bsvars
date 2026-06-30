@@ -15,7 +15,7 @@ spec = specify_bsvar_sv$new(
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_normal`
+## Method `BSVARSV$get_normal()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_sv$new(us_fiscal_lsuw)
@@ -23,7 +23,7 @@ spec$get_normal()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_data_matrices`
+## Method `BSVARSV$get_data_matrices()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -35,7 +35,7 @@ spec$get_data_matrices()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_identification`
+## Method `BSVARSV$get_identification()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -47,7 +47,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_prior`
+## Method `BSVARSV$get_prior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -59,7 +59,7 @@ spec$get_prior()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_sv$get_starting_values`
+## Method `BSVARSV$get_starting_values()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -74,41 +74,42 @@ spec$get_starting_values()
 \code{\link{estimate}}, \code{\link{specify_posterior_bsvar_sv}}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
 
-\item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
+    \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVARSV with the prior specification.}
+    \item{\code{prior}}{an object PriorBSVARSV with the prior specification.}
 
-\item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
+    \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVARSV with the starting values.}
+    \item{\code{starting_values}}{an object StartingValuesBSVARSV with the starting values.}
 
-\item{\code{centred_sv}}{a logical value - if true a centred parameterisation of the Stochastic Volatility process is estimated. Otherwise, its non-centred parameterisation is estimated. See Lütkepohl, Shang, Uzeda, Woźniak (2022) for more info.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{centred_sv}}{a logical value - if true a centred parameterisation of the Stochastic Volatility process is estimated. Otherwise, its non-centred parameterisation is estimated. See Lütkepohl, Shang, Uzeda, Woźniak (2022) for more info.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-BSVARSV-new}{\code{specify_bsvar_sv$new()}}
-\item \href{#method-BSVARSV-get_normal}{\code{specify_bsvar_sv$get_normal()}}
-\item \href{#method-BSVARSV-get_data_matrices}{\code{specify_bsvar_sv$get_data_matrices()}}
-\item \href{#method-BSVARSV-get_identification}{\code{specify_bsvar_sv$get_identification()}}
-\item \href{#method-BSVARSV-get_prior}{\code{specify_bsvar_sv$get_prior()}}
-\item \href{#method-BSVARSV-get_starting_values}{\code{specify_bsvar_sv$get_starting_values()}}
-\item \href{#method-BSVARSV-clone}{\code{specify_bsvar_sv$clone()}}
-}
+  \itemize{
+    \item \href{#method-BSVARSV-initialize}{\code{BSVARSV$new()}}
+    \item \href{#method-BSVARSV-get_normal}{\code{BSVARSV$get_normal()}}
+    \item \href{#method-BSVARSV-get_data_matrices}{\code{BSVARSV$get_data_matrices()}}
+    \item \href{#method-BSVARSV-get_identification}{\code{BSVARSV$get_identification()}}
+    \item \href{#method-BSVARSV-get_prior}{\code{BSVARSV$get_prior()}}
+    \item \href{#method-BSVARSV-get_starting_values}{\code{BSVARSV$get_starting_values()}}
+    \item \href{#method-BSVARSV-clone}{\code{BSVARSV$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVARSV-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVARSV-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$new(
+\if{html}{\out{<a id="method-BSVARSV-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARSV-initialize}{}}}
+\subsection{\code{BSVARSV$new()}}{
+  Create a new specification of the BSVAR model with Stochastic Volatility heteroskedasticity, BSVARSV.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$new(
   data,
   p = 1L,
   B,
@@ -117,169 +118,160 @@ Create a new specification of the BSVAR model with Stochastic Volatility heteros
   exogenous = NULL,
   centred_sv = FALSE,
   stationary = rep(FALSE, ncol(data))
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
-
-\item{\code{p}}{a positive integer providing model's autoregressive lag order.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
-
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
+      \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{distribution}}{a character string specifying the conditional distribution 
+      \item{\code{distribution}}{a character string specifying the conditional distribution 
 of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
 while value \code{"t"} sets the Student-t distribution.}
+      \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
+      \item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
+  }
+}
 
-\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
-
-\item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
-
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new complete specification for the bsvar model with Stochastic Volatility heteroskedasticity, BSVARSV.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_normal"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-get_normal}{}}}
-\subsection{Method \code{get_normal()}}{
-Returns the logical value of whether the conditional shock distribution is normal.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_normal()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{spec = specify_bsvar_sv$new(us_fiscal_lsuw)
+\subsection{\code{BSVARSV$get_normal()}}{
+  Returns the logical value of whether the conditional shock distribution is normal.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$get_normal()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{spec = specify_bsvar_sv$new(us_fiscal_lsuw)
 spec$get_normal()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_data_matrices"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-get_data_matrices}{}}}
-\subsection{Method \code{get_data_matrices()}}{
-Returns the data matrices as the DataMatricesBSVAR object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_data_matrices()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARSV$get_data_matrices()}}{
+  Returns the data matrices as the DataMatricesBSVAR object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$get_data_matrices()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_sv$new(
    data = us_fiscal_lsuw,
    p = 4
 )
 spec$get_data_matrices()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_identification"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-get_identification}{}}}
-\subsection{Method \code{get_identification()}}{
-Returns the identifying restrictions as the IdentificationBSVARs object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_identification()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARSV$get_identification()}}{
+  Returns the identifying restrictions as the IdentificationBSVARs object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$get_identification()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_sv$new(
    data = us_fiscal_lsuw,
    p = 4
 )
 spec$get_identification()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_prior"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-get_prior}{}}}
-\subsection{Method \code{get_prior()}}{
-Returns the prior specification as the PriorBSVARSV object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_prior()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARSV$get_prior()}}{
+  Returns the prior specification as the PriorBSVARSV object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$get_prior()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_sv$new(
    data = us_fiscal_lsuw,
    p = 4
 )
 spec$get_prior()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-get_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-get_starting_values}{}}}
-\subsection{Method \code{get_starting_values()}}{
-Returns the starting values as the StartingValuesBSVARSV object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$get_starting_values()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARSV$get_starting_values()}}{
+  Returns the starting values as the StartingValuesBSVARSV object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$get_starting_values()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_sv$new(
    data = us_fiscal_lsuw,
    p = 4
 )
 spec$get_starting_values()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARSV-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARSV-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_sv$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{BSVARSV$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARSV$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

@@ -19,50 +19,49 @@ spec = specify_bsvar_mix$new(
 \code{\link{estimate}}, \code{\link{specify_posterior_bsvar_mix}}
 }
 \section{Super class}{
-\code{bsvars::BSVARMSH} -> \code{BSVARMIX}
+\code{BSVARMSH} -> \code{BSVARMIX}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
 
-\item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
+    \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVARMIX with the prior specification.}
+    \item{\code{prior}}{an object PriorBSVARMIX with the prior specification.}
 
-\item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
+    \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVARMIX with the starting values.}
+    \item{\code{starting_values}}{an object StartingValuesBSVARMIX with the starting values.}
 
-\item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-BSVARMIX-new}{\code{specify_bsvar_mix$new()}}
-\item \href{#method-BSVARMIX-clone}{\code{specify_bsvar_mix$clone()}}
+  \itemize{
+    \item \href{#method-BSVARMIX-initialize}{\code{BSVARMIX$new()}}
+    \item \href{#method-BSVARMIX-clone}{\code{BSVARMIX$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_data_matrices"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_data_matrices'><code>bsvars::BSVARMSH$get_data_matrices()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_identification"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_identification'><code>bsvars::BSVARMSH$get_identification()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_normal"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_normal'><code>bsvars::BSVARMSH$get_normal()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_prior"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_prior'><code>bsvars::BSVARMSH$get_prior()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="BSVARMSH" data-id="get_starting_values"><a href='../../bsvars/html/BSVARMSH.html#method-BSVARMSH-get_starting_values'><code>bsvars::BSVARMSH$get_starting_values()</code></a></span></li>
+  <li><code>BSVARMSH$get_data_matrices()</code></li>
+  <li><code>BSVARMSH$get_identification()</code></li>
+  <li><code>BSVARMSH$get_normal()</code></li>
+  <li><code>BSVARMSH$get_prior()</code></li>
+  <li><code>BSVARMSH$get_starting_values()</code></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVARMIX-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVARMIX-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_mix$new(
+\if{html}{\out{<a id="method-BSVARMIX-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMIX-initialize}{}}}
+\subsection{\code{BSVARMIX$new()}}{
+  Create a new specification of the BSVAR model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMIX$new(
   data,
   p = 1L,
   M = 2L,
@@ -72,55 +71,50 @@ Create a new specification of the BSVAR model with a zero-mean mixture of normal
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
-
-\item{\code{p}}{a positive integer providing model's autoregressive lag order.}
-
-\item{\code{M}}{an integer greater than 1 - the number of components of the mixture of normals.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
-
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
+      \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
+      \item{\code{M}}{an integer greater than 1 - the number of components of the mixture of normals.}
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{distribution}}{a character string specifying the conditional distribution 
+      \item{\code{distribution}}{a character string specifying the conditional distribution 
 of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
 while value \code{"t"} sets the Student-t distribution.}
+      \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+      \item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new complete specification for the bsvar model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
+  }
+}
 
-\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
-
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
-
-\item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new complete specification for the bsvar model with a zero-mean mixture of normals model for structural shocks, BSVARMIX.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMIX-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMIX-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_mix$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{BSVARMIX$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMIX$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

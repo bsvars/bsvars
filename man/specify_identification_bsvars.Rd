@@ -14,7 +14,7 @@ specify_identification_bsvars$new(B = B, N = 3, K = 4) # an alternative identifi
 
 
 ## ------------------------------------------------
-## Method `specify_identification_bsvars$get_identification`
+## Method `IdentificationBSVARs$get_identification()`
 ## ------------------------------------------------
 
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
@@ -23,7 +23,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_identification_bsvars$set_identification`
+## Method `IdentificationBSVARs$set_identification()`
 ## ------------------------------------------------
 
 spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
@@ -32,127 +32,124 @@ spec$set_identification(B = B, N = 3, K = 4)  # modify an existing specification
 spec$get_identification()              # check the outcome
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{VB}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{VB}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{B}.}
 
-\item{\code{VA}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{A}.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{VA}}{a list of \code{N} matrices determining the unrestricted elements of matrix \eqn{A}.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-IdentificationBSVARs-new}{\code{specify_identification_bsvars$new()}}
-\item \href{#method-IdentificationBSVARs-get_identification}{\code{specify_identification_bsvars$get_identification()}}
-\item \href{#method-IdentificationBSVARs-set_identification}{\code{specify_identification_bsvars$set_identification()}}
-\item \href{#method-IdentificationBSVARs-clone}{\code{specify_identification_bsvars$clone()}}
-}
+  \itemize{
+    \item \href{#method-IdentificationBSVARs-initialize}{\code{IdentificationBSVARs$new()}}
+    \item \href{#method-IdentificationBSVARs-get_identification}{\code{IdentificationBSVARs$get_identification()}}
+    \item \href{#method-IdentificationBSVARs-set_identification}{\code{IdentificationBSVARs$set_identification()}}
+    \item \href{#method-IdentificationBSVARs-clone}{\code{IdentificationBSVARs$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-IdentificationBSVARs-new"></a>}}
-\if{latex}{\out{\hypertarget{method-IdentificationBSVARs-new}{}}}
-\subsection{Method \code{new()}}{
-Create new identifying restrictions IdentificationBSVARs.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$new(B, A, N, K)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+\if{html}{\out{<a id="method-IdentificationBSVARs-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentificationBSVARs-initialize}{}}}
+\subsection{\code{IdentificationBSVARs$new()}}{
+  Create new identifying restrictions IdentificationBSVARs.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{IdentificationBSVARs$new(B, A, N, K)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Identifying restrictions IdentificationBSVARs.
+  }
+}
 
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Identifying restrictions IdentificationBSVARs.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-IdentificationBSVARs-get_identification"></a>}}
 \if{latex}{\out{\hypertarget{method-IdentificationBSVARs-get_identification}{}}}
-\subsection{Method \code{get_identification()}}{
-Returns the elements of the identification pattern IdentificationBSVARs as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$get_identification()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
+\subsection{\code{IdentificationBSVARs$get_identification()}}{
+  Returns the elements of the identification pattern IdentificationBSVARs as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{IdentificationBSVARs$get_identification()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
 spec = specify_identification_bsvars$new(B = B, N = 3, K = 4)
 spec$get_identification()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-IdentificationBSVARs-set_identification"></a>}}
 \if{latex}{\out{\hypertarget{method-IdentificationBSVARs-set_identification}{}}}
-\subsection{Method \code{set_identification()}}{
-Set new starting values StartingValuesBSVAR.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$set_identification(B, A, N, K)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+\subsection{\code{IdentificationBSVARs$set_identification()}}{
+  Set new starting values StartingValuesBSVAR.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{IdentificationBSVARs$set_identification(B, A, N, K)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{K}}{a positive integer - the number of parameters in a row of autoregressive matrix.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{spec = specify_identification_bsvars$new(N = 3, K = 4) # specify a model with the default option
 B    = matrix(c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE), 3, 3); B
 spec$set_identification(B = B, N = 3, K = 4)  # modify an existing specification
 spec$get_identification()              # check the outcome
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-IdentificationBSVARs-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-IdentificationBSVARs-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_identification_bsvars$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{IdentificationBSVARs$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{IdentificationBSVARs$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

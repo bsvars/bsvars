@@ -16,7 +16,7 @@ spec = specify_bsvar_msh$new(
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_msh$get_normal`
+## Method `BSVARMSH$get_normal()`
 ## ------------------------------------------------
 
 spec = specify_bsvar_msh$new(us_fiscal_lsuw)
@@ -24,7 +24,7 @@ spec$get_normal()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_msh$get_data_matrices`
+## Method `BSVARMSH$get_data_matrices()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -37,7 +37,7 @@ spec$get_data_matrices()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_msh$get_identification`
+## Method `BSVARMSH$get_identification()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -50,7 +50,7 @@ spec$get_identification()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_msh$get_prior`
+## Method `BSVARMSH$get_prior()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -63,7 +63,7 @@ spec$get_prior()
 
 
 ## ------------------------------------------------
-## Method `specify_bsvar_msh$get_starting_values`
+## Method `BSVARMSH$get_starting_values()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -79,41 +79,42 @@ spec$get_starting_values()
 \code{\link{estimate}}, \code{\link{specify_posterior_bsvar_msh}}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{p}}{a non-negative integer specifying the autoregressive lag order of the model.}
 
-\item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
+    \item{\code{identification}}{an object IdentificationBSVARs with the identifying restrictions.}
 
-\item{\code{prior}}{an object PriorBSVARMSH with the prior specification.}
+    \item{\code{prior}}{an object PriorBSVARMSH with the prior specification.}
 
-\item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
+    \item{\code{data_matrices}}{an object DataMatricesBSVAR with the data matrices.}
 
-\item{\code{starting_values}}{an object StartingValuesBSVARMSH with the starting values.}
+    \item{\code{starting_values}}{an object StartingValuesBSVARMSH with the starting values.}
 
-\item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-BSVARMSH-new}{\code{specify_bsvar_msh$new()}}
-\item \href{#method-BSVARMSH-get_normal}{\code{specify_bsvar_msh$get_normal()}}
-\item \href{#method-BSVARMSH-get_data_matrices}{\code{specify_bsvar_msh$get_data_matrices()}}
-\item \href{#method-BSVARMSH-get_identification}{\code{specify_bsvar_msh$get_identification()}}
-\item \href{#method-BSVARMSH-get_prior}{\code{specify_bsvar_msh$get_prior()}}
-\item \href{#method-BSVARMSH-get_starting_values}{\code{specify_bsvar_msh$get_starting_values()}}
-\item \href{#method-BSVARMSH-clone}{\code{specify_bsvar_msh$clone()}}
-}
+  \itemize{
+    \item \href{#method-BSVARMSH-initialize}{\code{BSVARMSH$new()}}
+    \item \href{#method-BSVARMSH-get_normal}{\code{BSVARMSH$get_normal()}}
+    \item \href{#method-BSVARMSH-get_data_matrices}{\code{BSVARMSH$get_data_matrices()}}
+    \item \href{#method-BSVARMSH-get_identification}{\code{BSVARMSH$get_identification()}}
+    \item \href{#method-BSVARMSH-get_prior}{\code{BSVARMSH$get_prior()}}
+    \item \href{#method-BSVARMSH-get_starting_values}{\code{BSVARMSH$get_starting_values()}}
+    \item \href{#method-BSVARMSH-clone}{\code{BSVARMSH$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BSVARMSH-new"></a>}}
-\if{latex}{\out{\hypertarget{method-BSVARMSH-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVARMSH.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$new(
+\if{html}{\out{<a id="method-BSVARMSH-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-BSVARMSH-initialize}{}}}
+\subsection{\code{BSVARMSH$new()}}{
+  Create a new specification of the BSVAR model with Markov Switching Heteroskedasticity, BSVARMSH.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$new(
   data,
   p = 1L,
   M = 2L,
@@ -123,175 +124,165 @@ Create a new specification of the BSVAR model with Markov Switching Heteroskedas
   exogenous = NULL,
   stationary = rep(FALSE, ncol(data)),
   finiteM = TRUE
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
-
-\item{\code{p}}{a positive integer providing model's autoregressive lag order.}
-
-\item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
-
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
+      \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
+      \item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions to be set to zero.}
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{distribution}}{a character string specifying the conditional distribution 
+      \item{\code{distribution}}{a character string specifying the conditional distribution 
 of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
 while value \code{"t"} sets the Student-t distribution.}
+      \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+      \item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
+  }
+}
 
-\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
-
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
-
-\item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_normal"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-get_normal}{}}}
-\subsection{Method \code{get_normal()}}{
-Returns the logical value of whether the conditional shock distribution is normal.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_normal()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{spec = specify_bsvar_msh$new(us_fiscal_lsuw)
+\subsection{\code{BSVARMSH$get_normal()}}{
+  Returns the logical value of whether the conditional shock distribution is normal.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$get_normal()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{spec = specify_bsvar_msh$new(us_fiscal_lsuw)
 spec$get_normal()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_data_matrices"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-get_data_matrices}{}}}
-\subsection{Method \code{get_data_matrices()}}{
-Returns the data matrices as the DataMatricesBSVAR object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_data_matrices()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARMSH$get_data_matrices()}}{
+  Returns the data matrices as the DataMatricesBSVAR object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$get_data_matrices()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_msh$new(
    data = us_fiscal_lsuw,
    p = 4,
    M = 2
 )
 spec$get_data_matrices()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_identification"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-get_identification}{}}}
-\subsection{Method \code{get_identification()}}{
-Returns the identifying restrictions as the IdentificationBSVARs object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_identification()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARMSH$get_identification()}}{
+  Returns the identifying restrictions as the IdentificationBSVARs object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$get_identification()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_msh$new(
    data = us_fiscal_lsuw,
    p = 4,
    M = 2
 )
 spec$get_identification()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_prior"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-get_prior}{}}}
-\subsection{Method \code{get_prior()}}{
-Returns the prior specification as the PriorBSVARMSH object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_prior()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARMSH$get_prior()}}{
+  Returns the prior specification as the PriorBSVARMSH object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$get_prior()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_msh$new(
    data = us_fiscal_lsuw,
    p = 4,
    M = 2
 )
 spec$get_prior()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-get_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-get_starting_values}{}}}
-\subsection{Method \code{get_starting_values()}}{
-Returns the starting values as the StartingValuesBSVARMSH object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$get_starting_values()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{BSVARMSH$get_starting_values()}}{
+  Returns the starting values as the StartingValuesBSVARMSH object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$get_starting_values()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 spec = specify_bsvar_msh$new(
    data = us_fiscal_lsuw,
    p = 4,
    M = 2
 )
 spec$get_starting_values()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BSVARMSH-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-BSVARMSH-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_bsvar_msh$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{BSVARMSH$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BSVARMSH$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

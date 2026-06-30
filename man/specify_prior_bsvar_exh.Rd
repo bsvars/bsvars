@@ -12,7 +12,7 @@ prior$A                                        # show autoregressive prior mean
 
 
 ## ------------------------------------------------
-## Method `specify_prior_bsvar_exh$get_prior`
+## Method `PriorBSVAREXH$get_prior()`
 ## ------------------------------------------------
 
 # a prior for 3-variable example with four lags and two regimes
@@ -21,127 +21,127 @@ prior$get_prior() # show the prior as list
 
 }
 \section{Super class}{
-\code{bsvars::PriorBSVAR} -> \code{PriorBSVAREXH}
+\code{PriorBSVAR} -> \code{PriorBSVAREXH}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{A}}{an \code{NxK} matrix, the mean of the normal prior distribution 
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{A}}{an \code{NxK} matrix, the mean of the normal prior distribution 
 for the parameter matrix \eqn{A}.}
 
-\item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution 
+    \item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution 
 for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
 
-\item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior 
+    \item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior 
 distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
 
-\item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter 
+    \item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter 
 of the generalised-normal prior distribution for the structural matrix \eqn{B}.}
 
-\item{\code{hyper_nu_B}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_B}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_a_B}}{a positive scalar, the shape parameter of the gamma prior
+    \item{\code{hyper_a_B}}{a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_s_BB}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_s_BB}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_nu_BB}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_BB}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_nu_A}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+    \item{\code{hyper_nu_A}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
 for the overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_a_A}}{a positive scalar, the shape parameter of the gamma prior
+    \item{\code{hyper_a_A}}{a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_s_AA}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_s_AA}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_nu_AA}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_AA}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{sigma_nu}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for 
+    \item{\code{sigma_nu}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for 
 state-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
 
-\item{\code{sigma_s}}{a positive scalar,  the scale parameter of the inverted-gamma 2 
+    \item{\code{sigma_s}}{a positive scalar,  the scale parameter of the inverted-gamma 2 
 for state-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-PriorBSVAREXH-new}{\code{specify_prior_bsvar_exh$new()}}
-\item \href{#method-PriorBSVAREXH-get_prior}{\code{specify_prior_bsvar_exh$get_prior()}}
-\item \href{#method-PriorBSVAREXH-clone}{\code{specify_prior_bsvar_exh$clone()}}
-}
+  \itemize{
+    \item \href{#method-PriorBSVAREXH-initialize}{\code{PriorBSVAREXH$new()}}
+    \item \href{#method-PriorBSVAREXH-get_prior}{\code{PriorBSVAREXH$get_prior()}}
+    \item \href{#method-PriorBSVAREXH-clone}{\code{PriorBSVAREXH$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PriorBSVAREXH-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PriorBSVAREXH-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new prior specification PriorBSVAREXH
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_exh$new(N, p, d = 0, stationary = rep(FALSE, N))}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
-
-\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
-
-\item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} 
+\if{html}{\out{<a id="method-PriorBSVAREXH-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-PriorBSVAREXH-initialize}{}}}
+\subsection{\code{PriorBSVAREXH$new()}}{
+  Create a new prior specification PriorBSVAREXH
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PriorBSVAREXH$new(N, p, d = 0, stationary = rep(FALSE, N))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+      \item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} 
 sets the prior mean for the autoregressive parameters of the \code{N}th 
 equation to the white noise process, otherwise to random walk.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new prior specification PriorBSVAREXH
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new prior specification PriorBSVAREXH
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PriorBSVAREXH-get_prior"></a>}}
 \if{latex}{\out{\hypertarget{method-PriorBSVAREXH-get_prior}{}}}
-\subsection{Method \code{get_prior()}}{
-Returns the elements of the prior specification PriorBSVAREXH as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_exh$get_prior()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# a prior for 3-variable example with four lags and two regimes
+\subsection{\code{PriorBSVAREXH$get_prior()}}{
+  Returns the elements of the prior specification PriorBSVAREXH as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PriorBSVAREXH$get_prior()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# a prior for 3-variable example with four lags and two regimes
 prior = specify_prior_bsvar_exh$new(N = 3, p = 4)
 prior$get_prior() # show the prior as list
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PriorBSVAREXH-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-PriorBSVAREXH-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_exh$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{PriorBSVAREXH$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PriorBSVAREXH$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

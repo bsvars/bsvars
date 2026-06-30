@@ -12,80 +12,80 @@ prior$A                                        # show autoregressive prior mean
 
 }
 \section{Super classes}{
-\code{bsvars::PriorBSVAR} -> \code{bsvars::PriorBSVARMSH} -> \code{PriorBSVARMIX}
+\code{PriorBSVAR} -> \code{PriorBSVARMSH} -> \code{PriorBSVARMIX}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{A}}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{A}}{an \code{NxK} matrix, the mean of the normal prior distribution for the parameter matrix \eqn{A}.}
 
-\item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
+    \item{\code{A_V_inv}}{a \code{KxK} precision matrix of the normal prior distribution for each of the row of the parameter matrix \eqn{A}. This precision matrix is equation invariant.}
 
-\item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
+    \item{\code{B_V_inv}}{an \code{NxN} precision matrix of the generalised-normal prior distribution for the structural matrix \eqn{B}. This precision matrix is equation invariant.}
 
-\item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.}
+    \item{\code{B_nu}}{a positive integer greater of equal than \code{N}, a shape parameter of the generalised-normal prior distribution for the structural matrix \eqn{B}.}
 
-\item{\code{hyper_nu_B}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_B}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_a_B}}{a positive scalar, the shape parameter of the gamma prior
+    \item{\code{hyper_a_B}}{a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_s_BB}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_s_BB}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_nu_BB}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_BB}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{B}.}
 
-\item{\code{hyper_nu_A}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
+    \item{\code{hyper_nu_A}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior 
 for the overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_a_A}}{a positive scalar, the shape parameter of the gamma prior
+    \item{\code{hyper_a_A}}{a positive scalar, the shape parameter of the gamma prior
 for the second-level hierarchy for the overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_s_AA}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_s_AA}}{a positive scalar, the scale parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{hyper_nu_AA}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
+    \item{\code{hyper_nu_AA}}{a positive scalar, the shape parameter of the inverted-gamma 2 prior
 for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn{A}.}
 
-\item{\code{sigma_nu}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
+    \item{\code{sigma_nu}}{a positive scalar,  the shape parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
 
-\item{\code{sigma_s}}{a positive scalar,  the scale parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
+    \item{\code{sigma_s}}{a positive scalar,  the scale parameter of the inverted-gamma 2 for mixture component-dependent variances of the structural shocks, \eqn{\sigma^2_{n.s_t}}.}
 
-\item{\code{PR_TR}}{an \code{MxM} matrix, the matrix of hyper-parameters of the row-specific Dirichlet prior distribution for the state probabilities the Markov process \eqn{s_t}. Its rows must be identical.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{PR_TR}}{an \code{MxM} matrix, the matrix of hyper-parameters of the row-specific Dirichlet prior distribution for the state probabilities the Markov process \eqn{s_t}. Its rows must be identical.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-PriorBSVARMIX-clone}{\code{specify_prior_bsvar_mix$clone()}}
+  \itemize{
+    \item \href{#method-PriorBSVARMIX-clone}{\code{PriorBSVARMIX$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVARMSH" data-id="get_prior"><a href='../../bsvars/html/PriorBSVARMSH.html#method-PriorBSVARMSH-get_prior'><code>bsvars::PriorBSVARMSH$get_prior()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="PriorBSVARMSH" data-id="initialize"><a href='../../bsvars/html/PriorBSVARMSH.html#method-PriorBSVARMSH-initialize'><code>bsvars::PriorBSVARMSH$initialize()</code></a></span></li>
+  <li><code>PriorBSVARMSH$get_prior()</code></li>
+  <li><code>PriorBSVARMSH$initialize()</code></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PriorBSVARMIX-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-PriorBSVARMIX-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_prior_bsvar_mix$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{PriorBSVARMIX$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PriorBSVARMIX$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
