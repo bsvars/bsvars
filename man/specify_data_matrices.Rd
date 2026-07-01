@@ -14,7 +14,7 @@ dim(YX$Y); dim(YX$X)
 
 
 ## ------------------------------------------------
-## Method `specify_data_matrices$get_data_matrices`
+## Method `DataMatricesBSVAR$get_data_matrices()`
 ## ------------------------------------------------
 
 data(us_fiscal_lsuw)
@@ -23,83 +23,84 @@ YX$get_data_matrices()
 
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{Y}}{an \code{NxT} matrix of dependent variables, \eqn{Y}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{Y}}{an \code{NxT} matrix of dependent variables, \eqn{Y}.}
 
-\item{\code{X}}{an \code{KxT} matrix of regressors, \eqn{X}.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{X}}{an \code{KxT} matrix of regressors, \eqn{X}.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-DataMatricesBSVAR-new}{\code{specify_data_matrices$new()}}
-\item \href{#method-DataMatricesBSVAR-get_data_matrices}{\code{specify_data_matrices$get_data_matrices()}}
-\item \href{#method-DataMatricesBSVAR-clone}{\code{specify_data_matrices$clone()}}
-}
+  \itemize{
+    \item \href{#method-DataMatricesBSVAR-initialize}{\code{DataMatricesBSVAR$new()}}
+    \item \href{#method-DataMatricesBSVAR-get_data_matrices}{\code{DataMatricesBSVAR$get_data_matrices()}}
+    \item \href{#method-DataMatricesBSVAR-clone}{\code{DataMatricesBSVAR$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataMatricesBSVAR-new"></a>}}
-\if{latex}{\out{\hypertarget{method-DataMatricesBSVAR-new}{}}}
-\subsection{Method \code{new()}}{
-Create new data matrices DataMatricesBSVAR.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$new(data, p = 1L, exogenous = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
-
-\item{\code{p}}{a positive integer providing model's autoregressive lag order.}
-
-\item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables. 
+\if{html}{\out{<a id="method-DataMatricesBSVAR-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-DataMatricesBSVAR-initialize}{}}}
+\subsection{\code{DataMatricesBSVAR$new()}}{
+  Create new data matrices DataMatricesBSVAR.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DataMatricesBSVAR$new(data, p = 1L, exogenous = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{a \code{(T+p)xN} matrix with time series data.}
+      \item{\code{p}}{a positive integer providing model's autoregressive lag order.}
+      \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables. 
 This matrix should not include a constant term.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    New data matrices DataMatricesBSVAR.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-New data matrices DataMatricesBSVAR.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataMatricesBSVAR-get_data_matrices"></a>}}
 \if{latex}{\out{\hypertarget{method-DataMatricesBSVAR-get_data_matrices}{}}}
-\subsection{Method \code{get_data_matrices()}}{
-Returns the data matrices DataMatricesBSVAR as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$get_data_matrices()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{data(us_fiscal_lsuw)
+\subsection{\code{DataMatricesBSVAR$get_data_matrices()}}{
+  Returns the data matrices DataMatricesBSVAR as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DataMatricesBSVAR$get_data_matrices()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{data(us_fiscal_lsuw)
 YX = specify_data_matrices$new(data = us_fiscal_lsuw, p = 4)
 YX$get_data_matrices()
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataMatricesBSVAR-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-DataMatricesBSVAR-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_data_matrices$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{DataMatricesBSVAR$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{DataMatricesBSVAR$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

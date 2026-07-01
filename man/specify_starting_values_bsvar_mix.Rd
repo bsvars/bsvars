@@ -14,102 +14,97 @@ sv = specify_starting_values_bsvar_mix$new(A = A, B = B, N = 3, p = 1, M = 2, T 
 
 }
 \section{Super classes}{
-\code{bsvars::StartingValuesBSVAR} -> \code{bsvars::StartingValuesBSVARMSH} -> \code{StartingValuesBSVARMIX}
+\code{StartingValuesBSVAR} -> \code{StartingValuesBSVARMSH} -> \code{StartingValuesBSVARMIX}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
 
-\item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
+    \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
+    \item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
 
-\item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
+    \item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
 
-\item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the probability matrix of the Markov process. Its rows must be identical and the elements of each row sum to 1 over the rows.}
+    \item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the probability matrix of the Markov process. Its rows must be identical and the elements of each row sum to 1 over the rows.}
 
-\item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
+    \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
 
-\item{\code{pi_0}}{an \code{M}-vector of starting values for mixture components state probabilities. Its elements sum to 1.}
+    \item{\code{pi_0}}{an \code{M}-vector of starting values for mixture components state probabilities. Its elements sum to 1.}
 
-\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+    \item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
 
-\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+    \item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
 for the equation-specific degrees of freedom parameters of the Student-t 
 conditional distribution of structural shocks.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-StartingValuesBSVARMIX-new}{\code{specify_starting_values_bsvar_mix$new()}}
-\item \href{#method-StartingValuesBSVARMIX-clone}{\code{specify_starting_values_bsvar_mix$clone()}}
+  \itemize{
+    \item \href{#method-StartingValuesBSVARMIX-initialize}{\code{StartingValuesBSVARMIX$new()}}
+    \item \href{#method-StartingValuesBSVARMIX-clone}{\code{StartingValuesBSVARMIX$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="get_starting_values"><a href='../../bsvars/html/StartingValuesBSVARMSH.html#method-StartingValuesBSVARMSH-get_starting_values'><code>bsvars::StartingValuesBSVARMSH$get_starting_values()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="bsvars" data-topic="StartingValuesBSVARMSH" data-id="set_starting_values"><a href='../../bsvars/html/StartingValuesBSVARMSH.html#method-StartingValuesBSVARMSH-set_starting_values'><code>bsvars::StartingValuesBSVARMSH$set_starting_values()</code></a></span></li>
+  <li><code>StartingValuesBSVARMSH$get_starting_values()</code></li>
+  <li><code>StartingValuesBSVARMSH$set_starting_values()</code></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVARMIX-new"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMIX-new}{}}}
-\subsection{Method \code{new()}}{
-Create new starting values StartingValuesBSVARMIX.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+\if{html}{\out{<a id="method-StartingValuesBSVARMIX-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMIX-initialize}{}}}
+\subsection{\code{StartingValuesBSVARMIX$new()}}{
+  Create new starting values StartingValuesBSVARMIX.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMIX$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
-
-\item{\code{M}}{an integer greater than 1 - the number of components of the mixture of normals.}
-
-\item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
-
-\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
-
-\item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+      \item{\code{M}}{an integer greater than 1 - the number of components of the mixture of normals.}
+      \item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
+      \item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
+      \item{\code{finiteM}}{a logical value - if true a finite mixture model is estimated. Otherwise, a sparse mixture model is estimated in which \code{M=20} and the number of visited states is estimated.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Starting values StartingValuesBSVARMIX.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Starting values StartingValuesBSVARMIX.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVARMIX-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVARMIX-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_mix$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{StartingValuesBSVARMIX$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMIX$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

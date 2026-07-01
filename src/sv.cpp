@@ -244,6 +244,7 @@ Rcpp::List svar_nc1 (
   mat       V_h         = pow(omega_aux, 2) * diagmat(sigma_S_inv) + HH_rho;
   vec       h_bar       = omega_aux * diagmat(sigma_S_inv) * (U - alpha_S).t();
   rowvec    h_aux       = trans(precision_sampler_ar1( V_h.diag(), V_h(1, 0), h_bar));
+  if (h_aux.has_nan()) throw std::runtime_error("Error: h_aux contains missing observations, nan.");
   
   // ASIS
   rowvec    aux_h_tilde = omega_aux * h_aux;
@@ -346,6 +347,7 @@ Rcpp::List svar_ce1 (
   mat       V_h         = diagmat(sigma_S_inv) + (HH_rho / aux_sigma2v_n);
   vec       h_bar       = diagmat(sigma_S_inv) * (U - alpha_S).t();
   aux_h_n               = trans(precision_sampler_ar1( V_h.diag(), V_h(1, 0), h_bar));
+  if (aux_h_n.has_nan()) throw std::runtime_error("Error: h_aux contains missing observations, nan.");
   
   return List::create(
     _["aux_h_n"]              = aux_h_n,

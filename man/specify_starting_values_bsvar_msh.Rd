@@ -14,7 +14,7 @@ sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T 
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_msh$get_starting_values`
+## Method `StartingValuesBSVARMSH$get_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
@@ -25,7 +25,7 @@ sv$get_starting_values()   # show starting values as list
 
 
 ## ------------------------------------------------
-## Method `specify_starting_values_bsvar_msh$set_starting_values`
+## Method `StartingValuesBSVARMSH$set_starting_values()`
 ## ------------------------------------------------
 
 # starting values for a bsvar model with 1 lag for a 3-variable system
@@ -40,126 +40,121 @@ sv$set_starting_values(sv_list)      # providing to the class object
 
 }
 \section{Super class}{
-\code{bsvars::StartingValuesBSVAR} -> \code{StartingValuesBSVARMSH}
+\code{StartingValuesBSVAR} -> \code{StartingValuesBSVARMSH}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{A}}{an \code{NxK} matrix of starting values for the parameter \eqn{A}.}
 
-\item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
+    \item{\code{B}}{an \code{NxN} matrix of starting values for the parameter \eqn{B}.}
 
-\item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
+    \item{\code{hyper}}{a \code{(2*N+1)x2} matrix of starting values for the shrinkage hyper-parameters of the 
 hierarchical prior distribution.}
 
-\item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
+    \item{\code{sigma2}}{an \code{NxM} matrix of starting values for the MS state-specific variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
 
-\item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum to 1 over the rows.}
+    \item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum to 1 over the rows.}
 
-\item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
+    \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
 
-\item{\code{pi_0}}{an \code{M}-vector of starting values for state probability at time \code{t=0}. Its elements sum to 1.}
+    \item{\code{pi_0}}{an \code{M}-vector of starting values for state probability at time \code{t=0}. Its elements sum to 1.}
 
-\item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
+    \item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
 
-\item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
+    \item{\code{df}}{an \code{Nx1} vector of positive numbers with starting values 
 for the equation-specific degrees of freedom parameters of the Student-t 
 conditional distribution of structural shocks.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-StartingValuesBSVARMSH-new}{\code{specify_starting_values_bsvar_msh$new()}}
-\item \href{#method-StartingValuesBSVARMSH-get_starting_values}{\code{specify_starting_values_bsvar_msh$get_starting_values()}}
-\item \href{#method-StartingValuesBSVARMSH-set_starting_values}{\code{specify_starting_values_bsvar_msh$set_starting_values()}}
-\item \href{#method-StartingValuesBSVARMSH-clone}{\code{specify_starting_values_bsvar_msh$clone()}}
-}
+  \itemize{
+    \item \href{#method-StartingValuesBSVARMSH-initialize}{\code{StartingValuesBSVARMSH$new()}}
+    \item \href{#method-StartingValuesBSVARMSH-get_starting_values}{\code{StartingValuesBSVARMSH$get_starting_values()}}
+    \item \href{#method-StartingValuesBSVARMSH-set_starting_values}{\code{StartingValuesBSVARMSH$set_starting_values()}}
+    \item \href{#method-StartingValuesBSVARMSH-clone}{\code{StartingValuesBSVARMSH$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-StartingValuesBSVARMSH-new"></a>}}
-\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMSH-new}{}}}
-\subsection{Method \code{new()}}{
-Create new starting values StartingValuesBSVAR-MS.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
+\if{html}{\out{<a id="method-StartingValuesBSVARMSH-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-StartingValuesBSVARMSH-initialize}{}}}
+\subsection{\code{StartingValuesBSVARMSH$new()}}{
+  Create new starting values StartingValuesBSVAR-MS.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMSH$new(A, B, N, p, M, T, d = 0, finiteM = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{A}}{a logical \code{NxK} matrix containing value \code{TRUE} for the elements of 
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
+      \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
 the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
-
-\item{\code{N}}{a positive integer - the number of dependent variables in the model.}
-
-\item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
-
-\item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
-
-\item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
-
-\item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
-
-\item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
+      \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
+      \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
+      \item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
+      \item{\code{T}}{a positive integer - the the time series dimension of the dependent variable matrix \eqn{Y}.}
+      \item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
+      \item{\code{finiteM}}{a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Starting values StartingValuesBSVAR-MS.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Starting values StartingValuesBSVAR-MS.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVARMSH-get_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVARMSH-get_starting_values}{}}}
-\subsection{Method \code{get_starting_values()}}{
-Returns the elements of the starting values StartingValuesBSVAR-MS as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$get_starting_values()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
+\subsection{\code{StartingValuesBSVARMSH$get_starting_values()}}{
+  Returns the elements of the starting values StartingValuesBSVAR-MS as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMSH$get_starting_values()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# starting values for a homoskedastic bsvar with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
 B = matrix(TRUE, 3, 3)
 sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
 sv$get_starting_values()   # show starting values as list
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVARMSH-set_starting_values"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVARMSH-set_starting_values}{}}}
-\subsection{Method \code{set_starting_values()}}{
-Returns the elements of the starting values StartingValuesBSVARMSH as a \code{list}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$set_starting_values(last_draw)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{last_draw}}{a list containing the last draw.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class StartingValuesBSVAR-MS including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
+\subsection{\code{StartingValuesBSVARMSH$set_starting_values()}}{
+  Returns the elements of the starting values StartingValuesBSVARMSH as a \code{list}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMSH$set_starting_values(last_draw)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{last_draw}}{a list containing the last draw.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class StartingValuesBSVAR-MS including the last draw of the current MCMC as the starting value to be passed to the continuation of the MCMC estimation using \code{estimate()}.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{# starting values for a bsvar model with 1 lag for a 3-variable system
 A = matrix(TRUE, 3, 4)
 B = matrix(TRUE, 3, 3)
 sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T = 100)
@@ -168,28 +163,28 @@ sv = specify_starting_values_bsvar_msh$new(A = A, B = B, N = 3, p = 1, M = 2, T 
 sv_list = sv$get_starting_values()   # getting them as list
 sv_list$A <- matrix(rnorm(12), 3, 4) # modifying the entry
 sv$set_starting_values(sv_list)      # providing to the class object
-
 }
-\if{html}{\out{</div>}}
-
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-StartingValuesBSVARMSH-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-StartingValuesBSVARMSH-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{specify_starting_values_bsvar_msh$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{StartingValuesBSVARMSH$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{StartingValuesBSVARMSH$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
