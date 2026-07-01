@@ -40,8 +40,8 @@ double log_kernel_df (
   const int T   = aux_lambda.n_elem;
   double lk_df  = 0;
   lk_df   -= T * lgamma(0.5 * aux_df);                        // lambda prior
-  lk_df   += 0.5 * T * aux_df * log(0.5 * (aux_df + 2));      // lambda prior
-  lk_df   -= 0.5 * (aux_df - 2) * accu(log(aux_lambda));      // lambda prior
+  lk_df   += 0.5 * T * aux_df * log(0.5 * (aux_df - 2));      // lambda prior
+  lk_df   -= 0.5 * (aux_df + 2) * accu(log(aux_lambda));      // lambda prior
   lk_df   -= 0.5 * (aux_df - 2) * accu(pow(aux_lambda, -1));  // lambda prior
   lk_df   -= 2 * log(aux_df - 1);                             // df prior
   
