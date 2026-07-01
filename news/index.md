@@ -51,6 +51,9 @@ Have a question, or suggestion, or wanna get in touch? Email us at
 13. Corrected R code for forecasting with HMSH models in PR
     [\#136](https://github.com/bsvars/bsvars/pull/136) by [Bruno
     Cavalcante](https://github.com/brunolbcavalcante)
+14. Corrected C++ code for Student’s t shocks in PR
+    [\#140](https://github.com/bsvars/bsvars/pull/140) by [Fei
+    Shang](https://github.com/lcq110)
 
 ## bsvars 3.2
 

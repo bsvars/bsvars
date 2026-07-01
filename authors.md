@@ -13,6 +13,10 @@
   [](https://orcid.org/0009-0005-7252-7658)  
   corrected R code for HMSH forecasting
 
+- **Fei Shang**. Contributor.
+  [](https://orcid.org/0000-0003-1908-3275)  
+  corrected C++ code for Student's t shocks
+
 ## Citation
 
 Source:
