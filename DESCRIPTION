@@ -24,6 +24,13 @@ Authors@R: c(person(
               email = "bruno.cavalcante@fgv.edu.br", 
               role = c("ctb"),
               comment = c(ORCID = "0009-0005-7252-7658", "corrected R code for HMSH forecasting")
+            ),
+           person(
+              given = "Fei", 
+              family ="Shang",
+              email = "sfmax2010@gmail.com", 
+              role = c("ctb"),
+              comment = c(ORCID = "0000-0003-1908-3275", "corrected C++ code for Student's t shocks")
             )
           )
 Maintainer: Tomasz Woźniak <wozniak.tom@pm.me>
