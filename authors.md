@@ -3,7 +3,7 @@
 ## Authors
 
 - **Tomasz Woźniak**. Author, maintainer.
-  [](https://orcid.org/0000-0003-2212-2378)
+  [](https://orcid.org/0000-0003-2212-2378)[![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/01ej9dk98)
 
 - **Xiaolei Wang**. Contributor.
   [](https://orcid.org/0009-0005-6192-9061)  
