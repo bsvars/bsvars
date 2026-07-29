@@ -148,10 +148,11 @@ arma::cube forecast_sigma2_sv (
         xx        = randn();
         if ( centred_sv ) {
           ht(n)     = posterior_rho(n, s) * ht(n) + posterior_omega(n, s) * xx;
+          forecasts_sigma2(n, h, s) = exp(ht(n));
         } else {
-          ht(n)     = posterior_omega(n, s) * (posterior_rho(n, s) * ht(n) + xx);
+          ht(n)     = posterior_rho(n, s) * ht(n) + xx;
+          forecasts_sigma2(n, h, s) = exp(posterior_omega(n, s) * ht(n));
         }
-        forecasts_sigma2(n, h, s) = exp(ht(n));
       } // END n loop
     } // END h loop
   } // END s loop
@@ -175,13 +176,10 @@ arma::cube forecast_lambda_t (
   cube            forecasts_lambda(N, horizon, S, fill::ones);
   
   for (int s=0; s<S; s++) {
-    for (int h=0; h<horizon; h++) {
-      vec df_s                  = posterior_df.col(s);
-      forecasts_lambda.slice(s).each_col()  %= df_s - 2;
-      for (int n=0; n<N; n++) {
-        forecasts_lambda.slice(s).row(n)  /= trans(chi2rnd( df_s(n), horizon ));
-      } // END n loop
-    } // END h loop
+    vec df_s = posterior_df.col(s);
+    for (int n=0; n<N; n++) {
+      forecasts_lambda.slice(s).row(n) = (df_s(n) - 2.0) / trans(chi2rnd(df_s(n), horizon));
+    } // END n loop
   } // END s loop
   
   return forecasts_lambda;
