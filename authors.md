@@ -15,7 +15,8 @@
 
 - **Fei Shang**. Contributor.
   [](https://orcid.org/0000-0003-1908-3275)  
-  corrected C++ code for Student's t shocks
+  corrected C++ code for Student's t shocks, corrected code for
+  forecasting
 
 ## Citation
 
