@@ -110,7 +110,7 @@ arma::cube forecast_sigma2_hmsh (
       for (int h=0; h<horizon; h++) {
         PR_ST       = trans(posterior_PR_TR(s).slice(n)) * PR_ST;
         St          = csample_num1(zeroM, wrap(PR_ST));
-        forecasts_sigma2.slice(s).col(h) = posterior_sigma2.slice(s).col(St);
+        forecasts_sigma2(n, h, s) = posterior_sigma2(n, St, s);
       } // END h loop
       
     } // END n loop
