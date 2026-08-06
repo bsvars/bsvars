@@ -89,13 +89,19 @@ forecast.PosteriorBSVAR = function(
   
   posterior_B     = object$posterior$B
   posterior_A     = object$posterior$A
-  T               = ncol(object$last_draw$data_matrices$X)
-  X_T             = object$last_draw$data_matrices$X[,T]
+  X               = object$last_draw$data_matrices$X
   Y               = object$last_draw$data_matrices$Y
+  T               = ncol(X)
+  N               = nrow(posterior_B)
+  lag_entries     = N * object$last_draw$p
+  X_T             = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -235,14 +241,20 @@ forecast.PosteriorBSVAREXH = function(
   posterior_B       = object$posterior$B
   posterior_A       = object$posterior$A
   posterior_sigma2  = object$posterior$sigma2
-  T                 = ncol(object$last_draw$data_matrices$X)
-  X_T               = object$last_draw$data_matrices$X[,T]
+  X                 = object$last_draw$data_matrices$X
   Y                 = object$last_draw$data_matrices$Y
+  T                 = ncol(X)
+  N                 = nrow(posterior_B)
+  lag_entries       = N * object$last_draw$p
+  X_T               = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   sigma2_T        = object$posterior$sigma[,T,]^2
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -384,14 +396,20 @@ forecast.PosteriorBSVARHMSH = function(
   posterior_A       = object$posterior$A
   posterior_sigma2  = object$posterior$sigma2
   posterior_PR_TR   = object$posterior$PR_TR_cpp
-  T                 = ncol(object$last_draw$data_matrices$X)
-  X_T               = object$last_draw$data_matrices$X[,T]
+  X                 = object$last_draw$data_matrices$X
   Y                 = object$last_draw$data_matrices$Y
+  T                 = ncol(X)
+  N                 = nrow(posterior_B)
+  lag_entries       = N * object$last_draw$p
+  X_T               = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
   M               = ncol(posterior_sigma2)
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -545,14 +563,20 @@ forecast.PosteriorBSVARMSH = function(
   posterior_A       = object$posterior$A
   posterior_sigma2  = object$posterior$sigma2
   posterior_PR_TR   = object$posterior$PR_TR
-  T                 = ncol(object$last_draw$data_matrices$X)
-  X_T               = object$last_draw$data_matrices$X[,T]
+  X                 = object$last_draw$data_matrices$X
   Y                 = object$last_draw$data_matrices$Y
+  T                 = ncol(X)
+  N                 = nrow(posterior_B)
+  lag_entries       = N * object$last_draw$p
+  X_T               = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   S_T               = object$posterior$xi[,T,]
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -694,14 +718,20 @@ forecast.PosteriorBSVARMIX = function(
   posterior_A       = object$posterior$A
   posterior_sigma2  = object$posterior$sigma2
   posterior_PR_TR   = object$posterior$PR_TR
-  T                 = ncol(object$last_draw$data_matrices$X)
-  X_T               = object$last_draw$data_matrices$X[,T]
+  X                 = object$last_draw$data_matrices$X
   Y                 = object$last_draw$data_matrices$Y
+  T                 = ncol(X)
+  N                 = nrow(posterior_B)
+  lag_entries       = N * object$last_draw$p
+  X_T               = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   S_T               = object$posterior$xi[,T,]
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -844,15 +874,21 @@ forecast.PosteriorBSVARSV = function(
   posterior_rho     = object$posterior$rho
   posterior_omega   = object$posterior$omega
   
-  T                 = ncol(object$last_draw$data_matrices$X)
-  X_T               = object$last_draw$data_matrices$X[,T]
+  X                 = object$last_draw$data_matrices$X
   Y                 = object$last_draw$data_matrices$Y
+  T                 = ncol(X)
+  N                 = nrow(posterior_B)
+  lag_entries       = N * object$last_draw$p
+  X_T               = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
   posterior_h_T     = object$posterior$h[,T,]
   centred_sv        = object$last_draw$centred_sv
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
-  N               = nrow(posterior_B)
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
@@ -996,11 +1032,17 @@ forecast.PosteriorBSVART = function(
   posterior_B     = object$posterior$B
   posterior_A     = object$posterior$A
   posterior_df    = object$posterior$df
-  T               = ncol(object$last_draw$data_matrices$X)
-  X_T             = object$last_draw$data_matrices$X[,T]
+  X               = object$last_draw$data_matrices$X
   Y               = object$last_draw$data_matrices$Y
-  
+  T               = ncol(X)
   N               = nrow(posterior_B)
+  lag_entries     = N * object$last_draw$p
+  X_T             = c(
+    Y[,T],
+    X[seq_len(lag_entries - N),T],
+    tail(X[,T], nrow(X) - lag_entries)
+  )
+
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
