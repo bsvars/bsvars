@@ -94,7 +94,7 @@ Rcpp::List bsvar_msh_cpp (
   
   // the initial value for the adaptive_scale is set to the negative inverse of 
   // Hessian for the posterior log_kenel for df evaluated at df = 30
-  double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
+  double  adaptive_scale_init = sqrt(abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1)));
   vec     adaptive_scale(N, fill::value(adaptive_scale_init));
   
   for (int s=0; s<S; s++) {
@@ -201,4 +201,3 @@ Rcpp::List bsvar_msh_cpp (
     )
   );
 } // END bsvar_msh
-
