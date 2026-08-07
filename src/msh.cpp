@@ -174,7 +174,7 @@ arma::mat sample_Markov_process_msh (
   
   if ( minimum_regime_occurrences==0 ) {
     for (int t=T-2; t>=0; --t) {
-      vec xi_Tmj    = (aux_PR_TR * (aux_xi.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
+      vec xi_Tmj    = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
       draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
       aux_xi_tmp.col(t)   = aj.col(draw-1);
     }
@@ -184,7 +184,7 @@ arma::mat sample_Markov_process_msh (
     int iterations  = 1;
     while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
       for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj    = (aux_PR_TR * (aux_xi.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
+        vec xi_Tmj    = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
         draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
         aux_xi_tmp.col(t)   = aj.col(draw-1);
       }
@@ -242,7 +242,7 @@ arma::cube sample_Markov_process_hmsh (
     
     if ( minimum_regime_occurrences==0 ) {
       for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
         draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
         aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
       }
@@ -252,7 +252,7 @@ arma::cube sample_Markov_process_hmsh (
       int iterations  = 1;
       while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
         for (int t=T-2; t>=0; --t) {
-          vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+          vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
           draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
           aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
         } // END t loop
