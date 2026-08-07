@@ -159,6 +159,14 @@ specify_starting_values_bsvar = R6::R6Class(
     #' for the equation-specific degrees of freedom parameters of the Student-t 
     #' conditional distribution of structural shocks.
     df            = numeric(),
+
+    #' @field adaptive_scale an \code{Nx1} vector of proposal standard deviations
+    #' for adaptive sampling of the Student-t degrees of freedom.
+    adaptive_scale = numeric(),
+
+    #' @field adaptation_iteration a non-negative integer with the number of MCMC
+    #' iterations already used by the adaptive Student-t sampler.
+    adaptation_iteration = integer(),
     
     #' @description
     #' Create new starting values StartingValuesBSVAR.
@@ -193,6 +201,11 @@ specify_starting_values_bsvar = R6::R6Class(
       self$hyper          = matrix(10, 2 * N + 1, 2)
       self$lambda         = matrix(1, N, T)
       self$df             = rep(3, N)
+      adaptive_scale_init = sqrt(abs(
+        (0.25 * T * psigamma(15, deriv = 1) - T * 29 * 28^-2 - 2 * 29^-2)^-1
+      ))
+      self$adaptive_scale = rep(adaptive_scale_init, N)
+      self$adaptation_iteration = 0L
     }, # END initialize
     
     #' @description
@@ -211,7 +224,9 @@ specify_starting_values_bsvar = R6::R6Class(
         A                 = self$A,
         hyper             = self$hyper,
         lambda            = self$lambda,
-        df                = self$df
+        df                = self$df,
+        adaptive_scale    = self$adaptive_scale,
+        adaptation_iteration = self$adaptation_iteration
       )
     }, # END get_starting_values
     
@@ -239,6 +254,8 @@ specify_starting_values_bsvar = R6::R6Class(
         self$hyper        = last_draw$hyper
         self$lambda       = last_draw$lambda
         self$df           = last_draw$df
+        self$adaptive_scale = last_draw$adaptive_scale
+        self$adaptation_iteration = last_draw$adaptation_iteration
     } # END set_starting_values
   ) # END public
 ) # END specify_starting_values_bsvar

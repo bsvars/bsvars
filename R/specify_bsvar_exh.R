@@ -227,6 +227,8 @@ specify_starting_values_bsvar_exh = R6::R6Class(
         hyper             = self$hyper,
         lambda            = self$lambda,
         df                = self$df,
+        adaptive_scale    = self$adaptive_scale,
+        adaptation_iteration = self$adaptation_iteration,
         sigma2            = self$sigma2,
         xi                = self$xi
       )
@@ -256,6 +258,8 @@ specify_starting_values_bsvar_exh = R6::R6Class(
       self$hyper        = last_draw$hyper
       self$lambda       = last_draw$lambda
       self$df           = last_draw$df
+      self$adaptive_scale = last_draw$adaptive_scale
+      self$adaptation_iteration = last_draw$adaptation_iteration
       self$sigma2       = last_draw$sigma2
       self$xi           = last_draw$xi
     } # END set_starting_values

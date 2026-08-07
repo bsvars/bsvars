@@ -77,6 +77,8 @@ Rcpp::List bsvar_sv_cpp (
   mat   aux_lambda_sqrt(N, T, fill::ones);
   mat   aux_hetero(N, T, fill::ones);
   vec   aux_df      = as<vec>(starting_values["df"]);
+  vec   adaptive_scale = as<vec>(starting_values["adaptive_scale"]);
+  const int adaptation_iteration = as<int>(starting_values["adaptation_iteration"]);
   mat   U;
   
   if ( centred_sv ) {
@@ -107,11 +109,6 @@ Rcpp::List bsvar_sv_cpp (
   cube  posterior_lambda(N, T, SS);
   mat   posterior_df(N, SS);
   
-  // the initial value for the adaptive_scale is set to the negative inverse of 
-  // Hessian for the posterior log_kenel for df evaluated at df = 30
-  double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
-  vec     adaptive_scale(N, fill::value(adaptive_scale_init));
-  
   int   ss = 0;
   
   for (int s=0; s<S; s++) {
@@ -124,7 +121,7 @@ Rcpp::List bsvar_sv_cpp (
     
     if ( !normal ) {
       try {
-        List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, s, adptive_alpha_gamma );
+        List df_tmp     = sample_df ( aux_df, adaptive_scale, aux_lambda, adaptation_iteration + s, adptive_alpha_gamma );
         aux_df          = as<vec>(df_tmp["aux_df"]);
         adaptive_scale  = as<vec>(df_tmp["adaptive_scale"]);
       } catch (std::runtime_error &e) {}
@@ -224,7 +221,9 @@ Rcpp::List bsvar_sv_cpp (
       _["s_"]       = aux_s_,
       _["sigma"]    = aux_sigma,
       _["lambda"]   = aux_lambda,
-      _["df"]       = aux_df
+      _["df"]       = aux_df,
+      _["adaptive_scale"] = adaptive_scale,
+      _["adaptation_iteration"] = adaptation_iteration + S
     ),
     _["posterior"]  = List::create(
       _["B"]        = posterior_B,
@@ -243,5 +242,4 @@ Rcpp::List bsvar_sv_cpp (
     )
   );
 } // END bsvar_sv_cpp
-
 
