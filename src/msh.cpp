@@ -268,6 +268,7 @@ Rcpp::List sample_transition_probabilities (
     int S0_draw           = csample_num1(wrap(seq_len(M)), wrap(prob_xi1));
 
     mat transitions       = count_regime_transitions(aux_xi);
+    transitions(S0_draw-1, aux_xi.col(0).index_max())++;
     mat posterior_alpha   = transitions + prior_PR_TR;
     
     for (int m=0; m<M; m++) {

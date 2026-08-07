@@ -158,8 +158,37 @@ prior <- list(PR_TR = matrix(1, 2, 2))
 set.seed(1)
 probability <- pi_0 * as.numeric(PR_TR %*% xi[, 1])
 predecessor <- .draw_msh_state(probability / sum(probability))
+transitions <- bsvars:::count_regime_transitions(xi)
+transitions[predecessor, which.max(xi[, 1])] <-
+  transitions[predecessor, which.max(xi[, 1])] + 1
+posterior_alpha <- transitions + prior$PR_TR
+expected_PR_TR <- rbind(
+  bsvars:::rDirichlet1(posterior_alpha[1, ]),
+  bsvars:::rDirichlet1(posterior_alpha[2, ])
+)
+alpha_0 <- rep(1, 2)
+alpha_0[predecessor] <- alpha_0[predecessor] + 1
+expected_pi_0 <- as.numeric(bsvars:::rDirichlet1(alpha_0))
+
+set.seed(1)
+transition_draw <- bsvars:::sample_transition_probabilities(
+  PR_TR, pi_0, xi, prior, TRUE
+)
+
 expect_identical(
   predecessor,
   1L,
   info = "transition fixture distinguishes pi_0-weighted predecessor probabilities."
+)
+expect_equal(
+  transition_draw$PR_TR,
+  expected_PR_TR,
+  tolerance = 1e-12,
+  info = "sample_transition_probabilities: initial transition augments the correct row and column."
+)
+expect_equal(
+  as.numeric(transition_draw$pi_0),
+  expected_pi_0,
+  tolerance = 1e-12,
+  info = "sample_transition_probabilities: pi_0 is conditioned on the same predecessor draw."
 )
