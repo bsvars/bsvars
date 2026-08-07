@@ -263,15 +263,16 @@ Rcpp::List sample_transition_probabilities (
   const mat   prior_PR_TR = as<mat>(prior["PR_TR"]);
   
   if ( MSnotMIX ) {
+    vec prob_xi1          = aux_pi_0 % (aux_PR_TR * aux_xi.col(0));
+    prob_xi1             /= sum(prob_xi1);
+    int S0_draw           = csample_num1(wrap(seq_len(M)), wrap(prob_xi1));
+
     mat transitions       = count_regime_transitions(aux_xi);
     mat posterior_alpha   = transitions + prior_PR_TR;
     
     for (int m=0; m<M; m++) {
       aux_PR_TR.row(m)    = rDirichlet1(posterior_alpha.row(m));
     }
-    vec prob_xi1          = aux_PR_TR *aux_xi.col(0);
-    prob_xi1             /= sum(prob_xi1);
-    int S0_draw           = csample_num1(wrap(seq_len(M)), wrap(prob_xi1));
     rowvec posterior_alpha_0(M, fill::value((1.0)));
     posterior_alpha_0(S0_draw-1)++;
     aux_pi_0              = trans(rDirichlet1(posterior_alpha_0));

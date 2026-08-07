@@ -147,3 +147,19 @@ expect_identical(
   c(3, 3),
   info = "sample_Markov_process_hmsh: an accepted shock slice is committed independently."
 )
+
+
+# B25 and B26: predecessor uses pi_0 and contributes the initial transition.
+PR_TR <- matrix(c(0.85, 0.15, 0.4, 0.6), 2, 2, byrow = TRUE)
+pi_0 <- c(0.9, 0.1)
+xi <- diag(2)[, c(2, 2, 1, 2, 1), drop = FALSE]
+prior <- list(PR_TR = matrix(1, 2, 2))
+
+set.seed(1)
+probability <- pi_0 * as.numeric(PR_TR %*% xi[, 1])
+predecessor <- .draw_msh_state(probability / sum(probability))
+expect_identical(
+  predecessor,
+  1L,
+  info = "transition fixture distinguishes pi_0-weighted predecessor probabilities."
+)
