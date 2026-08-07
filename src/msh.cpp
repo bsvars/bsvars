@@ -87,24 +87,23 @@ arma::mat filtering_msh (
   const int   N = U.n_rows;
   const int   M = PR_TR.n_rows;
   
-  mat         eta_t(M, T);
+  mat         log_eta_t(M, T);
   mat         xi_t_t(M, T);
   
   // This loop evaluates mvnormal pdf at U - simplified operations for zero-mean diagonal-covariance case
   for (int m=0; m<M; m++) {
     rowvec log_d    = -0.5 * sum(pow( pow(sigma.col(m), -0.5) % U.each_col(), 2), 0);
     log_d          += -0.5 * N * log(2*M_PI) - 0.5 * log(prod(sigma.col(m)));
-    NumericVector   exp_log_d   = wrap(exp(log_d));
-    exp_log_d[exp_log_d==0]     = 1e-300;
-    eta_t.row(m)    = as<rowvec>(exp_log_d);
+    log_eta_t.row(m) = log_d;
   } // END m loop
   
   vec xi_tm1_tm1    = pi_0;
   
   for (int t=0; t<T; t++) {
-    vec     num     = eta_t.col(t) % (PR_TR.t() * xi_tm1_tm1);
-    double  den     = sum(num);
-    xi_t_t.col(t)   = num/den;
+    vec log_weight  = log_eta_t.col(t) + log(PR_TR.t() * xi_tm1_tm1);
+    log_weight     -= max(log_weight);
+    vec weight      = exp(log_weight);
+    xi_t_t.col(t)   = weight / sum(weight);
     xi_tm1_tm1      = xi_t_t.col(t);
   } // END t loop
 
@@ -393,4 +392,3 @@ arma::mat sample_variances_hmsh (
   
   return aux_sigma2;
 } // END sample_variances_hmsh
-
