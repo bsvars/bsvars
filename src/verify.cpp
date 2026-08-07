@@ -431,7 +431,9 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
   cube    posterior_A         = posterior["A"];
   cube    posterior_B         = posterior["B"];
   cube    posterior_hyper     = posterior["hyper"];
-  cube    posterior_sigma     = posterior["sigma"];
+  const cube posterior_sigma  = posterior["sigma"];
+  const cube posterior_lambda = posterior["lambda"];
+  const cube posterior_scale  = posterior_sigma % sqrt(posterior_lambda);
   
   double  prior_hyper_nu_A    = as<double>(prior["hyper_nu_A"]);
   double  prior_hyper_a_A     = as<double>(prior["hyper_a_A"]);
@@ -494,7 +496,7 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
       log_denominator_s(n, s) = const_prior + kernel_prior;
       
       // compute numerator
-      aux_sigma               = posterior_sigma.slice(s);
+      aux_sigma               = posterior_scale.slice(s);
       vec   sigma_vectorised  = vectorise(aux_sigma);
       mat   A0                = posterior_A.slice(s);
       A0.row(n)               = zerosA;

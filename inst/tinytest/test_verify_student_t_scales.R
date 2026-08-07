@@ -104,3 +104,73 @@ expect_equal(
   tolerance = 1e-12,
   info = "HMSH verification composes residuals with Student-t scales"
 )
+
+# Autoregression verification must use sigma * sqrt(lambda).
+sigma <- array(rep(c(1, 2, 1.5, 0.5), draws), c(N, T, draws))
+posterior_ar <- list(
+  A      = A,
+  B      = B,
+  hyper  = array(1, c(2 * N + 1L, 2L, draws)),
+  sigma  = sigma,
+  lambda = lambda
+)
+prior_ar <- list(
+  hyper_nu_A  = 5,
+  hyper_a_A   = 1,
+  hyper_s_AA  = 1,
+  hyper_nu_AA = 5,
+  A           = matrix(0, N, K),
+  A_V_inv     = matrix(1, K, K)
+)
+hypothesis <- matrix(0, N, K)
+
+out_ar <- .Call(
+  "_bsvars_verify_autoregressive_heterosk_cpp",
+  hypothesis, posterior_ar, prior_ar, Y, X,
+  PACKAGE = "bsvars"
+)
+posterior_ar$sigma  <- sigma * sqrt(lambda)
+posterior_ar$lambda <- lambda1
+out_ar_reference <- .Call(
+  "_bsvars_verify_autoregressive_heterosk_cpp",
+  hypothesis, posterior_ar, prior_ar, Y, X,
+  PACKAGE = "bsvars"
+)
+
+expect_equal(
+  out_ar$components$log_numerator_s,
+  out_ar_reference$components$log_numerator_s,
+  tolerance = 1e-12,
+  info = "autoregression verification combines volatility and Student-t scales"
+)
+
+# The pure-T wrapper supplies unit volatility, so lambda is applied exactly once.
+posterior_t <- list(
+  posterior = posterior_ar[c("A", "B", "hyper", "lambda")],
+  last_draw = list(
+    starting_values = list(A = matrix(0, N, K)),
+    identification  = list(VA = list(matrix(1, N, K))),
+    prior           = list(get_prior = function() prior_ar),
+    data_matrices   = list(Y = Y, X = X)
+  )
+)
+posterior_t$posterior$lambda <- lambda
+class(posterior_t) <- "PosteriorBSVART"
+
+posterior_t_reference <- posterior_ar
+posterior_t_reference$sigma  <- sqrt(lambda)
+posterior_t_reference$lambda <- lambda1
+out_t_reference <- .Call(
+  "_bsvars_verify_autoregressive_heterosk_cpp",
+  hypothesis, posterior_t_reference, prior_ar, Y, X,
+  PACKAGE = "bsvars"
+)
+
+out_t <- verify_autoregression(posterior_t, hypothesis)
+
+expect_equal(
+  out_t$components$log_numerator_s,
+  out_t_reference$components$log_numerator_s,
+  tolerance = 1e-12,
+  info = "pure-T autoregression verification applies lambda exactly once"
+)
