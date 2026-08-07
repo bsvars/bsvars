@@ -153,45 +153,30 @@ arma::mat sample_Markov_process_msh (
 ) {
   // the function changes the value of aux_xi by reference (filling it with a new draw)
   
-  int minimum_regime_occurrences = 0;
-  int max_iterations = 1;
-  if ( finiteM ) {
-    minimum_regime_occurrences = 3;
-    max_iterations = 10;
-  }
+  const int minimum_regime_occurrences = finiteM ? 3 : 0;
+  const int max_iterations = finiteM ? 10 : 1;
   
   const int   T   = U.n_cols;
   const int   M   = aux_PR_TR.n_rows;
-  mat aux_xi_tmp  = aux_xi;
-  
   mat filtered    = filtering_msh(U, aux_sigma2, aux_PR_TR, aux_pi_0);
   mat smoothed    = smoothing_msh(U, aux_PR_TR, filtered);
   mat     aj      = eye(M, M);
   
-  mat xi(M, T);
-  int draw        = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
-  aux_xi_tmp.col(T-1)     = aj.col(draw-1);
-  
-  if ( minimum_regime_occurrences==0 ) {
+  for (int iteration=0; iteration<max_iterations; iteration++) {
+    mat aux_xi_tmp(M, T);
+    int draw = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
+    aux_xi_tmp.col(T-1) = aj.col(draw-1);
+
     for (int t=T-2; t>=0; --t) {
-      vec xi_Tmj    = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
-      draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-      aux_xi_tmp.col(t)   = aj.col(draw-1);
+      vec xi_Tmj = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
+      draw = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+      aux_xi_tmp.col(t) = aj.col(draw-1);
     }
-    aux_xi = aux_xi_tmp;
-  } else {
-    int regime_occurrences  = 1;
-    int iterations  = 1;
-    while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
-      for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj    = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
-        draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-        aux_xi_tmp.col(t)   = aj.col(draw-1);
-      }
-      regime_occurrences    = min(sum(aux_xi_tmp, 1));
-      iterations++;
-    } // END while
-    if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
+
+    if (!finiteM || min(sum(aux_xi_tmp, 1)) >= minimum_regime_occurrences) {
+      aux_xi = aux_xi_tmp;
+      break;
+    }
   }
   
   return aux_xi;
@@ -218,50 +203,34 @@ arma::cube sample_Markov_process_hmsh (
     const bool        finiteM = true
 ) {
   
-  int minimum_regime_occurrences = 0;
-  int max_iterations = 1;
-  if ( finiteM ) {
-    minimum_regime_occurrences = 3;
-    max_iterations = 10;
-  }
+  const int minimum_regime_occurrences = finiteM ? 3 : 0;
+  const int max_iterations = finiteM ? 10 : 1;
   
   const int   T   = U.n_cols;
   const int   N   = U.n_rows;
   const int   M   = aux_PR_TR.n_cols;
   cube aux_xi_tmp = aux_xi;
-  mat xi(M, T);
-  
   mat     aj      = eye(M, M);
   
   for (int n=0; n<N; n++) {
     mat filtered    = filtering_msh(U.row(n), aux_sigma2.row(n), aux_PR_TR.slice(n), aux_pi_0.col(n));
     mat smoothed    = smoothing_msh(U.row(n), aux_PR_TR.slice(n), filtered);
-    int draw        = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
-    aux_xi_tmp.slice(n).col(T-1)     = aj.col(draw-1);
-    
-    if ( minimum_regime_occurrences==0 ) {
+
+    for (int iteration=0; iteration<max_iterations; iteration++) {
+      int draw = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
+      aux_xi_tmp.slice(n).col(T-1) = aj.col(draw-1);
+
       for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
-        draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-        aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
+        vec xi_Tmj = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        draw = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
+        aux_xi_tmp.slice(n).col(t) = aj.col(draw-1);
       }
-      aux_xi = aux_xi_tmp;
-    } else {
-      int regime_occurrences  = 1;
-      int iterations  = 1;
-      while ( (regime_occurrences<minimum_regime_occurrences) & (iterations<max_iterations) ) {
-        for (int t=T-2; t>=0; --t) {
-          vec xi_Tmj    = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
-          draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-          aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
-        } // END t loop
-        
-        regime_occurrences    = min(sum(aux_xi_tmp.slice(n), 1));
-        iterations++;
-      } // END while
-      
-      if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
-    } // END if else
+
+      if (!finiteM || min(sum(aux_xi_tmp.slice(n), 1)) >= minimum_regime_occurrences) {
+        aux_xi = aux_xi_tmp;
+        break;
+      }
+    }
   } // END n loop
   
   return aux_xi;
