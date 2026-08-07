@@ -156,7 +156,7 @@ arma::mat sample_Markov_process_msh (
   int minimum_regime_occurrences = 0;
   int max_iterations = 1;
   if ( finiteM ) {
-    minimum_regime_occurrences = 2;
+    minimum_regime_occurrences = 3;
     max_iterations = 10;
   }
   
@@ -188,8 +188,7 @@ arma::mat sample_Markov_process_msh (
         draw          = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
         aux_xi_tmp.col(t)   = aj.col(draw-1);
       }
-      mat transitions       = count_regime_transitions(aux_xi_tmp);
-      regime_occurrences    = min(transitions.diag());
+      regime_occurrences    = min(sum(aux_xi_tmp, 1));
       iterations++;
     } // END while
     if ( iterations<max_iterations ) aux_xi = aux_xi_tmp;
@@ -222,7 +221,7 @@ arma::cube sample_Markov_process_hmsh (
   int minimum_regime_occurrences = 0;
   int max_iterations = 1;
   if ( finiteM ) {
-    minimum_regime_occurrences = 2;
+    minimum_regime_occurrences = 3;
     max_iterations = 10;
   }
   
@@ -257,8 +256,7 @@ arma::cube sample_Markov_process_hmsh (
           aux_xi_tmp.slice(n).col(t)   = aj.col(draw-1);
         } // END t loop
         
-        mat transitions       = count_regime_transitions(aux_xi_tmp.slice(n));
-        regime_occurrences    = min(transitions.diag());
+        regime_occurrences    = min(sum(aux_xi_tmp.slice(n), 1));
         iterations++;
       } // END while
       

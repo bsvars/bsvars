@@ -43,3 +43,22 @@ expect_identical(
   path_2,
   info = "sample_Markov_process_msh: FFBS conditions on newly sampled future states."
 )
+
+
+# B07: finite-state acceptance counts observations, not self-transitions.
+T <- 6
+U <- matrix(0, 1, T)
+sigma2 <- matrix(1, 1, 2)
+PR_TR <- matrix(c(0, 1, 1, 0), 2, 2, byrow = TRUE)
+xi <- diag(2)[, rep(1, T), drop = FALSE]
+
+set.seed(1)
+alternating_path <- bsvars:::sample_Markov_process_msh(
+  xi, U, sigma2, PR_TR, pi_0, TRUE
+)
+
+expect_identical(
+  as.numeric(rowSums(alternating_path)),
+  c(3, 3),
+  info = "sample_Markov_process_msh: three non-consecutive observations per regime are accepted."
+)
