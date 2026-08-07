@@ -117,3 +117,33 @@ expect_identical(
   expected_retry$path,
   info = "sample_Markov_process_msh: complete retry path is committed on the final attempt."
 )
+
+
+# B09: accepting one HMSH shock cannot commit another shock's rejected path.
+xi_hmsh <- array(0, c(2, T, 2))
+xi_hmsh[, , 1] <- diag(2)[, rep(1:2, 3), drop = FALSE]
+xi_hmsh[, , 2] <- xi
+PR_TR_hmsh <- array(0, c(2, 2, 2))
+PR_TR_hmsh[, , 1] <- diag(2)
+PR_TR_hmsh[, , 2] <- matrix(c(0, 1, 1, 0), 2, 2, byrow = TRUE)
+
+set.seed(1)
+path_hmsh <- bsvars:::sample_Markov_process_hmsh(
+  xi_hmsh,
+  matrix(0, 2, T),
+  matrix(1, 2, 2),
+  PR_TR_hmsh,
+  matrix(0.5, 2, 2),
+  TRUE
+)
+
+expect_identical(
+  path_hmsh[, , 1],
+  xi_hmsh[, , 1],
+  info = "sample_Markov_process_hmsh: a rejected shock slice remains unchanged."
+)
+expect_identical(
+  as.numeric(rowSums(path_hmsh[, , 2])),
+  c(3, 3),
+  info = "sample_Markov_process_hmsh: an accepted shock slice is committed independently."
+)

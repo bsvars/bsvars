@@ -209,7 +209,6 @@ arma::cube sample_Markov_process_hmsh (
   const int   T   = U.n_cols;
   const int   N   = U.n_rows;
   const int   M   = aux_PR_TR.n_cols;
-  cube aux_xi_tmp = aux_xi;
   mat     aj      = eye(M, M);
   
   for (int n=0; n<N; n++) {
@@ -217,17 +216,18 @@ arma::cube sample_Markov_process_hmsh (
     mat smoothed    = smoothing_msh(U.row(n), aux_PR_TR.slice(n), filtered);
 
     for (int iteration=0; iteration<max_iterations; iteration++) {
+      mat aux_xi_tmp(M, T);
       int draw = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
-      aux_xi_tmp.slice(n).col(T-1) = aj.col(draw-1);
+      aux_xi_tmp.col(T-1) = aj.col(draw-1);
 
       for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj = (aux_PR_TR.slice(n) * (aux_xi_tmp.slice(n).col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        vec xi_Tmj = (aux_PR_TR.slice(n) * (aux_xi_tmp.col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
         draw = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-        aux_xi_tmp.slice(n).col(t) = aj.col(draw-1);
+        aux_xi_tmp.col(t) = aj.col(draw-1);
       }
 
-      if (!finiteM || min(sum(aux_xi_tmp.slice(n), 1)) >= minimum_regime_occurrences) {
-        aux_xi = aux_xi_tmp;
+      if (!finiteM || min(sum(aux_xi_tmp, 1)) >= minimum_regime_occurrences) {
+        aux_xi.slice(n) = aux_xi_tmp;
         break;
       }
     }
