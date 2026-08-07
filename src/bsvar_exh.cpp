@@ -84,6 +84,7 @@ Rcpp::List bsvar_exh_cpp (
   }
   
   aux_hetero = aux_sigma % aux_lambda_sqrt;
+  U = aux_B * (Y - aux_A * X) / aux_lambda_sqrt;
   
   // the initial value for the adaptive_scale is set to the negative inverse of 
   // Hessian for the posterior log_kenel for df evaluated at df = 30
@@ -174,4 +175,3 @@ Rcpp::List bsvar_exh_cpp (
     )
   );
 } // END bsvar_exh_cpp
-
