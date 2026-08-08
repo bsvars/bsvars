@@ -122,8 +122,8 @@ Rcpp::List bsvar_hmsh_cpp (
       } catch (std::runtime_error &e) {}
     }
     
-      
     // sample aux_xi
+    U                 = aux_B * (Y - aux_A * X) / aux_lambda_sqrt;
     try {
       aux_xi            = sample_Markov_process_hmsh(aux_xi, U, aux_sigma2, aux_PR_TR, aux_pi_0, finiteM);
     } catch (std::runtime_error &e) {}
