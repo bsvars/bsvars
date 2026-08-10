@@ -209,13 +209,13 @@ arma::field<arma::cube> bsvars_hd (
     
     for (int t=0; t<T; t++) {
       
-      cube        hds_at_t(N, N, t + 1);
+      mat hds_sum_at_t(N, N, fill::zeros);
       for (int i = 0; i <= t; i++) {
-        posterior_irf_t   = posterior_irf_T(s).slice(i);
-        hds_at_t.slice(i) = posterior_irf_t.each_row() % structural_shocks.slice(s).col(t - i).t();
+        posterior_irf_t = posterior_irf_T(s).slice(i);
+        hds_sum_at_t   += posterior_irf_t.each_row() % structural_shocks.slice(s).col(t - i).t();
       } // END i loop
       
-      aux_hds.slice(t) = sum(hds_at_t, 2);
+      aux_hds.slice(t) = hds_sum_at_t;
     } // END t loop
     
     hds(s)          = aux_hds;
