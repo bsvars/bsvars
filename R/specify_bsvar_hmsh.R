@@ -79,7 +79,7 @@ specify_starting_values_bsvar_hmsh = R6::R6Class(
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       stopifnot("Argument finiteM must be a logical value." = is.logical(finiteM) & length(finiteM) == 1)
       
-      if (!finiteM) {
+      if (!finiteM && M < 20) {
         M = 20
       }
       
