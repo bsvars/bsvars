@@ -113,6 +113,7 @@ Rcpp::List bsvar_exh_cpp (
     }
     
     // sample aux_sigma2
+    U                 = aux_B * (Y - aux_A * X) / aux_lambda_sqrt;
     try {
       aux_sigma2        = sample_variances_msh(aux_sigma2, U, aux_xi, prior);
     } catch (std::runtime_error &e) {}
