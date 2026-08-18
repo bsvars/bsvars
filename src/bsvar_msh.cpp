@@ -92,9 +92,14 @@ Rcpp::List bsvar_msh_cpp (
   
   aux_hetero = aux_sigma % aux_lambda_sqrt;
   
-  // the initial value for the adaptive_scale is set to the negative inverse of 
-  // Hessian for the posterior log_kenel for df evaluated at df = 30
-  double  adaptive_scale_init = abs(pow(0.25 * T * R::psigamma(15, 1) - T * 29 * pow(28, -2) - 2 * pow(29, -2), -1));
+  // the initial proposal variance is the inverse negative Hessian of the
+  // posterior log-kernel for df evaluated at df = 30
+  const double df_reference = 30;
+  const double negative_hessian =
+    0.25 * T * R::psigamma(0.5 * df_reference, 1) -
+    0.5 * T * (df_reference - 4) * std::pow(df_reference - 2, -2) -
+    2 * std::pow(df_reference - 1, -2);
+  double  adaptive_scale_init = 1 / std::sqrt(negative_hessian);
   vec     adaptive_scale(N, fill::value(adaptive_scale_init));
   
   for (int s=0; s<S; s++) {
@@ -201,4 +206,3 @@ Rcpp::List bsvar_msh_cpp (
     )
   );
 } // END bsvar_msh
-
