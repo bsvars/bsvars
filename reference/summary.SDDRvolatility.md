@@ -71,10 +71,10 @@ summary(sddr)
 #>    Summary of structural shocks                    |
 #>       homoskedasticity verification                |
 #>  **************************************************|
-#>          log(SDDR) NSE Pr[homoskedasticity|data] Pr[heteroskedasticity|data]
-#> shock 1  1.9388171   0                 0.8742221                   0.1257779
-#> shock 2 -0.6394414   0                 0.3453728                   0.6546272
-#> shock 3 -2.1673202   0                 0.1027238                   0.8972762
+#>           log(SDDR) NSE Pr[homoskedasticity|data] Pr[heteroskedasticity|data]
+#> shock 1  1.98294278   0                 0.8789945                   0.1210055
+#> shock 2 -0.07184707   0                 0.4820460                   0.5179540
+#> shock 3 -0.94555697   0                 0.2797792                   0.7202208
 
 # workflow with the pipe |>
 ############################################################
