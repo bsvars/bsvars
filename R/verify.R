@@ -1161,7 +1161,7 @@ verify_autoregression.PosteriorBSVART <- function(posterior, hypothesis) {
   Y               = posterior$last_draw$data_matrices$Y
   X               = posterior$last_draw$data_matrices$X
 
-  just_posterior$sigma = sqrt(just_posterior$lambda)
+  just_posterior$sigma = array(1, dim(just_posterior$lambda))
   
   hypothesis_cpp  = hypothesis
   hypothesis_cpp[is.na(hypothesis_cpp)] = 999

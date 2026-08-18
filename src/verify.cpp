@@ -26,6 +26,7 @@ Rcpp::List verify_volatility_sv_cpp (
   const cube    posterior_S     = as<cube>(posterior["S"]);
   const mat     posterior_sigma2_omega  = as<mat>(posterior["sigma2_omega"]);
   const mat     posterior_s_    = as<mat>(posterior["s_"]);
+  const cube    posterior_lambda = as<cube>(posterior["lambda"]);
   
   const double  prior_a_        = as<double>(prior["sv_a_"]);
   const double  prior_s_        = as<double>(prior["sv_s_"]);
@@ -58,7 +59,9 @@ Rcpp::List verify_volatility_sv_cpp (
   mat     log_numerator_s(N, S);
   for (int s = 0; s < S; s++) {
     for (int n = 0; n < N; n++) {
-      mat     residuals       = log(square(posterior_B.slice(s) * (Y - posterior_A.slice(s) * X)) + ccc);
+      mat     residuals       = posterior_B.slice(s) * (Y - posterior_A.slice(s) * X);
+      residuals              /= sqrt(posterior_lambda.slice(s));
+      residuals               = log(square(residuals) + ccc);
       
       rowvec  alpha_S(T);
       vec     sigma_S_inv(T);
@@ -173,6 +176,7 @@ Rcpp::List verify_volatility_msh_cpp (
   cube  posterior_B         = posterior["B"];
   cube  posterior_A         = posterior["A"];
   cube  posterior_xi        = posterior["xi"];
+  cube  posterior_lambda    = posterior["lambda"];
   
   const int   M             = posterior_xi.n_rows;
   double      MM            = posterior_xi.n_rows;
@@ -192,6 +196,9 @@ Rcpp::List verify_volatility_msh_cpp (
   // compute numerator
   mat     log_numerator_s(N, S);
   for (int s = 0; s < S; s++) {
+    mat residuals = posterior_B.slice(s) * (Y - posterior_A.slice(s) * X);
+    residuals    /= sqrt(posterior_lambda.slice(s));
+
     for (int n = 0; n < N; n++) {
       
       rowvec posterior_nu   = sum(posterior_xi.slice(s), 1).t() + as<double>(prior["sigma_nu"]);
@@ -201,7 +208,7 @@ Rcpp::List verify_volatility_msh_cpp (
       for (int m=0; m<M; m++) {
         for (int t=0; t<T; t++) {
           if (posterior_xi(m,t,s)==1) {
-            posterior_s.col(m) += square(posterior_B.slice(s) * (Y.col(t) - posterior_A.slice(s) * X.col(t)));
+            posterior_s.col(m) += square(residuals.col(t));
           }
         }
       }
@@ -265,6 +272,7 @@ Rcpp::List verify_volatility_hmsh_cpp (
   cube  posterior_B         = as<cube>(posterior["B"]);
   cube  posterior_A         = as<cube>(posterior["A"]);
   field<cube> posterior_xi  = as<field<cube>>(posterior["xi_cpp"]);
+  cube  posterior_lambda    = as<cube>(posterior["lambda"]);
   
   const int   M             = posterior_xi(0).n_rows;
   double      MM            = posterior_xi.n_rows;
@@ -284,6 +292,9 @@ Rcpp::List verify_volatility_hmsh_cpp (
   // compute numerator
   mat     log_numerator_s(N, S);
   for (int s = 0; s < S; s++) {
+    mat residuals = posterior_B.slice(s) * (Y - posterior_A.slice(s) * X);
+    residuals    /= sqrt(posterior_lambda.slice(s));
+
     for (int n = 0; n < N; n++) {
       mat post_xi           = posterior_xi(s).slice(n);
       rowvec posterior_nu   = sum(post_xi, 1).t() + as<double>(prior["sigma_nu"]);
@@ -294,7 +305,7 @@ Rcpp::List verify_volatility_hmsh_cpp (
       for (int m=0; m<M; m++) {
         for (int t=0; t<T; t++) {
           if (post_xi(m,t)==1) {
-            posterior_s.col(m) += square(posterior_B.slice(s) * (Y.col(t) - posterior_A.slice(s) * X.col(t)));
+            posterior_s.col(m) += square(residuals.col(t));
           }
         }
       }
@@ -420,7 +431,9 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
   cube    posterior_A         = posterior["A"];
   cube    posterior_B         = posterior["B"];
   cube    posterior_hyper     = posterior["hyper"];
-  cube    posterior_sigma     = posterior["sigma"];
+  const cube posterior_sigma  = posterior["sigma"];
+  const cube posterior_lambda = posterior["lambda"];
+  const cube posterior_scale  = posterior_sigma % sqrt(posterior_lambda);
   
   double  prior_hyper_nu_A    = as<double>(prior["hyper_nu_A"]);
   double  prior_hyper_a_A     = as<double>(prior["hyper_a_A"]);
@@ -483,7 +496,7 @@ Rcpp::List verify_autoregressive_heterosk_cpp (
       log_denominator_s(n, s) = const_prior + kernel_prior;
       
       // compute numerator
-      aux_sigma               = posterior_sigma.slice(s);
+      aux_sigma               = posterior_scale.slice(s);
       vec   sigma_vectorised  = vectorise(aux_sigma);
       mat   A0                = posterior_A.slice(s);
       A0.row(n)               = zerosA;
