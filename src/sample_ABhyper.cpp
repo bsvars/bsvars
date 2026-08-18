@@ -119,6 +119,7 @@ arma::mat sample_B_homosk1 (
   const int T               = Y.n_cols;
   
   const int posterior_nu    = T + as<int>(prior["B_nu"]);
+  const int radial_degrees  = posterior_nu - N + 1;
   mat prior_SS_inv          = as<mat>(prior["B_V_inv"]);
   mat shocks                = Y - aux_A * X;
   mat posterior_SS_inv      = shocks * shocks.t();
@@ -144,7 +145,7 @@ arma::mat sample_B_homosk1 (
     }
     
     vec   alpha(rn);
-    vec   u(posterior_nu + 1, fill::randn);
+    vec   u(radial_degrees, fill::randn);
     u                      *= pow(posterior_nu, -0.5);
     alpha(0)                = sqrt(as_scalar(sum(square(u))));
     if (R::runif(0,1)<0.5) {
@@ -182,6 +183,7 @@ arma::mat sample_B_heterosk1 (
   const int T               = Y.n_cols;
   
   const int posterior_nu    = T + as<int>(prior["B_nu"]);
+  const int radial_degrees  = posterior_nu - N + 1;
   mat prior_SS_inv          = as<mat>(prior["B_V_inv"]);
   mat shocks                = Y - aux_A * X;
   
@@ -211,7 +213,7 @@ arma::mat sample_B_heterosk1 (
     }
     
     vec   alpha(rn);
-    vec   u(posterior_nu+1, fill::randn);
+    vec   u(radial_degrees, fill::randn);
     u                      *= pow(posterior_nu, -0.5);
     alpha(0)                = pow(as_scalar(sum(pow(u,2))), 0.5);
     if (R::runif(0,1)<0.5) {
@@ -245,6 +247,7 @@ arma::mat sample_hyperparameters (
   
   const int N = aux_B.n_rows;
   
+  double prior_B_nu           = as<double>(prior["B_nu"]);
   double prior_hyper_nu_B     = as<double>(prior["hyper_nu_B"]);
   double prior_hyper_a_B      = as<double>(prior["hyper_a_B"]);
   double prior_hyper_s_BB     = as<double>(prior["hyper_s_BB"]);
@@ -283,7 +286,7 @@ arma::mat sample_hyperparameters (
     aux_hyper(N + n, 0) = R::rgamma(shape_tmp, scale_tmp);
     
     scale_tmp         = aux_hyper(N + n, 0) + as_scalar(aux_B.row(n) * prior_B_V_inv * aux_B.row(n).t());
-    shape_tmp         = prior_hyper_nu_B + rn;
+    shape_tmp         = prior_hyper_nu_B + rn + prior_B_nu - N;
     aux_hyper(n, 0)   = scale_tmp / R::rchisq(shape_tmp);
     
     // aux_A - related hyper-parameters 
