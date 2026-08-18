@@ -128,9 +128,9 @@ estimate.BSVARHMSH <- function(specification, S, thin = 1, show_progress = TRUE)
   output              = specify_posterior_bsvar_hmsh$new(specification, qqq$posterior)
   
   # reshape some of the outputs
-  PR_TR               = array(NA, c(dim(starting_values$PR_TR), S))
-  xi                  = array(NA, c(dim(starting_values$xi), S))
   SS                  = dim(qqq$posterior$PR_TR)[1]
+  PR_TR               = array(NA, c(dim(starting_values$PR_TR), SS))
+  xi                  = array(NA, c(dim(starting_values$xi), SS))
   for (s in 1:SS) {
     PR_TR[,,,s]       = qqq$posterior$PR_TR[s,1][[1]]
     xi[,,,s]          = qqq$posterior$xi[s,1][[1]]
@@ -194,9 +194,10 @@ estimate.PosteriorBSVARHMSH <- function(specification, S, thin = 1, show_progres
   output              = specify_posterior_bsvar_hmsh$new(specification$last_draw, qqq$posterior)
   
   # reshape some of the outputs
-  PR_TR               = array(NA, c(dim(starting_values$PR_TR), S))
-  xi                  = array(NA, c(dim(starting_values$xi), S))
-  for (s in 1:S) {
+  SS                  = dim(qqq$posterior$PR_TR)[1]
+  PR_TR               = array(NA, c(dim(starting_values$PR_TR), SS))
+  xi                  = array(NA, c(dim(starting_values$xi), SS))
+  for (s in 1:SS) {
     PR_TR[,,,s]       = qqq$posterior$PR_TR[s,1][[1]]
     xi[,,,s]          = qqq$posterior$xi[s,1][[1]]
   }
