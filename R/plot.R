@@ -661,11 +661,11 @@ plot.PosteriorShocks = function(
     ...
 ) {
   
+  N = dim(x)[1]
   if ( missing(main) ) main = "Structural Shocks"
   if ( missing(xlab) ) xlab = "time"
   if ( missing(shock_names) ) shock_names = paste("shock", 1:N)
   
-  N = dim(x)[1]
   
   oldpar <- graphics::par( 
     mfrow = c(N, 1),
