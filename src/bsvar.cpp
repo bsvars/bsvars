@@ -81,7 +81,7 @@ Rcpp::List bsvar_cpp(
   
   for (int s=0; s<S; s++) {
     
-    Rcout << " s: " << s << endl;
+    // Rcout << " s: " << s << endl;
     // Increment progress bar
     if (any(prog_rep_points == s)) p.increment();
     // Check for user interrupts
