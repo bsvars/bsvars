@@ -226,9 +226,13 @@ forecast.PosteriorBSVAR = function(
   } else {
     stopifnot("Forecasted values of exogenous variables are missing." = (d > 0) & !is.null(exogenous_forecast))
     stopifnot("The matrix of exogenous_forecast does not have a correct number of columns." = ncol(exogenous_forecast) == d)
-    stopifnot("Provide exogenous_forecast for all forecast periods specified by argument horizon." = nrow(exogenous_forecast) == horizon)
     stopifnot("Argument exogenous has to be a matrix." = is.matrix(exogenous_forecast) & is.numeric(exogenous_forecast))
     stopifnot("Argument exogenous cannot include missing values." = sum(is.na(exogenous_forecast)) == 0 )
+    
+    if ( is.null(conditional_forecast) ) {
+      horizon = nrow(exogenous_forecast)
+      message("The value of argument horizon is set to the number of rows in exogenous_forecast.")
+    }
   }
   
   # prepare forecasting with conditional forecasts
@@ -239,16 +243,28 @@ forecast.PosteriorBSVAR = function(
     stopifnot("Argument conditional_forecast must be a matrix with numeric values."
               = is.matrix(conditional_forecast) & is.numeric(conditional_forecast)
     )
-    stopifnot("Argument conditional_forecast must have the number of rows equal to 
-              the value of argument horizon."
-              = nrow(conditional_forecast) == horizon
-    )
     stopifnot("Argument conditional_forecast must have the number of columns 
               equal to the number of columns in the used data."
               = ncol(conditional_forecast) == N
     )
+    
+    if (d == 0) {
+      horizon = nrow(conditional_forecast)
+      message("The value of argument horizon is set to the number of rows in conditional_forecast.")
+    }
   }
   
+  # prepare forecasting with conditional forecasts
+  if ( !is.null(conditional_forecast) && d != 0) {
+    stopifnot("Argument conditional_forecast must have the same number of rows 
+              as argument exogenous_forecast."
+              = nrow(conditional_forecast) == nrow(exogenous_forecast)
+    )  
+    horizon = nrow(conditional_forecast)
+    message("The value of argument horizon has been aligned with the dimensions 
+            of arguments conditional_forecast and exogenous_forecast.")
+  }
+    
   # forecast volatility
   if (normal) {
     forecast_sigma2   = array(1, c(N, horizon, S))
