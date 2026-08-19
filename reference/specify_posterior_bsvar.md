@@ -225,56 +225,6 @@ estimate       = estimate(specification, 50)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
-#>  s: 10
-#>  s: 11
-#>  s: 12
-#>  s: 13
-#>  s: 14
-#>  s: 15
-#>  s: 16
-#>  s: 17
-#>  s: 18
-#>  s: 19
-#>  s: 20
-#>  s: 21
-#>  s: 22
-#>  s: 23
-#>  s: 24
-#>  s: 25
-#>  s: 26
-#>  s: 27
-#>  s: 28
-#>  s: 29
-#>  s: 30
-#>  s: 31
-#>  s: 32
-#>  s: 33
-#>  s: 34
-#>  s: 35
-#>  s: 36
-#>  s: 37
-#>  s: 38
-#>  s: 39
-#>  s: 40
-#>  s: 41
-#>  s: 42
-#>  s: 43
-#>  s: 44
-#>  s: 45
-#>  s: 46
-#>  s: 47
-#>  s: 48
-#>  s: 49
 class(estimate)
 #> [1] "PosteriorBSVAR" "R6"            
 
@@ -297,56 +247,6 @@ estimate       = estimate(specification, 50)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
-#>  s: 10
-#>  s: 11
-#>  s: 12
-#>  s: 13
-#>  s: 14
-#>  s: 15
-#>  s: 16
-#>  s: 17
-#>  s: 18
-#>  s: 19
-#>  s: 20
-#>  s: 21
-#>  s: 22
-#>  s: 23
-#>  s: 24
-#>  s: 25
-#>  s: 26
-#>  s: 27
-#>  s: 28
-#>  s: 29
-#>  s: 30
-#>  s: 31
-#>  s: 32
-#>  s: 33
-#>  s: 34
-#>  s: 35
-#>  s: 36
-#>  s: 37
-#>  s: 38
-#>  s: 39
-#>  s: 40
-#>  s: 41
-#>  s: 42
-#>  s: 43
-#>  s: 44
-#>  s: 45
-#>  s: 46
-#>  s: 47
-#>  s: 48
-#>  s: 49
 estimate$get_posterior()
 #> $B
 #> , , 1
@@ -7798,16 +7698,6 @@ burn_in        = estimate(specification, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
 
 # estimate the model
 posterior      = estimate(burn_in, 10)
@@ -7820,16 +7710,6 @@ posterior      = estimate(burn_in, 10)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
 
 
 ## ------------------------------------------------
@@ -7855,16 +7735,6 @@ posterior      = estimate(specification, 10, thin = 1)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
 
 # check normalisation status beforehand
 posterior$is_normalised()
@@ -7906,16 +7776,6 @@ posterior      = estimate(specification, 10, thin = 1)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  s: 0
-#>  s: 1
-#>  s: 2
-#>  s: 3
-#>  s: 4
-#>  s: 5
-#>  s: 6
-#>  s: 7
-#>  s: 8
-#>  s: 9
 
 # check normalisation status beforehand
 posterior$is_normalised()

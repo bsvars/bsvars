@@ -58,6 +58,8 @@ Have a question, or suggestion, or wanna get in touch? Email us at
     specifications in PR
     [\#140](https://github.com/bsvars/bsvars/pull/143) by [Fei
     Shang](https://github.com/lcq110)
+16. Forecast output formatted using **R6** environment
+    [\#138](https://github.com/bsvars/bsvars/issues/138)
 
 ## bsvars 3.2
 

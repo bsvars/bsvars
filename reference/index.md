@@ -247,6 +247,9 @@ Predict future values of your variables
 - [`forecast(`*`<PosteriorBSVART>`*`)`](https://bsvars.org/bsvars/reference/forecast.PosteriorBSVART.md)
   : Forecasting using Bayesian Structural Vector Autoregression
 
+- [`specify_forecasts`](https://bsvars.org/bsvars/reference/specify_forecasts.md)
+  : R6 Class Representing Forecasts
+
 - [`us_fiscal_cond_forecasts`](https://bsvars.org/bsvars/reference/us_fiscal_cond_forecasts.md)
   :
 
