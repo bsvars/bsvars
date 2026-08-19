@@ -58,8 +58,22 @@ Have a question, or suggestion, or wanna get in touch? Email us at
     specifications in PR
     [\#140](https://github.com/bsvars/bsvars/pull/143) by [Fei
     Shang](https://github.com/lcq110)
-16. Forecast output formatted using **R6** environment
+16. Major code corrections by [Fei Shang](https://github.com/lcq110) in
+    PRs [\#143](https://github.com/bsvars/bsvars/pull/143)
+    [\#144](https://github.com/bsvars/bsvars/pull/144)
+    [\#145](https://github.com/bsvars/bsvars/pull/145)
+    [\#146](https://github.com/bsvars/bsvars/pull/146)
+    [\#148](https://github.com/bsvars/bsvars/pull/148)
+    [\#149](https://github.com/bsvars/bsvars/pull/149)
+    [\#150](https://github.com/bsvars/bsvars/pull/150)
+    [\#151](https://github.com/bsvars/bsvars/pull/151)
+    [\#153](https://github.com/bsvars/bsvars/pull/153)
+    [\#155](https://github.com/bsvars/bsvars/pull/155)
+17. Forecast output formatted using **R6** environment
     [\#138](https://github.com/bsvars/bsvars/issues/138)
+    [\#156](https://github.com/bsvars/bsvars/pull/156) by [Adam
+    Wang](https://github.com/adamwang15)
+18. Fixed historical decomposition crash in PR
 
 ## bsvars 3.2
 

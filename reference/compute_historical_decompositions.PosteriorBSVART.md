@@ -49,32 +49,27 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# specify the model
-specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw), p = 1)
+specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw))
 #> The identification is set to the default option of lower-triangular structural matrix.
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #>     with t-distributed structural skocks          |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
+posterior      = estimate(burn_in, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #>     with t-distributed structural skocks          |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -92,9 +87,9 @@ hd            = compute_historical_decompositions(posterior)
 # workflow with the pipe |>
 ############################################################
 diff(us_fiscal_lsuw) |>
-  specify_bsvar_t$new(p = 1) |>
-  estimate(S = 10) |> 
-  estimate(S = 10) |> 
+  specify_bsvar_t$new() |>
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_historical_decompositions() -> hd
 #> The identification is set to the default option of lower-triangular structural matrix.
 #> **************************************************|
@@ -103,7 +98,7 @@ diff(us_fiscal_lsuw) |>
 #>  Gibbs sampler for the SVAR model                 |
 #>     with t-distributed structural skocks          |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -113,7 +108,7 @@ diff(us_fiscal_lsuw) |>
 #>  Gibbs sampler for the SVAR model                 |
 #>     with t-distributed structural skocks          |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|

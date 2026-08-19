@@ -49,11 +49,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# specify the model
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #> The identification is set to the default option of lower-triangular structural matrix.
-
-# run the burn-in
 burn_in        = estimate(specification, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -65,8 +62,6 @@ burn_in        = estimate(specification, 5)
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-
-# estimate the model
 posterior      = estimate(burn_in, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|

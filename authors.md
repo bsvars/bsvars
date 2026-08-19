@@ -5,6 +5,12 @@
 - **Tomasz Woźniak**. Author, maintainer.
   [](https://orcid.org/0000-0003-2212-2378)[![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/01ej9dk98)
 
+- **Fei Shang**. Contributor.
+  [](https://orcid.org/0000-0003-1908-3275)  
+  co-authored the Journal of Econometrics methodological paper by
+  Lütkepohl, Shang, Uzeda, Woźniak (2026), introduced major code
+  corrections and improvements
+
 - **Xiaolei Wang**. Contributor.
   [](https://orcid.org/0009-0005-6192-9061)  
   corrected C++ code for historical decompositions
@@ -12,11 +18,6 @@
 - **Bruno Cavalcante**. Contributor.
   [](https://orcid.org/0009-0005-7252-7658)  
   corrected R code for HMSH forecasting
-
-- **Fei Shang**. Contributor.
-  [](https://orcid.org/0000-0003-1908-3275)  
-  corrected C++ code for Student's t shocks, corrected code for
-  forecasting
 
 ## Citation
 
@@ -38,8 +39,8 @@ https://cran.r-project.org/package=bsvars, DOI:
     }
 
 Woźniak, Tomasz (2025). Fast and Efficient Bayesian Analysis of
-Structural Vector Autoregressions Using the R Package bsvars, DOI:
-10.48550/arXiv.2410.15090.
+Structural Vector Autoregressions Using the R Package bsvars. University
+of Melbourne Working Paper, DOI: 10.48550/arXiv.2410.15090.
 
     @Article{,
       title = {Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R Package bsvars},
@@ -50,16 +51,17 @@ Structural Vector Autoregressions Using the R Package bsvars, DOI:
       doi = {10.48550/arXiv.2410.15090},
     }
 
-Lütkepohl, H., Shang, F., Uzeda, L., Woźniak, T. (2025). Partial
-Identification of Heteroskedastic Structural VARs: Theory and Bayesian
-Inference. University of Melbourne Working Papers, 1-18. DOI:
-10.1016/j.jeconom.2025.106107.
+Lütkepohl, H., Shang, F., Uzeda, L., Woźniak, T. (2026). Partial
+Identification of Structural Vector Autoregressions with Non-centred
+Stochastic Volatility. Journal of Econometrics, Vol. 256, pp. 106107.
+DOI: 10.1016/j.jeconom.2025.106107.
 
     @Article{,
       title = {Partial Identification of Structural Vector Autoregressions with Non-centred Stochastic Volatility},
       author = {Helmut Lütkepohl and Fei Shang and Luis Uzeda and Tomasz Wo\'zniak},
       journal = {Journal of Econometrics},
-      year = {2025},
-      pages = {1--18},
+      year = {2026},
+      volume = {256},
+      pages = {106107},
       doi = {10.1016/j.jeconom.2025.106107},
     }
