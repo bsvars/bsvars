@@ -26,14 +26,9 @@
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
-#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw))
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -41,9 +36,9 @@
 #' # workflow with the pipe |>
 #' ############################################################
 #' diff(us_fiscal_lsuw) |>
-#'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   specify_bsvar$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hd
 #' 
 #' @export
@@ -85,14 +80,9 @@ compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
-#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw), p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' specification  = specify_bsvar$new(diff(us_fiscal_lsuw))
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -100,9 +90,9 @@ compute_historical_decompositions <- function(posterior, show_progress = TRUE) {
 #' # workflow with the pipe |>
 #' ############################################################
 #' diff(us_fiscal_lsuw) |>
-#'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   specify_bsvar$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hd
 #'   
 #' @export
@@ -162,14 +152,9 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd             = compute_historical_decompositions(posterior)
@@ -178,8 +163,8 @@ compute_historical_decompositions.PosteriorBSVAR <- function(posterior, show_pro
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_exh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
@@ -239,14 +224,9 @@ compute_historical_decompositions.PosteriorBSVAREXH <- function(posterior, show_
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
-#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd             = compute_historical_decompositions(posterior)
@@ -254,9 +234,9 @@ compute_historical_decompositions.PosteriorBSVAREXH <- function(posterior, show_
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   specify_bsvar_msh$new(M = 2) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
@@ -315,14 +295,9 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior, show_
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd             = compute_historical_decompositions(posterior)
@@ -331,8 +306,8 @@ compute_historical_decompositions.PosteriorBSVARMSH <- function(posterior, show_
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
@@ -391,14 +366,9 @@ compute_historical_decompositions.PosteriorBSVARHMSH <- function(posterior, show
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
-#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd             = compute_historical_decompositions(posterior)
@@ -406,9 +376,9 @@ compute_historical_decompositions.PosteriorBSVARHMSH <- function(posterior, show
 #' # workflow with the pipe |>
 #' ############################################################
 #' us_fiscal_lsuw |>
-#'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   specify_bsvar_mix$new(M = 2) |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hds
 #'   
 #' @export
@@ -467,13 +437,8 @@ compute_historical_decompositions.PosteriorBSVARMIX <- function(posterior, show_
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
 #' burn_in        = estimate(specification, 5)
-#' 
-#' # estimate the model
 #' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
@@ -545,14 +510,9 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
-#' specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw), p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' specification  = specify_bsvar_t$new(diff(us_fiscal_lsuw))
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute historical decompositions
 #' hd            = compute_historical_decompositions(posterior)
@@ -560,9 +520,9 @@ compute_historical_decompositions.PosteriorBSVARSV <- function(posterior, show_p
 #' # workflow with the pipe |>
 #' ############################################################
 #' diff(us_fiscal_lsuw) |>
-#'   specify_bsvar_t$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
+#'   specify_bsvar_t$new() |>
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() -> hd
 #'   
 #' @export
@@ -591,3 +551,9 @@ compute_historical_decompositions.PosteriorBSVART <- function(posterior, show_pr
 }
 
 
+#' @export
+print.PosteriorHD <- function(x, ...) {
+  cat("Posterior draws of historical decompositions\n")
+  cat("An array of dimensions:", paste(dim(x), collapse = " x "), "\n")
+  invisible(x)
+}

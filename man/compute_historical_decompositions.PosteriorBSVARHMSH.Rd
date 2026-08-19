@@ -26,14 +26,9 @@ covariance stationary data. Application to unit-root non-stationary data might
 result in non-interpretable outcomes.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute historical decompositions
 hd             = compute_historical_decompositions(posterior)
@@ -42,8 +37,8 @@ hd             = compute_historical_decompositions(posterior)
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_hmsh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_historical_decompositions() -> hds
   
 }

@@ -25,14 +25,9 @@ when \code{type = "filtered"}, forecasted regime probabilities, when \code{type 
 or the smoothed probabilities, when \code{type = "smoothed"}, .
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute the posterior draws of realized regime indicators
 regimes        = compute_regime_probabilities(posterior)
@@ -44,8 +39,8 @@ filtered       = compute_regime_probabilities(posterior, "filtered")
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) -> posterior
+  estimate(S = 5) |> 
+  estimate(S = 5) -> posterior
 regimes        = compute_regime_probabilities(posterior)
 filtered       = compute_regime_probabilities(posterior, "filtered")
 

@@ -20,14 +20,9 @@ packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the structural shocks.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute structural shocks
 shocks         = compute_structural_shocks(posterior)
@@ -36,8 +31,8 @@ shocks         = compute_structural_shocks(posterior)
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_mix$new(p = 1, M = 2) |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_structural_shocks() -> ss
 
 }

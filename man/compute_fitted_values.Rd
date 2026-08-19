@@ -21,14 +21,9 @@ packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the data predictive density.
 }
 \examples{
-# specify the model
-specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+specification  = specify_bsvar$new(us_fiscal_lsuw)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute draws from in-sample predictive density
 fitted         = compute_fitted_values(posterior)
@@ -37,8 +32,8 @@ fitted         = compute_fitted_values(posterior)
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar$new(p = 1) |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_fitted_values() -> fitted
 
 }

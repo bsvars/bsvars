@@ -156,7 +156,7 @@
 #'           exogenous = us_fiscal_ex
 #'         )
 #' burn  = estimate(spec, 5)             # run the burn-in
-#' post  = estimate(burn, 10)            # estimate the model
+#' post  = estimate(burn, 5)             # estimate the model
 #' irf   = compute_impulse_responses(    # compute impulse responses
 #'           post, 
 #'           horizon = 2
@@ -170,7 +170,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 4) -> fevds
 #' 
 #' # conditional forecasting using a model with exogenous variables
@@ -178,7 +178,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> post
+#'   estimate(S = 5) -> post
 #'   
 #'  post |> forecast(
 #'     horizon = 8,
@@ -196,7 +196,7 @@
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 2, A = A) |>
 #'   estimate(S = 5) |> 
-#'   estimate(S = 10) -> post
+#'   estimate(S = 5) -> post
 #' post |> summary()
 #' 
 "_PACKAGE"

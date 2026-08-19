@@ -26,13 +26,8 @@ covariance stationary data. Application to unit-root non-stationary data might
 result in non-interpretable outcomes.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-
-# run the burn-in
 burn_in        = estimate(specification, 5)
-
-# estimate the model
 posterior      = estimate(burn_in, 5)
 
 # compute historical decompositions

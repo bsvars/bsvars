@@ -26,24 +26,19 @@ packages \pkg{bsvars} or \pkg{bsvarSIGNs} is transformed into
 a draw from the posterior distribution of the impulse responses.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 10)
-
-# compute impulse responses
-irfs            = compute_impulse_responses(posterior, 4)
+# compute impulse responses 2 years ahead
+irf           = compute_impulse_responses(posterior, horizon = 8)
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_exh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_impulse_responses(horizon = 4) -> irfs
   
 }

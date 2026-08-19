@@ -69,6 +69,12 @@ verify_volatility <- function(posterior) {
 }
 
 
+#' @export
+print.SDDRvolatility <- function(x, ...) {
+  cat("Verify structural shocks homoskedasticity using Bayes factor.\n")
+  cat("lnSDDRs:", x$logSDDR, "\n")
+  invisible(x)
+}
 
 
 
@@ -488,7 +494,12 @@ verify_normality <- function(posterior) {
 }
 
 
-
+#' @export
+print.SDDRnormality <- function(x, ...) {
+  cat("Verify structural shocks normality using Bayes factor.\n")
+  cat("lnSDDRs:", x$logSDDR, "\n")
+  invisible(x)
+}
 
 
 #' @inherit verify_normality
@@ -858,6 +869,15 @@ verify_autoregression <- function(posterior, hypothesis) {
   
   # call method
   UseMethod("verify_autoregression", posterior)
+}
+
+
+
+#' @export
+print.SDDRautoregression <- function(x, ...) {
+  cat("Verify restrictions on autoregressive parameters using Bayes factor.\n")
+  cat("lnSDDRs:", x$logSDDR, "\n")
+  invisible(x)
 }
 
 
@@ -1248,6 +1268,13 @@ verify_identification <- function(posterior) {
 }
 
 
+
+#' @export
+print.SDDRidSV <- function(x, ...) {
+  cat("Verify structural shocks identification using Bayes factor.\n")
+  cat("lnSDDRs:", x$logSDDR, "\n")
+  invisible(x)
+}
 
 
 

@@ -385,3 +385,10 @@ compute_conditional_sd.PosteriorBSVART <- function(posterior) {
   
   return(posterior_sigma)
 }
+
+#' @export
+print.PosteriorSigma <- function(x, ...) {
+  cat("Posterior draws of conditional standard deviations\n")
+  cat("An array of dimensions:", paste(dim(x), collapse = " x "), "\n")
+  invisible(x)
+}

@@ -22,14 +22,9 @@
 #' Kilian, L., & Lütkepohl, H. (2017). Structural VAR Tools, Chapter 4, In: Structural vector autoregressive analysis. Cambridge University Press.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -38,8 +33,8 @@
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -102,14 +97,9 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
 #' \code{PosteriorBSVAREXH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -118,8 +108,8 @@ compute_variance_decompositions.PosteriorBSVAR <- function(posterior, horizon) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_exh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -173,14 +163,9 @@ compute_variance_decompositions.PosteriorBSVAREXH <- function(posterior, horizon
 #' \code{PosteriorBSVARMSH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -189,8 +174,8 @@ compute_variance_decompositions.PosteriorBSVAREXH <- function(posterior, horizon
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -240,14 +225,9 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
 #' \code{PosteriorBSVARHMSH} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -256,8 +236,8 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -319,14 +299,9 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
 #' \code{PosteriorBSVARMIX} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -335,8 +310,8 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -384,14 +359,9 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
 #' \code{PosteriorBSVARSV} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -400,8 +370,8 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -449,14 +419,9 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
 #' \code{PosteriorBSVART} obtained by running the \code{estimate} function.
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute forecast error variance decomposition 2 years ahead
 #' fevd           = compute_variance_decompositions(posterior, horizon = 8)
@@ -465,8 +430,8 @@ compute_variance_decompositions.PosteriorBSVARSV <- function(posterior, horizon)
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 8) -> fevd
 #' 
 #' @export
@@ -493,4 +458,12 @@ compute_variance_decompositions.PosteriorBSVART <- function(posterior, horizon) 
   class(fevd)     = "PosteriorFEVD"
   
   return(fevd)
+}
+
+
+#' @export
+print.PosteriorFEVD <- function(x, ...) {
+  cat("Posterior draws of forecast error variance decompositions\n")
+  cat("An array of dimensions:", paste(dim(x), collapse = " x "), "\n")
+  invisible(x)
 }

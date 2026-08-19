@@ -17,14 +17,9 @@
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -33,8 +28,8 @@
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #' 
 #' @export
@@ -65,14 +60,9 @@ compute_structural_shocks <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -81,8 +71,8 @@ compute_structural_shocks <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #' 
 #' @export
@@ -124,14 +114,9 @@ compute_structural_shocks.PosteriorBSVAR <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_exh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 10)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -140,8 +125,8 @@ compute_structural_shocks.PosteriorBSVAR <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_exh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 10) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #'   
 #' @export
@@ -185,14 +170,9 @@ compute_structural_shocks.PosteriorBSVAREXH <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -201,8 +181,8 @@ compute_structural_shocks.PosteriorBSVAREXH <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #'   
 #' @export
@@ -248,14 +228,9 @@ compute_structural_shocks.PosteriorBSVARMSH <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_hmsh$new(us_fiscal_lsuw)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -264,8 +239,8 @@ compute_structural_shocks.PosteriorBSVARMSH <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_hmsh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #'   
 #' @export
@@ -310,14 +285,9 @@ compute_structural_shocks.PosteriorBSVARHMSH <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_mix$new(us_fiscal_lsuw, p = 1, M = 2)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -326,8 +296,8 @@ compute_structural_shocks.PosteriorBSVARHMSH <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_mix$new(p = 1, M = 2) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #' 
 #' @export
@@ -369,14 +339,9 @@ compute_structural_shocks.PosteriorBSVARMIX <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -385,8 +350,8 @@ compute_structural_shocks.PosteriorBSVARMIX <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #' 
 #' @export
@@ -427,14 +392,9 @@ compute_structural_shocks.PosteriorBSVARSV <- function(posterior) {
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' # specify the model
 #' specification  = specify_bsvar_t$new(us_fiscal_lsuw, p = 1)
-#' 
-#' # run the burn-in
-#' burn_in        = estimate(specification, 10)
-#' 
-#' # estimate the model
-#' posterior      = estimate(burn_in, 20)
+#' burn_in        = estimate(specification, 5)
+#' posterior      = estimate(burn_in, 5)
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -443,8 +403,8 @@ compute_structural_shocks.PosteriorBSVARSV <- function(posterior) {
 #' ############################################################
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_t$new(p = 1) |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() -> ss
 #' 
 #' @export
@@ -461,4 +421,12 @@ compute_structural_shocks.PosteriorBSVART <- function(posterior) {
   dimnames(ss)    = list(rownames(Y), colnames(Y), 1:S)
   
   return(ss)
+}
+
+
+#' @export
+print.PosteriorShocks <- function(x, ...) {
+  cat("Posterior draws of structural shocks\n")
+  cat("An array of dimensions:", paste(dim(x), collapse = " x "), "\n")
+  invisible(x)
 }
