@@ -19,6 +19,8 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 13. Corrected R code for forecasting with HMSH models in PR [#136](https://github.com/bsvars/bsvars/pull/136) by [Bruno Cavalcante](https://github.com/brunolbcavalcante)
 14. Corrected C++ code for Student's t shocks in PR [#140](https://github.com/bsvars/bsvars/pull/140) by [Fei Shang](https://github.com/lcq110)
 15. Fix recursive forecasts for non-centred SV and Student-t specifications in PR [#140](https://github.com/bsvars/bsvars/pull/143) by [Fei Shang](https://github.com/lcq110)
+16. Forecast output formatted using **R6** environment [#138](https://github.com/bsvars/bsvars/issues/138)
+
 
 # bsvars 3.2
 

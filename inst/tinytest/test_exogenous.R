@@ -44,7 +44,7 @@ expect_error(
 
 
 expect_true(
-  class(forecast(run_no1, 2, exogenous_forecast = matrix(0, 2, 3))) == "Forecasts",
+  "Forecasts" %in% class(forecast(run_no1, 2, exogenous_forecast = matrix(0, 2, 3))),
   info = "Exogenous in forecast."
 )
 
@@ -56,3 +56,4 @@ expect_error(
   pattern = "constant",
   info = "Constant term in exogenous."
 )
+

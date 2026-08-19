@@ -3,6 +3,120 @@
 generics::forecast
 
 
+
+#' @title R6 Class Representing Forecasts
+#'
+#' @description
+#' R6 class representing draws from the predictive density of a Bayesian
+#' Structural Vector Autoregression model.
+#'
+#' @details
+#' The class contains the following objects:
+#'
+#' \describe{
+#'   \item{\code{forecasts}}{An \code{N x horizon x S} array containing draws 
+#'   from the predictive density.}
+#'   \item{\code{forecast_mean}}{An \code{N x horizon x S} array containing the 
+#'   conditional means of the predictive density.}
+#'   \item{\code{forecast_covariance}}{An \code{N x N x horizon x S} array 
+#'   containing the conditional covariance matrices of the predictive density.}
+#'   \item{\code{Y}}{An \code{N x T} matrix containing the data on the dependent 
+#'   variables used for estimation.}
+#' }
+#'
+#' The method \code{as_list()} returns the contents of the \code{Forecasts}
+#' object as a list.
+#'
+#' @param output A list containing the forecasting output, including
+#' \code{forecasts}, \code{forecast_mean}, and \code{forecast_cov}.
+#' @param Y An \code{N x T} matrix containing the data on the dependent variables.
+#'
+#' @return An object of class \code{Forecasts}.
+#'
+#' @examples
+#' spec = specify_bsvar$new(us_fiscal_lsuw)
+#' burn = estimate(spec, 5)
+#' post = estimate(burn, 5)
+#' fore = forecast(post, 4)
+#' apply(fore$forecasts, 1:2, mean) # compute mean forecasts 
+#'
+#' @export
+specify_forecasts = R6::R6Class(
+  classname = "Forecasts",
+  
+  public = list(
+    
+    #' @field forecasts
+    #' An \code{N x horizon x S} numeric array containing draws from the
+    #' predictive density.
+    forecasts = array(),
+    
+    #' @field forecast_mean
+    #' An \code{N x horizon x S} numeric array containing the conditional
+    #' means of the predictive density.
+    forecast_mean = array(),
+    
+    #' @field forecast_covariance
+    #' An \code{N x N x horizon x S} numeric array containing the conditional
+    #' covariance matrices of the predictive density.
+    forecast_covariance = array(),
+    
+    #' @field Y
+    #' An \code{N x T} numeric matrix containing the data on the dependent
+    #' variables used for estimation.
+    Y = matrix(),
+    
+    #' @description
+    #' Creates a new \code{Forecasts} object from the output of the forecasting
+    #' procedure.
+    #'
+    #' @param output A list containing the forecasting output, including
+    #' \code{forecasts}, \code{forecast_mean}, and \code{forecast_cov}.
+    #' @param Y An \code{N x T} matrix containing the data on the dependent variables.
+    #'
+    #' @return An object of class \code{Forecasts}.
+    initialize = function(output, Y) {
+      
+      N       = dim(output$forecasts)[1]
+      horizon = dim(output$forecasts)[2]
+      S       = dim(output$forecasts)[3]
+      
+      forecast_covariance = array(
+        NA,
+        c(N, N, horizon, S)
+      )
+      
+      for (s in seq_len(S)) {
+        forecast_covariance[, , , s] = output$forecast_cov[s, ][[1]]
+      }
+      
+      self$forecasts           = output$forecasts
+      self$forecast_mean       = output$forecast_mean
+      self$forecast_covariance = forecast_covariance
+      self$Y                   = Y
+      
+      invisible(self)
+    },
+    
+    #' @description
+    #' Converts the \code{Forecasts} object to a list.
+    #'
+    #' @return A list containing \code{forecasts}, \code{forecast_mean},
+    #' \code{forecast_covariance}, and \code{Y}.
+    get_forecasts = function() {
+      
+      list(
+        forecasts           = self$forecasts,
+        forecast_mean       = self$forecast_mean,
+        forecast_covariance = self$forecast_covariance,
+        Y                   = self$Y
+      )
+    }
+  )
+)
+
+
+
 #' @title Forecasting using Bayesian Structural Vector Autoregression
 #'
 #' @description Samples from the joint predictive density of all of the dependent 
@@ -156,14 +270,7 @@ forecast.PosteriorBSVAR = function(
                       horizon
                 ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  # output$forecasts_sigma = forecast_sigma2
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVAR
 
@@ -314,13 +421,7 @@ forecast.PosteriorBSVAREXH = function(
                        horizon
   ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVAREXH
 
@@ -476,13 +577,7 @@ forecast.PosteriorBSVARHMSH = function(
                       horizon
   ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVARHMSH
 
@@ -638,13 +733,7 @@ forecast.PosteriorBSVARMSH = function(
                       horizon
                   ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVARMSH
 
@@ -793,13 +882,7 @@ forecast.PosteriorBSVARMIX = function(
                       horizon
   ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVARMIX
 
@@ -951,13 +1034,7 @@ forecast.PosteriorBSVARSV = function(
                       horizon
                 ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVARSV
 
@@ -1093,12 +1170,6 @@ forecast.PosteriorBSVART = function(
                       horizon
                 ) # END .Call
   
-  forecast_covariance         = array(NA, c(N, N, horizon, S))
-  for (s in 1:S) forecast_covariance[,,,s] = output$forecast_cov[s,][[1]]
-  output$forecast_covariance  = forecast_covariance
-  
-  output$Y          = Y
-  class(output)     = "Forecasts"
-  
+  output = specify_forecasts$new(output, Y)
   return(output)
 } # END forecast.PosteriorBSVART
