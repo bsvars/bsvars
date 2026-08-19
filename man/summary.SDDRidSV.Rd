@@ -27,14 +27,7 @@ used to make probabilistic statements about identification through
 heteroskedasticity following Lütkepohl, Shang, Uzeda & Woźniak (2024).
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 
 # verify heteroskedasticity
@@ -43,7 +36,6 @@ summary(sddr)
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new() |>
   estimate(S = 10) |> 

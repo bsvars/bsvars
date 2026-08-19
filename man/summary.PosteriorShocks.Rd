@@ -22,32 +22,25 @@ Provides posterior summary of the structural shocks including their
 mean, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
 specification  = specify_bsvar$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute structural shocks
 shocks         = compute_structural_shocks(posterior)
 shocks_summary = summary(shocks)
+head(shocks_summary$shock1)
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_structural_shocks() |>
   summary() -> shocks_summary
+head(shocks_summary$shock1)
 
 }
 \seealso{

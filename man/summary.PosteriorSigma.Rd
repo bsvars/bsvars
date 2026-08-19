@@ -25,22 +25,14 @@ standard deviations including their mean, standard deviations, as well as
 5 and 95 percentiles.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
-
-# run the burn-in
 burn_in        = estimate(specification, 5)
-
-# estimate the model
 posterior      = estimate(burn_in, 5)
 
 # compute structural shocks' conditional standard deviations
 sigma          = compute_conditional_sd(posterior)
 sigma_summary  = summary(sigma)
+sigma_summary$shock1[,1] # access posterior mean of shock1
 
 # workflow with the pipe |>
 ############################################################
@@ -51,6 +43,7 @@ us_fiscal_lsuw |>
   estimate(S = 5) |> 
   compute_conditional_sd() |>
   summary() -> sigma_summary
+sigma_summary$shock1[,1]
 
 }
 \seealso{

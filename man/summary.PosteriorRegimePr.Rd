@@ -22,27 +22,24 @@ Provides posterior summary of regime probabilities
 including their mean, standard deviations, as well as 5 and 95 percentiles.
 }
 \examples{
-# specify the model
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute regime probabilities
 rp             = compute_regime_probabilities(posterior)
 rp_summary     = summary(rp)
+head(rp_summary$MarkovProcess1$regime1) # browse the results
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_regime_probabilities() |>
   summary() -> rp_summary
+head(rp_summary$MarkovProcess1$regime1) # browse the results
 
 }
 \seealso{

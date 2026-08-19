@@ -22,32 +22,25 @@ Provides posterior means of the historical decompositions variable
 by variable.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
 specification  = specify_bsvar$new(diff(us_fiscal_lsuw))
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute historical decompositions
 hds            = compute_historical_decompositions(posterior)
 hds_summary    = summary(hds)
+head(hds_summary$variable1) # browse the contributions
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 diff(us_fiscal_lsuw) |>
   specify_bsvar$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_historical_decompositions() |>
   summary() -> hds_summary
+head(hds_summary$variable1) # browse the contributions
 
 }
 \seealso{

@@ -25,23 +25,20 @@ percentiles of the parameters: the structural matrix \eqn{B}, autoregressive
 parameters \eqn{A}, and hyper parameters.
 }
 \examples{
-# specify the model and set seed
 spec  = specify_bsvar_exh$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn  = estimate(spec, 10)
-
-# estimate the model
-post  = estimate(burn, 10)
-summary(post)
+burn  = estimate(spec, 5)
+post  = estimate(burn, 5)
+summ  = summary(post)
+summ
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_exh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 10) |> 
-  summary()
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
+  summary() -> summ
+summ
 
 }
 \seealso{

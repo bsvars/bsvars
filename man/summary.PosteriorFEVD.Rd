@@ -22,32 +22,25 @@ Provides posterior means of the forecast error variance
 decompositions of each variable at all horizons.
 }
 \examples{
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
 specification  = specify_bsvar$new(us_fiscal_lsuw)
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+burn_in        = estimate(specification, 5)
+posterior      = estimate(burn_in, 5)
 
 # compute forecast error variance decompositions
 fevd           = compute_variance_decompositions(posterior, horizon = 4)
 fevd_summary   = summary(fevd)
+fevd_summary$variable1
 
 # workflow with the pipe |>
 ############################################################
 set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_variance_decompositions(horizon = 4) |>
   summary() -> fevd_summary
+fevd_summary$variable1
 
 }
 \seealso{
