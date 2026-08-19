@@ -834,7 +834,7 @@ plot.Forecasts = function(
     
     base::plot(
       x      = c(seq_in_plot, for_in_plot),
-      y      = c(Y[n, seq_in_plot], fore_median),
+      y      = c(Y[n, obs_in_plot], fore_median),
       type   = "n",
       ylim   = fore_range,
       main   = "",
