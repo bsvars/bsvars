@@ -1,7 +1,7 @@
 
 #' @title A 3-variable US fiscal system for the period 1948 Q1 -- 2026 Q1
 #'
-#' @description A system used to identify the US fiscal policy shocks. 
+#' @description A system used to identify the US fiscal policy shocks used by Lütkepohl, Shang, Uzeda, Woźniak (2026). 
 #' Last data update was implemented on 2026-06-09.
 #'
 #' @usage data(us_fiscal_lsuw)
@@ -26,7 +26,9 @@
 #' 
 #' Mertens, K., and Ravn, M.O. (2014) A Reconciliation of SVAR and Narrative Estimates of Tax Multipliers, \emph{Journal of Monetary Economics}, 68(S), S1–S19. DOI: \doi{10.1016/j.jmoneco.2013.04.004}.
 #' 
-#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. \emph{University of Melbourne Working Paper}, 1--57, \doi{10.48550/arXiv.2404.11057}.
+#' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+#' Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+#' \emph{Journal of Econometrics} \bold{256}, 106107, \doi{10.1016/j.jeconom.2025.106107}.
 #' 
 #' @source 
 #' U.S. Bureau of Economic Analysis, National Income and Product Accounts, \url{https://www.bea.gov/}

@@ -1,3 +1,9 @@
+
+# This file generates data set used by 
+# Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
+# Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
+# Journal of Econometrics, Vol. 256, pp. 106107, DOI: 10.1016/j.jeconom.2025.106107.
+
 # Notes by Fei Shang
 ############################################################
 # This is a dataset from Mertens, Ravn (2014,JME) paper. 
