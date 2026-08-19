@@ -450,7 +450,7 @@ plot.PosteriorIR = function(
       
       if (n == 1) {
         graphics::mtext(
-          paste("shock", i),
+          shock_names[n],
           side = 3,
           line = 0,
           outer = FALSE,
@@ -616,6 +616,7 @@ plot.PosteriorRegimePr = function(
 #' @param probability a parameter determining the interval to be plotted. The 
 #' interval stretches from the \code{0.5 * (1 - probability)} to 
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
+#' @param shock_names a vector of length \code{N} containing names of the structural shocks.
 #' @param col a colour of the plot line and the ribbon
 #' @param main an alternative main title for the plot
 #' @param xlab an alternative x-axis label for the plot
@@ -651,6 +652,7 @@ plot.PosteriorRegimePr = function(
 plot.PosteriorShocks = function(
     x,
     probability = 0.9,
+    shock_names,
     col = "#ff69b4",
     main,
     xlab,
@@ -661,6 +663,7 @@ plot.PosteriorShocks = function(
   
   if ( missing(main) ) main = "Structural Shocks"
   if ( missing(xlab) ) xlab = "time"
+  if ( missing(shock_names) ) shock_names = paste("shock", 1:N)
   
   N = dim(x)[1]
   
@@ -678,7 +681,7 @@ plot.PosteriorShocks = function(
       probability = probability,
       col         = col,
       main = "",
-      ylab = paste("shock", n),
+      ylab = shock_names[n],
       xlab = "",
       start_at    = 1,
       bty = "n",
