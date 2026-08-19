@@ -137,7 +137,7 @@
 #' 
 #' Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
 #' Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
-#' \emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
+#' \emph{Journal of Econometrics} \bold{256}, 106107, \doi{10.1016/j.jeconom.2025.106107}.
 #' 
 #' Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. 
 #' \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.

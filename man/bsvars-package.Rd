@@ -103,7 +103,7 @@ spec  = specify_bsvar_sv$new(         # specify the model
           exogenous = us_fiscal_ex
         )
 burn  = estimate(spec, 5)             # run the burn-in
-post  = estimate(burn, 10)            # estimate the model
+post  = estimate(burn, 5)             # estimate the model
 irf   = compute_impulse_responses(    # compute impulse responses
           post, 
           horizon = 2
@@ -117,7 +117,7 @@ fevd  = compute_variance_decompositions(post, horizon = 4)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
-  estimate(S = 10) |> 
+  estimate(S = 5) |> 
   compute_variance_decompositions(horizon = 4) -> fevds
 
 # conditional forecasting using a model with exogenous variables
@@ -125,7 +125,7 @@ us_fiscal_lsuw |>
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(exogenous = us_fiscal_ex) |>
   estimate(S = 5) |> 
-  estimate(S = 10) -> post
+  estimate(S = 5) -> post
   
  post |> forecast(
     horizon = 8,
@@ -143,7 +143,7 @@ A[1,3] = A[1,6] = FALSE
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 2, A = A) |>
   estimate(S = 5) |> 
-  estimate(S = 10) -> post
+  estimate(S = 5) -> post
 post |> summary()
 
 }
@@ -157,7 +157,7 @@ Estimation of Stochastic Volatility Models. \emph{Computational Statistics & Dat
 
 Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) 
 Partial identification of structural vector autoregressions with non-centred stochastic volatility. 
-\emph{Journal of Econometrics}, 1--18, \doi{10.1016/j.jeconom.2025.106107}.
+\emph{Journal of Econometrics} \bold{256}, 106107, \doi{10.1016/j.jeconom.2025.106107}.
 
 Lütkepohl, H., and Woźniak, T., (2020) Bayesian Inference for Structural Vector Autoregressions Identified by Markov-Switching Heteroskedasticity. 
 \emph{Journal of Economic Dynamics and Control} \bold{113}, 103862, \doi{10.1016/j.jedc.2020.103862}.
