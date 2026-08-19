@@ -22,8 +22,8 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 16. Major code corrections by [Fei Shang](https://github.com/lcq110) in PRs [#143](https://github.com/bsvars/bsvars/pull/143) [#144](https://github.com/bsvars/bsvars/pull/144) [#145](https://github.com/bsvars/bsvars/pull/145) [#146](https://github.com/bsvars/bsvars/pull/146) [#148](https://github.com/bsvars/bsvars/pull/148) [#149](https://github.com/bsvars/bsvars/pull/149) [#150](https://github.com/bsvars/bsvars/pull/150) [#151](https://github.com/bsvars/bsvars/pull/151) [#153](https://github.com/bsvars/bsvars/pull/153) [#155](https://github.com/bsvars/bsvars/pull/155)
 17. Forecast output formatted using **R6** environment [#138](https://github.com/bsvars/bsvars/issues/138) 
 18. Fixed historical decomposition crash in PR [#156](https://github.com/bsvars/bsvars/pull/156) by [Adam Wang](https://github.com/adamwang15)
-19. Corrected plots with provided shock names. Thanks to [@nreigl](https://github.com/nreigl) who reported issue [#104](https://github.com/bsvars/bsvars/issues/104).
-
+19. Corrected plots with provided shock names. Thanks to [\@nreigl](https://github.com/nreigl) who reported issue [#104](https://github.com/bsvars/bsvars/issues/104).
+20. Implemented many interesting suggestions submitted by [\@robjhyndman](https://github.com/robjhyndman) in issues [#115](https://github.com/bsvars/bsvars/issues/115) [#117](https://github.com/bsvars/bsvars/issues/117) [#118](https://github.com/bsvars/bsvars/issues/118) and [#119](https://github.com/bsvars/bsvars/issues/119).
 
 # bsvars 3.2
 
