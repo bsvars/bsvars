@@ -316,7 +316,7 @@ expect_true(
   info = "conditonal forecast: returns numeric array."
 )
 
-expect_error(
+expect_message(
   forecast(run_no1, horizon = 3, conditional_forecast = cf),
   info = "conditonal forecast: wrong value of horizon."
 )
