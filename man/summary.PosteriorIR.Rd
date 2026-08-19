@@ -31,7 +31,7 @@ posterior      = estimate(burn_in, 5)
 # compute impulse responses
 irf            = compute_impulse_responses(posterior, horizon = 4)
 irf_summary    = summary(irf)
-irf_summary$shock1$variable1 # inspect IRFs of the first shock on variable 1
+irf_summary$shock1 # inspect IRFs of the first shock
 
 # workflow with the pipe |>
 ############################################################
@@ -42,7 +42,7 @@ us_fiscal_lsuw |>
   estimate(S = 5) |> 
   compute_impulse_responses(horizon = 4) |>
   summary() -> irf_summary
-irf_summary$shock1$variable1 # inspect IRFs of the first shock on variable 1
+irf_summary$shock1 # inspect IRFs of the first shock
 
 }
 \seealso{

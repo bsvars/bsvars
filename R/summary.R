@@ -47,6 +47,7 @@ summary.PosteriorBSVAR = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -92,8 +93,8 @@ summary.PosteriorBSVAR = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -173,6 +174,7 @@ summary.PosteriorBSVARSV = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -218,8 +220,8 @@ summary.PosteriorBSVARSV = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -301,6 +303,7 @@ summary.PosteriorBSVAREXH = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -346,8 +349,8 @@ summary.PosteriorBSVAREXH = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -428,6 +431,7 @@ summary.PosteriorBSVARMSH = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -473,8 +477,8 @@ summary.PosteriorBSVARMSH = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -553,6 +557,7 @@ summary.PosteriorBSVARHMSH = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -598,8 +603,8 @@ summary.PosteriorBSVARHMSH = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -677,6 +682,7 @@ summary.PosteriorBSVARMIX = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -722,8 +728,8 @@ summary.PosteriorBSVARMIX = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -802,6 +808,7 @@ summary.PosteriorBSVART = function(
   p         = object$last_draw$p
   K         = dim(object$last_draw$data_matrices$X)[1]
   d         = K - N * p
+  var_names = rownames(object$last_draw$data_matrices$Y)
   
   out       = list()
   out$B     = list()
@@ -847,8 +854,8 @@ summary.PosteriorBSVART = function(
     rownames(out$A[[n]]) = Anames
   } # END n loop
   
-  names(out$B) = paste0("equation", 1:N)
-  names(out$A) = paste0("equation", 1:N)
+  names(out$B) = var_names
+  names(out$A) = var_names
   
   for (i in 1:2) {
     out$hyper[[i]] = cbind(
@@ -991,18 +998,17 @@ summary.PosteriorSigma = function(
 #' # compute fitted values
 #' fitted         = compute_fitted_values(posterior)
 #' fitted_summary = summary(fitted)
-#' fitted_summary$variable1[,1] # access posterior mean of variable1
+#' fitted_summary$ttr[,1] # access posterior mean of ttr
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
 #'   estimate(S = 5) |> 
 #'   estimate(S = 5) |> 
 #'   compute_fitted_values() |>
 #'   summary() -> fitted_summary
-#' fitted_summary$variable1[,1] # access posterior mean of variable1
+#' fitted_summary$ttr[,1] # access posterior mean of ttr
 #' 
 #' @export
 summary.PosteriorFitted = function(
@@ -1024,7 +1030,7 @@ summary.PosteriorFitted = function(
     rownames(out[[n]]) = 1:T
   } # END n loop
   
-  names(out) = paste0("variable", 1:N)
+  names(out) = dimnames(object)[[1]]
   
   return(out)
 } # END summary.PosteriorFitted
@@ -1066,18 +1072,17 @@ summary.PosteriorFitted = function(
 #' # compute historical decompositions
 #' hds            = compute_historical_decompositions(posterior)
 #' hds_summary    = summary(hds)
-#' head(hds_summary$variable1) # browse the contributions
+#' head(hds_summary$gdp) # browse the contributions
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' diff(us_fiscal_lsuw) |>
 #'   specify_bsvar$new() |>
 #'   estimate(S = 5) |> 
 #'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() |>
 #'   summary() -> hds_summary
-#' head(hds_summary$variable1) # browse the contributions
+#' hds_summary$gdp # browse the contributions
 #' 
 #' @export
 summary.PosteriorHD = function(
@@ -1087,6 +1092,7 @@ summary.PosteriorHD = function(
   
   N         = dim(object)[1]
   T         = dim(object)[3]
+  var_names = dimnames(object)[[1]]
   
   out       = list()
   hds       = apply(object, 1:3, mean)
@@ -1096,7 +1102,7 @@ summary.PosteriorHD = function(
     rownames(out[[n]]) = 1:T
   } # END n loop
   
-  names(out) = paste0("variable", 1:N)
+  names(out) = var_names
   
   return(out)
 } # END summary.PosteriorHD
@@ -1136,7 +1142,7 @@ summary.PosteriorHD = function(
 #' # compute impulse responses
 #' irf            = compute_impulse_responses(posterior, horizon = 4)
 #' irf_summary    = summary(irf)
-#' irf_summary$shock1$variable1 # inspect IRFs of the first shock on variable 1
+#' irf_summary$shock1 # inspect IRFs of the first shock
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -1147,7 +1153,7 @@ summary.PosteriorHD = function(
 #'   estimate(S = 5) |> 
 #'   compute_impulse_responses(horizon = 4) |>
 #'   summary() -> irf_summary
-#' irf_summary$shock1$variable1 # inspect IRFs of the first shock on variable 1
+#' irf_summary$shock1 # inspect IRFs of the first shock
 #' 
 #' @export
 summary.PosteriorIR = function(
@@ -1157,6 +1163,8 @@ summary.PosteriorIR = function(
   
   N         = dim(object)[1]
   H         = dim(object)[3] - 1
+  
+  var_names = dimnames(object)[[1]]
   
   out       = list()
   for (n in 1:N) {
@@ -1170,7 +1178,7 @@ summary.PosteriorIR = function(
       colnames(out[[n]][[i]]) = c("mean", "sd", "5% quantile", "95% quantile")
       rownames(out[[n]][[i]]) = 0:H
     } # END i loop
-    names(out[[n]]) = paste0("variable", 1:N)
+    names(out[[n]]) = var_names
   } # END n loop
   names(out) = paste0("shock", 1:N)
   
@@ -1366,18 +1374,17 @@ summary.PosteriorShocks = function(
 #' # compute forecast error variance decompositions
 #' fevd           = compute_variance_decompositions(posterior, horizon = 4)
 #' fevd_summary   = summary(fevd)
-#' fevd_summary$variable1
+#' fevd_summary
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
 #'   estimate(S = 5) |> 
 #'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 4) |>
 #'   summary() -> fevd_summary
-#' fevd_summary$variable1
+#' fevd_summary
 #' 
 #' @export
 summary.PosteriorFEVD = function(
@@ -1387,6 +1394,7 @@ summary.PosteriorFEVD = function(
   
   N         = dim(object)[1]
   H         = dim(object)[3] - 1
+  var_names = dimnames(object)[[1]]
   
   fevd      = apply(object, 1:3, mean)
   out       = list()
@@ -1395,7 +1403,7 @@ summary.PosteriorFEVD = function(
     colnames(out[[n]]) = paste0("shock", 1:N)
     rownames(out[[n]]) = 0:H
   } # END n loop
-  names(out) = paste0("variable", 1:N)
+  names(out) = var_names
   
   return(out)
 } # END summary.PosteriorFEVD
@@ -1453,6 +1461,10 @@ summary.Forecasts = function(
   N         = dim(object$forecasts)[1]
   H         = dim(object$forecasts)[2]
   
+  Y         = object$Y
+  var_names = rownames(Y)
+  if ( is.null(var_names) ) var_names = paste("variable", 1:N)
+  
   out       = list()
   for (n in 1:N) {
     out[[n]]    = cbind(
@@ -1464,7 +1476,7 @@ summary.Forecasts = function(
     rownames(out[[n]]) = 1:H
   } # END n loop
   
-  names(out) = paste0("variable", 1:N)
+  names(out) = var_names
   
   return(out)
 } # END summary.Forecasts

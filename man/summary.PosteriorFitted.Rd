@@ -29,18 +29,17 @@ posterior      = estimate(burn_in, 5)
 # compute fitted values
 fitted         = compute_fitted_values(posterior)
 fitted_summary = summary(fitted)
-fitted_summary$variable1[,1] # access posterior mean of variable1
+fitted_summary$ttr[,1] # access posterior mean of ttr
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
   estimate(S = 5) |> 
   estimate(S = 5) |> 
   compute_fitted_values() |>
   summary() -> fitted_summary
-fitted_summary$variable1[,1] # access posterior mean of variable1
+fitted_summary$ttr[,1] # access posterior mean of ttr
 
 }
 \seealso{

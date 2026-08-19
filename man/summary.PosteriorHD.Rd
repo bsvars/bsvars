@@ -29,18 +29,17 @@ posterior      = estimate(burn_in, 5)
 # compute historical decompositions
 hds            = compute_historical_decompositions(posterior)
 hds_summary    = summary(hds)
-head(hds_summary$variable1) # browse the contributions
+head(hds_summary$gdp) # browse the contributions
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 diff(us_fiscal_lsuw) |>
   specify_bsvar$new() |>
   estimate(S = 5) |> 
   estimate(S = 5) |> 
   compute_historical_decompositions() |>
   summary() -> hds_summary
-head(hds_summary$variable1) # browse the contributions
+hds_summary$gdp # browse the contributions
 
 }
 \seealso{

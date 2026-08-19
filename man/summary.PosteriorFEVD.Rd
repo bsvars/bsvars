@@ -29,18 +29,17 @@ posterior      = estimate(burn_in, 5)
 # compute forecast error variance decompositions
 fevd           = compute_variance_decompositions(posterior, horizon = 4)
 fevd_summary   = summary(fevd)
-fevd_summary$variable1
+fevd_summary
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
   estimate(S = 5) |> 
   estimate(S = 5) |> 
   compute_variance_decompositions(horizon = 4) |>
   summary() -> fevd_summary
-fevd_summary$variable1
+fevd_summary
 
 }
 \seealso{
