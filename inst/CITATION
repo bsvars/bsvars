@@ -18,7 +18,7 @@ bibentry(bibtype = "article",
   journal      = "University of Melbourne Working Paper",
   pages        = "1--25",
   doi           = "10.48550/arXiv.2410.15090",
-  textVersion = "Woźniak, Tomasz (2025). Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R Package bsvars, DOI: 10.48550/arXiv.2410.15090."
+  textVersion = "Woźniak, Tomasz (2025). Fast and Efficient Bayesian Analysis of Structural Vector Autoregressions Using the R Package bsvars. University of Melbourne Working Paper, DOI: 10.48550/arXiv.2410.15090."
 )
 
 bibentry(bibtype = "article",
@@ -30,8 +30,9 @@ bibentry(bibtype = "article",
                    person(given = "Luis", family = "Uzeda"),
                    person(given = "Tomasz", family = "Wo\\'zniak", email = "wozniak.tom@pm.me")),
   journal = "Journal of Econometrics",
-  year = "2025", 
-  pages = "1--18",
+  year = "2026", 
+  volume = "256",
+  pages = "106107",
   doi = "10.1016/j.jeconom.2025.106107",
-  textVersion = "Lütkepohl, H., Shang, F., Uzeda, L., Woźniak, T. (2025). Partial Identification of Heteroskedastic Structural VARs: Theory and Bayesian Inference. University of Melbourne Working Papers, 1-18. DOI: 10.1016/j.jeconom.2025.106107."
+  textVersion = "Lütkepohl, H., Shang, F., Uzeda, L., Woźniak, T. (2026). Partial Identification of Structural Vector Autoregressions with Non-centred Stochastic Volatility. Journal of Econometrics, Vol. 256, pp. 106107. DOI: 10.1016/j.jeconom.2025.106107."
 )
