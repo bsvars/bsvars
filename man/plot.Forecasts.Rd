@@ -45,11 +45,9 @@ Plots of fitted values of dependent variables including their
 median and percentiles.
 }
 \examples{
-data(us_fiscal_lsuw)                                  # upload data
-set.seed(123)                                         # set seed
 specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-burn_in        = estimate(specification, 10)          # run the burn-in
-posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+burn_in        = estimate(specification, 5)           # run the burn-in
+posterior      = estimate(burn_in, 5)                # estimate the model
 
 # compute forecasts
 fore            = forecast(posterior, horizon = 4)
@@ -57,11 +55,10 @@ plot(fore)                                            # plot forecasts
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   forecast(horizon = 4) |>
   plot()
 

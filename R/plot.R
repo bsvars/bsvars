@@ -24,10 +24,7 @@
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                               # upload data
-#' set.seed(123)                                                      # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)                 # specify model
-#' 
 #' burn_in        = estimate(specification, 10)                       # run the burn-in
 #' posterior      = estimate(burn_in, 20, thin = 1)                   # estimate the model
 #' irf            = compute_impulse_responses(posterior, horizon = 4) # impulse responses
@@ -138,8 +135,6 @@ plot_ribbon = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
 #' burn_in        = estimate(specification, 5)           # run the burn-in
 #' posterior      = estimate(burn_in, 5)                 # estimate the model
@@ -150,7 +145,6 @@ plot_ribbon = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_sv$new(p = 1) |>
 #'   estimate(S = 5) |> 
@@ -254,11 +248,9 @@ plot.PosteriorSigma = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)          # run the burn-in
+#' posterior      = estimate(burn_in, 5)                # estimate the model
 #' 
 #' # compute fitted values
 #' fitted         = compute_fitted_values(posterior)
@@ -266,11 +258,10 @@ plot.PosteriorSigma = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_fitted_values() |>
 #'   plot()
 #' 
@@ -379,23 +370,20 @@ plot.PosteriorFitted = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
-#' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' specification  = specify_bsvar$new(us_fiscal_lsuw)   # specify model
+#' burn_in        = estimate(specification, 5)          # run the burn-in
+#' posterior      = estimate(burn_in, 5)                # estimate the model
 #' 
-#' # compute impulse responses
+#' # compute impulse responses``
 #' fitted         = compute_impulse_responses(posterior, horizon = 4)
 #' plot(fitted)                                          # plot
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_impulse_responses(horizon = 4) |>
 #'   plot()
 #' 
@@ -519,11 +507,9 @@ plot.PosteriorIR = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar_msh$new(us_fiscal_lsuw)# specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)           # run the burn-in
+#' posterior      = estimate(burn_in, 5)                 # estimate the model
 #' 
 #' # compute regime probabilities
 #' rp             = compute_regime_probabilities(posterior)
@@ -531,11 +517,10 @@ plot.PosteriorIR = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar_msh$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_regime_probabilities() |>
 #'   plot()
 #' 
@@ -645,11 +630,9 @@ plot.PosteriorRegimePr = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)           # run the burn-in
+#' posterior      = estimate(burn_in, 5)                 # estimate the model
 #' 
 #' # compute structural shocks
 #' shocks         = compute_structural_shocks(posterior)
@@ -657,11 +640,10 @@ plot.PosteriorRegimePr = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_structural_shocks() |>
 #'   plot()
 #' 
@@ -761,11 +743,9 @@ plot.PosteriorShocks = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)           # run the burn-in
+#' posterior      = estimate(burn_in, 5)                # estimate the model
 #' 
 #' # compute forecasts
 #' fore            = forecast(posterior, horizon = 4)
@@ -773,11 +753,10 @@ plot.PosteriorShocks = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   forecast(horizon = 4) |>
 #'   plot()
 #' 
@@ -811,6 +790,9 @@ plot.Forecasts = function(
   S             = dim(fore)[3]
   T             = dim(Y)[2]
   
+  var_names     = rownames(Y)
+  if ( is.null(var_names) ) var_names = paste("variable", 1:N)
+  
   T_in_plot     = floor(data_in_plot * T)
   if (T_in_plot < 1) T_in_plot = 1
   obs_in_plot   = (T - T_in_plot + 1):T
@@ -838,7 +820,7 @@ plot.Forecasts = function(
       type   = "n",
       ylim   = fore_range,
       main   = "",
-      ylab   = paste("variable", n),
+      ylab   = var_names[n],
       xlab   = "",
       bty = "n",
       axes = FALSE,
@@ -914,11 +896,9 @@ plot.Forecasts = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)           # run the burn-in
+#' posterior      = estimate(burn_in, 5)                 # estimate the model
 #' 
 #' # compute forecast error variance decompositions
 #' fevd           = compute_variance_decompositions(posterior, horizon = 4)
@@ -926,11 +906,10 @@ plot.Forecasts = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_variance_decompositions(horizon = 4) |>
 #'   plot()
 #' 
@@ -1071,11 +1050,9 @@ plot.PosteriorFEVD = function(
 #' @author Tomasz Woźniak \email{wozniak.tom@pm.me}
 #' 
 #' @examples
-#' data(us_fiscal_lsuw)                                  # upload data
-#' set.seed(123)                                         # set seed
 #' specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
-#' burn_in        = estimate(specification, 10)          # run the burn-in
-#' posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+#' burn_in        = estimate(specification, 5)           # run the burn-in
+#' posterior      = estimate(burn_in, 5)                 # estimate the model
 #' 
 #' # compute historical decompositions
 #' fevd           = compute_historical_decompositions(posterior)
@@ -1083,11 +1060,10 @@ plot.PosteriorFEVD = function(
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
-#' set.seed(123)
 #' us_fiscal_lsuw |>
 #'   specify_bsvar$new() |>
-#'   estimate(S = 10) |> 
-#'   estimate(S = 20, thin = 1) |> 
+#'   estimate(S = 5) |> 
+#'   estimate(S = 5) |> 
 #'   compute_historical_decompositions() |>
 #'   plot()
 #' 
