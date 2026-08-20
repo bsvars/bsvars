@@ -124,8 +124,8 @@ Create a new prior specification PriorBSVARSV.
 - `stationary`:
 
   an `N` logical vector - its element set to `FALSE` sets the prior mean
-  for the autoregressive parameters of the `N`th equation to the white
-  noise process, otherwise to random walk.
+  for the autoregressive parameters of the `N`th equation to the random
+  walk process, otherwise to white noise.
 
 #### Returns
 
