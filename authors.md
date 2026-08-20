@@ -15,6 +15,11 @@
   co-authored the Journal of Econometrics methodological paper by
   Lütkepohl, Shang, Uzeda, Woźniak (2026)
 
+- **Luis Uzeda**. Contributor.
+  [](https://orcid.org/0000-0002-2177-676X)  
+  co-authored the Journal of Econometrics methodological paper by
+  Lütkepohl, Shang, Uzeda, Woźniak (2026)
+
 - **Xiaolei Wang**. Contributor.
   [](https://orcid.org/0009-0005-6192-9061)  
   corrected C++ code for historical decompositions

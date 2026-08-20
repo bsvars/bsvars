@@ -71,7 +71,7 @@ sddr           = verify_identification(posterior)
 summary(sddr)
 #>             log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
 #> shock 1    0.03164355   0 5.079102e-01   0.4920898
-#> shock 2 -209.01272610   0 1.686267e-91   1.0000000
+#> shock 2 -209.01272604   0 1.686267e-91   1.0000000
 #> shock 3  -17.90656915   0 1.672152e-08   1.0000000
 
 # workflow with the pipe |>
