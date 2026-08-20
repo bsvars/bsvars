@@ -28,32 +28,41 @@ forecasting, verification of heteroskedasticity, non-normality, and
 hypotheses on autoregressive parameters, as well as analyses of
 structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the
-vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+vignette by [Woźniak (2025)](https://doi.org/10.48550/arXiv.2410.15090)
 complement all this. The implemented techniques align closely with those
 presented in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
-Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
-Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
-The **bsvars** package is aligned regarding objects, workflows, and code
-structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
-(2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
+Woźniak (2020)](https://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174)
+and they embed many popular models proposed by other authors. The
+‘bsvars’ package is aligned regarding objects, workflows, and code
+structure with the R packages ‘bsvarSIGNs’ by [Wang & Woźniak
+(2025)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), ‘bvars’ by
+[Liu, Ramirez Hassan, Woźniak
+(2026)](https://doi.org/10.32614/CRAN.package.bvars), and ‘bpvars’ by
+[Woźniak (2026)](https://doi.org/10.32614/CRAN.package.bpvars), and they
 constitute an integrated toolset.
 
 <a href="https://bsvars.org">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg" width="40" height="40"/>
 </a> <a href="mailto:contact@bsvars.org">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
-</a> <a href="https://github.com/bsvars/bsvars">
+</a> <a href="https://github.com/bsvars/bpvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg" width="40" height="40"/>
 </a> <a href="https://bsky.app/profile/bsvars.org">
 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@bsvars">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="40" height="40"/>
-</a>
+</a>  
 
 <a href="https://bsvars.org/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org/bsvars.org.png" width="120" alt="bsvars.org website" /></a>
 <a href="https://bsvars.org/bsvars/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars/bsvars.png" width="120" alt="bsvars website" /></a>
 <a href="https://bsvars.org/bsvarSIGNs/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvarSIGNs/bsvarSIGNs.png" width="120" alt="bsvarSIGNs website" /></a>
+<a href="https://bsvars.org/bpvars/"><img 
+src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bpvars/bpvars.png" width="120" alt="bpvars website" /></a>
+<a href="https://bsvars.org/bvars/"><img 
+src="man/figures/logo.png" width="120" alt="bvars website" /></a>
+<a href="https://bsvars.org/StealLikeBayes/"><img src="https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/StealLikeBayes/StealLikeBayes.png" width="120" alt="StealLikeBayes website" /></a>
 
 ## Features
 
@@ -162,7 +171,19 @@ file](https://github.com/bsvars/bsvars/blob/master/inst/varia/bsvars_logo.R).
 - a [reference manual](https://cran.r-project.org/package=bsvars)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
+- youtube recordings:
+  - [Workshop on Open Source
+    Forecasting](https://event.nectric.com.au/iif-osf/) [youtube
+    recording](https://www.youtube.com/watch?v=Gmd7x0gwS7U)
+  - [Forecasting for Social Good](https://www.f4sg.org/) [youtube
+    recording](https://youtu.be/QT02OTZWW14)
+  - [Workshops for
+    Ukraine](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine)
+    [youtube recording](https://www.youtube.com/watch?v=2iO0yrD0EtU)
 - presentations:
+  - [IIF Workshop on Open Source
+    Forecasting](https://event.nectric.com.au/iif-osf/) [2025-06
+    featuring **bsvars** 3.2](https://bsvars.org/2025-06-iifosf/)
   - for students at [Szkoła Główna Handlowa](https://www.sgh.waw.pl/)
     given in Warsaw in December 2024 [featuring **bsvars** 3.2 and
     **bsvarSIGNs** 1.0.1](https://bsvars.org/2024-12-sgh/)\]
@@ -196,7 +217,6 @@ The beginnings are as easy as ABC:
 
 ``` r
 library(bsvars)                               # upload the package
-data(us_fiscal_lsuw)                          # upload data
 spec      = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)   # specify the model
 burn_in   = estimate(spec, 1000)              # run the burn-in
 out       = estimate(burn_in, 50000)          # estimate the model
@@ -213,7 +233,6 @@ pipe:
 
 ``` r
 library(bsvars)                               # upload the package
-data(us_fiscal_lsuw)                          # upload data
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 4) |>              # specify the model
   estimate(S = 1000) |>                       # run the burn-in
@@ -251,8 +270,12 @@ installed by typing:
 
 ## Development
 
-The package is under intensive development. Your help is most welcome!
-Please, have a look at the
+Your help is most welcome! Contribute by submitting a Pull Request with
+your code. Contributions that add new functionality require prior
+agreement with the package authors. We only accept submissions from
+humans, and AI agents cannot be listed as contributors. This means that
+the person providing the code takes full responsibility for the
+contribution. Please also have a look at the
 [roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
 bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
@@ -260,7 +283,7 @@ bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 **Tomasz** is a Bayesian econometrician and a Senior Lecturer at the
 University of Melbourne. He develops methodology for empirical
-macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
+macroeconomic analyses and programs in **R** and **C++** using **Rcpp**.
 
 <a href="mailto:twozniak@unimelb.edu.au">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg" width="40" height="40"/>
@@ -270,10 +293,13 @@ macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg" width="40" height="40"/>
 </a> <a href="https://www.linkedin.com/in/tomaszwwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg" width="40" height="40"/>
-</a> <a href="http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl">
+</a>
+<a href="https://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl">
 <img src="https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg" width="40" height="40"/>
 </a> <a href="https://arxiv.org/a/wozniak_t_1">
 <img src="https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/arxiv-square.svg" width="40" height="40"/>
+</a> <a href="https://www.researchgate.net/profile/Tomasz-Wozniak-2">
+<img src="https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/researchgate-square.svg" width="40" height="40"/>
 </a> <a href="https://fosstodon.org/@tomaszwozniak">
 <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg" width="40" height="40"/>
 </a> <a href="https://bsky.app/profile/tomaszwozniak.bsky.social">
