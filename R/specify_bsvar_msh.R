@@ -75,7 +75,9 @@ specify_prior_bsvar_msh = R6::R6Class(
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param M an integer greater than 1 - the number of Markov process' heteroskedastic regimes.
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @return A new prior specification PriorBSVARMSH.
     initialize = function(N, p, d = 0, M, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
@@ -324,7 +326,9 @@ specify_bsvar_msh = R6::R6Class(
     #' of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
     #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @param finiteM a logical value - if true a stationary Markov switching model is estimated. Otherwise, a sparse Markov switching model is estimated in which \code{M=20} and the number of visited states is estimated.
     #' @return A new complete specification for the bsvar model with Markov Switching Heteroskedasticity, BSVARMSH.
     initialize = function(

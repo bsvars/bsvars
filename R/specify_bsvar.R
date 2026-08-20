@@ -67,8 +67,8 @@ specify_prior_bsvar = R6::R6Class(
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
-    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
-    #' otherwise to random walk.
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @return A new prior specification PriorBSVAR.
     #' @examples 
     #' # a prior for 3-variable example with one lag and stationary data
@@ -508,8 +508,8 @@ specify_bsvar = R6::R6Class(
     #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
     #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
-    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, 
-    #' otherwise to random walk.
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @return A new complete specification for the homoskedastic bsvar model BSVAR.
     initialize = function(
       data,

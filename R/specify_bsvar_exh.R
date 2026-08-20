@@ -77,9 +77,9 @@ specify_prior_bsvar_exh = R6::R6Class(
     #' @param N a positive integer - the number of dependent variables in the model.
     #' @param p a positive integer - the autoregressive lag order of the SVAR model.
     #' @param d a positive integer - the number of \code{exogenous} variables in the model.
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} 
-    #' sets the prior mean for the autoregressive parameters of the \code{N}th 
-    #' equation to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @return A new prior specification PriorBSVAREXH
     initialize = function(N, p, d = 0, stationary = rep(FALSE, N)){
       stopifnot("Argument N must be a positive integer number." = N > 0 & N %% 1 == 0)
@@ -320,9 +320,9 @@ specify_bsvar_exh = R6::R6Class(
     #' of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
     #' while value \code{"t"} sets the Student-t distribution.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
-    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} 
-    #' sets the prior mean for the autoregressive parameters of the \code{N}th equation 
-    #' to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @param variance_regimes a \code{T}-vector with exogenous regime indicators that are integer 
     #' numbers associating the time observation with heteroskedastic regime.
     #' @return A new complete specification for the bsvar model with exogenous 

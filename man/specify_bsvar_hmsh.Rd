@@ -143,9 +143,9 @@ to be set to zero.}
 of structural shocks. Value \code{"norm"} sets it to the normal distribution, 
 while value \code{"t"} sets the Student-t distribution.}
       \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
-      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} 
-sets the prior mean for the autoregressive parameters of the \code{N}th equation 
-to the white noise process, otherwise to random walk.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
+the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+otherwise to white noise.}
       \item{\code{finiteM}}{a logical value - if true a stationary Markov switching model 
 is estimated. Otherwise, a sparse Markov switching model is estimated in which 
 \code{M=20} and the number of visited states is estimated.}

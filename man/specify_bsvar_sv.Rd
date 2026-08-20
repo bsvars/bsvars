@@ -135,7 +135,9 @@ of structural shocks. Value \code{"norm"} sets it to the normal distribution,
 while value \code{"t"} sets the Student-t distribution.}
       \item{\code{exogenous}}{a \code{(T+p)xd} matrix of exogenous variables.}
       \item{\code{centred_sv}}{a logical value. If \code{FALSE} a non-centred Stochastic Volatility processes for conditional variances are estimated. Otherwise, a centred process is estimated.}
-      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
+the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+otherwise to white noise.}
     }
     \if{html}{\out{</div>}}
   }

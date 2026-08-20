@@ -91,7 +91,9 @@ for the third-level of hierarchy for overall shrinkage parameter for matrix \eqn
       \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
       \item{\code{d}}{a positive integer - the number of \code{exogenous} variables in the model.}
       \item{\code{M}}{an integer greater than 1 - the number of Markov process' heteroskedastic regimes.}
-      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets the prior mean for the autoregressive parameters of the \code{N}th equation to the white noise process, otherwise to random walk.}
+      \item{\code{stationary}}{an \code{N} logical vector - its element set to \code{FALSE} sets 
+the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+otherwise to white noise.}
     }
     \if{html}{\out{</div>}}
   }

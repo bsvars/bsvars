@@ -127,9 +127,9 @@ specify_bsvar_t = R6::R6Class(
     #' the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
     #' to be set to zero.
     #' @param exogenous a \code{(T+p)xd} matrix of exogenous variables. 
-    #' @param stationary an \code{N} logical vector - its element set to 
-    #' \code{FALSE} sets the prior mean for the autoregressive parameters of the 
-    #' \code{N}th equation to the white noise process, otherwise to random walk.
+    #' @param stationary an \code{N} logical vector - its element set to \code{FALSE} sets 
+    #' the prior mean for the autoregressive parameters of the \code{N}th equation to the random walk process, 
+    #' otherwise to white noise.
     #' @return A new complete specification for the bsvar model with t-distributed 
     #' structural shocks, BSVART.
     initialize = function(
