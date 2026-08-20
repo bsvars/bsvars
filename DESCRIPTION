@@ -24,6 +24,12 @@ Authors@R: c(person(
               role = c("ctb"),
               comment = c("co-authored the Journal of Econometrics methodological paper by Lütkepohl, Shang, Uzeda, Woźniak (2026)")
             ),
+            person(
+              given = "Luis", 
+              family ="Uzeda",
+              role = c("ctb"),
+              comment = c(ORCID = "0000-0002-2177-676X", "co-authored the Journal of Econometrics methodological paper by Lütkepohl, Shang, Uzeda, Woźniak (2026)")
+            ),
            person(
               given = "Xiaolei", 
               family = "Wang",
