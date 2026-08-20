@@ -71,9 +71,18 @@ Have a question, or suggestion, or wanna get in touch? Email us at
     [\#155](https://github.com/bsvars/bsvars/pull/155)
 17. Forecast output formatted using **R6** environment
     [\#138](https://github.com/bsvars/bsvars/issues/138)
+18. Fixed historical decomposition crash in PR
     [\#156](https://github.com/bsvars/bsvars/pull/156) by [Adam
     Wang](https://github.com/adamwang15)
-18. Fixed historical decomposition crash in PR
+19. Corrected plots with provided shock names. Thanks to
+    [@nreigl](https://github.com/nreigl) who reported issue
+    [\#104](https://github.com/bsvars/bsvars/issues/104).
+20. Implemented many interesting suggestions submitted by
+    [@robjhyndman](https://github.com/robjhyndman) in issues
+    [\#115](https://github.com/bsvars/bsvars/issues/115)
+    [\#117](https://github.com/bsvars/bsvars/issues/117)
+    [\#118](https://github.com/bsvars/bsvars/issues/118) and
+    [\#119](https://github.com/bsvars/bsvars/issues/119).
 
 ## bsvars 3.2
 

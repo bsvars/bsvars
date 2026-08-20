@@ -1,7 +1,8 @@
 # A 3-variable US fiscal system for the period 1948 Q1 – 2026 Q1
 
-A system used to identify the US fiscal policy shocks. Last data update
-was implemented on 2026-06-09.
+A system used to identify the US fiscal policy shocks used by Lütkepohl,
+Shang, Uzeda, Woźniak (2026). Last data update was implemented on
+2026-06-09.
 
 ## Usage
 
@@ -64,10 +65,10 @@ Narrative Estimates of Tax Multipliers, *Journal of Monetary Economics*,
 [doi:10.1016/j.jmoneco.2013.04.004](https://doi.org/10.1016/j.jmoneco.2013.04.004)
 .
 
-Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2024) Partial
-Identification of Heteroskedastic Structural VARs: Theory and Bayesian
-Inference. *University of Melbourne Working Paper*, 1–57,
-[doi:10.48550/arXiv.2404.11057](https://doi.org/10.48550/arXiv.2404.11057)
+Lütkepohl, H., Shang, F., Uzeda, L., and Woźniak, T. (2025) Partial
+identification of structural vector autoregressions with non-centred
+stochastic volatility. *Journal of Econometrics* **256**, 106107,
+[doi:10.1016/j.jeconom.2025.106107](https://doi.org/10.1016/j.jeconom.2025.106107)
 .
 
 ## Examples

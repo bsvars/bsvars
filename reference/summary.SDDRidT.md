@@ -42,15 +42,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_t$new(us_fiscal_lsuw)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -66,21 +59,13 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_identification(posterior)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: df = Inf    [normal shocks]                 |
-#>    H1: df != Inf   [Student-t shocks]              |
-#>  **************************************************|
-#>         log(SDDR) SDDR Pr[H0|data] Pr[H1|data]
-#> shock 1      -Inf    0           0           1
-#> shock 2      -Inf    0           0           1
-#> shock 3      -Inf    0           0           1
+#>          log(SDDR)      SDDR Pr[H0|data] Pr[H1|data]
+#> shock 1       -Inf 0.0000000   0.0000000   1.0000000
+#> shock 2       -Inf 0.0000000   0.0000000   1.0000000
+#> shock 3 -0.3398505 0.7118767   0.4158458   0.5841542
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_t$new() |>
   estimate(S = 10) |> 
@@ -97,11 +82,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: df = Inf    [normal shocks]                 |
-#>    H1: df != Inf   [Student-t shocks]              |
-#>  **************************************************|
 ```

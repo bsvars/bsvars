@@ -14,6 +14,8 @@ Upload sample data set
 
 - [`us_fiscal_lsuw`](https://bsvars.org/bsvars/reference/us_fiscal_lsuw.md)
   : A 3-variable US fiscal system for the period 1948 Q1 – 2026 Q1
+- [`us_fiscal_sww`](https://bsvars.org/bsvars/reference/us_fiscal_sww.md)
+  : A 10-variable US fiscal system for the period 1948 Q1 – 2025 Q3
 - [`us_fiscal_ex`](https://bsvars.org/bsvars/reference/us_fiscal_ex.md)
   : A 3-variable system of exogenous variables for the US fiscal model
   for the period 1948 Q1 – 2026 Q1

@@ -41,15 +41,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw, p = 1)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -67,18 +60,11 @@ H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 sddr           = verify_autoregression(posterior, H0)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of hypothesis verification              |
-#>       for autoregressive parameters                |
-#>  **************************************************|
 #>  log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
-#>  -66.28892   0 1.625883e-29           1
+#>  -50.23084   0 1.531173e-22           1
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
   estimate(S = 10) |> 
@@ -95,10 +81,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of hypothesis verification              |
-#>       for autoregressive parameters                |
-#>  **************************************************|
 ```

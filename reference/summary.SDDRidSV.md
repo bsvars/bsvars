@@ -52,15 +52,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -76,21 +69,13 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_identification(posterior)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>      H0: omega_n = 0  [homoskedasticity]           |
-#>      H1: omega_n != 0 [heteroskedasticity]         |
-#>  **************************************************|
-#>          log(SDDR) NSE Pr[H0|data] Pr[H1|data]
-#> shock 1  0.7757083   0 0.684754423   0.3152456
-#> shock 2 -6.7674321   0 0.001149323   0.9988507
-#> shock 3 -4.1887141   0 0.014939209   0.9850608
+#>             log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
+#> shock 1    0.03164355   0 5.079102e-01   0.4920898
+#> shock 2 -209.01272610   0 1.686267e-91   1.0000000
+#> shock 3  -17.90656915   0 1.672152e-08   1.0000000
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new() |>
   estimate(S = 10) |> 
@@ -107,11 +92,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>      H0: omega_n = 0  [homoskedasticity]           |
-#>      H1: omega_n != 0 [heteroskedasticity]         |
-#>  **************************************************|
 ```

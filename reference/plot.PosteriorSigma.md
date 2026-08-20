@@ -79,8 +79,6 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-data(us_fiscal_lsuw)                                  # upload data
-set.seed(123)                                         # set seed
 specification  = specify_bsvar_sv$new(us_fiscal_lsuw) # specify model
 #> The identification is set to the default option of lower-triangular structural matrix.
 burn_in        = estimate(specification, 5)           # run the burn-in
@@ -113,7 +111,6 @@ plot(sigma)                                            # plot conditional sds
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 1) |>
   estimate(S = 5) |> 
@@ -141,4 +138,5 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+
 ```

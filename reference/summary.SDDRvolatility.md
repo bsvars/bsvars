@@ -42,15 +42,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, p = 1, M = 2)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -65,20 +58,13 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_volatility(posterior)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of structural shocks                    |
-#>       homoskedasticity verification                |
-#>  **************************************************|
-#>           log(SDDR) NSE Pr[homoskedasticity|data] Pr[heteroskedasticity|data]
-#> shock 1  1.98294278   0                 0.8789945                   0.1210055
-#> shock 2 -0.07184707   0                 0.4820460                   0.5179540
-#> shock 3 -0.94555697   0                 0.2797792                   0.7202208
+#>          log(SDDR) NSE Pr[homoskedasticity|data] Pr[heteroskedasticity|data]
+#> shock 1  1.9904259   0                 0.8797882                   0.1202118
+#> shock 2 -0.2924674   0                 0.4273999                   0.5726001
+#> shock 3 -0.3327025   0                 0.4175832                   0.5824168
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(p = 1, M = 2) |>
   estimate(S = 10) |> 
@@ -94,10 +80,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of structural shocks                    |
-#>       homoskedasticity verification                |
-#>  **************************************************|
 ```

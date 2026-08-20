@@ -53,15 +53,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -76,21 +69,13 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_identification(posterior)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: s^2_nm  = 1 for all m  [homoskedasticity]   |
-#>    H1: s^2_nm != 1 for some m [heteroskedasticity] |
-#>  **************************************************|
 #>          log(SDDR) NSE Pr[H0|data] Pr[H1|data]
-#> shock 1  1.9166591   0   0.8717654   0.1282346
-#> shock 2 -0.2034897   0   0.4493024   0.5506976
-#> shock 3 -0.3818037   0   0.4056920   0.5943080
+#> shock 1  1.8915555   0   0.8689328   0.1310672
+#> shock 2 -0.4249424   0   0.3953347   0.6046653
+#> shock 3 -0.2986372   0   0.4258907   0.5741093
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new(M = 2) |>
   estimate(S = 10) |> 
@@ -106,11 +91,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: s^2_nm  = 1 for all m  [homoskedasticity]   |
-#>    H1: s^2_nm != 1 for some m [heteroskedasticity] |
-#>  **************************************************|
 ```

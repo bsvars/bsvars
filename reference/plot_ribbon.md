@@ -71,11 +71,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-data(us_fiscal_lsuw)                                               # upload data
-set.seed(123)                                                      # set seed
 specification  = specify_bsvar$new(us_fiscal_lsuw)                 # specify model
 #> The identification is set to the default option of lower-triangular structural matrix.
-
 burn_in        = estimate(specification, 10)                       # run the burn-in
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|

@@ -191,13 +191,10 @@ deviations and data. The output elements include:</p>
 <span class="r-in"><span>                    exogenous_forecast <span class="op">=</span> <span class="va">us_fiscal_ex_forecasts</span>,</span></span>
 <span class="r-in"><span>                    conditional_forecast <span class="op">=</span> <span class="va">us_fiscal_cond_forecasts</span></span></span>
 <span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The value of argument horizon has been aligned with the dimensions </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>             of arguments conditional_forecast and exogenous_forecast.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">predictive</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  bsvars: Bayesian Structural Vector Autoregressions|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Posterior summary of forecasts                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  **************************************************|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $variable1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ttr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        mean sd 5% quantile 95% quantile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -8.860009  0   -8.860009    -8.860009</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 -8.854638  0   -8.854638    -8.854638</span>
@@ -208,7 +205,7 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 -8.827784  0   -8.827784    -8.827784</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 -8.822413  0   -8.822413    -8.822413</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $variable2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -9.812800 0.02474505   -9.843272    -9.787535</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 -9.808465 0.03593110   -9.852234    -9.772111</span>
@@ -219,7 +216,7 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 -9.781731 0.02871326   -9.820001    -9.759838</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 -9.770416 0.03782804   -9.816237    -9.729646</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $variable3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $gdp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        mean         sd 5% quantile 95% quantile</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -7.027473 0.01629950   -7.046333    -7.009989</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 -7.018908 0.02340868   -7.035756    -6.986774</span>
@@ -261,6 +258,8 @@ deviations and data. The output elements include:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Every draw is saved via MCMC thinning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Press Esc to interrupt the computations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> **************************************************|</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The value of argument horizon has been aligned with the dimensions </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>             of arguments conditional_forecast and exogenous_forecast.</span>
 <span class="r-plt img"><img src="forecast.PosteriorBSVAR-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

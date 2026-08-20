@@ -43,121 +43,107 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
-set.seed(123)
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 #> The identification is set to the default option of lower-triangular structural matrix.
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-summary(posterior)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Posterior summary of the parameters             |
-#>  **************************************************|
+summ           = summary(posterior)
+summ
 #> $B
-#> $B$equation1
+#> $B$ttr
 #>             mean         sd 5% quantile 95% quantile
-#> B[1,1] 0.9014852 0.04761176   0.8370849    0.9755561
+#> B[1,1] 0.4292294 0.01404635   0.4153701    0.4466668
 #> 
-#> $B$equation2
+#> $B$gs
 #>             mean       sd 5% quantile 95% quantile
-#> B[2,1] -13.84954 1.471242   -15.63182    -11.49321
-#> B[2,2]  26.30151 2.778722    22.03868     29.72077
+#> B[2,1] -29.12424 3.904193   -33.96807    -25.29244
+#> B[2,2]  12.82009 1.714862    11.13812     14.95000
 #> 
-#> $B$equation3
-#>              mean        sd 5% quantile 95% quantile
-#> B[3,1] -23.973117 3.0121821  -28.446783   -19.546220
-#> B[3,2]  -9.387167 1.3814414  -11.562553    -7.745330
-#> B[3,3]   4.454882 0.5356209    3.646738     5.277948
+#> $B$gdp
+#>             mean       sd 5% quantile 95% quantile
+#> B[3,1] -17.83714 1.788928   -19.89527    -16.15634
+#> B[3,2] -30.45503 2.755931   -34.21038    -28.26813
+#> B[3,3]  29.72554 1.923628    28.28258     32.31364
 #> 
 #> 
 #> $A
-#> $A$equation1
-#>                   mean         sd 5% quantile 95% quantile
-#> lag1_var1  0.988194381 0.01420223  0.96739208   1.00938963
-#> lag1_var2 -0.006817076 0.02251535 -0.03982698   0.02446020
-#> lag1_var3 -0.119128883 0.01731301 -0.14339257  -0.09114892
-#> const      0.031385067 0.18045031 -0.22930438   0.26979971
+#> $A$ttr
+#>                  mean          sd 5% quantile 95% quantile
+#> lag1_var1  1.00602701 0.007437419  0.99648471   1.01299426
+#> lag1_var2 -0.06428092 0.015602124 -0.08384561  -0.04892312
+#> lag1_var3 -0.25384795 0.012586041 -0.26372543  -0.23677080
+#> const     -0.21678170 0.126992851 -0.37083911  -0.08165535
 #> 
-#> $A$equation2
-#>                   mean         sd 5% quantile 95% quantile
-#> lag1_var1 -0.002447902 0.01673029 -0.03394412  0.015833323
-#> lag1_var2  0.978693143 0.01366916  0.95825314  0.996245605
-#> lag1_var3 -0.067082825 0.02127130 -0.09158115 -0.019726130
-#> const     -0.159580822 0.12162907 -0.36512751  0.002627932
+#> $A$gs
+#>                 mean          sd 5% quantile 95% quantile
+#> lag1_var1  0.1059402 0.004148042   0.1016575    0.1106049
+#> lag1_var2  0.8367035 0.006642448   0.8297499    0.8443272
+#> lag1_var3 -0.6923226 0.004025565  -0.6963276   -0.6872817
+#> const     -0.6737482 0.081757248  -0.7589066   -0.5784268
 #> 
-#> $A$equation3
-#>                 mean         sd 5% quantile 95% quantile
-#> lag1_var1  0.2888432 0.08208022  0.16948913    0.4045256
-#> lag1_var2  0.1297106 0.13825009 -0.07466392    0.3274477
-#> lag1_var3 -0.2517527 0.10825443 -0.41109165   -0.1420077
-#> const      1.7486550 1.10883698 -0.07359455    3.1952987
+#> $A$gdp
+#>                  mean          sd 5% quantile 95% quantile
+#> lag1_var1  0.16657972 0.008308436   0.1579634   0.17706320
+#> lag1_var2 -0.16438135 0.002356904  -0.1673922  -0.16198063
+#> lag1_var3  0.06751015 0.010381530   0.0550153   0.07866399
+#> const     -0.42671785 0.015757897  -0.4399150  -0.40555641
 #> 
 #> 
 #> $hyper
 #> $hyper$B
 #>                            mean        sd 5% quantile 95% quantile
-#> B[1,]_shrinkage        53.93075  27.72985    15.85971     96.63204
-#> B[2,]_shrinkage       155.17792  70.05367    85.57759    285.20564
-#> B[3,]_shrinkage       155.94513  70.48152    59.84251    253.91530
-#> B[1,]_shrinkage_scale 549.97589 228.16350   258.36175    907.38951
-#> B[2,]_shrinkage_scale 805.81866 436.01484   324.84329   1312.50268
-#> B[3,]_shrinkage_scale 827.47056 378.42681   299.22009   1264.60583
-#> B_global_scale         69.46559  30.36773    25.51776    117.90987
+#> B[1,]_shrinkage        33.67953  24.67710    12.02679     66.43441
+#> B[2,]_shrinkage        92.30335  48.58045    60.12220    159.27170
+#> B[3,]_shrinkage       210.55945 109.61786   127.84816    358.56982
+#> B[1,]_shrinkage_scale 276.44647 169.05986   104.74775    469.65451
+#> B[2,]_shrinkage_scale 227.38521  85.18297   139.05712    324.85526
+#> B[3,]_shrinkage_scale 265.63844  72.12961   196.35830    359.31971
+#> B_global_scale         22.51800  10.40744    12.45363     35.94220
 #> 
 #> $hyper$A
-#>                            mean        sd 5% quantile 95% quantile
-#> A[1,]_shrinkage       0.4532666 0.2747942   0.1699936    0.8577125
-#> A[2,]_shrinkage       0.6252758 0.4785711   0.2255387    1.1648535
-#> A[3,]_shrinkage       1.2736705 0.5951927   0.6162898    2.1693282
-#> A[1,]_shrinkage_scale 5.0345683 1.6451767   2.9265072    8.3588304
-#> A[2,]_shrinkage_scale 6.2189126 2.4047309   3.5662781   11.4408306
-#> A[3,]_shrinkage_scale 8.7869766 3.6125068   4.6369545   16.6781454
-#> A_global_scale        0.7280418 0.1871912   0.5590932    1.1051042
+#>                            mean         sd 5% quantile 95% quantile
+#> A[1,]_shrinkage       0.4390106 0.19355975   0.2797854    0.6997295
+#> A[2,]_shrinkage       0.6577394 0.24146568   0.3735556    0.9136468
+#> A[3,]_shrinkage       0.5057656 0.08789633   0.4113233    0.6073115
+#> A[1,]_shrinkage_scale 5.7118868 1.25855292   4.1987768    7.0997722
+#> A[2,]_shrinkage_scale 6.7365079 1.54596095   4.7212705    8.1111866
+#> A[3,]_shrinkage_scale 7.0191122 1.84457825   4.8526346    9.0959976
+#> A_global_scale        0.7712549 0.24265980   0.5606933    1.0876566
 #> 
 #> 
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
-  summary()
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
+  summary() -> summ
 #> The identification is set to the default option of lower-triangular structural matrix.
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -166,75 +152,71 @@ us_fiscal_lsuw |>
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Posterior summary of the parameters             |
-#>  **************************************************|
+summ
 #> $B
-#> $B$equation1
+#> $B$ttr
 #>             mean         sd 5% quantile 95% quantile
-#> B[1,1] 0.9014852 0.04761176   0.8370849    0.9755561
+#> B[1,1] 0.3401241 0.01624611   0.3178432    0.3498222
 #> 
-#> $B$equation2
+#> $B$gs
 #>             mean       sd 5% quantile 95% quantile
-#> B[2,1] -13.84954 1.471242   -15.63182    -11.49321
-#> B[2,2]  26.30151 2.778722    22.03868     29.72077
+#> B[2,1] -28.39515 4.354443   -32.39447    -22.63473
+#> B[2,2]  17.12052 2.633582    13.64019     19.54640
 #> 
-#> $B$equation3
-#>              mean        sd 5% quantile 95% quantile
-#> B[3,1] -23.973117 3.0121821  -28.446783   -19.546220
-#> B[3,2]  -9.387167 1.3814414  -11.562553    -7.745330
-#> B[3,3]   4.454882 0.5356209    3.646738     5.277948
+#> $B$gdp
+#>             mean         sd 5% quantile 95% quantile
+#> B[3,1] -4.518997  1.3958803   -5.997186    -2.851342
+#> B[3,2]  2.083694  0.7650306    1.168386     2.848872
+#> B[3,3] 67.411864 11.4907721   56.748490    82.361399
 #> 
 #> 
 #> $A
-#> $A$equation1
-#>                   mean         sd 5% quantile 95% quantile
-#> lag1_var1  0.988194381 0.01420223  0.96739208   1.00938963
-#> lag1_var2 -0.006817076 0.02251535 -0.03982698   0.02446020
-#> lag1_var3 -0.119128883 0.01731301 -0.14339257  -0.09114892
-#> const      0.031385067 0.18045031 -0.22930438   0.26979971
-#> 
-#> $A$equation2
-#>                   mean         sd 5% quantile 95% quantile
-#> lag1_var1 -0.002447902 0.01673029 -0.03394412  0.015833323
-#> lag1_var2  0.978693143 0.01366916  0.95825314  0.996245605
-#> lag1_var3 -0.067082825 0.02127130 -0.09158115 -0.019726130
-#> const     -0.159580822 0.12162907 -0.36512751  0.002627932
-#> 
-#> $A$equation3
+#> $A$ttr
 #>                 mean         sd 5% quantile 95% quantile
-#> lag1_var1  0.2888432 0.08208022  0.16948913    0.4045256
-#> lag1_var2  0.1297106 0.13825009 -0.07466392    0.3274477
-#> lag1_var3 -0.2517527 0.10825443 -0.41109165   -0.1420077
-#> const      1.7486550 1.10883698 -0.07359455    3.1952987
+#> lag1_var1  0.8498161 0.01217798   0.8377872   0.86352056
+#> lag1_var2 -0.2931411 0.02703018  -0.3253693  -0.26323670
+#> lag1_var3  0.1637872 0.01346556   0.1515283   0.18158797
+#> const     -0.1431922 0.20401883  -0.3953274   0.06538535
+#> 
+#> $A$gs
+#>                 mean         sd 5% quantile 95% quantile
+#> lag1_var1 -0.1644450 0.02611732  -0.1991484   -0.1433256
+#> lag1_var2  0.4704910 0.02863743   0.4344874    0.4978704
+#> lag1_var3  0.1754827 0.02694952   0.1536093    0.2117748
+#> const     -0.5994123 0.23618396  -0.8783437   -0.3447495
+#> 
+#> $A$gdp
+#>                  mean          sd 5% quantile 95% quantile
+#> lag1_var1 -0.01579289 0.002824773 -0.01944425  -0.01303294
+#> lag1_var2 -0.01826245 0.002515737 -0.02128345  -0.01613033
+#> lag1_var3  1.02053126 0.002819248  1.01767726   1.02410553
+#> const     -0.12470010 0.022502821 -0.15298625  -0.10407875
 #> 
 #> 
 #> $hyper
 #> $hyper$B
-#>                            mean        sd 5% quantile 95% quantile
-#> B[1,]_shrinkage        53.93075  27.72985    15.85971     96.63204
-#> B[2,]_shrinkage       155.17792  70.05367    85.57759    285.20564
-#> B[3,]_shrinkage       155.94513  70.48152    59.84251    253.91530
-#> B[1,]_shrinkage_scale 549.97589 228.16350   258.36175    907.38951
-#> B[2,]_shrinkage_scale 805.81866 436.01484   324.84329   1312.50268
-#> B[3,]_shrinkage_scale 827.47056 378.42681   299.22009   1264.60583
-#> B_global_scale         69.46559  30.36773    25.51776    117.90987
+#>                            mean         sd 5% quantile 95% quantile
+#> B[1,]_shrinkage        27.71604  14.914879    8.808264     41.38118
+#> B[2,]_shrinkage       207.67877  86.219172  107.464262    302.20242
+#> B[3,]_shrinkage       281.36856  95.485819  173.006066    388.20394
+#> B[1,]_shrinkage_scale 222.48799 133.393145   73.287508    367.45905
+#> B[2,]_shrinkage_scale 286.15890 112.396424  157.464986    406.38988
+#> B[3,]_shrinkage_scale 328.80480  89.402610  207.034559    399.63718
+#> B_global_scale         23.64678   9.158511   11.894722     30.76179
 #> 
 #> $hyper$A
-#>                            mean        sd 5% quantile 95% quantile
-#> A[1,]_shrinkage       0.4532666 0.2747942   0.1699936    0.8577125
-#> A[2,]_shrinkage       0.6252758 0.4785711   0.2255387    1.1648535
-#> A[3,]_shrinkage       1.2736705 0.5951927   0.6162898    2.1693282
-#> A[1,]_shrinkage_scale 5.0345683 1.6451767   2.9265072    8.3588304
-#> A[2,]_shrinkage_scale 6.2189126 2.4047309   3.5662781   11.4408306
-#> A[3,]_shrinkage_scale 8.7869766 3.6125068   4.6369545   16.6781454
-#> A_global_scale        0.7280418 0.1871912   0.5590932    1.1051042
+#>                            mean         sd 5% quantile 95% quantile
+#> A[1,]_shrinkage       0.4123150 0.07691661   0.3203607    0.4912766
+#> A[2,]_shrinkage       0.5677337 0.07222853   0.4783330    0.6324089
+#> A[3,]_shrinkage       0.3744769 0.08634127   0.2663945    0.4566396
+#> A[1,]_shrinkage_scale 6.7011377 1.53667541   4.7750182    8.2522204
+#> A[2,]_shrinkage_scale 6.9352255 1.62306990   5.6533331    9.0506366
+#> A[3,]_shrinkage_scale 5.3664359 2.06407487   3.0124286    7.5032875
+#> A_global_scale        0.8011152 0.21831936   0.5331786    1.0384187
 #> 
 #> 
 ```

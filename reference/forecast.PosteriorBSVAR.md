@@ -157,13 +157,10 @@ predictive     = forecast(
                     exogenous_forecast = us_fiscal_ex_forecasts,
                     conditional_forecast = us_fiscal_cond_forecasts
                   )
+#> The value of argument horizon has been aligned with the dimensions 
+#>             of arguments conditional_forecast and exogenous_forecast.
 summary(predictive)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Posterior summary of forecasts                  |
-#>  **************************************************|
-#> $variable1
+#> $ttr
 #>        mean sd 5% quantile 95% quantile
 #> 1 -8.860009  0   -8.860009    -8.860009
 #> 2 -8.854638  0   -8.854638    -8.854638
@@ -174,7 +171,7 @@ summary(predictive)
 #> 7 -8.827784  0   -8.827784    -8.827784
 #> 8 -8.822413  0   -8.822413    -8.822413
 #> 
-#> $variable2
+#> $gs
 #>        mean         sd 5% quantile 95% quantile
 #> 1 -9.812800 0.02474505   -9.843272    -9.787535
 #> 2 -9.808465 0.03593110   -9.852234    -9.772111
@@ -185,7 +182,7 @@ summary(predictive)
 #> 7 -9.781731 0.02871326   -9.820001    -9.759838
 #> 8 -9.770416 0.03782804   -9.816237    -9.729646
 #> 
-#> $variable3
+#> $gdp
 #>        mean         sd 5% quantile 95% quantile
 #> 1 -7.027473 0.01629950   -7.046333    -7.009989
 #> 2 -7.018908 0.02340868   -7.035756    -6.986774
@@ -227,5 +224,7 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+#> The value of argument horizon has been aligned with the dimensions 
+#>             of arguments conditional_forecast and exogenous_forecast.
 
 ```

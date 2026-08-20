@@ -11,6 +11,10 @@
   Lütkepohl, Shang, Uzeda, Woźniak (2026), introduced major code
   corrections and improvements
 
+- **Helmut Lütkepohl**. Contributor.  
+  co-authored the Journal of Econometrics methodological paper by
+  Lütkepohl, Shang, Uzeda, Woźniak (2026)
+
 - **Xiaolei Wang**. Contributor.
   [](https://orcid.org/0009-0005-6192-9061)  
   corrected C++ code for historical decompositions

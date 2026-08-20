@@ -9,6 +9,7 @@ Plots of structural shocks including their median and percentiles.
 plot(
   x,
   probability = 0.9,
+  shock_names,
   col = "#ff69b4",
   main,
   xlab,
@@ -32,6 +33,10 @@ plot(
   stretches from the `0.5 * (1 - probability)` to
   `1 - 0.5 * (1 - probability)` percentile of the posterior
   distribution.
+
+- shock_names:
+
+  a vector of length `N` containing names of the structural shocks.
 
 - col:
 
@@ -72,27 +77,25 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-data(us_fiscal_lsuw)                                  # upload data
-set.seed(123)                                         # set seed
 specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
 #> The identification is set to the default option of lower-triangular structural matrix.
-burn_in        = estimate(specification, 10)          # run the burn-in
+burn_in        = estimate(specification, 5)           # run the burn-in
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-posterior      = estimate(burn_in, 20, thin = 1)      # estimate the model
+posterior      = estimate(burn_in, 5)                 # estimate the model
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -104,11 +107,10 @@ plot(shocks)                                          # plot
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20, thin = 1) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_structural_shocks() |>
   plot()
 #> The identification is set to the default option of lower-triangular structural matrix.
@@ -117,7 +119,7 @@ us_fiscal_lsuw |>
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -126,8 +128,9 @@ us_fiscal_lsuw |>
 #> **************************************************|
 #>  Gibbs sampler for the SVAR model                 |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
+
 ```

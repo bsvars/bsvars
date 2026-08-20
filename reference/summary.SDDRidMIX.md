@@ -42,15 +42,8 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# upload data
-data(us_fiscal_lsuw)
-
-# specify the model and set seed
 specification  = specify_bsvar_mix$new(us_fiscal_lsuw, M = 2)
 #> The identification is set to the default option of lower-triangular structural matrix.
-set.seed(123)
-
-# estimate the model
 posterior      = estimate(specification, 10)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
@@ -65,21 +58,13 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_identification(posterior)
 summary(sddr)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: s^2_nm  = 1 for all m  [normal]             |
-#>    H1: s^2_nm != 1 for some m [non-normal]         |
-#>  **************************************************|
 #>          log(SDDR) NSE Pr[H0|data] Pr[H1|data]
-#> shock 1  2.0505716   0  0.88600537   0.1139946
-#> shock 2 -0.3568296   0  0.41172724   0.5882728
-#> shock 3 -3.2189699   0  0.03845806   0.9615419
+#> shock 1  1.9658309   0   0.8771626   0.1228374
+#> shock 2 -0.8220419   0   0.3053304   0.6946696
+#> shock 3 -1.4283734   0   0.1933522   0.8066478
 
 # workflow with the pipe |>
 ############################################################
-set.seed(123)
 us_fiscal_lsuw |>
   specify_bsvar_mix$new(M = 2) |>
   estimate(S = 10) |> 
@@ -95,11 +80,4 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Summary of identification verification          |
-#>    H0: s^2_nm  = 1 for all m  [normal]             |
-#>    H1: s^2_nm != 1 for some m [non-normal]         |
-#>  **************************************************|
 ```

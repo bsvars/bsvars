@@ -38,30 +38,25 @@ Tomasz Woźniak <wozniak.tom@pm.me>
 ## Examples
 
 ``` r
-# specify the model
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)
 #> The identification is set to the default option of lower-triangular structural matrix.
-
-# run the burn-in
-burn_in        = estimate(specification, 10)
+burn_in        = estimate(specification, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-
-# estimate the model
-posterior      = estimate(burn_in, 20)
+posterior      = estimate(burn_in, 5)
 #> **************************************************|
 #> bsvars: Bayesian Structural Vector Autoregressions|
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -69,18 +64,21 @@ posterior      = estimate(burn_in, 20)
 # compute regime probabilities
 rp             = compute_regime_probabilities(posterior)
 rp_summary     = summary(rp)
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Posterior summary of regime probabilities       |
-#>  **************************************************|
+head(rp_summary$MarkovProcess1$regime1) # browse the results
+#>   mean        sd
+#> 1  0.0 0.0000000
+#> 2  0.0 0.0000000
+#> 3  0.2 0.4472136
+#> 4  0.0 0.0000000
+#> 5  0.0 0.0000000
+#> 6  0.0 0.0000000
 
 # workflow with the pipe |>
 ############################################################
 us_fiscal_lsuw |>
   specify_bsvar_msh$new() |>
-  estimate(S = 10) |> 
-  estimate(S = 20) |> 
+  estimate(S = 5) |> 
+  estimate(S = 5) |> 
   compute_regime_probabilities() |>
   summary() -> rp_summary
 #> The identification is set to the default option of lower-triangular structural matrix.
@@ -89,7 +87,7 @@ us_fiscal_lsuw |>
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 10 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
@@ -98,13 +96,16 @@ us_fiscal_lsuw |>
 #> **************************************************|
 #>  Gibbs sampler for the SVAR-stationaryMSH model             |
 #> **************************************************|
-#>  Progress of the MCMC simulation for 20 draws
+#>  Progress of the MCMC simulation for 5 draws
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-#>  **************************************************|
-#>  bsvars: Bayesian Structural Vector Autoregressions|
-#>  **************************************************|
-#>    Posterior summary of regime probabilities       |
-#>  **************************************************|
+head(rp_summary$MarkovProcess1$regime1) # browse the results
+#>   mean        sd
+#> 1  0.0 0.0000000
+#> 2  0.0 0.0000000
+#> 3  0.4 0.5477226
+#> 4  0.0 0.0000000
+#> 5  0.0 0.0000000
+#> 6  0.0 0.0000000
 ```

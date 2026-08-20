@@ -18,20 +18,24 @@ forecasting, verification of heteroskedasticity, non-normality, and
 hypotheses on autoregressive parameters, as well as analyses of
 structural shocks, volatilities, and fitted values. Beautiful plots,
 informative summary functions, and extensive documentation including the
-vignette by [Woźniak (2024)](https://doi.org/10.48550/arXiv.2410.15090)
+vignette by [Woźniak (2025)](https://doi.org/10.48550/arXiv.2410.15090)
 complement all this. The implemented techniques align closely with those
 presented in [Lütkepohl, Shang, Uzeda, & Woźniak
 (2025)](https://doi.org/10.1016/j.jeconom.2025.106107), [Lütkepohl &
-Woźniak (2020)](http://doi.org/10.1016/j.jedc.2020.103862), and [Song &
-Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174).
-The **bsvars** package is aligned regarding objects, workflows, and code
-structure with the **R** package **bsvarSIGNs** by [Wang & Woźniak
-(2024)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), and they
+Woźniak (2020)](https://doi.org/10.1016/j.jedc.2020.103862), and [Song &
+Woźniak (2021)](https://doi.org/10.1093/acrefore/9780190625979.013.174)
+and they embed many popular models proposed by other authors. The
+‘bsvars’ package is aligned regarding objects, workflows, and code
+structure with the R packages ‘bsvarSIGNs’ by [Wang & Woźniak
+(2025)](https://doi.org/10.32614/CRAN.package.bsvarSIGNs), ‘bvars’ by
+[Liu, Ramirez Hassan, Woźniak
+(2026)](https://doi.org/10.32614/CRAN.package.bvars), and ‘bpvars’ by
+[Woźniak (2026)](https://doi.org/10.32614/CRAN.package.bpvars), and they
 constitute an integrated toolset.
 
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/house.svg)](https://bsvars.org)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:contact@bsvars.org)
-[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/bsvars/bsvars)
+[![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/bsvars/bpvars)
 [![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/bsvars.org)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@bsvars)
 
@@ -41,6 +45,12 @@ website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars.org
 website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvars/bsvars.png)](https://bsvars.org/bsvars/)
 [![bsvarSIGNs
 website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bsvarSIGNs/bsvarSIGNs.png)](https://bsvars.org/bsvarSIGNs/)
+[![bpvars
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/bpvars/bpvars.png)](https://bsvars.org/bpvars/)
+[![bvars
+website](reference/figures/logo.png)](https://bsvars.org/bvars/)
+[![StealLikeBayes
+website](https://raw.githubusercontent.com/bsvars/hex/refs/heads/main/StealLikeBayes/StealLikeBayes.png)](https://bsvars.org/StealLikeBayes/)
 
 ## Features
 
@@ -155,7 +165,19 @@ website](reference/figures/logo.png)](https://bsvars.org/bsvars/)
 - a [reference manual](https://cran.r-project.org/package=bsvars)
 - a website of the family of packages [bsvars.org](https://bsvars.org/)
 - **bsvars** on [CRAN](https://cran.r-project.org/package=bsvars)
+- youtube recordings:
+  - [Workshop on Open Source
+    Forecasting](https://event.nectric.com.au/iif-osf/) [youtube
+    recording](https://www.youtube.com/watch?v=Gmd7x0gwS7U)
+  - [Forecasting for Social Good](https://www.f4sg.org/) [youtube
+    recording](https://youtu.be/QT02OTZWW14)
+  - [Workshops for
+    Ukraine](https://sites.google.com/view/dariia-mykhailyshyna/main/r-workshops-for-ukraine)
+    [youtube recording](https://www.youtube.com/watch?v=2iO0yrD0EtU)
 - presentations:
+  - [IIF Workshop on Open Source
+    Forecasting](https://event.nectric.com.au/iif-osf/) [2025-06
+    featuring **bsvars** 3.2](https://bsvars.org/2025-06-iifosf/)
   - for students at [Szkoła Główna Handlowa](https://www.sgh.waw.pl/)
     given in Warsaw in December 2024 [featuring **bsvars** 3.2 and
     **bsvarSIGNs** 1.0.1](https://bsvars.org/2024-12-sgh/)\]
@@ -190,7 +212,6 @@ The beginnings are as easy as ABC:
 ``` r
 
 library(bsvars)                               # upload the package
-data(us_fiscal_lsuw)                          # upload data
 spec      = specify_bsvar_sv$new(us_fiscal_lsuw, p = 4)   # specify the model
 burn_in   = estimate(spec, 1000)              # run the burn-in
 out       = estimate(burn_in, 50000)          # estimate the model
@@ -208,7 +229,6 @@ pipe:
 ``` r
 
 library(bsvars)                               # upload the package
-data(us_fiscal_lsuw)                          # upload data
 us_fiscal_lsuw |>
   specify_bsvar_sv$new(p = 4) |>              # specify the model
   estimate(S = 1000) |>                       # run the burn-in
@@ -250,8 +270,12 @@ devtools::install_github("bsvars/bsvars")
 
 ## Development
 
-The package is under intensive development. Your help is most welcome!
-Please, have a look at the
+Your help is most welcome! Contribute by submitting a Pull Request with
+your code. Contributions that add new functionality require prior
+agreement with the package authors. We only accept submissions from
+humans, and AI agents cannot be listed as contributors. This means that
+the person providing the code takes full responsibility for the
+contribution. Please also have a look at the
 [roadmap](https://github.com/bsvars/bsvars/milestones), or [report a
 bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
@@ -259,13 +283,14 @@ bug](https://github.com/bsvars/bsvars/issues). Thank you!
 
 **Tomasz** is a Bayesian econometrician and a Senior Lecturer at the
 University of Melbourne. He develops methodology for empirical
-macroeconomic analyses and programs in **R** and **cpp** using **Rcpp**.
+macroeconomic analyses and programs in **R** and **C++** using **Rcpp**.
 
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg)](mailto:twozniak@unimelb.edu.au)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/github.svg)](https://github.com/donotdespair)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/orcid.svg)](https://orcid.org/0000-0003-2212-2378)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/linkedin.svg)](https://www.linkedin.com/in/tomaszwwozniak)
-[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg)](http://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/google-scholar-square.svg)](https://scholar.google.com/citations?user=2uWpFrYAAAAJ&hl)
 [![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/arxiv-square.svg)](https://arxiv.org/a/wozniak_t_1)
+[![](https://raw.githubusercontent.com/jpswalsh/academicons/refs/heads/master/svg/researchgate-square.svg)](https://www.researchgate.net/profile/Tomasz-Wozniak-2)
 [![](https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/mastodon.svg)](https://fosstodon.org/@tomaszwozniak)
 [![](https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg)](https://bsky.app/profile/tomaszwozniak.bsky.social)
