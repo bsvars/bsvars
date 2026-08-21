@@ -100,7 +100,7 @@ conditional distribution of structural shocks.}
 the autoregressive matrix \eqn{A} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
       \item{\code{B}}{a logical \code{NxN} matrix containing value \code{TRUE} for the elements of 
-the staructural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
+the structural matrix \eqn{B} to be estimated and value \code{FALSE} for exclusion restrictions 
 to be set to zero.}
       \item{\code{N}}{a positive integer - the number of dependent variables in the model.}
       \item{\code{p}}{a positive integer - the autoregressive lag order of the SVAR model.}
