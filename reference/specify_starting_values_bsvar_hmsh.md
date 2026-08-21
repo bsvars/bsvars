@@ -85,7 +85,7 @@ Create new starting values StartingValuesBSVARHMSH.
 - `B`:
 
   a logical `NxN` matrix containing value `TRUE` for the elements of the
-  staructural matrix \\B\\ to be estimated and value `FALSE` for
+  structural matrix \\B\\ to be estimated and value `FALSE` for
   exclusion restrictions to be set to zero.
 
 - `N`:

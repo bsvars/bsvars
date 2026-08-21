@@ -166,7 +166,7 @@ CRAN release: 2024-06-19
 12. Coded `compute_*()` functions as generics and methods
     [\#70](https://github.com/bsvars/bsvars/issues/70)
 13. Updated code for forecast error variance decompositions for
-    heteroskedastic models (qas prompted by
+    heteroskedastic models (as prompted by
     [@adamwang15](https://github.com/adamwang15))
     [\#69](https://github.com/bsvars/bsvars/issues/69)
 
