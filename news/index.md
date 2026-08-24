@@ -2,6 +2,8 @@
 
 ## bsvars 4.0
 
+CRAN release: 2026-08-22
+
 The package is under intensive development, and more functionality will
 be provided soon! To see the package
 [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next

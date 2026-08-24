@@ -31,7 +31,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/bsvars/bsvars/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/bsvars/bsvars/blob/v4.0/inst/CITATION)
 
 Woźniak, Tomasz (2025). bsvars: Bayesian Estimation of Structural Vector
 Autoregressive Models. R package version 4.0, URL:
