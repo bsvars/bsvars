@@ -1,8 +1,10 @@
-# bsvars 4.0
+# bsvars (development version)
 
-The package is under intensive development, and more functionality will be provided soon! To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
+To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) towards the next version.
 
 Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsvars.org](mailto:contact@bsvars.org) forum.
+
+# bsvars 4.0
 
 1.  The model with Student-t structural shocks features now, an estimated equation-specific degrees-of-freedom parameter, see `specify_bsvar_t()` with verified normality using function `verify_identification()` [#84](https://github.com/bsvars/bsvars/issues/84)
 2.  Updated C++ flags to the newest recommended setup as inspired by the PR [#103](https://github.com/bsvars/bsvars/pull/103) by [\@haansn08](https://github.com/haansn08)
