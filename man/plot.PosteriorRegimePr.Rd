@@ -18,7 +18,7 @@
 \arguments{
 \item{x}{an object of class PosteriorRegimePr obtained using the
 \code{compute_regime_probabilities()} function containing posterior draws of 
-regime probabilities.}
+compact realized regime indices or regime probabilities.}
 
 \item{probability}{a parameter determining the interval to be plotted. The 
 interval stretches from the \code{0.5 * (1 - probability)} to 
@@ -39,7 +39,8 @@ interval stretches from the \code{0.5 * (1 - probability)} to
 \description{
 Plots of estimated regime probabilities of Markov-switching 
 heteroskedasticity or allocations of normal-mixture components including their 
-median and percentiles.
+median and percentiles. Compact zero-based realized regime indices are displayed
+using the equivalent regime indicators.
 }
 \examples{
 specification  = specify_bsvar_msh$new(us_fiscal_lsuw)# specify model

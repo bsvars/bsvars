@@ -29,15 +29,14 @@ arma::vec Ergodic_PR_TR (
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 arma::mat count_regime_transitions (
-    const arma::mat& xi
+    const arma::mat& xi,
+    const int M
 ) {
-  const int M = xi.n_rows;
   const int T = xi.n_cols;
   
   mat count(M, M);
-  urowvec s   = index_max( xi, 0 );
   for (int t=1; t<T; t++) {
-    count( s(t-1), s(t))++;
+    count( xi(0,t-1), xi(0,t))++;
   }
   return count;
 } // END count_regime_transitions
@@ -144,7 +143,7 @@ arma::mat smoothing_msh (
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 arma::mat sample_Markov_process_msh (
-    arma::mat&        aux_xi,             // MxT
+    arma::mat&        aux_xi,             // 1xT
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
     const arma::mat&  aux_PR_TR,         // MxM
@@ -160,20 +159,22 @@ arma::mat sample_Markov_process_msh (
   const int   M   = aux_PR_TR.n_rows;
   mat filtered    = filtering_msh(U, aux_sigma2, aux_PR_TR, aux_pi_0);
   mat smoothed    = smoothing_msh(U, aux_PR_TR, filtered);
-  mat     aj      = eye(M, M);
   
   for (int iteration=0; iteration<max_iterations; iteration++) {
-    mat aux_xi_tmp(M, T);
+    mat aux_xi_tmp(1, T);
     int draw = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
-    aux_xi_tmp.col(T-1) = aj.col(draw-1);
+    aux_xi_tmp(0,T-1) = draw-1;
 
     for (int t=T-2; t>=0; --t) {
-      vec xi_Tmj = (aux_PR_TR * (aux_xi_tmp.col(t+1)/(aux_PR_TR.t() * filtered.col(t)))) % filtered.col(t);
+      vec xi_Tmj = aux_PR_TR.col(aux_xi_tmp(0,t+1)) % filtered.col(t);
+      xi_Tmj /= sum(xi_Tmj);
       draw = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-      aux_xi_tmp.col(t) = aj.col(draw-1);
+      aux_xi_tmp(0,t) = draw-1;
     }
 
-    if (!finiteM || min(sum(aux_xi_tmp, 1)) >= minimum_regime_occurrences) {
+    rowvec occurrences(M, fill::zeros);
+    for (int t=0; t<T; t++) occurrences(aux_xi_tmp(0,t))++;
+    if (!finiteM || min(occurrences) >= minimum_regime_occurrences) {
       aux_xi = aux_xi_tmp;
       break;
     }
@@ -195,7 +196,7 @@ arma::mat sample_Markov_process_msh (
 // [[Rcpp::interfaces(cpp, r)]]
 // [[Rcpp::export]]
 arma::cube sample_Markov_process_hmsh (
-    arma::cube&       aux_xi,             // MxTxN
+    arma::cube&       aux_xi,             // 1xTxN
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
     const arma::cube& aux_PR_TR,          // MxMxN
@@ -209,24 +210,26 @@ arma::cube sample_Markov_process_hmsh (
   const int   T   = U.n_cols;
   const int   N   = U.n_rows;
   const int   M   = aux_PR_TR.n_cols;
-  mat     aj      = eye(M, M);
   
   for (int n=0; n<N; n++) {
     mat filtered    = filtering_msh(U.row(n), aux_sigma2.row(n), aux_PR_TR.slice(n), aux_pi_0.col(n));
     mat smoothed    = smoothing_msh(U.row(n), aux_PR_TR.slice(n), filtered);
 
     for (int iteration=0; iteration<max_iterations; iteration++) {
-      mat aux_xi_tmp(M, T);
+      mat aux_xi_tmp(1, T);
       int draw = csample_num1(wrap(seq_len(M)), wrap(smoothed.col(T-1)));
-      aux_xi_tmp.col(T-1) = aj.col(draw-1);
+      aux_xi_tmp(0,T-1) = draw-1;
 
       for (int t=T-2; t>=0; --t) {
-        vec xi_Tmj = (aux_PR_TR.slice(n) * (aux_xi_tmp.col(t+1)/(aux_PR_TR.slice(n).t() * filtered.col(t)))) % filtered.col(t);
+        vec xi_Tmj = aux_PR_TR.slice(n).col(aux_xi_tmp(0,t+1)) % filtered.col(t);
+        xi_Tmj /= sum(xi_Tmj);
         draw = csample_num1(wrap(seq_len(M)), wrap(xi_Tmj));
-        aux_xi_tmp.col(t) = aj.col(draw-1);
+        aux_xi_tmp(0,t) = draw-1;
       }
 
-      if (!finiteM || min(sum(aux_xi_tmp, 1)) >= minimum_regime_occurrences) {
+      rowvec occurrences(M, fill::zeros);
+      for (int t=0; t<T; t++) occurrences(aux_xi_tmp(0,t))++;
+      if (!finiteM || min(occurrences) >= minimum_regime_occurrences) {
         aux_xi.slice(n) = aux_xi_tmp;
         break;
       }
@@ -254,7 +257,7 @@ arma::cube sample_Markov_process_hmsh (
 Rcpp::List sample_transition_probabilities (
     arma::mat           aux_PR_TR,    // MxM 
     arma::vec           aux_pi_0,     // Mx1
-    const arma::mat&    aux_xi,       // MxT
+    const arma::mat&    aux_xi,       // 1xT
     const Rcpp::List&   prior,         // a list of priors - original dimensions
     const bool          MSnotMIX = true
 ) {
@@ -263,12 +266,12 @@ Rcpp::List sample_transition_probabilities (
   const mat   prior_PR_TR = as<mat>(prior["PR_TR"]);
   
   if ( MSnotMIX ) {
-    vec prob_xi1          = aux_pi_0 % (aux_PR_TR * aux_xi.col(0));
+    vec prob_xi1          = aux_pi_0 % aux_PR_TR.col(aux_xi(0,0));
     prob_xi1             /= sum(prob_xi1);
     int S0_draw           = csample_num1(wrap(seq_len(M)), wrap(prob_xi1));
 
-    mat transitions       = count_regime_transitions(aux_xi);
-    transitions(S0_draw-1, aux_xi.col(0).index_max())++;
+    mat transitions       = count_regime_transitions(aux_xi, M);
+    transitions(S0_draw-1, aux_xi(0,0))++;
     mat posterior_alpha   = transitions + prior_PR_TR;
     
     for (int m=0; m<M; m++) {
@@ -278,7 +281,8 @@ Rcpp::List sample_transition_probabilities (
     posterior_alpha_0(S0_draw-1)++;
     aux_pi_0              = trans(rDirichlet1(posterior_alpha_0));
   } else {
-    rowvec occurrences    = trans(sum(aux_xi, 1));
+    rowvec occurrences(M, fill::zeros);
+    for (uword t=0; t<aux_xi.n_cols; t++) occurrences(aux_xi(0,t))++;
     rowvec posterior_alpha= occurrences + prior_PR_TR.row(0);
     aux_pi_0              = trans(rDirichlet1(posterior_alpha));
     for (int m=0; m<M; m++) {
@@ -299,22 +303,23 @@ Rcpp::List sample_transition_probabilities (
 arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    U,          // NxT
-    const arma::mat&    aux_xi,     // MxT state variables
+    const arma::mat&    aux_xi,     // 1xT state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
-  const int   M     = aux_xi.n_rows;
+  const int   M     = aux_sigma2.n_cols;
   const int   N     = U.n_rows;
   const int   T     = U.n_cols;
   const double MM   = M;
   
-  rowvec posterior_nu   = sum(aux_xi, 1).t() + as<double>(prior["sigma_nu"]);
+  rowvec posterior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
   mat posterior_s(N, M);
   posterior_s.fill(prior["sigma_s"]);
   mat sq_resid = square(U); // NxT
   for (int m=0; m<M; m++) {
     for (int t=0; t<T; t++) {
-      if (aux_xi(m,t)==1) {
+      if (aux_xi(0,t)==m) {
+        posterior_nu(m)++;
         posterior_s.col(m) += sq_resid.col(t);
       }
     }
@@ -334,11 +339,11 @@ arma::mat sample_variances_msh (
 arma::mat sample_variances_hmsh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    U,          // NxT 
-    const arma::cube&   aux_xi,     // MxTxN state variables
+    const arma::cube&   aux_xi,     // 1xTxN state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 ) {
   // the function changes the value of aux_sigma2 by reference (filling it with a new draw)
-  const int   M     = aux_xi.n_rows;
+  const int   M     = aux_sigma2.n_cols;
   const int   N     = U.n_rows;
   const int   T     = U.n_cols;
   const double MM   = M;
@@ -347,15 +352,16 @@ arma::mat sample_variances_hmsh (
   for (int n=0; n<N; n++) {
     rowvec posterior_s(M);
     posterior_s.fill(prior["sigma_s"]);
+    rowvec posterior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
     for (int m=0; m<M; m++) {
       for (int t=0; t<T; t++) {
-        if (aux_xi(m,t,n)==1) {
+        if (aux_xi(0,t,n)==m) {
+          posterior_nu(m)++;
           posterior_s(m) += sq_resid(n,t);
         }
       }
     }
 
-    rowvec posterior_nu   = sum(aux_xi.slice(n), 1).t() + as<double>(prior["sigma_nu"]);
     aux_sigma2.row(n)     = MM*rIG2_Dirichlet1( posterior_s, posterior_nu);
   }
   

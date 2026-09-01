@@ -178,8 +178,8 @@ Rcpp::List verify_volatility_msh_cpp (
   cube  posterior_xi        = posterior["xi"];
   cube  posterior_lambda    = posterior["lambda"];
   
-  const int   M             = posterior_xi.n_rows;
-  double      MM            = posterior_xi.n_rows;
+  const int   M             = posterior_sigma2.n_cols;
+  double      MM            = posterior_sigma2.n_cols;
   const int   N             = posterior_B.n_rows;
   const int   T             = Y.n_cols;
   const int   S             = posterior_B.n_slices;
@@ -201,13 +201,14 @@ Rcpp::List verify_volatility_msh_cpp (
 
     for (int n = 0; n < N; n++) {
       
-      rowvec posterior_nu   = sum(posterior_xi.slice(s), 1).t() + as<double>(prior["sigma_nu"]);
+      rowvec posterior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
       
       mat posterior_s(N, M);
       posterior_s.fill(prior["sigma_s"]);
       for (int m=0; m<M; m++) {
         for (int t=0; t<T; t++) {
-          if (posterior_xi(m,t,s)==1) {
+          if (posterior_xi(0,t,s)==m) {
+            posterior_nu(m)++;
             posterior_s.col(m) += square(residuals.col(t));
           }
         }
@@ -274,8 +275,8 @@ Rcpp::List verify_volatility_hmsh_cpp (
   field<cube> posterior_xi  = as<field<cube>>(posterior["xi_cpp"]);
   cube  posterior_lambda    = as<cube>(posterior["lambda"]);
   
-  const int   M             = posterior_xi(0).n_rows;
-  double      MM            = posterior_xi.n_rows;
+  const int   M             = posterior_sigma2.n_cols;
+  double      MM            = posterior_sigma2.n_cols;
   const int   N             = posterior_B.n_rows;
   const int   T             = Y.n_cols;
   const int   S             = posterior_B.n_slices;
@@ -297,14 +298,15 @@ Rcpp::List verify_volatility_hmsh_cpp (
 
     for (int n = 0; n < N; n++) {
       mat post_xi           = posterior_xi(s).slice(n);
-      rowvec posterior_nu   = sum(post_xi, 1).t() + as<double>(prior["sigma_nu"]);
+      rowvec posterior_nu(M, fill::value(as<double>(prior["sigma_nu"])));
       
       mat posterior_s(N, M);
       posterior_s.fill(prior["sigma_s"]);
       
       for (int m=0; m<M; m++) {
         for (int t=0; t<T; t++) {
-          if (post_xi(m,t)==1) {
+          if (post_xi(0,t)==m) {
+            posterior_nu(m)++;
             posterior_s.col(m) += square(residuals.col(t));
           }
         }

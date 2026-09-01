@@ -12,7 +12,8 @@ arma::vec Ergodic_PR_TR (
 
 
 arma::mat count_regime_transitions (
-    const arma::mat& xi
+    const arma::mat& xi,
+    const int M
 );
 
 
@@ -43,7 +44,7 @@ arma::mat smoothing_msh (
 
 
 arma::mat sample_Markov_process_msh (
-    arma::mat&        aux_xi,             // MxT
+    arma::mat&        aux_xi,             // 1xT
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
     const arma::mat&  aux_PR_TR,         // MxM
@@ -53,7 +54,7 @@ arma::mat sample_Markov_process_msh (
 
 
 arma::cube sample_Markov_process_hmsh (
-    arma::cube&       aux_xi,             // MxTxN
+    arma::cube&       aux_xi,             // 1xTxN
     const arma::mat&  U,                  // NxT
     const arma::mat&  aux_sigma2,         // NxM
     const arma::cube& aux_PR_TR,          // MxMxN
@@ -65,7 +66,7 @@ arma::cube sample_Markov_process_hmsh (
 Rcpp::List sample_transition_probabilities (
     arma::mat           aux_PR_TR,    // MxM 
     arma::vec           aux_pi_0,     // Mx1
-    const arma::mat&    aux_xi,       // MxT
+    const arma::mat&    aux_xi,       // 1xT
     const Rcpp::List&   prior,         // a list of priors - original dimensions
     const bool          MSnotMIX = true
 );
@@ -74,7 +75,7 @@ Rcpp::List sample_transition_probabilities (
 arma::mat sample_variances_msh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    U,          // NxT
-    const arma::mat&    aux_xi,     // MxT state variables
+    const arma::mat&    aux_xi,     // 1xT state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 );
 
@@ -82,7 +83,7 @@ arma::mat sample_variances_msh (
 arma::mat sample_variances_hmsh (
     arma::mat&          aux_sigma2, // NxM
     const arma::mat&    U,          // NxT 
-    const arma::cube&   aux_xi,     // MxTxN state variables
+    const arma::cube&   aux_xi,     // 1xTxN state variables
     const Rcpp::List&   prior       // a list of priors - original dimensions
 );
 

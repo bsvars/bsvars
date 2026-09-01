@@ -7,23 +7,23 @@
 }
 
 .draw_finite_msh_path <- function(xi, U, sigma2, PR_TR, pi_0) {
-  M <- nrow(xi)
+  M <- nrow(PR_TR)
   T <- ncol(xi)
   filtered <- bsvars:::filtering_msh(U, sigma2, PR_TR, pi_0)
   smoothed <- bsvars:::smoothing_msh(U, PR_TR, filtered)
 
   for (iteration in seq_len(10)) {
-    candidate <- matrix(0, M, T)
-    candidate[, T] <- diag(M)[, .draw_msh_state(smoothed[, T])]
+    candidate <- matrix(0, 1, T)
+    candidate[1, T] <- .draw_msh_state(smoothed[, T]) - 1
 
     for (t in (T - 1):1) {
-      next_state <- which.max(candidate[, t + 1])
+      next_state <- candidate[1, t + 1] + 1
       probability <- filtered[, t] * PR_TR[, next_state]
       probability <- probability / sum(probability)
-      candidate[, t] <- diag(M)[, .draw_msh_state(probability)]
+      candidate[1, t] <- .draw_msh_state(probability) - 1
     }
 
-    if (min(rowSums(candidate)) >= 3) {
+    if (min(tabulate(candidate + 1, nbins = M)) >= 3) {
       return(list(path = candidate, iteration = iteration))
     }
   }
@@ -60,8 +60,8 @@ U <- matrix(c(-2, -1, 0, 1, 2, 1, 0, -1), 1, T)
 sigma2 <- matrix(c(1, 4), 1, 2)
 PR_TR <- matrix(c(0.9, 0.1, 0.2, 0.8), 2, 2, byrow = TRUE)
 pi_0 <- rep(0.5, 2)
-xi_1 <- diag(2)[, rep(1, T), drop = FALSE]
-xi_2 <- diag(2)[, rep(2, T), drop = FALSE]
+xi_1 <- matrix(0, 1, T)
+xi_2 <- matrix(1, 1, T)
 
 set.seed(42)
 path_1 <- bsvars:::sample_Markov_process_msh(
@@ -84,7 +84,7 @@ T <- 6
 U <- matrix(0, 1, T)
 sigma2 <- matrix(1, 1, 2)
 PR_TR <- matrix(c(0, 1, 1, 0), 2, 2, byrow = TRUE)
-xi <- diag(2)[, rep(1, T), drop = FALSE]
+xi <- matrix(0, 1, T)
 
 set.seed(1)
 alternating_path <- bsvars:::sample_Markov_process_msh(
@@ -92,7 +92,7 @@ alternating_path <- bsvars:::sample_Markov_process_msh(
 )
 
 expect_identical(
-  as.numeric(rowSums(alternating_path)),
+  as.numeric(tabulate(alternating_path + 1, nbins = 2)),
   c(3, 3),
   info = "sample_Markov_process_msh: three non-consecutive observations per regime are accepted."
 )
@@ -120,8 +120,8 @@ expect_identical(
 
 
 # B09: accepting one HMSH shock cannot commit another shock's rejected path.
-xi_hmsh <- array(0, c(2, T, 2))
-xi_hmsh[, , 1] <- diag(2)[, rep(1:2, 3), drop = FALSE]
+xi_hmsh <- array(0, c(1, T, 2))
+xi_hmsh[, , 1] <- rep(0:1, 3)
 xi_hmsh[, , 2] <- xi
 PR_TR_hmsh <- array(0, c(2, 2, 2))
 PR_TR_hmsh[, , 1] <- diag(2)
@@ -143,7 +143,7 @@ expect_identical(
   info = "sample_Markov_process_hmsh: a rejected shock slice remains unchanged."
 )
 expect_identical(
-  as.numeric(rowSums(path_hmsh[, , 2])),
+  as.numeric(tabulate(path_hmsh[, , 2] + 1, nbins = 2)),
   c(3, 3),
   info = "sample_Markov_process_hmsh: an accepted shock slice is committed independently."
 )
@@ -152,15 +152,15 @@ expect_identical(
 # B25 and B26: predecessor uses pi_0 and contributes the initial transition.
 PR_TR <- matrix(c(0.85, 0.15, 0.4, 0.6), 2, 2, byrow = TRUE)
 pi_0 <- c(0.9, 0.1)
-xi <- diag(2)[, c(2, 2, 1, 2, 1), drop = FALSE]
+xi <- matrix(c(1, 1, 0, 1, 0), 1)
 prior <- list(PR_TR = matrix(1, 2, 2))
 
 set.seed(1)
-probability <- pi_0 * as.numeric(PR_TR %*% xi[, 1])
+probability <- pi_0 * PR_TR[, xi[1, 1] + 1]
 predecessor <- .draw_msh_state(probability / sum(probability))
-transitions <- bsvars:::count_regime_transitions(xi)
-transitions[predecessor, which.max(xi[, 1])] <-
-  transitions[predecessor, which.max(xi[, 1])] + 1
+transitions <- bsvars:::count_regime_transitions(xi, 2)
+transitions[predecessor, xi[1, 1] + 1] <-
+  transitions[predecessor, xi[1, 1] + 1] + 1
 posterior_alpha <- transitions + prior$PR_TR
 expected_PR_TR <- rbind(
   bsvars:::rDirichlet1(posterior_alpha[1, ]),

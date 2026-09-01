@@ -869,20 +869,21 @@ RcppExport SEXP _bsvars_Ergodic_PR_TR(SEXP PR_TRSEXP) {
     return rcpp_result_gen;
 }
 // count_regime_transitions
-arma::mat count_regime_transitions(const arma::mat& xi);
-static SEXP _bsvars_count_regime_transitions_try(SEXP xiSEXP) {
+arma::mat count_regime_transitions(const arma::mat& xi, const int M);
+static SEXP _bsvars_count_regime_transitions_try(SEXP xiSEXP, SEXP MSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type xi(xiSEXP);
-    rcpp_result_gen = Rcpp::wrap(count_regime_transitions(xi));
+    Rcpp::traits::input_parameter< const int >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(count_regime_transitions(xi, M));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _bsvars_count_regime_transitions(SEXP xiSEXP) {
+RcppExport SEXP _bsvars_count_regime_transitions(SEXP xiSEXP, SEXP MSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_bsvars_count_regime_transitions_try(xiSEXP));
+        rcpp_result_gen = PROTECT(_bsvars_count_regime_transitions_try(xiSEXP, MSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -2448,7 +2449,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*forecast_lambda_t)(arma::mat&,const int&)");
         signatures.insert("Rcpp::List(*forecast_bsvars)(arma::cube&,arma::cube&,arma::cube&,arma::vec&,arma::mat&,arma::mat&,const int&)");
         signatures.insert("arma::vec(*Ergodic_PR_TR)(const arma::mat&)");
-        signatures.insert("arma::mat(*count_regime_transitions)(const arma::mat&)");
+        signatures.insert("arma::mat(*count_regime_transitions)(const arma::mat&,const int)");
         signatures.insert("arma::rowvec(*rDirichlet1)(const arma::rowvec&)");
         signatures.insert("arma::rowvec(*rIG2_Dirichlet1)(const arma::rowvec&,const arma::rowvec&)");
         signatures.insert("arma::mat(*filtering_msh)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::vec&)");
@@ -2587,7 +2588,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_forecast_lambda_t", (DL_FUNC) &_bsvars_forecast_lambda_t, 2},
     {"_bsvars_forecast_bsvars", (DL_FUNC) &_bsvars_forecast_bsvars, 7},
     {"_bsvars_Ergodic_PR_TR", (DL_FUNC) &_bsvars_Ergodic_PR_TR, 1},
-    {"_bsvars_count_regime_transitions", (DL_FUNC) &_bsvars_count_regime_transitions, 1},
+    {"_bsvars_count_regime_transitions", (DL_FUNC) &_bsvars_count_regime_transitions, 2},
     {"_bsvars_rDirichlet1", (DL_FUNC) &_bsvars_rDirichlet1, 1},
     {"_bsvars_rIG2_Dirichlet1", (DL_FUNC) &_bsvars_rIG2_Dirichlet1, 2},
     {"_bsvars_filtering_msh", (DL_FUNC) &_bsvars_filtering_msh, 4},

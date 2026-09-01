@@ -531,9 +531,9 @@ forecast.PosteriorBSVARHMSH = function(
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
   
-  S_T             = array(NA, c(M,N,S))
+  S_T             = array(NA, c(1,N,S))
   for (s in 1:S) {
-    S_T[,,s]      = object$posterior$xi_cpp[s,1][[1]][,T,]
+    S_T[,,s]      = object$posterior$xi_cpp[s,1][[1]][1,T,]
   }
     
   # prepare forecasting with exogenous variables
@@ -684,13 +684,13 @@ forecast.PosteriorBSVARMSH = function(
     X[seq_len(lag_entries - N),T],
     tail(X[,T], nrow(X) - lag_entries)
   )
-  S_T               = object$posterior$xi[,T,]
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
+  S_T             = matrix(object$posterior$xi[1,T,], 1, S)
   
   # prepare forecasting with exogenous variables
   if (d == 0 ) {
@@ -833,13 +833,13 @@ forecast.PosteriorBSVARMIX = function(
     X[seq_len(lag_entries - N),T],
     tail(X[,T], nrow(X) - lag_entries)
   )
-  S_T               = object$posterior$xi[,T,]
   posterior_df    = object$posterior$df
   normal          = object$last_draw$get_normal()
   
   K               = length(X_T)
   d               = K - N * object$last_draw$p - 1
   S               = dim(posterior_B)[3]
+  S_T             = matrix(object$posterior$xi[1,T,], 1, S)
   
   # prepare forecasting with exogenous variables
   if (d == 0 ) {

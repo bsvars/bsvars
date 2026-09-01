@@ -9,6 +9,22 @@ suppressMessages(
 run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
 
+expect_equal(
+  dim(rp),
+  dim(run_no1$posterior$xi),
+  info = "compute_regime_probabilities: MSH: realized regimes retain compact storage."
+)
+expect_identical(
+  attr(rp, "type"),
+  "realized",
+  info = "compute_regime_probabilities: MSH: output records compact realized-regime semantics."
+)
+expect_identical(
+  names(summary(rp)$MarkovProcess1),
+  "regime",
+  info = "summary.PosteriorRegimePr: compact realized regimes are summarized as indices."
+)
+
 set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
@@ -35,6 +51,12 @@ suppressMessages(
 )
 run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
+
+expect_equal(
+  dim(rp),
+  dim(run_no1$posterior$xi),
+  info = "compute_regime_probabilities: MIX: realized regimes retain compact storage."
+)
 
 set.seed(1)
 suppressMessages(
@@ -67,6 +89,16 @@ suppressMessages(
 expect_true(
   all(rp >= 0 & rp <= 1),
   info = "compute_regime_probabilities: filtered: all within [0,1]."
+)
+expect_equal(
+  dim(rp)[1],
+  2,
+  info = "compute_regime_probabilities: filtered probabilities retain one row per regime."
+)
+expect_identical(
+  attr(rp, "type"),
+  "filtered",
+  info = "compute_regime_probabilities: filtered output records probability semantics."
 )
 
 
@@ -125,6 +157,12 @@ suppressMessages(
 run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
 
+expect_equal(
+  dim(rp),
+  dim(run_no1$posterior$xi),
+  info = "compute_regime_probabilities: HMSH: realized regimes retain compact storage."
+)
+
 set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
@@ -157,6 +195,12 @@ suppressMessages(
 run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 rp                  <- compute_regime_probabilities(run_no1)
 
+expect_equal(
+  dim(rp),
+  dim(run_no1$posterior$xi),
+  info = "compute_regime_probabilities: exH: realized regimes retain compact storage."
+)
+
 set.seed(1)
 suppressMessages(
   rp2               <- us_fiscal_lsuw |>
@@ -174,4 +218,3 @@ expect_identical(
   rp[1,1,1], rp2[1,1,1],
   info = "compute_regime_probabilities: exH: identical for normal and pipe workflow."
 )
-

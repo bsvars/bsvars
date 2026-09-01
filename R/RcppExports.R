@@ -5,8 +5,8 @@ Ergodic_PR_TR <- function(PR_TR) {
     .Call(`_bsvars_Ergodic_PR_TR`, PR_TR)
 }
 
-count_regime_transitions <- function(xi) {
-    .Call(`_bsvars_count_regime_transitions`, xi)
+count_regime_transitions <- function(xi, M) {
+    .Call(`_bsvars_count_regime_transitions`, xi, M)
 }
 
 rDirichlet1 <- function(alpha) {

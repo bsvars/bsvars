@@ -26,7 +26,7 @@ An object of class PosteriorBSVARMIX containing the Bayesian estimation output a
  \item{hyper}{a \code{5xS} matrix with the posterior draws for the hyper-parameters of the hierarchical prior distribution}
  \item{sigma2}{an \code{NxMxS} array with the posterior draws for the structural shocks conditional variances}
  \item{PR_TR}{an \code{MxMxS} array with the posterior draws for the transition matrix.}
- \item{xi}{an \code{MxTxS} array with the posterior draws for the regime allocation matrix.}
+ \item{xi}{a \code{1xTxS} array with zero-based posterior draws for the regime allocation.}
  \item{pi_0}{an \code{MxS} matrix with the posterior draws for the ergodic probabilities}
  \item{sigma}{an \code{NxTxS} array with the posterior draws for the structural shocks conditional standard deviations' series over the sample period}
 }

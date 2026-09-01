@@ -485,11 +485,12 @@ plot.PosteriorIR = function(
 #'
 #' @description Plots of estimated regime probabilities of Markov-switching 
 #' heteroskedasticity or allocations of normal-mixture components including their 
-#' median and percentiles.
+#' median and percentiles. Compact zero-based realized regime indices are displayed
+#' using the equivalent regime indicators.
 #' 
 #' @param x an object of class PosteriorRegimePr obtained using the
 #' \code{compute_regime_probabilities()} function containing posterior draws of 
-#' regime probabilities.
+#' compact realized regime indices or regime probabilities.
 #' @param probability a parameter determining the interval to be plotted. The 
 #' interval stretches from the \code{0.5 * (1 - probability)} to 
 #' \code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.
@@ -544,7 +545,8 @@ plot.PosteriorRegimePr = function(
   if ( length(dims) == 4 ) {
     N   = dims[3]
   }
-  M     = dims[1]
+  compact = dims[1] == 1
+  M     = if (compact) max(x) + 1 else dims[1]
   
   oldpar <- graphics::par( 
     mfrow = c(M, N),
@@ -557,9 +559,9 @@ plot.PosteriorRegimePr = function(
     for (n in 1:N) {
       
       if ( length(dims) == 4 ) {
-        xmn  = x[m,,n,]
+        xmn  = if (compact) x[1,,n,] == m - 1 else x[m,,n,]
       } else {
-        xmn    = x[m,,]
+        xmn  = if (compact) x[1,,] == m - 1 else x[m,,]
       }
       
       plot_ribbon(
@@ -1190,5 +1192,4 @@ plot.PosteriorHD = function(
   
   invisible(x)
 } # END plot.PosteriorHD
-
 

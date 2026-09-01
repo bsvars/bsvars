@@ -164,7 +164,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
     #' @field PR_TR an \code{MxM} matrix of starting values for the transition probability matrix of the Markov process. Its elements sum to 1 over the rows.
     PR_TR         = matrix(),
     
-    #' @field xi an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.
+    #' @field xi a \code{1xT} matrix of starting values for the Markov process indicator with integer values from \code{0} to \code{M-1}.
     xi            = matrix(),
     
     #' @field pi_0 an \code{M}-vector of starting values for state probability at time \code{t=0}. Its elements sum to 1.
@@ -209,7 +209,7 @@ specify_starting_values_bsvar_msh = R6::R6Class(
       
       self$sigma2         = matrix(1, N, M)
       self$PR_TR          = diag(M)
-      self$xi             = diag(M)[,sample(1:M, T, replace = TRUE)]
+      self$xi             = matrix(sample(0:(M-1), T, replace = TRUE), 1, T)
       self$pi_0           = rep(1/M, M)
     }, # END initialize
     

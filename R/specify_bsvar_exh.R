@@ -162,8 +162,8 @@ specify_starting_values_bsvar_exh = R6::R6Class(
     #' variances of the structural shocks. Its elements sum to value \code{M} over the rows.
     sigma2        = matrix(),
     
-    #' @field xi an \code{MxT} matrix of starting values for the Markov process 
-    #' indicator. Its columns are a chosen column of an identity matrix of order \code{M}.
+    #' @field xi a \code{1xT} matrix of starting values for the Markov process
+    #' indicator with integer values from \code{0} to \code{M-1}.
     xi            = matrix(),
     
     #' @field lambda a \code{NxT} matrix of starting values for latent variables.
@@ -207,7 +207,7 @@ specify_starting_values_bsvar_exh = R6::R6Class(
       
       M                   = max(variance_regimes)
       self$sigma2         = matrix(1, N, M)
-      self$xi             = matrix(diag(M)[,variance_regimes], nrow = M)
+      self$xi             = matrix(variance_regimes - 1, nrow = 1)
     }, # END initialize
     
     #' @description

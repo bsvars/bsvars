@@ -30,7 +30,7 @@ hierarchical prior distribution.}
 
     \item{\code{PR_TR}}{an \code{MxM} matrix of starting values for the probability matrix of the Markov process. Its rows must be identical and the elements of each row sum to 1 over the rows.}
 
-    \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
+    \item{\code{xi}}{a \code{1xT} matrix of starting values for the Markov process indicator with integer values from \code{0} to \code{M-1}.}
 
     \item{\code{pi_0}}{an \code{M}-vector of starting values for mixture components state probabilities. Its elements sum to 1.}
 

@@ -56,8 +56,8 @@ hierarchical prior distribution.}
     \item{\code{sigma2}}{an \code{NxM} matrix of starting values for the regime-specific 
 variances of the structural shocks. Its elements sum to value \code{M} over the rows.}
 
-    \item{\code{xi}}{an \code{MxT} matrix of starting values for the Markov process 
-indicator. Its columns are a chosen column of an identity matrix of order \code{M}.}
+    \item{\code{xi}}{a \code{1xT} matrix of starting values for the Markov process
+indicator with integer values from \code{0} to \code{M-1}.}
 
     \item{\code{lambda}}{a \code{NxT} matrix of starting values for latent variables.}
 
