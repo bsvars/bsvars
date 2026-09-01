@@ -14,8 +14,9 @@
 denoting the type of probabilities to be computed.}
 }
 \value{
-An object of class PosteriorRegimePr, that is, an \code{MxTxS} array with attribute PosteriorRegimePr 
-containing \code{S} draws of the regime probabilities.
+An object of class PosteriorRegimePr. Realized regimes are returned as a
+compact zero-based \code{1xTxS} array (or \code{1xTxNxS} for HMSH); other types
+are returned as regime-probability arrays with first dimension \code{M}.
 }
 \description{
 Each of the draws from the posterior estimation of a model is transformed into

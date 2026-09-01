@@ -79,7 +79,7 @@ Rcpp::List bsvar_msh_cpp (
   cube  posterior_sigma2(N, M, SS);
   cube  posterior_PR_TR(M, M, SS);
   mat   posterior_pi_0(M, SS);
-  cube  posterior_xi(M, T, SS);
+  cube  posterior_xi(1, T, SS);
   cube  posterior_hyper(2 * N + 1, 2, SS);
   cube  posterior_sigma(N, T, SS);
   cube  posterior_lambda(N, T, SS);
@@ -87,7 +87,7 @@ Rcpp::List bsvar_msh_cpp (
   
   int   ss = 0;
   for (int t=0; t<T; t++) {
-    aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
+    aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi(0,t)) , 0.5 );
   }
   
   aux_hetero = aux_sigma % aux_lambda_sqrt;
@@ -144,7 +144,7 @@ Rcpp::List bsvar_msh_cpp (
     } catch (std::runtime_error &e) {}
     
     for (int t=0; t<T; t++) {
-      aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
+      aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi(0,t)) , 0.5 );
     }
     aux_hetero      = aux_sigma % aux_lambda_sqrt;
     

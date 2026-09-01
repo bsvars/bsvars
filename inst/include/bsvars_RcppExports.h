@@ -487,17 +487,17 @@ namespace bsvars {
         return Rcpp::as<arma::vec >(rcpp_result_gen);
     }
 
-    inline arma::mat count_regime_transitions(const arma::mat& xi) {
-        typedef SEXP(*Ptr_count_regime_transitions)(SEXP);
+    inline arma::mat count_regime_transitions(const arma::mat& xi, const int M) {
+        typedef SEXP(*Ptr_count_regime_transitions)(SEXP,SEXP);
         static Ptr_count_regime_transitions p_count_regime_transitions = NULL;
         if (p_count_regime_transitions == NULL) {
-            validateSignature("arma::mat(*count_regime_transitions)(const arma::mat&)");
+            validateSignature("arma::mat(*count_regime_transitions)(const arma::mat&,const int)");
             p_count_regime_transitions = (Ptr_count_regime_transitions)R_GetCCallable("bsvars", "_bsvars_count_regime_transitions");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_count_regime_transitions(Shield<SEXP>(Rcpp::wrap(xi)));
+            rcpp_result_gen = p_count_regime_transitions(Shield<SEXP>(Rcpp::wrap(xi)), Shield<SEXP>(Rcpp::wrap(M)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

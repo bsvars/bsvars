@@ -1190,10 +1190,10 @@ summary.PosteriorIR = function(
 
 
 
-#' @title Provides posterior summary of regime probabilities
+#' @title Provides posterior summary of regimes or regime probabilities
 #'
-#' @description Provides posterior summary of regime probabilities 
-#' including their mean, standard deviations, as well as 5 and 95 percentiles.
+#' @description Provides posterior summary of realized regime indices or regime
+#' probabilities, including their mean and standard deviations.
 #' 
 #' @param object an object of class PosteriorRegimePr obtained using the
 #' \code{compute_regime_probabilities()} function containing posterior draws of 
@@ -1201,7 +1201,7 @@ summary.PosteriorIR = function(
 #' @param ... additional arguments affecting the summary produced.
 #' 
 #' @return A list reporting the posterior mean and standard deviations of the
-#' regime probabilities.
+#' realized regime indices or regime probabilities.
 #' 
 #' @method summary PosteriorRegimePr
 #' 
@@ -1217,7 +1217,7 @@ summary.PosteriorIR = function(
 #' # compute regime probabilities
 #' rp             = compute_regime_probabilities(posterior)
 #' rp_summary     = summary(rp)
-#' head(rp_summary$MarkovProcess1$regime1) # browse the results
+#' head(rp_summary$MarkovProcess1$regime) # browse the results
 #' 
 #' # workflow with the pipe |>
 #' ############################################################
@@ -1227,7 +1227,7 @@ summary.PosteriorIR = function(
 #'   estimate(S = 5) |> 
 #'   compute_regime_probabilities() |>
 #'   summary() -> rp_summary
-#' head(rp_summary$MarkovProcess1$regime1) # browse the results
+#' head(rp_summary$MarkovProcess1$regime) # browse the results
 #' 
 #' @export
 summary.PosteriorRegimePr = function(
@@ -1236,7 +1236,8 @@ summary.PosteriorRegimePr = function(
 ) {
   
   dims      = dim(object)
-  M         = dims[1]
+  realized  = identical(attr(object, "type"), "realized")
+  M         = if (realized) 1 else dims[1]
   T         = dims[2]
   N         = 1  
   if ( length(dims) == 4 ) {
@@ -1262,7 +1263,7 @@ summary.PosteriorRegimePr = function(
       colnames(out_n[[m]]) = c("mean", "sd")
       rownames(out_n[[m]]) = 1:T
     } # END n loop
-    names(out_n)    = paste0("regime", 1:M)
+    names(out_n)    = if (realized) "regime" else paste0("regime", 1:M)
     out[[n]]        = out_n
   }
   

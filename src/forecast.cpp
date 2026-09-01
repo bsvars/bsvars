@@ -53,7 +53,7 @@ arma::vec mvnrnd_cond (
 arma::cube forecast_sigma2_msh (
     arma::cube&   posterior_sigma2,   // (N, M, S)
     arma::cube&   posterior_PR_TR,    // (M, M, S)
-    arma::mat&    S_T,                // (M,S)
+    arma::mat&    S_T,                // (1,S)
     const int&    horizon
 ) {
   
@@ -65,8 +65,9 @@ arma::cube forecast_sigma2_msh (
   
   for (int s=0; s<S; s++) {
     
-    int St(M);
-    vec PR_ST     = S_T.col(s);
+    int St;
+    vec PR_ST(M, fill::zeros);
+    PR_ST(S_T(0,s)) = 1;
     NumericVector zeroM   = wrap(seq_len(M) - 1);
     
     for (int h=0; h<horizon; h++) {
@@ -90,7 +91,7 @@ arma::cube forecast_sigma2_msh (
 arma::cube forecast_sigma2_hmsh (
     arma::cube&               posterior_sigma2,   // (N, M, S)
     arma::field<arma::cube>&  posterior_PR_TR,    // (S)(M, M, N)
-    arma::cube&               S_T,                // (M,N,S)
+    arma::cube&               S_T,                // (1,N,S)
     const int&                horizon
 ) {
   
@@ -103,8 +104,9 @@ arma::cube forecast_sigma2_hmsh (
   for (int s=0; s<S; s++) {
     
     for (int n=0; n<N; n++) {
-      int St(M);
-      vec PR_ST             = S_T.slice(s).col(n);
+      int St;
+      vec PR_ST(M, fill::zeros);
+      PR_ST(S_T(0,n,s))     = 1;
       NumericVector zeroM   = wrap(seq_len(M) - 1);
       
       for (int h=0; h<horizon; h++) {
@@ -278,4 +280,3 @@ Rcpp::List forecast_bsvars (
     _["forecast_cov"]   = out_forecast_cov
   );
 } // END forecast_bsvar
-

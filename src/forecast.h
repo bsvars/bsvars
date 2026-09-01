@@ -15,7 +15,7 @@ arma::vec mvnrnd_cond (
 arma::cube forecast_sigma2_msh (
     arma::cube&   posterior_sigma2,   // (N, M, S)
     arma::cube&   posterior_PR_TR,    // (M, M, S)
-    arma::mat&    S_T,                // (M,S)
+    arma::mat&    S_T,                // (1,S)
     const int&    horizon
 );
 
@@ -23,7 +23,7 @@ arma::cube forecast_sigma2_msh (
 arma::cube forecast_sigma2_hmsh (
     arma::cube&               posterior_sigma2,   // (N, M, S)
     arma::field<arma::cube>&  posterior_PR_TR,    // (S)(M, M, N)
-    arma::cube&               S_T,                // (M,N,S)
+    arma::cube&               S_T,                // (1,N,S)
     const int&                horizon
 );
 

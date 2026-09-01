@@ -7,6 +7,16 @@ suppressMessages(
 )
 run_no1             <- estimate(specification_no1, 3, 1, show_progress = FALSE)
 
+expect_equal(
+  dim(run_no1$posterior$xi),
+  c(1, nrow(us_fiscal_lsuw) - 1, 3),
+  info = "estimate_bsvar_msh: regime draws use compact zero-based storage."
+)
+expect_true(
+  all(run_no1$posterior$xi %in% 0:1),
+  info = "estimate_bsvar_msh: compact regime draws contain valid zero-based indices."
+)
+
 set.seed(1)
 suppressMessages(
   specification_no2 <- specify_bsvar_msh$new(us_fiscal_lsuw, M = 2)

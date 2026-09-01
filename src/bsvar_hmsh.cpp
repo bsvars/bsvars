@@ -62,7 +62,7 @@ Rcpp::List bsvar_hmsh_cpp (
   mat   aux_sigma(N, T);
   cube  aux_PR_TR   = as<cube>(starting_values["PR_TR"]);     // MxMxN
   mat   aux_pi_0    = as<mat>(starting_values["pi_0"]);       // MxN
-  cube  aux_xi      = as<cube>(starting_values["xi"]);        // MxTxN
+  cube  aux_xi      = as<cube>(starting_values["xi"]);        // 1xTxN
   mat   aux_hyper   = as<mat>(starting_values["hyper"]);
   mat   aux_lambda  = as<mat>(starting_values["lambda"]);
   mat   aux_lambda_sqrt(N, T, fill::ones);
@@ -79,7 +79,7 @@ Rcpp::List bsvar_hmsh_cpp (
   cube  posterior_sigma2(N, M, SS);
   field<cube> posterior_PR_TR(SS);                // (S)(M, M, N) 
   cube  posterior_pi_0(M, N, SS);
-  field<cube> posterior_xi(SS);                   // (S)(M, T, N)
+  field<cube> posterior_xi(SS);                   // (S)(1, T, N)
   cube  posterior_hyper(2 * N + 1, 2, SS);
   cube  posterior_sigma(N, T, SS);
   cube  posterior_lambda(N, T, SS);
@@ -88,7 +88,7 @@ Rcpp::List bsvar_hmsh_cpp (
   int   ss = 0;
   for (int t=0; t<T; t++) {
     for (int n=0; n<N; n++) {
-      aux_sigma(n,t)  = sqrt( aux_sigma2(n, aux_xi.slice(n).col(t).index_max()) );
+      aux_sigma(n,t)  = sqrt( aux_sigma2(n, aux_xi(0,t,n)) );
     }
   }
   
@@ -150,7 +150,7 @@ Rcpp::List bsvar_hmsh_cpp (
     
     for (int t=0; t<T; t++) {
       for (int n=0; n<N; n++) {
-        aux_sigma(n,t)  = sqrt( aux_sigma2(n, aux_xi.slice(n).col(t).index_max()) );
+        aux_sigma(n,t)  = sqrt( aux_sigma2(n, aux_xi(0,t,n)) );
       }
     }
     aux_hetero      = aux_sigma % aux_lambda_sqrt;

@@ -38,8 +38,8 @@ specify_starting_values_bsvar_hmsh = R6::R6Class(
     #' probability matrix of the Markov process. Its elements sum to 1 over the rows.
     PR_TR         = array(),
     
-    #' @field xi an \code{MxTxN} array of starting values for the Markov process 
-    #' indicator. Its columns are a chosen column of an identity matrix of order \code{M}.
+    #' @field xi a \code{1xTxN} array of starting values for the Markov process
+    #' indicator with integer values from \code{0} to \code{M-1}.
     xi            = array(),
     
     #' @field pi_0 an \code{MxN} matrix of starting values for state probability at 
@@ -88,10 +88,10 @@ specify_starting_values_bsvar_hmsh = R6::R6Class(
       self$sigma2         = matrix(1, N, M)
       self$pi_0           = matrix(1/M, M, N)
       self$PR_TR          = array(NA, c(M, M, N))
-      self$xi             = array(NA, c(M, T, N))
+      self$xi             = array(NA, c(1, T, N))
       for (n in 1:N) {
         self$PR_TR[,,n]   = diag(M)
-        self$xi[,,n]      = diag(M)[,sample(1:M, T, replace = TRUE)]
+        self$xi[,,n]      = sample(0:(M-1), T, replace = TRUE)
       }
     }, # END initialize
     

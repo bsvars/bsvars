@@ -65,14 +65,14 @@ Rcpp::List bsvar_exh_cpp (
   vec   aux_df      = as<vec>(starting_values["df"]);
   mat   U;
   
-  const int   M     = aux_xi.n_rows;
+  const int   M     = aux_sigma2.n_cols;
   
   const int   SS     = floor(S / thin);
   
   cube  posterior_B(N, N, SS);
   cube  posterior_A(N, K, SS);
   cube  posterior_sigma2(N, M, SS);
-  cube  posterior_xi(M, T, SS);
+  cube  posterior_xi(1, T, SS);
   cube  posterior_hyper(2 * N + 1, 2, SS);
   cube  posterior_sigma(N, T, SS);
   cube  posterior_lambda(N, T, SS);
@@ -80,7 +80,7 @@ Rcpp::List bsvar_exh_cpp (
   
   int   ss = 0;
   for (int t=0; t<T; t++) {
-    aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
+    aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi(0,t)) , 0.5 );
   }
   
   aux_hetero = aux_sigma % aux_lambda_sqrt;
@@ -124,7 +124,7 @@ Rcpp::List bsvar_exh_cpp (
     } catch (std::runtime_error &e) {}
     
     for (int t=0; t<T; t++) {
-      aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi.col(t).index_max()) , 0.5 );
+      aux_sigma.col(t)    = pow( aux_sigma2.col(aux_xi(0,t)) , 0.5 );
     }
     aux_hetero      = aux_sigma % aux_lambda_sqrt;
     

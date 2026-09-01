@@ -189,7 +189,7 @@ compute_variance_decompositions.PosteriorBSVARMSH <- function(posterior, horizon
   T               = dim(posterior$posterior$xi)[2]
   posterior_PR_TR = posterior$posterior$PR_TR
   posterior_sigma2 = posterior$posterior$sigma2
-  S_T             = posterior$posterior$xi[,T,]
+  S_T             = matrix(posterior$posterior$xi[1,T,], 1, S)
   sigma2_T        = posterior$posterior$sigma[,T,]^2
   Y               = posterior$last_draw$data_matrices$Y
   posterior_df    = posterior$posterior$df
@@ -248,16 +248,16 @@ compute_variance_decompositions.PosteriorBSVARHMSH <- function(posterior, horizo
   N               = dim(posterior_A)[1]
   p               = posterior$last_draw$p
   S               = dim(posterior_A)[3]
-  M               = dim(posterior$posterior$xi)[1]
   T               = dim(posterior$posterior$xi)[2]
   posterior_PR_TR = posterior$posterior$PR_TR_cpp
   posterior_sigma2 = posterior$posterior$sigma2
+  M               = dim(posterior_sigma2)[2]
   posterior_df    = posterior$posterior$df
   normal          = posterior$last_draw$get_normal()
   
-  S_T             = array(NA, c(M,N,S))
+  S_T             = array(NA, c(1,N,S))
   for (s in 1:S) {
-    S_T[,,s]      = posterior$posterior$xi_cpp[S,1][[1]][,T,]
+    S_T[,,s]      = posterior$posterior$xi_cpp[S,1][[1]][1,T,]
   }
 
   sigma2_T        = posterior$posterior$sigma[,T,]^2
@@ -325,7 +325,7 @@ compute_variance_decompositions.PosteriorBSVARMIX <- function(posterior, horizon
   T               = dim(posterior$posterior$xi)[2]
   posterior_PR_TR = posterior$posterior$PR_TR
   posterior_sigma2 = posterior$posterior$sigma2
-  S_T             = posterior$posterior$xi[,T,]
+  S_T             = matrix(posterior$posterior$xi[1,T,], 1, S)
   sigma2_T        = posterior$posterior$sigma[,T,]^2
   Y               = posterior$last_draw$data_matrices$Y
   posterior_df    = posterior$posterior$df
