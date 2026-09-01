@@ -369,5 +369,5 @@ spec$get_starting_values()
 #>     pi_0: 0.5 0.5
 #>     set_starting_values: function (last_draw) 
 #>     sigma2: 1 1 1 1 1 1
-#>     xi: 1 0 0 1 0 1 1 0 0 1 0 1 1 0 1 0 0 1 0 1 1 0 1 0 0 1 1 0  ...
+#>     xi: 0 1 1 0 1 1 0 0 1 1 0 0 1 0 1 0 1 1 1 0 1 0 0 0 1 1 1 0  ...
 ```

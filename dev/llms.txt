@@ -502,7 +502,7 @@ Analyse the posterior summaries of the posterior estimation outcomes
 - [`summary(`*`<PosteriorIR>`*`)`](https://bsvars.org/bsvars/dev/reference/summary.PosteriorIR.md)
   : Provides posterior summary of impulse responses
 - [`summary(`*`<PosteriorRegimePr>`*`)`](https://bsvars.org/bsvars/dev/reference/summary.PosteriorRegimePr.md)
-  : Provides posterior summary of regime probabilities
+  : Provides posterior summary of regimes or regime probabilities
 - [`summary(`*`<PosteriorShocks>`*`)`](https://bsvars.org/bsvars/dev/reference/summary.PosteriorShocks.md)
   : Provides posterior summary of structural shocks
 - [`summary(`*`<PosteriorSigma>`*`)`](https://bsvars.org/bsvars/dev/reference/summary.PosteriorSigma.md)

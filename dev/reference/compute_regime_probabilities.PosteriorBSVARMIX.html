@@ -71,8 +71,9 @@ denoting the type of probabilities to be computed.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class PosteriorRegimePr, that is, an <code>MxTxS</code> array with attribute PosteriorRegimePr
-containing <code>S</code> draws of the regime probabilities.</p>
+    <p>An object of class PosteriorRegimePr. Realized regimes are returned as a
+compact zero-based <code>1xTxS</code> array (or <code>1xTxNxS</code> for HMSH); other types
+are returned as regime-probability arrays with first dimension <code>M</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

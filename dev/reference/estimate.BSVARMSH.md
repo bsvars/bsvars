@@ -71,8 +71,8 @@ distribution generated via Gibbs sampler containing:
 
 - xi:
 
-  an `MxTxS` array with the posterior draws for the regime allocation
-  matrix.
+  a `1xTxS` array with zero-based posterior draws for the regime
+  allocation.
 
 - pi_0:
 

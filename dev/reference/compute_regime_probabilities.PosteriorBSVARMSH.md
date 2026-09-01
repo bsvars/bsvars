@@ -32,9 +32,9 @@ compute_regime_probabilities(
 
 ## Value
 
-An object of class PosteriorRegimePr, that is, an `MxTxS` array with
-attribute PosteriorRegimePr containing `S` draws of the regime
-probabilities.
+An object of class PosteriorRegimePr. Realized regimes are returned as a
+compact zero-based `1xTxS` array (or `1xTxNxS` for HMSH); other types
+are returned as regime-probability arrays with first dimension `M`.
 
 ## References
 

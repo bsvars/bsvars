@@ -69,7 +69,7 @@ distribution generated via Gibbs sampler containing:
 
 - xi:
 
-  an `MxTxS` array with the exogenous regime allocation matrix.
+  a `1xTxS` array with the zero-based exogenous regime allocation.
 
 - sigma:
 

@@ -2,7 +2,8 @@
 
 Plots of estimated regime probabilities of Markov-switching
 heteroskedasticity or allocations of normal-mixture components including
-their median and percentiles.
+their median and percentiles. Compact zero-based realized regime indices
+are displayed using the equivalent regime indicators.
 
 ## Usage
 
@@ -26,7 +27,8 @@ plot(
 
   an object of class PosteriorRegimePr obtained using the
   [`compute_regime_probabilities()`](https://bsvars.org/bsvars/dev/reference/compute_regime_probabilities.md)
-  function containing posterior draws of regime probabilities.
+  function containing posterior draws of compact realized regime indices
+  or regime probabilities.
 
 - probability:
 

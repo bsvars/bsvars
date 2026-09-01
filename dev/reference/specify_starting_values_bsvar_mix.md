@@ -36,8 +36,8 @@ model with a zero-mean mixture of normals model for structural shocks.
 
 - `xi`:
 
-  an `MxT` matrix of starting values for the Markov process indicator.
-  Its columns are a chosen column of an identity matrix of order `M`.
+  a `1xT` matrix of starting values for the Markov process indicator
+  with integer values from `0` to `M-1`.
 
 - `pi_0`:
 

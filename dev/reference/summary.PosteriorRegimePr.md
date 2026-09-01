@@ -1,7 +1,7 @@
-# Provides posterior summary of regime probabilities
+# Provides posterior summary of regimes or regime probabilities
 
-Provides posterior summary of regime probabilities including their mean,
-standard deviations, as well as 5 and 95 percentiles.
+Provides posterior summary of realized regime indices or regime
+probabilities, including their mean and standard deviations.
 
 ## Usage
 
@@ -25,7 +25,7 @@ summary(object, ...)
 ## Value
 
 A list reporting the posterior mean and standard deviations of the
-regime probabilities.
+realized regime indices or regime probabilities.
 
 ## See also
 
@@ -64,14 +64,14 @@ posterior      = estimate(burn_in, 5)
 # compute regime probabilities
 rp             = compute_regime_probabilities(posterior)
 rp_summary     = summary(rp)
-head(rp_summary$MarkovProcess1$regime1) # browse the results
+head(rp_summary$MarkovProcess1$regime) # browse the results
 #>   mean        sd
-#> 1  0.0 0.0000000
-#> 2  0.0 0.0000000
-#> 3  0.2 0.4472136
-#> 4  0.0 0.0000000
-#> 5  0.0 0.0000000
-#> 6  0.0 0.0000000
+#> 1  1.0 0.0000000
+#> 2  1.0 0.0000000
+#> 3  0.8 0.4472136
+#> 4  1.0 0.0000000
+#> 5  1.0 0.0000000
+#> 6  1.0 0.0000000
 
 # workflow with the pipe |>
 ############################################################
@@ -100,12 +100,12 @@ us_fiscal_lsuw |>
 #>     Every draw is saved via MCMC thinning
 #>  Press Esc to interrupt the computations
 #> **************************************************|
-head(rp_summary$MarkovProcess1$regime1) # browse the results
+head(rp_summary$MarkovProcess1$regime) # browse the results
 #>   mean        sd
-#> 1  0.0 0.0000000
-#> 2  0.0 0.0000000
-#> 3  0.4 0.5477226
-#> 4  0.0 0.0000000
-#> 5  0.0 0.0000000
-#> 6  0.0 0.0000000
+#> 1  1.0 0.0000000
+#> 2  1.0 0.0000000
+#> 3  0.6 0.5477226
+#> 4  1.0 0.0000000
+#> 5  1.0 0.0000000
+#> 6  1.0 0.0000000
 ```
