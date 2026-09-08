@@ -201,10 +201,6 @@ specify_starting_values_bsvar_msh = R6::R6Class(
       stopifnot("Argument d must be a non-negative integer number." = d >= 0 & d %% 1 == 0)
       stopifnot("Argument finiteM must be a logical value." = is.logical(finiteM) & length(finiteM) == 1)
       
-      if (!finiteM && M < 20) {
-        M = 20
-      }
-      
       super$initialize(A, B, N, T, p, d)
       
       self$sigma2         = matrix(1, N, M)
@@ -357,9 +353,9 @@ specify_bsvar_msh = R6::R6Class(
       K             = N * p + 1 + d
       
       if (!finiteM) {
-        if ( M < 20 ) {
-          M = 20L
-          message("In the sparse Markov switching model the value of M is overwritten and set to 20.")
+        if ( M < 10 ) {
+          M = 10L
+          message("In the sparse Markov switching model the value of M is overwritten and set to 10.")
         }
       }
       self$finiteM  = finiteM
