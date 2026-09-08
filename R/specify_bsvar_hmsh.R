@@ -250,9 +250,9 @@ specify_bsvar_hmsh = R6::R6Class(
       K             = N * p + 1 + d
       
       if (!finiteM) {
-        if ( M < 20 ) {
-          M = 20L
-          message("In the sparse Markov switching model the value of M is overwritten and set to 20.")
+        if ( M < 10 ) {
+          M = 10L
+          message("In the sparse Markov switching model the value of M is overwritten and set to 10.")
         }
       }
       self$finiteM  = finiteM
