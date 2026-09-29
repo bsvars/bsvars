@@ -158,12 +158,16 @@ arma::vec find_mixture_indicator_cdf (
   
   const int T = datanorm.n_elem;
   vec mixprob(10 * T);
-  for (int j = 0; j < T; j++) {  // TODO slow (10*T calls to exp)!
+  for (int j = 0; j < T; j++) {
     const int first_index = 10*j;
-    mixprob(first_index) = std::exp(pr_s(0) - (datanorm(j) - alpha_s(0)) * (datanorm(j) - alpha_s(0)) / sigma_s(0) );
-    for (int r = 1; r < 10; r++) {
-      mixprob(first_index+r) = mixprob(first_index+r-1) + std::exp(pr_s(r) - (datanorm(j) - alpha_s(r)) * (datanorm(j) - alpha_s(r)) / sigma_s(r) );
+    vec log_weights(10);
+    for (int r = 0; r < 10; r++) {
+      log_weights(r) = std::log(pr_s(r)) - 0.5 * std::log(sigma_s(r))
+        - 0.5 * std::pow(datanorm(j) - alpha_s(r), 2) / sigma_s(r);
     }
+    vec weights = exp(log_weights - max(log_weights));
+    weights /= sum(weights);
+    mixprob.subvec(first_index, first_index + 9) = cumsum(weights);
   }
   return mixprob;
 }
@@ -310,7 +314,7 @@ Rcpp::List svar_ce1 (
   mat           HH_rho  = H_rho.t() * H_rho;
   
   // sample auxiliary mixture states aux_S
-  const vec   mixprob   = find_mixture_indicator_cdf(trans(U - aux_omega_n*aux_h_n));
+  const vec   mixprob   = find_mixture_indicator_cdf(trans(U - aux_h_n));
   aux_S_n               = trans(inverse_transform_sampling(mixprob, T));
   
   rowvec    alpha_S(T);
@@ -322,11 +326,11 @@ Rcpp::List svar_ce1 (
   
   // sample aux_s_n
   if ( sample_s_ ) {
-    aux_s_n               = (1 + 2 * aux_sigma2_omega_n) / chi2rnd(3 + 2 * prior_sv_a_);
+    aux_s_n               = (prior_sv_s_ + 2 * aux_sigma2_omega_n) / chi2rnd(3 + 2 * prior_sv_a_);
   }
   
   // sample aux_sigma2_omega
-  aux_sigma2_omega_n    = randg( distr_param(1 + 0.5 * prior_sv_a_, pow(pow(prior_sv_s_,-1) + pow(2 * aux_sigma2v_n,-1), -1)  ) );
+  aux_sigma2_omega_n    = randg( distr_param(1 + 0.5 * prior_sv_a_, pow(pow(aux_s_n,-1) + pow(2 * aux_sigma2v_n,-1), -1)  ) );
   
   // sample aux_rho
   rowvec    hm1         = aux_h_n.cols(0,T-2);
