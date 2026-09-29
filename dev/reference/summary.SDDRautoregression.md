@@ -60,8 +60,8 @@ H0             = matrix(NA, ncol(us_fiscal_lsuw), ncol(us_fiscal_lsuw) + 1)
 H0[1,3]        = 0        # a hypothesis of no Granger causality from gdp to ttr
 sddr           = verify_autoregression(posterior, H0)
 summary(sddr)
-#>  log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
-#>  -50.23084   0 1.531173e-22           1
+#>  log(SDDR) NSE Pr[H0|data] Pr[H1|data]
+#>  -5.771767   0 0.003104581   0.9968954
 
 # workflow with the pipe |>
 ############################################################

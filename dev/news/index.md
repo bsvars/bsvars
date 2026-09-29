@@ -9,6 +9,10 @@ version.
 Have a question, or suggestion, or wanna get in touch? Email us at
 <contact@bsvars.org> forum.
 
+1.  Corrected stochastic-volatility auxiliary kernels as proposed by
+    [Fei Shang](https://github.com/lcq110) in PR
+    [\#160](https://github.com/bsvars/bsvars/pull/160)
+
 ## bsvars 4.0
 
 CRAN release: 2026-08-22

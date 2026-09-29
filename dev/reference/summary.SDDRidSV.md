@@ -69,10 +69,10 @@ posterior      = estimate(specification, 10)
 # verify heteroskedasticity
 sddr           = verify_identification(posterior)
 summary(sddr)
-#>             log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
-#> shock 1    0.03164355   0 5.079102e-01   0.4920898
-#> shock 2 -209.01272604   0 1.686267e-91   1.0000000
-#> shock 3  -17.90656915   0 1.672152e-08   1.0000000
+#>            log(SDDR) NSE  Pr[H0|data] Pr[H1|data]
+#> shock 1    0.2341192   0 5.582639e-01   0.4417361
+#> shock 2 -171.4403174   0 3.502807e-75   1.0000000
+#> shock 3   -5.4143621   0 4.432443e-03   0.9955676
 
 # workflow with the pipe |>
 ############################################################

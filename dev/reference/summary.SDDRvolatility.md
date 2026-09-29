@@ -59,9 +59,9 @@ posterior      = estimate(specification, 10)
 sddr           = verify_volatility(posterior)
 summary(sddr)
 #>          log(SDDR) NSE Pr[homoskedasticity|data] Pr[heteroskedasticity|data]
-#> shock 1  1.9904259   0                 0.8797882                   0.1202118
-#> shock 2 -0.2924674   0                 0.4273999                   0.5726001
-#> shock 3 -0.3327025   0                 0.4175832                   0.5824168
+#> shock 1 1.93994377   0                 0.8743460                   0.1256540
+#> shock 2 0.17325382   0                 0.5432054                   0.4567946
+#> shock 3 0.06626642   0                 0.5165605                   0.4834395
 
 # workflow with the pipe |>
 ############################################################
