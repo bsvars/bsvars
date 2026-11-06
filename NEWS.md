@@ -5,6 +5,9 @@ To see the package [ROADMAP](https://github.com/bsvars/bsvars/milestones) toward
 Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsvars.org](mailto:contact@bsvars.org) forum.
 
 1. Corrected stochastic-volatility auxiliary kernels as proposed by [Fei Shang](https://github.com/lcq110) in PR [#160](https://github.com/bsvars/bsvars/pull/160)
+2. Added `plot2()` methods that draw with ggplot2 and invisibly return editable plot objects, using a white classic theme and white facet-label backgrounds by default. The existing base `plot()` methods and arguments are unchanged. In `plot2()`, each IR panel has an independent y scale and historical decompositions use continuous areas stacking positive and negative contributions separately.
+
+3. New function `compute_cumulative_impulse_responses()` computes posterior draws of cumulative impulse responses as `PosteriorIR` objects that work with `summary()` and `plot2()`; `plot2()` uses the default title "Cumulative Impulse Responses".
 
 # bsvars 4.0
 

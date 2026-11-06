@@ -49,6 +49,8 @@ Maintainer: Tomasz Woźniak <wozniak.tom@pm.me>
 Depends: 
     R (>= 4.1.0)
 Imports: 
+    ggplot2,
+    ggh4x (>= 0.3.0),
     Rcpp (>= 1.0.7),
     RcppProgress (>= 0.1),
     RcppTN,
