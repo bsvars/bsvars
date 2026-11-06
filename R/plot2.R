@@ -80,7 +80,7 @@ plot2.PosteriorIR = function(
     xlab,
     ...
 ) {
-  if (missing(main)) main = "Impulse Responses"
+  if (missing(main)) main = if (isTRUE(attr(x, "cumulative"))) "Cumulative Impulse Responses" else "Impulse Responses"
   if (missing(xlab)) xlab = "horizon"
   N = dim(x)[1]
   if (missing(shock_names)) shock_names = paste("shock", seq_len(N))
