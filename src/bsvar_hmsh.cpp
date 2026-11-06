@@ -62,7 +62,8 @@ Rcpp::List bsvar_hmsh_cpp (
   mat   aux_sigma(N, T);
   cube  aux_PR_TR   = as<cube>(starting_values["PR_TR"]);     // MxMxN
   mat   aux_pi_0    = as<mat>(starting_values["pi_0"]);       // MxN
-  cube  aux_xi      = as<cube>(starting_values["xi"]);        // 1xTxN
+  NumericVector xi_start = starting_values["xi"];           // Keep coerced state storage alive.
+  cube  aux_xi      = as<cube>(xi_start);                    // 1xTxN
   mat   aux_hyper   = as<mat>(starting_values["hyper"]);
   mat   aux_lambda  = as<mat>(starting_values["lambda"]);
   mat   aux_lambda_sqrt(N, T, fill::ones);
