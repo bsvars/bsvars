@@ -57,6 +57,12 @@ arma::cube bsvars_fitted_values (
 );
 
 
+arma::field<arma::cube> bsvars_conditional_covariance (
+    arma::cube&    posterior_B,       // (N, N, S)
+    arma::cube&    posterior_sigma    // (N, T, S)
+);
+
+
 arma::cube bsvars_filter_forecast_smooth (
     Rcpp::List&       posterior,
     const arma::mat&  Y,

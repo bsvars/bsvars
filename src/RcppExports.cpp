@@ -313,6 +313,41 @@ RcppExport SEXP _bsvars_bsvars_fitted_values(SEXP posterior_ASEXP, SEXP posterio
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// bsvars_conditional_covariance
+arma::field<arma::cube> bsvars_conditional_covariance(arma::cube& posterior_B, arma::cube& posterior_sigma);
+static SEXP _bsvars_bsvars_conditional_covariance_try(SEXP posterior_BSEXP, SEXP posterior_sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_B(posterior_BSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type posterior_sigma(posterior_sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(bsvars_conditional_covariance(posterior_B, posterior_sigma));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _bsvars_bsvars_conditional_covariance(SEXP posterior_BSEXP, SEXP posterior_sigmaSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_bsvars_bsvars_conditional_covariance_try(posterior_BSEXP, posterior_sigmaSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // bsvars_filter_forecast_smooth
 arma::cube bsvars_filter_forecast_smooth(Rcpp::List& posterior, const arma::mat& Y, const arma::mat& X, const bool forecasted, const bool smoothed);
 static SEXP _bsvars_bsvars_filter_forecast_smooth_try(SEXP posteriorSEXP, SEXP YSEXP, SEXP XSEXP, SEXP forecastedSEXP, SEXP smoothedSEXP) {
@@ -2435,6 +2470,7 @@ static int _bsvars_RcppExport_validate(const char* sig) {
         signatures.insert("arma::cube(*bsvars_structural_shocks)(arma::cube&,arma::cube&,arma::mat&,arma::mat&)");
         signatures.insert("arma::field<arma::cube>(*bsvars_hd)(arma::field<arma::cube>&,arma::cube&,const bool)");
         signatures.insert("arma::cube(*bsvars_fitted_values)(arma::cube&,arma::cube&,arma::cube&,arma::mat&)");
+        signatures.insert("arma::field<arma::cube>(*bsvars_conditional_covariance)(arma::cube&,arma::cube&)");
         signatures.insert("arma::cube(*bsvars_filter_forecast_smooth)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
         signatures.insert("arma::field<arma::cube>(*bsvars_filter_forecast_smooth_hmsh)(Rcpp::List&,const arma::mat&,const arma::mat&,const bool,const bool)");
         signatures.insert("Rcpp::List(*bsvar_exh_cpp)(const int&,const arma::mat&,const arma::mat&,const Rcpp::List&,const arma::field<arma::mat>&,const arma::field<arma::mat>&,const Rcpp::List&,const bool,const int,const bool)");
@@ -2505,6 +2541,7 @@ RcppExport SEXP _bsvars_RcppExport_registerCCallable() {
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_structural_shocks", (DL_FUNC)_bsvars_bsvars_structural_shocks_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_hd", (DL_FUNC)_bsvars_bsvars_hd_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_fitted_values", (DL_FUNC)_bsvars_bsvars_fitted_values_try);
+    R_RegisterCCallable("bsvars", "_bsvars_bsvars_conditional_covariance", (DL_FUNC)_bsvars_bsvars_conditional_covariance_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC)_bsvars_bsvars_filter_forecast_smooth_hmsh_try);
     R_RegisterCCallable("bsvars", "_bsvars_bsvar_exh_cpp", (DL_FUNC)_bsvars_bsvar_exh_cpp_try);
@@ -2574,6 +2611,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bsvars_bsvars_structural_shocks", (DL_FUNC) &_bsvars_bsvars_structural_shocks, 4},
     {"_bsvars_bsvars_hd", (DL_FUNC) &_bsvars_bsvars_hd, 3},
     {"_bsvars_bsvars_fitted_values", (DL_FUNC) &_bsvars_bsvars_fitted_values, 4},
+    {"_bsvars_bsvars_conditional_covariance", (DL_FUNC) &_bsvars_bsvars_conditional_covariance, 2},
     {"_bsvars_bsvars_filter_forecast_smooth", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth, 5},
     {"_bsvars_bsvars_filter_forecast_smooth_hmsh", (DL_FUNC) &_bsvars_bsvars_filter_forecast_smooth_hmsh, 5},
     {"_bsvars_bsvar_exh_cpp", (DL_FUNC) &_bsvars_bsvar_exh_cpp, 10},

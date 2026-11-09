@@ -249,6 +249,29 @@ arma::cube bsvars_fitted_values (
   return fitted_values;
 } // END bsvars_fitted_values
 
+// [[Rcpp::interfaces(cpp)]]
+// [[Rcpp::export]]
+arma::field<arma::cube> bsvars_conditional_covariance (
+    arma::cube&    posterior_B,       // (N, N, S)
+    arma::cube&    posterior_sigma    // (N, T, S)
+) {
+  const int N = posterior_B.n_rows;
+  const int T = posterior_sigma.n_cols;
+  const int S = posterior_B.n_slices;
+
+  field<cube> covariance(S);
+  cube aux_covariance(N, N, T);
+  for (int s=0; s<S; s++) {
+    mat B_inv = inv(posterior_B.slice(s));
+    for (int t=0; t<T; t++) {
+      mat impact = B_inv * diagmat(posterior_sigma.slice(s).col(t));
+      aux_covariance.slice(t) = impact * impact.t();
+    }
+    covariance(s) = aux_covariance;
+  }
+  return covariance;
+} // END bsvars_conditional_covariance
+
 
 
 // [[Rcpp::interfaces(cpp)]]
