@@ -5,11 +5,8 @@
 - **Tomasz Woźniak**. Author, maintainer.
   [](https://orcid.org/0000-0003-2212-2378)[![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/01ej9dk98)
 
-- **Fei Shang**. Contributor.
-  [](https://orcid.org/0000-0003-1908-3275)  
-  co-authored the Journal of Econometrics methodological paper by
-  Lütkepohl, Shang, Uzeda, Woźniak (2026), introduced major code
-  corrections and improvements
+- **Fei Shang**. Author.
+  [](https://orcid.org/0000-0003-1908-3275)[![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/00fhc9y79)
 
 - **Helmut Lütkepohl**. Contributor.  
   co-authored the Journal of Econometrics methodological paper by
