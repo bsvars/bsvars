@@ -61,8 +61,8 @@ sddr           = verify_identification(posterior)
 summary(sddr)
 #>         log(SDDR)         SDDR  Pr[H0|data] Pr[H1|data]
 #> shock 1      -Inf 0.000000e+00 0.000000e+00           1
-#> shock 2 -34.45084 1.091916e-15 1.091916e-15           1
-#> shock 3      -Inf 0.000000e+00 0.000000e+00           1
+#> shock 2      -Inf 0.000000e+00 0.000000e+00           1
+#> shock 3  -34.3351 1.225907e-15 1.225907e-15           1
 
 # workflow with the pipe |>
 ############################################################
