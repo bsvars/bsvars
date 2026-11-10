@@ -44,6 +44,8 @@ jobs:
       - run: tlmgr --version
 
       - name: Install additional LaTeX packages
+        env:
+          TEXLIVE_PREFER_OWN: "1"
         run: |
           tlmgr update --self
           tlmgr install pdfpages pdflscape
