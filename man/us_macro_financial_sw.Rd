@@ -41,6 +41,7 @@ plot(us_macro_financial_sw)   # plot the data
 \references{
 Shang, F., and Woźniak, T. (2026) Identification Verification for Structural
 Vector Autoregressions with Heterogeneous Markov Switching
-Heteroskedasticity. Manuscript.
+Heteroskedasticity. University of Melbourne Working Papers, 
+\doi{https://doi.org/10.48550/arXiv.2603.16035}.
 }
 \keyword{datasets}
