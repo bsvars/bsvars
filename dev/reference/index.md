@@ -277,6 +277,8 @@ Predict future values of your variables
 
 Compute interpretable outcomes
 
+- [`compute_conditional_covariance()`](https://bsvars.org/bsvars/dev/reference/compute_conditional_covariance.md)
+  : Computes posterior draws of conditional covariance matrices
 - [`compute_conditional_sd(`*`<PosteriorBSVAR>`*`)`](https://bsvars.org/bsvars/dev/reference/compute_conditional_sd.PosteriorBSVAR.md)
   : Computes posterior draws of structural shock conditional standard
   deviations

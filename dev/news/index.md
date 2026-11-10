@@ -12,10 +12,15 @@ Have a question, or suggestion, or wanna get in touch? Email us at
 1.  Corrected stochastic-volatility auxiliary kernels as proposed by
     [Fei Shang](https://github.com/lcq110) in PR
     [\#160](https://github.com/bsvars/bsvars/pull/160)
+
 2.  Included data set from [Shang & Woźniak
     (2026)](https://doi.org/10.48550/arXiv.2603.16035) by [Fei
     Shang](https://github.com/lcq110) in PR
     [\#164](https://github.com/bsvars/bsvars/pull/164)
+
+3.  Added
+    [`compute_conditional_covariance()`](https://bsvars.org/bsvars/dev/reference/compute_conditional_covariance.md)
+    for in-sample reduced-form innovation covariance matrices.
 
 ## bsvars 4.0
 
