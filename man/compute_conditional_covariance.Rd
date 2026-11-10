@@ -44,6 +44,5 @@ covariance[, , 1, 1]
 \code{\link{compute_conditional_sd}}, \code{\link{estimate}}
 }
 \author{
-Tomasz Woźniak \email{wozniak.tom@pm.me},
 Fei Shang \email{sfmax2010@gmail.com}
 }

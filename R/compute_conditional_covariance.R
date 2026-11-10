@@ -22,8 +22,7 @@
 #'
 #' @seealso \code{\link{compute_conditional_sd}}, \code{\link{estimate}}
 #'
-#' @author Tomasz Woźniak \email{wozniak.tom@pm.me},
-#' Fei Shang \email{sfmax2010@gmail.com}
+#' @author Fei Shang \email{sfmax2010@gmail.com}
 #'
 #' @examples
 #' specification = specify_bsvar$new(us_fiscal_lsuw, p = 1)
