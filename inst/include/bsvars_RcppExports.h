@@ -193,6 +193,27 @@ namespace bsvars {
         return Rcpp::as<arma::cube >(rcpp_result_gen);
     }
 
+    inline arma::field<arma::cube> bsvars_conditional_covariance(arma::cube& posterior_B, arma::cube& posterior_sigma) {
+        typedef SEXP(*Ptr_bsvars_conditional_covariance)(SEXP,SEXP);
+        static Ptr_bsvars_conditional_covariance p_bsvars_conditional_covariance = NULL;
+        if (p_bsvars_conditional_covariance == NULL) {
+            validateSignature("arma::field<arma::cube>(*bsvars_conditional_covariance)(arma::cube&,arma::cube&)");
+            p_bsvars_conditional_covariance = (Ptr_bsvars_conditional_covariance)R_GetCCallable("bsvars", "_bsvars_bsvars_conditional_covariance");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_bsvars_conditional_covariance(Shield<SEXP>(Rcpp::wrap(posterior_B)), Shield<SEXP>(Rcpp::wrap(posterior_sigma)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<arma::field<arma::cube> >(rcpp_result_gen);
+    }
+
     inline arma::cube bsvars_filter_forecast_smooth(Rcpp::List& posterior, const arma::mat& Y, const arma::mat& X, const bool forecasted, const bool smoothed) {
         typedef SEXP(*Ptr_bsvars_filter_forecast_smooth)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_bsvars_filter_forecast_smooth p_bsvars_filter_forecast_smooth = NULL;
