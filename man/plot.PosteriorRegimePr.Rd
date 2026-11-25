@@ -30,11 +30,15 @@ interval stretches from the \code{0.5 * (1 - probability)} to
 
 \item{xlab}{an alternative x-axis label for the plot}
 
-\item{mar.multi}{the default \code{mar} argument setting in \code{graphics::par}. Modify with care!}
+\item{mar.multi, oma.multi}{Retained for compatibility with existing calls.
+Use \code{ggplot2::theme()} to adjust margins.}
 
-\item{oma.multi}{the default \code{oma} argument setting in \code{graphics::par}. Modify with care!}
-
-\item{...}{additional arguments affecting the summary produced.}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_line()}. Use ggplot2
+layers and scales for further customisation.}
+}
+\value{
+An editable ggplot object. The method does not draw it; use
+  \code{print()} to draw it inside a function or loop.
 }
 \description{
 Plots of estimated regime probabilities of Markov-switching 

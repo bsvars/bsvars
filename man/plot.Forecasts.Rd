@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.Forecasts}
 \alias{plot.Forecasts}
-\title{Plots fitted values of dependent variables}
+\title{Plots forecasts with recent observations}
 \usage{
 \method{plot}{Forecasts}(
   x,
@@ -13,19 +13,20 @@
   xlab,
   mar.multi = c(1, 4.6, 0, 2.1),
   oma.multi = c(6, 0, 5, 0),
-  ...
+  ...,
+  which_var = seq_len(nrow(x$Y))
 )
 }
 \arguments{
 \item{x}{an object of class Forecasts obtained using the
-\code{forecast()} function containing posterior draws of 
-fitted values of dependent variables.}
+\code{forecast()} function containing posterior forecast draws.}
 
-\item{probability}{a parameter determining the interval to be plotted. The 
-interval stretches from the \code{0.5 * (1 - probability)} to 
-\code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.}
+\item{probability}{Probability content of the pointwise highest posterior
+density (HPD) intervals computed from the draws with
+\code{coda::HPDinterval()}. The achieved probability depends on the
+number of draws. With one draw, both bounds equal the draw.}
 
-\item{data_in_plot}{a fraction value in the range (0, 1) determining how many
+\item{data_in_plot}{a fraction value in the range (0, 1] determining how many
 of the last observations in the data should be plotted with the forecasts.}
 
 \item{col}{a colour of the plot line and the ribbon}
@@ -34,15 +35,22 @@ of the last observations in the data should be plotted with the forecasts.}
 
 \item{xlab}{an alternative x-axis label for the plot}
 
-\item{mar.multi}{the default \code{mar} argument setting in \code{graphics::par}. Modify with care!}
+\item{mar.multi, oma.multi}{Retained for compatibility with existing calls.
+Use \code{ggplot2::theme()} to adjust margins.}
 
-\item{oma.multi}{the default \code{oma} argument setting in \code{graphics::par}. Modify with care!}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_line()}. Use ggplot2
+layers and scales for further customisation.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{which_var}{Positive integer positions of variables to plot.
+All are plotted by default. Selected positions appear in the supplied order.}
+}
+\value{
+An editable ggplot object. The method does not draw it; use
+  \code{print()} to draw it inside a function or loop.
 }
 \description{
-Plots of fitted values of dependent variables including their 
-median and percentiles.
+Plots recent observations with forecast medians and pointwise
+  highest posterior density intervals.
 }
 \examples{
 specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model
