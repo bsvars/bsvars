@@ -122,7 +122,7 @@
 #' @importFrom RcppTN rtn
 #' @importFrom stochvol svsample_fast_cpp
 #' @importFrom stats quantile sd density
-#' @importFrom graphics polygon abline par mtext axis
+#' @importFrom ggplot2 .data
 #' @importFrom generics forecast
 #' @importFrom utils tail
 #' @note This package is currently in active development. Your comments,

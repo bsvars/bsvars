@@ -12,7 +12,9 @@
   xlab,
   mar.multi = c(1, 4.6, 0, 4.6),
   oma.multi = c(6, 0, 5, 0),
-  ...
+  ...,
+  which_var = seq_len(dim(x)[1]),
+  which_shock = seq_len(dim(x)[2])
 )
 }
 \arguments{
@@ -28,14 +30,28 @@ historical decompositions.}
 
 \item{xlab}{an alternative x-axis label for the plot}
 
-\item{mar.multi}{the default \code{mar} argument setting in \code{graphics::par}. Modify with care!}
+\item{mar.multi, oma.multi}{Retained for compatibility with existing calls.
+Use \code{ggplot2::theme()} to adjust margins.}
 
-\item{oma.multi}{the default \code{oma} argument setting in \code{graphics::par}. Modify with care!}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_ribbon()}. Use ggplot2
+layers and scales for further customisation.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{which_var}{Positive integer positions of variables to plot.
+All are plotted by default. Selected positions appear in the supplied order.}
+
+\item{which_shock}{Positive integer positions of structural shocks to plot.
+All are plotted by default. Selected positions appear in the supplied order.}
+}
+\value{
+An editable ggplot object. The method does not draw it; use
+  \code{print()} to draw it inside a function or loop.
 }
 \description{
 Plots of the posterior means of the historical decompositions.
+}
+\details{
+Each shaded band uses the cumulative contribution of the selected
+  shocks starting at that shock, in selection order.
 }
 \examples{
 specification  = specify_bsvar$new(us_fiscal_lsuw)    # specify model

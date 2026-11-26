@@ -55,7 +55,9 @@ Imports:
     GIGrvg,
     R6,
     stochvol,
-    generics
+    generics,
+    ggplot2 (>= 3.0.0),
+    coda
 Suggests: 
     knitr,
     tinytest

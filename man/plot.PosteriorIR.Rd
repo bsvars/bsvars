@@ -13,7 +13,9 @@
   xlab,
   mar.multi = c(1, 4.1, 0, 1.1),
   oma.multi = c(6, 0, 5, 0),
-  ...
+  ...,
+  which_var = seq_len(dim(x)[1]),
+  which_shock = seq_len(dim(x)[2])
 )
 }
 \arguments{
@@ -21,9 +23,10 @@
 \code{compute_impulse_responses()} function containing posterior draws of 
 impulse responses.}
 
-\item{probability}{a parameter determining the interval to be plotted. The 
-interval stretches from the \code{0.5 * (1 - probability)} to 
-\code{1 - 0.5 * (1 - probability)} percentile of the posterior distribution.}
+\item{probability}{Probability content of the pointwise highest posterior
+density (HPD) intervals computed from the draws with
+\code{coda::HPDinterval()}. The achieved probability depends on the
+number of draws. With one draw, both bounds equal the draw.}
 
 \item{shock_names}{a vector of length \code{N} containing names of the structural shocks.}
 
@@ -33,15 +36,25 @@ interval stretches from the \code{0.5 * (1 - probability)} to
 
 \item{xlab}{an alternative x-axis label for the plot}
 
-\item{mar.multi}{the default \code{mar} argument setting in \code{graphics::par}. Modify with care!}
+\item{mar.multi, oma.multi}{Retained for compatibility with existing calls.
+Use \code{ggplot2::theme()} to adjust margins.}
 
-\item{oma.multi}{the default \code{oma} argument setting in \code{graphics::par}. Modify with care!}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_line()}. Use ggplot2
+layers and scales for further customisation.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{which_var}{Positive integer positions of response variables to plot.
+All are plotted by default. Selected positions appear in the supplied order.}
+
+\item{which_shock}{Positive integer positions of structural shocks to plot.
+All are plotted by default. Selected positions appear in the supplied order.}
+}
+\value{
+An editable ggplot object. The method does not draw it; use
+  \code{print()} to draw it inside a function or loop.
 }
 \description{
-Plots of of all variables to all shocks including their 
-median and percentiles.
+Plots impulse responses to structural shocks with their posterior
+medians and pointwise highest posterior density intervals.
 }
 \examples{
 specification  = specify_bsvar$new(us_fiscal_lsuw)   # specify model
@@ -51,6 +64,8 @@ posterior      = estimate(burn_in, 5)                # estimate the model
 # compute impulse responses``
 fitted         = compute_impulse_responses(posterior, horizon = 4)
 plot(fitted)                                          # plot
+p = plot(fitted, which_var = 1, which_shock = 2)
+p + ggplot2::labs(title = "Selected impulse response")
 
 # workflow with the pipe |>
 ############################################################
