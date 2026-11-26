@@ -7,7 +7,7 @@ Have a question, or suggestion, or wanna get in touch? Email us at [contact\@bsv
 1. Corrected stochastic-volatility auxiliary kernels as proposed by [Fei Shang](https://github.com/lcq110) in PR [#160](https://github.com/bsvars/bsvars/pull/160)
 2. Included data set from [Shang & Woźniak (2026)](https://doi.org/10.48550/arXiv.2603.16035) by [Fei Shang](https://github.com/lcq110) in PR [#164](https://github.com/bsvars/bsvars/pull/164)
 3. Added `compute_conditional_covariance()` for in-sample reduced-form innovation covariance matrices.
-4. The eight `plot()` methods now return editable ggplot2 objects ([#169](https://github.com/bsvars/bsvars/issues/169)). Use `print(plot(x))` in functions and loops, and `ggplot2::coord_cartesian(ylim = c(a, b))` to set y-axis limits. Select variables and shocks with `which_var` and `which_shock` where supported. Impulse response and forecast plots use pointwise HPD intervals.
+4. The eight `plot()` methods now return editable ggplot2 objects ([#169](https://github.com/bsvars/bsvars/issues/169)). Select variables and shocks with `which_var` and `which_shock` where supported. Impulse response and forecast plots use pointwise HPD intervals.
 
 # bsvars 4.0
 
